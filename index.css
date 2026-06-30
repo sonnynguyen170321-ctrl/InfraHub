@@ -216,21 +216,24 @@ img {
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.95rem; /* 30% bigger than 1.5rem */
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-primary);
 }
 
 .logo svg {
+  width: 31px; /* 30% bigger than 24px */
+  height: 31px;
   color: var(--accent-blue);
 }
 
 .logo-dot {
   color: var(--accent-teal);
 }
+
 
 .nav-menu {
   display: flex;
