@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>InfraHub | Enterprise Hardware & High-Performance Network Services</title>
+  <meta name="description" content="InfraHub provides premium, minimalist, ultra-high performance hardware provisioning and software-defined network (SD-WAN) integrations with global multi-cloud routing.">
+  <meta name="keywords" content="InfraHub, Network-as-a-Service, Hardware Provisioning, Managed NOC, SASE, Cloud Routing, SD-WAN">
+  <meta name="author" content="InfraHub">
+  
+  <!-- Inline SVG favicon (logo network-hexagon mark) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><polygon points='12,3 20,7.5 20,16.5 12,21 4,16.5 4,7.5' fill='%232563eb'/><polygon points='4,7.5 20,7.5 12,21' stroke='%23ffffff' stroke-width='1.2' fill='none'/><polygon points='4,16.5 20,16.5 12,3' stroke='%23ffffff' stroke-width='1.2' fill='none'/><line x1='12' y1='3' x2='12' y2='21' stroke='%23ffffff' stroke-width='1.2'/><line x1='4' y1='7.5' x2='20' y2='16.5' stroke='%23ffffff' stroke-width='1.2'/><line x1='4' y1='16.5' x2='20' y2='7.5' stroke='%23ffffff' stroke-width='1.2'/></svg>">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="header" id="main-header">
+    <div class="container header-container">
+      <a href="#" class="logo" id="header-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <polygon points="12,3 20,7.5 20,16.5 12,21 4,16.5 4,7.5" fill="var(--accent-blue)"></polygon>
+          <polygon points="4,7.5 20,7.5 12,21" stroke="#ffffff" stroke-width="1.2" fill="none"></polygon>
+          <polygon points="4,16.5 20,16.5 12,3" stroke="#ffffff" stroke-width="1.2" fill="none"></polygon>
+          <line x1="12" y1="3" x2="12" y2="21" stroke="#ffffff" stroke-width="1.2"></line>
+          <line x1="4" y1="7.5" x2="20" y2="16.5" stroke="#ffffff" stroke-width="1.2"></line>
+          <line x1="4" y1="16.5" x2="20" y2="7.5" stroke="#ffffff" stroke-width="1.2"></line>
+        </svg>
+        <span>Infra<span class="logo-dot">Hub</span></span>
+      </a>
+      
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#network" class="nav-link">Global Network</a></li>
+        <li><a href="#configurator" class="nav-link">Pricing Quote</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <a href="#configurator" class="btn btn-secondary">Get Estimate</a>
+        <a href="#contact" class="btn btn-primary">Contact Sales</a>
+      </div>
+      
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+          Enterprise Infrastructure
+        </div>
+        <h1 class="hero-title">
+          <span>Deploy Custom Network</span>
+          <span class="text-gradient-blue">Hardware Solutions</span>
+          <span>In Minutes, Not Months.</span>
+        </h1>
+        <p class="hero-description">
+          Maximize performance with our software-defined cloud routing, enterprise server deployment, and round-the-clock managed NOC. Streamlined connectivity built for modern operations.
+        </p>
+        <div class="hero-cta">
+          <a href="#configurator" class="btn btn-primary">Launch Configurator</a>
+          <a href="#contact" class="btn btn-secondary">
+            Talk to an Expert
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-val">99.999%</span>
+            <span class="stat-lbl">Uptime SLA Guarantee</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">&lt; 15ms</span>
+            <span class="stat-lbl">Average Latency Path</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val">400 Gbps</span>
+            <span class="stat-lbl">Backbone Capacity</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="visual-wrapper">
+          <div class="visual-circle circle-1"></div>
+          <div class="visual-circle circle-2"></div>
+          <div class="visual-circle circle-3"></div>
+          
+          <svg class="svg-backbone-line" viewBox="0 0 100 100">
+            <!-- Interconnecting network mesh -->
+            <path d="M20,15 L80,25 M80,25 L70,80 M70,80 L15,75 M15,75 L20,15 M20,15 L50,50 M80,25 L50,50 M70,80 L50,50 M15,75 L50,50" 
+                  stroke="#cbd5e1" stroke-width="0.7" fill="none" stroke-dasharray="1 3"/>
+            <!-- Active high-speed route mapping path -->
+            <path d="M20,15 L50,50 L70,80" stroke="url(#blue-gradient)" stroke-width="1.5" fill="none"/>
+            
+            <defs>
+              <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0d9488" />
+                <stop offset="100%" stop-color="#2563eb" />
+              </linearGradient>
+            </defs>
+          </svg>
+          
+          <!-- Nodes placed overlay -->
+          <div class="visual-node node-1"></div>
+          <div class="visual-node node-2"></div>
+          <div class="visual-node node-3"></div>
+          <div class="visual-node node-4"></div>
+          <div class="visual-node visual-node-center"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SERVICES SECTION
+       ========================================================================== -->
+  <section class="section section-alt reveal" id="services">
+    <div class="container">
+      <div class="badge badge-teal">Core Services</div>
+      <h2 class="section-title">Robust Infrastructure Capabilities</h2>
+      <p class="section-subtitle">We design, supply, configure, and maintain the hardware foundations and network pipelines that connect your enterprise.</p>
+      
+      <div class="services-grid">
+        <!-- Service Card 1 -->
+        <div class="service-card" id="service-hardware">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+              <line x1="20" y1="6" x2="20.01" y2="6"></line>
+              <line x1="20" y1="18" x2="20.01" y2="18"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">Hardware Provisioning</h3>
+          <p class="service-desc">
+            Direct access to leading enterprise hardware configurations. From CPU-dense processing nodes to multi-petabyte SAN/NAS storage setups, optimized for performance and rapid deployment.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Sleek Rack Servers
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              High IOPS Storage
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Hardware firewalls
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Rapid spare parts (4h SLA)
+            </li>
+          </ul>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-card" id="service-network">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="12" x2="2" y2="12"></line>
+              <path d="M5.45 5.11L11 12v7.76A7.08 7.08 0 0 1 6 13V8H4V6h1.45z"></path>
+              <path d="M18.55 5.11L13 12v7.76a7.08 7.08 0 0 0 5-6.76V8h2V6h-1.45z"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">High-Performance Routing</h3>
+          <p class="service-desc">
+            Scale connectivity with software-defined private lines, global peering fabrics, and direct multi-cloud gateways. Establish secure, dedicated, point-to-point tunnels with zero overhead.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Multi-Cloud Gateways
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              SD-WAN Mesh Networks
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Point-to-Point circuits
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Bandwidth-on-demand
+            </li>
+          </ul>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-card" id="service-security">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 class="service-title">Edge & Network Security</h3>
+          <p class="service-desc">
+            Deploy secure access service edge (SASE) filters, automated intrusion mitigation systems, and dedicated VPN tunnels. Keep corporate assets walled from threats without performance impact.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              SASE integration
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Zero Trust Network Access
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              DDoS mitigation
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Audit-ready compliance
+            </li>
+          </ul>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-card" id="service-monitoring">
+          <div class="service-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">24/7 Managed NOC</h3>
+          <p class="service-desc">
+            Gain constant support from our Network Operations Center. We monitor link health, resolve alerts proactively, balance loads, and handle hardware failovers transparently.
+          </p>
+          <ul class="service-features">
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Constant monitoring
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Proactive alerts
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Load Balancing
+            </li>
+            <li class="service-feature-item">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Incident management
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       GLOBAL COVERAGE & INTERACTIVE LATENCY MAP
+       ========================================================================== -->
+  <section class="section reveal" id="network">
+    <div class="container">
+      <div class="badge">Global Network</div>
+      <h2 class="section-title">Backbone Operations Map</h2>
+      <p class="section-subtitle">Select a destination node to query latency measurements, route hops, and link speeds directly back to our central core.</p>
+      
+      <div class="map-layout">
+        <!-- Left: Interactive SVG Map -->
+        <div class="map-container">
+          <!-- Stylized technical SVG map representation -->
+          <svg class="map-svg-element" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="global-svg-map">
+            
+            <!-- Dynamic Routes Connections -->
+            <path id="route-sea-chi" class="map-path" d="M120,110 L250,130"/>
+            <path id="route-la-chi" class="map-path" d="M110,210 L250,130"/>
+            <path id="route-la-dal" class="map-path" d="M110,210 L260,250"/>
+            <path id="route-dal-chi" class="map-path" d="M260,250 L250,130"/>
+            <path id="route-dal-mia" class="map-path" d="M260,250 L380,310"/>
+            <path id="route-chi-ny" class="map-path" d="M250,130 L390,110"/>
+            <path id="route-ny-lon" class="map-path" d="M390,110 Q500,70 610,130"/>
+            <path id="route-lon-fra" class="map-path" d="M610,130 L700,140"/>
+            <path id="route-ny-mia" class="map-path" d="M390,110 L380,310"/>
+            
+            <!-- Core Backbone Path Overlay (starts at NY, connects Chicago, LA) -->
+            <path id="backbone-highlight" d="" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" style="display: none;"/>
+            
+            <!-- Nodes (Cities) -->
+            <!-- Seattle -->
+            <g class="map-node" id="node-sea" data-name="Seattle" data-ip="192.168.12.1" data-ping="34 ms" data-speed="100 Gbps" data-status="Optimal">
+              <circle cx="120" cy="110" r="7"/>
+              <text x="120" y="95" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">SEA</text>
+            </g>
+            
+            <!-- Los Angeles -->
+            <g class="map-node" id="node-la" data-name="Los Angeles" data-ip="192.168.12.4" data-ping="41 ms" data-speed="200 Gbps" data-status="Optimal">
+              <circle cx="110" cy="210" r="7"/>
+              <text x="110" y="230" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">LAX</text>
+            </g>
+            
+            <!-- Dallas -->
+            <g class="map-node" id="node-dal" data-name="Dallas" data-ip="192.168.12.12" data-ping="22 ms" data-speed="100 Gbps" data-status="Optimal">
+              <circle cx="260" cy="250" r="7"/>
+              <text x="260" y="270" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">DFW</text>
+            </g>
+            
+            <!-- Chicago -->
+            <g class="map-node" id="node-chi" data-name="Chicago" data-ip="192.168.12.18" data-ping="11 ms" data-speed="200 Gbps" data-status="Optimal">
+              <circle cx="250" cy="130" r="7"/>
+              <text x="250" y="115" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">ORD</text>
+            </g>
+            
+            <!-- New York (Core Hub) -->
+            <g class="map-node active" id="node-ny" data-name="New York Hub" data-ip="10.0.1.1" data-ping="2 ms" data-speed="400 Gbps" data-status="Core Hub">
+              <circle cx="390" cy="110" r="8" fill="#2563eb" stroke="#2563eb"/>
+              <text x="390" y="95" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#0f172a">NYC</text>
+            </g>
+            
+            <!-- Miami -->
+            <g class="map-node" id="node-mia" data-name="Miami Node" data-ip="192.168.12.33" data-ping="26 ms" data-speed="100 Gbps" data-status="Optimal">
+              <circle cx="380" cy="310" r="7"/>
+              <text x="380" y="330" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">MIA</text>
+            </g>
+            
+            <!-- London -->
+            <g class="map-node" id="node-lon" data-name="London Core" data-ip="10.0.1.50" data-ping="68 ms" data-speed="200 Gbps" data-status="Optimal">
+              <circle cx="610" cy="130" r="7"/>
+              <text x="610" y="115" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">LHR</text>
+            </g>
+            
+            <!-- Frankfurt -->
+            <g class="map-node" id="node-fra" data-name="Frankfurt Node" data-ip="10.0.1.80" data-ping="74 ms" data-speed="100 Gbps" data-status="Optimal">
+              <circle cx="700" cy="140" r="7"/>
+              <text x="700" y="160" text-anchor="middle" font-size="11" font-weight="600" font-family="Outfit" fill="#475569">FRA</text>
+            </g>
+            
+          </svg>
+        </div>
+        
+        <!-- Right: Information Node Panel -->
+        <div class="map-info-panel" id="map-info-panel">
+          <div>
+            <div class="map-info-header">
+              <h3 class="map-info-title" id="info-city">New York Hub</h3>
+              <p class="map-info-subtitle">Primary Central Routing System</p>
+            </div>
+            
+            <ul class="map-stats-list">
+              <li class="map-stat-row">
+                <span class="map-stat-lbl">Backbone IP</span>
+                <span class="map-stat-val" id="info-ip">10.0.1.1</span>
+              </li>
+              <li class="map-stat-row">
+                <span class="map-stat-lbl">Latency (to Central Core)</span>
+                <span class="map-stat-val latency-indicator latency-optimal" id="info-ping">2 ms</span>
+              </li>
+              <li class="map-stat-row">
+                <span class="map-stat-lbl">Bandwidth Capacity</span>
+                <span class="map-stat-val" id="info-speed">400 Gbps</span>
+              </li>
+              <li class="map-stat-row">
+                <span class="map-stat-lbl">Connection Health</span>
+                <span class="map-stat-val" id="info-status" style="color: var(--accent-teal);">Core Hub</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <a href="#contact" class="btn btn-primary" style="width: 100%;">Provision Near This Node</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SPEC CONFIGURATOR & PRICING ESTIMATOR
+       ========================================================================== -->
+  <section class="section section-alt reveal" id="configurator">
+    <div class="container">
+      <div class="badge badge-teal">Quote Estimator</div>
+      <h2 class="section-title">Configure Infrastructure</h2>
+      <p class="section-subtitle">Adjust core resources, link capacities, and managed NOC support models to estimate corporate hardware and connectivity subscriptions.</p>
+      
+      <div class="configurator-wrapper">
+        <!-- Left: Interactive Inputs -->
+        <div class="configurator-controls">
+          <!-- Hardware Type Selection -->
+          <div class="configurator-group">
+            <div class="group-title">
+              <span>1. Service Focus</span>
+            </div>
+            <div class="card-selectors" id="hardware-selector">
+              <div class="select-card active" data-type="compute" data-base-price="450">
+                <svg class="select-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+                <div class="select-card-title">Managed Server</div>
+              </div>
+              <div class="select-card" data-type="storage" data-base-price="600">
+                <svg class="select-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <div class="select-card-title">SAN/NAS Storage</div>
+              </div>
+              <div class="select-card" data-type="network" data-base-price="350">
+                <svg class="select-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                <div class="select-card-title">Edge SD-WAN</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Capacity Slider -->
+          <div class="configurator-group">
+            <div class="group-title">
+              <span>2. Dedicated Bandwidth</span>
+              <span class="group-val-bubble" id="bandwidth-val-display">10 Gbps</span>
+            </div>
+            <div class="slider-container">
+              <input type="range" class="range-slider" id="bandwidth-slider" min="1" max="4" value="1" step="1">
+              <div class="slider-labels">
+                <span>10 Gbps</span>
+                <span>40 Gbps</span>
+                <span>100 Gbps</span>
+                <span>400 Gbps</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Support & Monitoring Tier -->
+          <div class="configurator-group">
+            <div class="group-title">
+              <span>3. NOC Support Tier</span>
+            </div>
+            <div class="card-selectors" id="sla-selector">
+              <div class="select-card active" data-sla="standard" data-multiplier="1.0">
+                <svg class="select-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="select-card-title">Business Hours</div>
+              </div>
+              <div class="select-card" data-sla="premium" data-multiplier="1.3">
+                <svg class="select-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div class="select-card-title">24/7 NOC Active</div>
+              </div>
+              <div class="select-card" data-sla="critical" data-multiplier="1.6">
+                <svg class="select-card-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 22 22 22"></polygon>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <div class="select-card-title">Critical Mission (4h SLA)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Pricing Sticky Panel -->
+        <div class="configurator-pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">Configured Estimate</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Estimated Monthly Infrastructure Rates</p>
+            <div class="pricing-amount">
+              <span id="price-value">$450</span>
+              <span class="pricing-period">/mo</span>
+            </div>
+          </div>
+          
+          <ul class="pricing-features">
+            <li class="pricing-feature-row">
+              <span class="pricing-feature-lbl">Resource Target</span>
+              <span class="pricing-feature-val" id="summary-hw">Managed Server</span>
+            </li>
+            <li class="pricing-feature-row">
+              <span class="pricing-feature-lbl">Bandwidth Allocation</span>
+              <span class="pricing-feature-val" id="summary-bw">10 Gbps</span>
+            </li>
+            <li class="pricing-feature-row">
+              <span class="pricing-feature-lbl">Technical Monitoring</span>
+              <span class="pricing-feature-val" id="summary-sla">Business Hours</span>
+            </li>
+            <li class="pricing-feature-row" style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 16px;">
+              <span class="pricing-feature-lbl" style="font-weight: 600; color: var(--text-primary);">Uptime Guarantee</span>
+              <span class="pricing-feature-val" id="summary-guarantee" style="color: var(--accent-teal); font-weight: 600;">99.9%</span>
+            </li>
+          </ul>
+          
+          <a href="#contact" class="btn btn-primary" id="btn-request-config" style="width: 100%;">Inquire About Config</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CONTACT & INQUIRY FORM
+       ========================================================================== -->
+  <section class="section reveal" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <div class="badge">Inquire</div>
+        <h2 class="section-title">Initiate Provisioning</h2>
+        <p class="section-subtitle">Ready to map out your architecture? Reach out to our systems engineers directly for custom pricing, fiber routes, and deployment consultations.</p>
+        
+        <div class="contact-cards">
+          <!-- Card 1 -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div>
+              <h4 class="contact-info-title">Infrastructure Desk</h4>
+              <p class="contact-info-desc">provisioning@infrahub.tech</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="contact-info-card">
+            <div class="contact-info-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="contact-info-title">Connect Instantly</h4>
+              <p class="contact-info-desc">+1 (800) 555-INFRA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form Panel -->
+      <div class="contact-form-wrapper">
+        <h3 class="form-title">Consultation Request</h3>
+        <p class="form-subtitle">Provisioning engineers respond within 15 minutes during trading hours.</p>
+        
+        <form id="inquiry-form">
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="form-name" class="form-label">Full Name</label>
+              <input type="text" id="form-name" class="form-input" placeholder="e.g., Sarah Connor" required>
+            </div>
+            <div class="form-group">
+              <label for="form-email" class="form-label">Work Email</label>
+              <input type="email" id="form-email" class="form-input" placeholder="e.g., sarah@cyberdyne.com" required>
+            </div>
+          </div>
+          
+          <div class="form-group-row">
+            <div class="form-group">
+              <label for="form-company" class="form-label">Company Name</label>
+              <input type="text" id="form-company" class="form-input" placeholder="e.g., Cyberdyne Systems" required>
+            </div>
+            <div class="form-group">
+              <label for="form-nodes" class="form-label">Target Network Node</label>
+              <select id="form-nodes" class="form-input" required>
+                <option value="node-ny">New York Hub (NYC)</option>
+                <option value="node-sea">Seattle Node (SEA)</option>
+                <option value="node-la">Los Angeles Node (LAX)</option>
+                <option value="node-dal">Dallas Node (DFW)</option>
+                <option value="node-chi">Chicago Node (ORD)</option>
+                <option value="node-mia">Miami Node (MIA)</option>
+                <option value="node-lon">London Core Hub (LHR)</option>
+                <option value="node-fra">Frankfurt Node (FRA)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="form-message" class="form-label">Integration Requirements</label>
+            <textarea id="form-message" class="form-input" placeholder="Describe your bandwidth, hardware rack specs, or multi-cloud target workloads..." required></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" style="width: 100%; height: 50px;">Submit Provisioning Ticket</button>
+          
+          <div class="form-message" id="form-feedback-message"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-info">
+        <a href="#" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <polygon points="12,3 20,7.5 20,16.5 12,21 4,16.5 4,7.5" fill="var(--accent-blue)"></polygon>
+            <polygon points="4,7.5 20,7.5 12,21" stroke="#ffffff" stroke-width="1.2" fill="none"></polygon>
+            <polygon points="4,16.5 20,16.5 12,3" stroke="#ffffff" stroke-width="1.2" fill="none"></polygon>
+            <line x1="12" y1="3" x2="12" y2="21" stroke="#ffffff" stroke-width="1.2"></line>
+            <line x1="4" y1="7.5" x2="20" y2="16.5" stroke="#ffffff" stroke-width="1.2"></line>
+            <line x1="4" y1="16.5" x2="20" y2="7.5" stroke="#ffffff" stroke-width="1.2"></line>
+          </svg>
+          <span>Infra<span class="logo-dot">Hub</span></span>
+        </a>
+        <p class="footer-desc">High-speed point-to-point networks, managed hardware provisioning, and secure edge intelligence for demanding operations.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="footer-title">Infrastructure</h4>
+        <ul class="footer-links">
+          <li><a href="#services" class="footer-link">Bare Metal Nodes</a></li>
+          <li><a href="#services" class="footer-link">SAN/NAS Arrays</a></li>
+          <li><a href="#services" class="footer-link">Private Networks</a></li>
+          <li><a href="#services" class="footer-link">Multi-Cloud Routing</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Company</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">About Us</a></li>
+          <li><a href="#" class="footer-link">Team & NOC</a></li>
+          <li><a href="#" class="footer-link">Strategic Partners</a></li>
+          <li><a href="#" class="footer-link">Blog Operations</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Support Desk</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Ticketing NOC</a></li>
+          <li><a href="#" class="footer-link">Uptime Status</a></li>
+          <li><a href="#" class="footer-link">Security Policies</a></li>
+          <li><a href="#" class="footer-link">Service Agreement</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="container footer-bottom">
+      <p>&copy; 2026 InfraHub Technologies Inc. All Rights Reserved. Fully compliant with network encryption standard protocols.</p>
+      <div class="footer-meta-links">
+        <a href="#">Security Portal</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Javascript Logic -->
+  <script src="index.js"></script>
+</body>
+</html>
