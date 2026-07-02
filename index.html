@@ -10,11 +10,18 @@
   <meta name="keywords" content="InfraHub, Network-as-a-Service, Hardware Provisioning, Managed NOC, SASE, Cloud Routing, SD-WAN">
   <meta name="author" content="InfraHub">
   
-  <!-- Inline SVG favicon (logo network-hexagon mark) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><polygon points='12,3 20,7.5 20,16.5 12,21 4,16.5 4,7.5' fill='%232563eb'/><line x1='12' y1='12' x2='12' y2='3' stroke='%23ffffff' stroke-width='1.2' stroke-linecap='round'/><line x1='12' y1='12' x2='4' y2='16.5' stroke='%23ffffff' stroke-width='1.2' stroke-linecap='round'/><line x1='12' y1='12' x2='20' y2='16.5' stroke='%23ffffff' stroke-width='1.2' stroke-linecap='round'/></svg>">
+  <!-- Inline SVG favicon (3D isometric cube mark) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon points='12,2 21,7 12,12 3,7' fill='%232563eb'/><polygon points='21,7 21,17 12,22 12,12' fill='%230d9488'/><polygon points='3,7 3,17 12,22 12,12' fill='%231d4ed8'/></svg>">
 
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="index.css">
+
+  <!-- Fallback: without JS the scroll-reveal sections must still be visible -->
+  <noscript>
+    <style>
+      .reveal { opacity: 1; transform: none; }
+    </style>
+  </noscript>
 </head>
 <body>
 
@@ -25,10 +32,9 @@
     <div class="container header-container">
       <a href="#" class="logo" id="header-logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <polygon points="12,3 20,7.5 20,16.5 12,21 4,16.5 4,7.5" fill="var(--accent-blue)"></polygon>
-          <line x1="12" y1="12" x2="12" y2="3" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
-          <line x1="12" y1="12" x2="4" y2="16.5" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
-          <line x1="12" y1="12" x2="20" y2="16.5" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
+          <polygon points="12,2 21,7 12,12 3,7" fill="var(--accent-blue)"></polygon>
+          <polygon points="21,7 21,17 12,22 12,12" fill="var(--accent-teal)"></polygon>
+          <polygon points="3,7 3,17 12,22 12,12" fill="var(--accent-blue-hover)"></polygon>
         </svg>
         <span>Infra<span class="logo-dot">Hub</span></span>
       </a>
@@ -46,7 +52,7 @@
         <a href="#contact" class="btn btn-primary">Contact Sales</a>
       </div>
       
-      <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation">
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="nav-menu">
         <span></span>
         <span></span>
         <span></span>
@@ -293,7 +299,7 @@
         <!-- Left: Interactive SVG Map -->
         <div class="map-container">
           <!-- Stylized technical SVG map representation -->
-          <svg class="map-svg-element" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="global-svg-map">
+          <svg class="map-svg-element" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="global-svg-map" role="group" aria-label="Interactive global backbone latency map. Select a city node to view its latency, bandwidth, and status.">
             
             <!-- Dynamic Routes Connections -->
             <path id="route-sea-chi" class="map-path" d="M120,110 L250,130"/>
@@ -305,9 +311,6 @@
             <path id="route-ny-lon" class="map-path" d="M390,110 Q500,70 610,130"/>
             <path id="route-lon-fra" class="map-path" d="M610,130 L700,140"/>
             <path id="route-ny-mia" class="map-path" d="M390,110 L380,310"/>
-            
-            <!-- Core Backbone Path Overlay (starts at NY, connects Chicago, LA) -->
-            <path id="backbone-highlight" d="" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" style="display: none;"/>
             
             <!-- Nodes (Cities) -->
             <!-- Seattle -->
@@ -543,7 +546,7 @@
               </svg>
             </div>
             <div>
-              <h4 class="contact-info-title">Infrastructure Desk</h4>
+              <h3 class="contact-info-title">Infrastructure Desk</h3>
               <p class="contact-info-desc">provisioning@infrahub.tech</p>
             </div>
           </div>
@@ -556,7 +559,7 @@
               </svg>
             </div>
             <div>
-              <h4 class="contact-info-title">Connect Instantly</h4>
+              <h3 class="contact-info-title">Connect Instantly</h3>
               <p class="contact-info-desc">+1 (800) 555-INFRA</p>
             </div>
           </div>
@@ -607,7 +610,7 @@
           
           <button type="submit" class="btn btn-primary" style="width: 100%; height: 50px;">Submit Provisioning Ticket</button>
           
-          <div class="form-message" id="form-feedback-message"></div>
+          <div class="form-message" id="form-feedback-message" role="status" aria-live="polite"></div>
         </form>
       </div>
     </div>
@@ -621,10 +624,9 @@
       <div class="footer-info">
         <a href="#" class="logo">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <polygon points="12,3 20,7.5 20,16.5 12,21 4,16.5 4,7.5" fill="var(--accent-blue)"></polygon>
-            <line x1="12" y1="12" x2="12" y2="3" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
-            <line x1="12" y1="12" x2="4" y2="16.5" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
-            <line x1="12" y1="12" x2="20" y2="16.5" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"></line>
+            <polygon points="12,2 21,7 12,12 3,7" fill="var(--accent-blue)"></polygon>
+            <polygon points="21,7 21,17 12,22 12,12" fill="var(--accent-teal)"></polygon>
+            <polygon points="3,7 3,17 12,22 12,12" fill="var(--accent-blue-hover)"></polygon>
           </svg>
           <span>Infra<span class="logo-dot">Hub</span></span>
         </a>

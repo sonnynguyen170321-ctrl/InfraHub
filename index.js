@@ -8,19 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 20) {
-      header.classList.add('header-scrolled');
-    } else {
-      header.classList.remove('header-scrolled');
-    }
-  });
-
   // Mobile Hamburger Toggle
   if (hamburgerBtn && navMenu) {
     hamburgerBtn.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
+      const isOpen = navMenu.classList.toggle('open');
       hamburgerBtn.classList.toggle('active');
+      hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
     // Close menu when clicking on links
@@ -28,16 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
         hamburgerBtn.classList.remove('active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
       });
     });
   }
 
-  // Smooth scroll active state tracking
+  // Single rAF-throttled scroll handler: header shrink + nav active-state tracking
   const sections = document.querySelectorAll('section');
-  window.addEventListener('scroll', () => {
+
+  const handleScroll = () => {
+    // Shrink the header once the page is scrolled
+    header.classList.toggle('header-scrolled', window.scrollY > 20);
+
+    // Highlight the nav link for the section currently in view
     let current = '';
     const scrollPos = window.scrollY + 120; // Offset for header height
-
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
@@ -45,14 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
         current = section.getAttribute('id');
       }
     });
-
     navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
     });
-  });
+  };
+
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      window.requestAnimationFrame(() => {
+        handleScroll();
+        scrollTicking = false;
+      });
+    }
+  }, { passive: true });
+
+  // Set correct initial state on load
+  handleScroll();
 
 
   /* ==========================================================================
@@ -95,39 +103,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const selectNode = (node) => {
+    // Toggle node selection active class
+    mapNodes.forEach(n => n.classList.remove('active'));
+    node.classList.add('active');
+
+    // Extract node values
+    const name = node.getAttribute('data-name');
+    const ip = node.getAttribute('data-ip');
+    const ping = node.getAttribute('data-ping');
+    const speed = node.getAttribute('data-speed');
+    const status = node.getAttribute('data-status');
+    const nodeId = node.getAttribute('id');
+
+    // Update sidebar content
+    infoCity.textContent = name;
+    infoIp.textContent = ip;
+    infoPing.textContent = ping;
+    infoSpeed.textContent = speed;
+    infoStatus.textContent = status;
+
+    // Adjust ping latency indicator design (optimal vs standard warning color)
+    const numericPing = parseInt(ping);
+    infoPing.className = numericPing < 20
+      ? 'map-stat-val latency-indicator latency-optimal'
+      : 'map-stat-val latency-indicator latency-standard';
+
+    // Sync active paths
+    activatePathsForNode(nodeId);
+
+    // Sync choice to form select dropdown
+    if (formNodeSelect) {
+      formNodeSelect.value = nodeId;
+    }
+  };
+
   mapNodes.forEach(node => {
-    node.addEventListener('click', () => {
-      // Toggle node selection active class
-      mapNodes.forEach(n => n.classList.remove('active'));
-      node.classList.add('active');
+    // Expose each node as a keyboard-operable button for assistive tech
+    node.setAttribute('role', 'button');
+    node.setAttribute('tabindex', '0');
+    node.setAttribute('aria-label',
+      `${node.getAttribute('data-name')}, latency ${node.getAttribute('data-ping')}, capacity ${node.getAttribute('data-speed')}`);
 
-      // Extract node values
-      const name = node.getAttribute('data-name');
-      const ip = node.getAttribute('data-ip');
-      const ping = node.getAttribute('data-ping');
-      const speed = node.getAttribute('data-speed');
-      const status = node.getAttribute('data-status');
-      const nodeId = node.getAttribute('id');
-
-      // Update sidebar content
-      infoCity.textContent = name;
-      infoIp.textContent = ip;
-      infoPing.textContent = ping;
-      infoSpeed.textContent = speed;
-      infoStatus.textContent = status;
-
-      // Adjust ping latency indicator design (optimal vs standard warning color)
-      const numericPing = parseInt(ping);
-      infoPing.className = numericPing < 20
-        ? 'map-stat-val latency-indicator latency-optimal'
-        : 'map-stat-val latency-indicator latency-standard';
-
-      // Sync active paths
-      activatePathsForNode(nodeId);
-
-      // Sync choice to form select dropdown
-      if (formNodeSelect) {
-        formNodeSelect.value = nodeId;
+    node.addEventListener('click', () => selectNode(node));
+    node.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectNode(node);
       }
     });
   });
@@ -185,36 +207,51 @@ document.addEventListener('DOMContentLoaded', () => {
     summarySla.textContent = selectedSlaName;
   };
 
-  // Hardware selection cards listeners
-  hwCards.forEach(card => {
-    card.addEventListener('click', () => {
-      hwCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
+  // Make a group of selector cards behave like a keyboard-operable single-select
+  const initCardGroup = (cards, onSelect) => {
+    cards.forEach(card => {
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-pressed', card.classList.contains('active') ? 'true' : 'false');
 
-      selectedHwPrice = parseInt(card.getAttribute('data-base-price'));
-      selectedHwName = card.querySelector('.select-card-title').textContent;
+      const activate = () => {
+        cards.forEach(c => {
+          c.classList.remove('active');
+          c.setAttribute('aria-pressed', 'false');
+        });
+        card.classList.add('active');
+        card.setAttribute('aria-pressed', 'true');
 
-      updateConfiguratorPricing();
+        onSelect(card);
+        updateConfiguratorPricing();
+      };
+
+      card.addEventListener('click', activate);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate();
+        }
+      });
     });
+  };
+
+  // Hardware selection cards
+  initCardGroup(hwCards, (card) => {
+    selectedHwPrice = parseInt(card.getAttribute('data-base-price'));
+    selectedHwName = card.querySelector('.select-card-title').textContent;
+  });
+
+  // SLA selection cards
+  initCardGroup(slaCards, (card) => {
+    selectedSlaMultiplier = parseFloat(card.getAttribute('data-multiplier'));
+    selectedSlaName = card.querySelector('.select-card-title').textContent;
   });
 
   // Slider change listener
   if (bandwidthSlider) {
     bandwidthSlider.addEventListener('input', updateConfiguratorPricing);
   }
-
-  // SLA selection cards listeners
-  slaCards.forEach(card => {
-    card.addEventListener('click', () => {
-      slaCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-
-      selectedSlaMultiplier = parseFloat(card.getAttribute('data-multiplier'));
-      selectedSlaName = card.querySelector('.select-card-title').textContent;
-
-      updateConfiguratorPricing();
-    });
-  });
 
   // Request Config button auto scroll to contact section
   const btnRequestConfig = document.getElementById('btn-request-config');
