@@ -1,0 +1,9 @@
+# Local QA / progress screenshots (kept on disk, not part of the deployed site)
+screenshots/
+
+# Vercel
+.vercel
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store

@@ -9,7 +9,26 @@
   <meta name="description" content="InfraHub provides premium, minimalist, ultra-high performance hardware provisioning and software-defined network (SD-WAN) integrations with global multi-cloud routing.">
   <meta name="keywords" content="InfraHub, Network-as-a-Service, Hardware Provisioning, Managed NOC, SASE, Cloud Routing, SD-WAN">
   <meta name="author" content="InfraHub">
-  
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="https://infrahub.tech/">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="InfraHub">
+  <meta property="og:url" content="https://infrahub.tech/">
+  <meta property="og:title" content="InfraHub | Enterprise Hardware & High-Performance Network Services">
+  <meta property="og:description" content="Premium hardware provisioning and software-defined (SD-WAN) network integrations with global multi-cloud routing.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="InfraHub | Enterprise Hardware & High-Performance Network Services">
+  <meta name="twitter:description" content="Premium hardware provisioning and software-defined (SD-WAN) network integrations with global multi-cloud routing.">
+
+  <!-- Google Fonts: Outfit (headings) + Inter (body). Preconnect + <link> avoids the
+       render-blocking sequential fetch that a CSS @import incurs. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap">
+
   <!-- Inline SVG favicon (3D isometric cube mark) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon points='12,2 21,7 12,12 3,7' fill='%232563eb'/><polygon points='21,7 21,17 12,22 12,12' fill='%230d9488'/><polygon points='3,7 3,17 12,22 12,12' fill='%231d4ed8'/></svg>">
 
@@ -24,6 +43,9 @@
   </noscript>
 </head>
 <body>
+
+  <!-- Keyboard skip link: first focusable element, jumps past the nav -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- ==========================================================================
        HEADER & NAVIGATION
@@ -40,7 +62,7 @@
       </a>
       
       <ul class="nav-menu" id="nav-menu">
-        <li><a href="#hero" id="nav-link-home" class="nav-link active">Home</a></li>
+        <li><a href="#hero" id="nav-link-home" class="nav-link active" aria-current="page">Home</a></li>
         <li><a href="#services" id="nav-link-services" class="nav-link">Services</a></li>
         <li><a href="#network" id="nav-link-network" class="nav-link">Global Network</a></li>
         <li><a href="#configurator" id="nav-link-configurator" class="nav-link">Pricing Quote</a></li>
@@ -59,6 +81,8 @@
       </button>
     </div>
   </header>
+
+  <main id="main-content">
 
   <!-- ==========================================================================
        HERO SECTION
@@ -387,7 +411,7 @@
               </li>
               <li class="map-stat-row">
                 <span class="map-stat-lbl">Connection Health</span>
-                <span class="map-stat-val" id="info-status" style="color: var(--accent-teal);">Core Hub</span>
+                <span class="map-stat-val status-good" id="info-status">Core Hub</span>
               </li>
             </ul>
           </div>
@@ -449,7 +473,8 @@
               <span class="group-val-bubble" id="bandwidth-val-display">10 Gbps</span>
             </div>
             <div class="slider-container">
-              <input type="range" class="range-slider" id="bandwidth-slider" min="1" max="4" value="1" step="1">
+              <input type="range" class="range-slider" id="bandwidth-slider" min="1" max="4" value="1" step="1"
+                     aria-label="Dedicated bandwidth" aria-valuetext="10 Gbps">
               <div class="slider-labels">
                 <span>10 Gbps</span>
                 <span>40 Gbps</span>
@@ -575,18 +600,18 @@
           <div class="form-group-row">
             <div class="form-group">
               <label for="form-name" class="form-label">Full Name</label>
-              <input type="text" id="form-name" class="form-input" placeholder="e.g., Sarah Connor" required>
+              <input type="text" id="form-name" class="form-input" placeholder="e.g., Sarah Connor" autocomplete="name" required>
             </div>
             <div class="form-group">
               <label for="form-email" class="form-label">Work Email</label>
-              <input type="email" id="form-email" class="form-input" placeholder="e.g., sarah@cyberdyne.com" required>
+              <input type="email" id="form-email" class="form-input" placeholder="e.g., sarah@cyberdyne.com" autocomplete="email" required>
             </div>
           </div>
           
           <div class="form-group-row">
             <div class="form-group">
               <label for="form-company" class="form-label">Company Name</label>
-              <input type="text" id="form-company" class="form-input" placeholder="e.g., Cyberdyne Systems" required>
+              <input type="text" id="form-company" class="form-input" placeholder="e.g., Cyberdyne Systems" autocomplete="organization" required>
             </div>
             <div class="form-group">
               <label for="form-nodes" class="form-label">Target Network Node</label>
@@ -615,6 +640,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ==========================================================================
        FOOTER

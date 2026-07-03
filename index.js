@@ -48,7 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      const isActive = link.getAttribute('href') === `#${current}`;
+      link.classList.toggle('active', isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
     });
   };
 
@@ -211,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
     summaryBw.textContent = bwTier.text;
     summaryGuarantee.textContent = bwTier.guarantee;
 
+    // Announce the human-readable bandwidth to assistive tech (slider value is only 1-4)
+    bandwidthSlider.setAttribute('aria-valuetext', bwTier.text);
+
     // Calculate final billing amount
     const totalAmount = Math.round((selectedHwPrice + bwTier.price) * selectedSlaMultiplier);
     
@@ -325,8 +334,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Display dynamic success feedback simulating secure server log
-      feedbackMessage.innerHTML = `<strong>Ticket Logged Successfully!</strong><br>Our provisioning engineering desk has received your request for <strong>${selectedNodeOption}</strong>. A connection blueprint will be sent to <strong>${email}</strong> shortly.`;
+      // Display dynamic success feedback. Build with text nodes (never innerHTML) so a
+      // crafted value in `email`/`selectedNodeOption` cannot inject markup into the DOM.
+      const strong = (t) => {
+        const el = document.createElement('strong');
+        el.textContent = t;
+        return el;
+      };
+      feedbackMessage.replaceChildren(
+        strong('Ticket Logged Successfully!'),
+        document.createElement('br'),
+        document.createTextNode('Our provisioning engineering desk has received your request for '),
+        strong(selectedNodeOption),
+        document.createTextNode('. A connection blueprint will be sent to '),
+        strong(email),
+        document.createTextNode(' shortly.')
+      );
       feedbackMessage.className = 'form-message success';
 
       // Clear input fields after brief simulation delay
