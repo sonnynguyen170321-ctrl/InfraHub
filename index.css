@@ -66,6 +66,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -1199,6 +1203,9 @@ textarea.form-input {
    RESPONSIVE MEDIA QUERIES
    ========================================================================== */
 @media (max-width: 1024px) {
+  .nav-menu { gap: 20px; }
+  .logo { font-size: 1.6rem; }
+  .logo svg { width: 26px; height: 26px; }
   .hero-title { font-size: 3rem; }
   .services-grid { gap: 24px; }
   .configurator-wrapper { gap: 32px; }
@@ -1206,6 +1213,28 @@ textarea.form-input {
 }
 
 @media (max-width: 991px) {
+  /* Navigation mobile menu */
+  .hamburger { display: flex; }
+  .nav-menu {
+    position: fixed;
+    top: var(--header-height);
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    background-color: var(--bg-primary);
+    flex-direction: column;
+    padding: 40px 24px;
+    align-items: flex-start;
+    gap: 24px;
+    border-top: 1px solid var(--border-color);
+    transition: var(--transition);
+    z-index: 1000;
+  }
+  .nav-menu.open {
+    left: 0;
+  }
+  .nav-actions { display: none; }
+
   .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
@@ -1254,27 +1283,6 @@ textarea.form-input {
   .section-title { font-size: 2rem; }
   .hero-title { font-size: 2.5rem; }
   
-  /* Navigation mobile menu */
-  .hamburger { display: flex; }
-  .nav-menu {
-    position: fixed;
-    top: var(--header-height);
-    left: -100%;
-    width: 100%;
-    height: calc(100vh - var(--header-height));
-    background-color: var(--bg-primary);
-    flex-direction: column;
-    padding: 40px 24px;
-    align-items: flex-start;
-    gap: 24px;
-    border-top: 1px solid var(--border-color);
-    transition: var(--transition);
-  }
-  .nav-menu.open {
-    left: 0;
-  }
-  .nav-actions { display: none; }
-  
   .card-selectors { grid-template-columns: 1fr; }
   .form-group-row { grid-template-columns: 1fr; }
   .contact-form-wrapper { padding: 32px; }
@@ -1293,13 +1301,13 @@ textarea.form-input {
 /* ==========================================================================
    SCROLL REVEAL ANIMATIONS
    ========================================================================== */
-.reveal {
+.js .reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.active {
+.js .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }

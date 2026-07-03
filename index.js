@@ -1,3 +1,5 @@
+document.documentElement.classList.replace('no-js', 'js');
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ==========================================================================
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = navMenu.classList.toggle('open');
       hamburgerBtn.classList.toggle('active');
       hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      document.body.classList.toggle('no-scroll', isOpen);
     });
 
     // Close menu when clicking on links
@@ -22,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.remove('open');
         hamburgerBtn.classList.remove('active');
         hamburgerBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('no-scroll');
       });
     });
   }
@@ -157,6 +161,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize paths with New York Core node paths active
   activatePathsForNode('node-ny');
 
+  // Two-way dropdown menu selection triggers map node click
+  if (formNodeSelect) {
+    formNodeSelect.addEventListener('change', () => {
+      const targetNodeId = formNodeSelect.value;
+      const mapNodeEl = document.getElementById(targetNodeId);
+      if (mapNodeEl) {
+        mapNodeEl.dispatchEvent(new Event('click'));
+      }
+    });
+  }
+
 
   /* ==========================================================================
      3. HARDWARE SPEC CONFIGURATOR
@@ -265,6 +280,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Provision Near This Node button listener to prefill form
+  const btnProvisionNode = document.getElementById('btn-provision-node');
+  if (btnProvisionNode && formMessageTextarea) {
+    btnProvisionNode.addEventListener('click', () => {
+      const specSummary = `Requesting custom quote for:\n- Focus: Near ${infoCity.textContent} Node\n- Target Node: ${infoCity.textContent}`;
+      formMessageTextarea.value = specSummary;
+    });
+  }
+
   // Set initial calculation values
   updateConfiguratorPricing();
 
@@ -283,11 +307,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const name = document.getElementById('form-name').value.trim();
       const email = document.getElementById('form-email').value.trim();
       const company = document.getElementById('form-company').value.trim();
+      const message = document.getElementById('form-message').value.trim();
       const selectedNodeOption = formNodeSelect.options[formNodeSelect.selectedIndex].text;
 
       // Basic client validation check
-      if (!name || !email || !company) {
+      if (!name || !email || !company || !message) {
         feedbackMessage.textContent = 'Please fill out all required fields.';
+        feedbackMessage.className = 'form-message error';
+        return;
+      }
+
+      // Email format check
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        feedbackMessage.textContent = 'Please enter a valid email address.';
         feedbackMessage.className = 'form-message error';
         return;
       }
