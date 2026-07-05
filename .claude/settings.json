@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/shots /c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/shot)",
+      "Read(//c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/**)",
+      "Bash(npm init *)",
+      "Bash(PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm i playwright)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(node /c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/shot/capture.js 'c:\\\\Users\\\\admin\\\\Desktop\\\\Sonny & AI\\\\InfraHub\\\\InfraHub\\\\index.html' /c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/shots 00-baseline all)",
+      "Bash(node /c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/shot/capture.js 'c:\\\\Users\\\\admin\\\\Desktop\\\\Sonny & AI\\\\InfraHub\\\\InfraHub\\\\index.html' /c/Users/admin/AppData/Local/Temp/claude/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/6f0b4616-bcc1-4b79-9735-dce6868aa7d6/scratchpad/shots 01-logo desktop)",
+      "Bash(cd \"c:/Users/admin/Desktop/Sonny & AI/InfraHub/InfraHub\" && echo \"---MEMORY DIR---\" && ls -la \"C:/Users/admin/.claude/projects/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/memory/\" 2>/dev/null; echo \"---PROJECT FILES---\" && ls -la && echo \"---LAST COMMIT FILES---\" && git show --stat HEAD --oneline | head -30)",
+      "Read(//c/Users/admin/.claude/projects/c--Users-admin-Desktop-Sonny---AI-InfraHub-InfraHub/memory/**)"
+    ]
+  }
+}

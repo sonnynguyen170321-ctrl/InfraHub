@@ -12,15 +12,18 @@
   
   --text-primary: #0f172a;    /* Deep slate */
   --text-secondary: #475569;  /* Cool grey */
-  --text-muted: #94a3b8;     /* Light grey */
-  
+  --text-muted: #64748b;     /* Muted slate — 4.6:1 on white, passes WCAG AA */
+
   --accent-blue: #2563eb;     /* Electric Blue */
   --accent-blue-hover: #1d4ed8;
   --accent-blue-light: #eff6ff;
-  
-  --accent-teal: #0d9488;     /* Tech Teal */
+
+  --accent-teal: #0d9488;     /* Tech Teal — brand fill/icon/border colour */
   --accent-teal-hover: #0f766e;
   --accent-teal-light: #f0fdfa;
+  /* Darker teal reserved for small text on light backgrounds: #0d9488 is only
+     3.7:1 (fails AA for text); #0f766e clears 4.5:1 while staying on-brand. */
+  --accent-teal-text: #0f766e;
   
   --border-color: #e2e8f0;
   --border-color-active: #cbd5e1;
@@ -114,6 +117,21 @@ img {
   left: 0;
 }
 
+/* Branded keyboard focus ring for interactive controls. Keyboard-only
+   (:focus-visible) so a mouse click never paints a ring, but Tab always does.
+   Buttons/links previously fell back to the low-contrast UA default outline —
+   notably invisible on the dark primary button. */
+.btn:focus-visible,
+.nav-link:focus-visible,
+.footer-link:focus-visible,
+.footer-meta-links a:focus-visible,
+.social-icon:focus-visible,
+.logo:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
 /* ==========================================================================
    REUSABLE UTILITIES
    ========================================================================== */
@@ -154,7 +172,7 @@ img {
 
 .badge-teal {
   background-color: var(--accent-teal-light);
-  color: var(--accent-teal);
+  color: var(--accent-teal-text);
 }
 
 .section-title {
@@ -310,6 +328,7 @@ img {
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh; /* avoids the mobile URL-bar jump; ignored where unsupported */
   padding-top: calc(var(--header-height) + 60px);
   padding-bottom: 80px;
   display: flex;
@@ -718,19 +737,19 @@ img {
 .latency-indicator {
   padding: 4px 8px;
   background-color: var(--accent-teal-light);
-  color: var(--accent-teal);
+  color: var(--accent-teal-text);
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
 }
 
 .latency-optimal {
   background-color: var(--accent-teal-light);
-  color: var(--accent-teal);
+  color: var(--accent-teal-text);
 }
 
 /* Healthy connection status colour (replaces an inline style on #info-status) */
 .status-good {
-  color: var(--accent-teal);
+  color: var(--accent-teal-text);
 }
 
 .latency-standard {
@@ -834,11 +853,18 @@ img {
 
 .range-slider {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 6px;
   border-radius: 3px;
   background: var(--border-color);
   outline: none;
+}
+
+/* Keyboard focus ring for the slider (outline:none above strips the default) */
+.range-slider:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 4px;
 }
 
 .range-slider::-webkit-slider-thumb {
@@ -1097,7 +1123,7 @@ textarea.form-input {
 
 .form-message.success {
   background-color: var(--accent-teal-light);
-  color: var(--accent-teal);
+  color: var(--accent-teal-text);
   border: 1px solid rgba(13, 148, 136, 0.2);
   display: block;
 }
@@ -1319,6 +1345,7 @@ textarea.form-input {
     left: -100%;
     width: 100%;
     height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
     background-color: var(--bg-primary);
     flex-direction: column;
     padding: 40px 24px;

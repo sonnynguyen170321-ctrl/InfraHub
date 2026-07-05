@@ -23,6 +23,24 @@
   <meta name="twitter:title" content="InfraHub | Enterprise Hardware & High-Performance Network Services">
   <meta name="twitter:description" content="Premium hardware provisioning and software-defined (SD-WAN) network integrations with global multi-cloud routing.">
 
+  <!-- Structured data: helps search engines render a rich Organization result -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "InfraHub",
+    "url": "https://infrahub.tech/",
+    "description": "Premium hardware provisioning and software-defined (SD-WAN) network integrations with global multi-cloud routing.",
+    "email": "provisioning@infrahub.tech",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "provisioning@infrahub.tech",
+      "telephone": "+1-800-555-INFRA"
+    }
+  }
+  </script>
+
   <!-- Google Fonts: Outfit (headings) + Inter (body). Preconnect + <link> avoids the
        render-blocking sequential fetch that a CSS @import incurs. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,12 +100,12 @@
     </div>
   </header>
 
-  <main id="main-content">
+  <main id="main-content" tabindex="-1">
 
   <!-- ==========================================================================
        HERO SECTION
        ========================================================================== -->
-  <section class="hero" id="hero">
+  <section class="hero" id="hero" aria-labelledby="hero-heading">
     <div class="container hero-grid">
       <div class="hero-content">
         <div class="badge">
@@ -98,7 +116,7 @@
           </svg>
           Enterprise Infrastructure
         </div>
-        <h1 class="hero-title">
+        <h1 class="hero-title" id="hero-heading">
           <span>Deploy Custom Network</span>
           <span class="text-gradient-blue">Hardware Solutions</span>
           <span>In Minutes, Not Months.</span>
@@ -243,10 +261,10 @@
   <!-- ==========================================================================
        SERVICES SECTION
        ========================================================================== -->
-  <section class="section section-alt reveal" id="services">
+  <section class="section section-alt reveal" id="services" aria-labelledby="services-heading">
     <div class="container">
       <div class="badge badge-teal">Core Services</div>
-      <h2 class="section-title">Robust Infrastructure Capabilities</h2>
+      <h2 class="section-title" id="services-heading">Robust Infrastructure Capabilities</h2>
       <p class="section-subtitle">We design, supply, configure, and maintain the hardware foundations and network pipelines that connect your enterprise.</p>
       
       <div class="services-grid">
@@ -389,10 +407,10 @@
   <!-- ==========================================================================
        GLOBAL COVERAGE & INTERACTIVE LATENCY MAP
        ========================================================================== -->
-  <section class="section reveal" id="network">
+  <section class="section reveal" id="network" aria-labelledby="network-heading">
     <div class="container">
       <div class="badge">Global Network</div>
-      <h2 class="section-title">Backbone Operations Map</h2>
+      <h2 class="section-title" id="network-heading">Backbone Operations Map</h2>
       <p class="section-subtitle">Select a destination node to query latency measurements, route hops, and link speeds directly back to our central core.</p>
       
       <div class="map-layout">
@@ -503,10 +521,10 @@
   <!-- ==========================================================================
        SPEC CONFIGURATOR & PRICING ESTIMATOR
        ========================================================================== -->
-  <section class="section section-alt reveal" id="configurator">
+  <section class="section section-alt reveal" id="configurator" aria-labelledby="configurator-heading">
     <div class="container">
       <div class="badge badge-teal">Quote Estimator</div>
-      <h2 class="section-title">Configure Infrastructure</h2>
+      <h2 class="section-title" id="configurator-heading">Configure Infrastructure</h2>
       <p class="section-subtitle">Adjust core resources, link capacities, and managed NOC support models to estimate corporate hardware and connectivity subscriptions.</p>
       
       <div class="configurator-wrapper">
@@ -617,7 +635,7 @@
             </li>
             <li class="pricing-feature-row" style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 16px;">
               <span class="pricing-feature-lbl" style="font-weight: 600; color: var(--text-primary);">Uptime Guarantee</span>
-              <span class="pricing-feature-val" id="summary-guarantee" style="color: var(--accent-teal); font-weight: 600;">99.9%</span>
+              <span class="pricing-feature-val" id="summary-guarantee" style="color: var(--accent-teal-text); font-weight: 600;">99.9%</span>
             </li>
           </ul>
           
@@ -630,11 +648,11 @@
   <!-- ==========================================================================
        CONTACT & INQUIRY FORM
        ========================================================================== -->
-  <section class="section reveal" id="contact">
+  <section class="section reveal" id="contact" aria-labelledby="contact-heading">
     <div class="container contact-grid">
       <div class="contact-info">
         <div class="badge">Inquire</div>
-        <h2 class="section-title">Initiate Provisioning</h2>
+        <h2 class="section-title" id="contact-heading">Initiate Provisioning</h2>
         <p class="section-subtitle">Ready to map out your architecture? Reach out to our systems engineers directly for custom pricing, fiber routes, and deployment consultations.</p>
         
         <div class="contact-cards">
