@@ -31,7 +31,7 @@ This file captures project context, preferences, rules, and lessons learned. It 
 ---
 
 ## Projects
-- **InfraHub Website:** Highly optimized single-page Hardware & Network services portal built using semantic HTML5, custom vanilla CSS (Outfit + Inter fonts, electric blue and teal accents), and modern JS. Implemented scroll reveal IntersectionObserver animations for all sections. Status: **Complete**.
+- **InfraHub Website:** Infrastructure strategy partner website. Positioned as a transformation partner, not a technology service provider. 12 sections: Hero → Business Reality → Why Companies Struggle → Our Approach → The InfraHub Platform → Solutions → Infrastructure Lifecycle → Industries → Strategic Partners → Success Stories → Knowledge Center → CTA. Built using semantic HTML5, custom vanilla CSS (Outfit + Inter + JetBrains Mono fonts, electric blue and teal accents), and modern JS with scroll reveal IntersectionObserver + stagger animations. SEO: JSON-LD Organization schema, OG/Twitter meta, structured data. Status: **Complete (Phases A-D). All 4 phases delivered.**
 - **Claude Code Setup:** Modular rules generated under `.claude/rules/` and skills registered under `.agents/skills/claude-automation-recommender/`. Status: **Complete**.
 - **NotebookLM connection:** Installed `notebooklm-mcp-cli` globally/via pip, with executable available in AppData Roaming PATH. Sign-in script is ready for manual browser authentication. Status: **Complete**.
 
