@@ -1781,8 +1781,7 @@ img {
   flex: 1;
 }
 
-.success-before,
-.success-after {
+.success-before {
   margin-bottom: 16px;
 }
 
@@ -2163,7 +2162,7 @@ img {
 }
 
 /* ==========================================================================
-   NEW INFRASTRUCTURE MODEL — REVEAL PIVOT
+   NEW INFRASTRUCTURE MODEL - REVEAL PIVOT
    ========================================================================== */
 .reveal-pivot {
   font-family: var(--font-heading);
@@ -2174,7 +2173,7 @@ img {
 }
 
 /* ==========================================================================
-   PLATFORM — FOLDED CAPABILITIES
+   PLATFORM - FOLDED CAPABILITIES
    ========================================================================== */
 .platform-caps {
   margin-top: 48px;
@@ -3202,7 +3201,6 @@ img {
 .form-textarea {
   resize: vertical;
   min-height: 120px;
-  font-family: var(--font-body);
   line-height: 1.6;
 }
 
@@ -3515,6 +3513,7 @@ img {
   .summary-total-value {
     font-size: 1.5rem;
   }
+  .reality-grid,
   .solutions-grid,
   .industries-grid,
   .success-grid,
