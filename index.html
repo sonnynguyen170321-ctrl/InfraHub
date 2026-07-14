@@ -765,8 +765,7 @@
        ========================================================================== -->
   <section class="section reveal" id="partners">
     <div class="container">
-      <h2 class="section-title">Built on relationships, not contracts.</h2>
-      <p class="section-subtitle">Our partner ecosystem spans hardware OEMs, cloud providers, network carriers, and technology platforms - giving you vendor-neutral recommendations backed by real procurement leverage.</p>
+      <h2 class="sr-only">Strategic technology partners</h2>
 
       <!-- Auto-scrolling logo marquee. The logo set is rendered twice back-to-back so the
            CSS translateX(-50%) loop is seamless; the second set is hidden from assistive tech. -->
@@ -1080,38 +1079,34 @@
 
       <div class="inquiry-layout">
         <form id="inquiry-form" class="inquiry-form" novalidate>
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="inquiry-name" class="form-label">Full Name <span class="required" aria-hidden="true">*</span></label>
-              <input type="text" id="inquiry-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
-              <span class="form-error" id="error-name" aria-live="polite"></span>
-            </div>
-            <div class="form-group">
-              <label for="inquiry-email" class="form-label">Work Email <span class="required" aria-hidden="true">*</span></label>
-              <input type="email" id="inquiry-email" name="email" class="form-input" required autocomplete="email" aria-required="true">
-              <span class="form-error" id="error-email" aria-live="polite"></span>
-            </div>
+          <div class="form-group">
+            <label for="inquiry-name" class="form-label">Full Name <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="inquiry-name" name="name" class="form-input" required autocomplete="name" aria-required="true">
+            <span class="form-error" id="error-name" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="inquiry-email" class="form-label">Work Email <span class="required" aria-hidden="true">*</span></label>
+            <input type="email" id="inquiry-email" name="email" class="form-input" required autocomplete="email" aria-required="true">
+            <span class="form-error" id="error-email" aria-live="polite"></span>
           </div>
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="inquiry-company" class="form-label">Company <span class="required" aria-hidden="true">*</span></label>
-              <input type="text" id="inquiry-company" name="company" class="form-input" required autocomplete="organization" aria-required="true">
-              <span class="form-error" id="error-company" aria-live="polite"></span>
-            </div>
-            <div class="form-group">
-              <label for="inquiry-role" class="form-label">Role</label>
-              <select id="inquiry-role" name="role" class="form-select" autocomplete="organization-title">
-                <option value="">Select your role</option>
-                <option value="cto">CTO / VP Engineering</option>
-                <option value="network-engineer">Network Engineer</option>
-                <option value="devops">DevOps / Platform Engineer</option>
-                <option value="architect">Solutions Architect</option>
-                <option value="procurement">Procurement / Vendor Management</option>
-                <option value="other">Other</option>
-              </select>
-              <span class="form-error" id="error-role" aria-live="polite"></span>
-            </div>
+          <div class="form-group">
+            <label for="inquiry-company" class="form-label">Company <span class="required" aria-hidden="true">*</span></label>
+            <input type="text" id="inquiry-company" name="company" class="form-input" required autocomplete="organization" aria-required="true">
+            <span class="form-error" id="error-company" aria-live="polite"></span>
+          </div>
+          <div class="form-group">
+            <label for="inquiry-role" class="form-label">Role</label>
+            <select id="inquiry-role" name="role" class="form-select" autocomplete="organization-title">
+              <option value="">Select your role</option>
+              <option value="cto">CTO / VP Engineering</option>
+              <option value="network-engineer">Network Engineer</option>
+              <option value="devops">DevOps / Platform Engineer</option>
+              <option value="architect">Solutions Architect</option>
+              <option value="procurement">Procurement / Vendor Management</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="form-error" id="error-role" aria-live="polite"></span>
           </div>
 
           <div class="form-group form-group-full">
@@ -1145,7 +1140,7 @@
             <span class="form-error" id="error-consent" aria-live="polite"></span>
           </div>
 
-          <div class="form-actions">
+          <div class="form-actions form-group-full">
             <button type="submit" class="btn btn-primary btn-lg" id="inquiry-submit">
               <span class="btn-text">Submit Inquiry</span>
               <span class="btn-loading" style="display: none;">

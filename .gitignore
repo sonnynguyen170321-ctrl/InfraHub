@@ -1,5 +1,6 @@
 # Local QA / progress screenshots (kept on disk, not part of the deployed site)
 screenshots/
+.playwright-mcp/
 
 # Vercel
 .vercel

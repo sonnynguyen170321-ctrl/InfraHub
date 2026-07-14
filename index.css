@@ -76,6 +76,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background-color: rgba(37, 99, 235, 0.15);
+  color: var(--accent-blue);
+}
+
 body.no-scroll {
   overflow: hidden;
 }
@@ -120,6 +133,19 @@ img {
 
 .skip-link:focus {
   left: 0;
+}
+
+/* Screen-reader-only: removes an element visually while keeping it in the a11y tree */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ==========================================================================
@@ -1031,6 +1057,18 @@ img {
   gap: 24px;
 }
 
+@media (min-width: 1025px) {
+  #reality-hybrid { grid-column: span 2; }
+  #reality-ai { grid-column: span 1; }
+  #reality-security { grid-column: span 1; }
+  #reality-cloud { grid-column: span 2; }
+  #reality-global { grid-column: span 3; }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  #reality-hybrid { grid-column: span 2; }
+}
+
 .reality-card {
   background-color: var(--bg-primary);
   border: 1px solid var(--border-color);
@@ -1702,7 +1740,7 @@ img {
    B5: PARTNERS GRID
    ========================================================================== */
 .partners-marquee {
-  margin-top: 60px;
+  margin-top: 0;
   position: relative;
   overflow: hidden;
   /* Fade the logos in/out at the edges of the strip */
@@ -1730,18 +1768,22 @@ img {
 
 .partner-logo {
   flex: 0 0 auto;
-  height: 88px;
-  min-width: 200px;
-  margin: 0 12px;
-  padding: 0 32px;
+  height: 116px;
+  min-width: 240px;
+  margin: 0 14px;
+  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.partner-logo > * {
+  flex-shrink: 0;
 }
 
 .partner-logo:hover {
@@ -1753,12 +1795,14 @@ img {
 .pl-mark {
   flex: 0 0 auto;
   display: block;
+  height: 36px;
+  width: auto;
 }
 
 .pl-word {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.7rem;
+  font-size: 2.15rem;
   line-height: 1;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -1767,7 +1811,7 @@ img {
 .pl-tag {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -1790,8 +1834,8 @@ img {
   align-items: center;
   gap: 3px;
 }
-.pl-aws { color: #232F3E; font-size: 1.5rem; letter-spacing: -0.02em; }
-.pl-aws-smile { display: block; width: 46px; height: auto; }
+.pl-aws { color: #232F3E; font-size: 1.9rem; letter-spacing: -0.02em; }
+.pl-aws-smile { display: block; width: 58px; height: auto; }
 
 /* Respect users who prefer reduced motion: freeze into a static, wrapped logo wall */
 @media (prefers-reduced-motion: reduce) {
@@ -3199,13 +3243,13 @@ img {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 40px;
-}
-
-.form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin-bottom: 24px;
+}
+
+.btn:active {
+  transform: scale(0.98) translateY(1px);
 }
 
 .form-group {
@@ -3542,7 +3586,7 @@ img {
   .inquiry-layout {
     grid-template-columns: 1fr;
   }
-  .form-grid {
+  .inquiry-form {
     grid-template-columns: 1fr;
   }
   .select-cards {
@@ -3587,13 +3631,14 @@ img {
     grid-template-columns: 1fr;
   }
   .partner-logo {
-    height: 68px;
-    min-width: 150px;
-    padding: 0 22px;
-    margin: 0 8px;
+    height: 92px;
+    min-width: 178px;
+    padding: 0 28px;
+    margin: 0 9px;
   }
-  .pl-word { font-size: 1.35rem; }
-  .pl-aws { font-size: 1.2rem; }
+  .pl-word { font-size: 1.7rem; }
+  .pl-aws { font-size: 1.5rem; }
+  .pl-mark { height: 30px; }
   .platform-nodes {
     grid-template-columns: 1fr;
   }
