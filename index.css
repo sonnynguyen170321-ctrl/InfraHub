@@ -1701,40 +1701,109 @@ img {
 /* ==========================================================================
    B5: PARTNERS GRID
    ========================================================================== */
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+.partners-marquee {
   margin-top: 60px;
+  position: relative;
+  overflow: hidden;
+  /* Fade the logos in/out at the edges of the strip */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
 }
 
-.partner-logo-card {
+.partners-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: partners-scroll 40s linear infinite;
+}
+
+/* Pause when the user hovers or tabs into the strip */
+.partners-marquee:hover .partners-track,
+.partners-marquee:focus-within .partners-track {
+  animation-play-state: paused;
+}
+
+@keyframes partners-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.partner-logo {
+  flex: 0 0 auto;
+  height: 88px;
+  min-width: 200px;
+  margin: 0 12px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 28px 24px;
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.partner-logo:hover {
+  border-color: var(--border-color-active);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
+}
+
+.pl-mark {
+  flex: 0 0 auto;
+  display: block;
+}
+
+.pl-word {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.pl-tag {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* Brand wordmarks */
+.pl-dell   { color: #0F62B4; letter-spacing: 0.14em; }
+.pl-arista { color: #0A6EBD; letter-spacing: 0.2em; font-weight: 700; }
+.pl-azure  { color: #0A7BD4; }
+.pl-google { letter-spacing: -0.02em; }
+.pl-google-cloud { color: #5F6368; }
+.pl-nvidia { color: #76B900; letter-spacing: 0.03em; }
+.pl-cisco  { color: #00558C; font-weight: 500; letter-spacing: 0.02em; }
+.pl-netapp { color: #0067C5; letter-spacing: -0.02em; }
+
+/* AWS lockup: wordmark stacked above the smile arrow */
+.pl-aws-lockup {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  transition: border-color var(--transition-fast);
+  gap: 3px;
 }
+.pl-aws { color: #232F3E; font-size: 1.5rem; letter-spacing: -0.02em; }
+.pl-aws-smile { display: block; width: 46px; height: auto; }
 
-.partner-logo-card:hover {
-  border-color: var(--accent-blue);
-}
-
-.partner-name {
-  font-family: var(--font-heading);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: center;
-}
-
-.partner-type {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+/* Respect users who prefer reduced motion: freeze into a static, wrapped logo wall */
+@media (prefers-reduced-motion: reduce) {
+  .partners-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .partner-logo--dup { display: none; }
+  .partner-logo { margin: 0; }
 }
 
 /* ==========================================================================
@@ -3492,9 +3561,6 @@ img {
   .knowledge-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .platform-nodes {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -3520,9 +3586,14 @@ img {
   .knowledge-grid {
     grid-template-columns: 1fr;
   }
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .partner-logo {
+    height: 68px;
+    min-width: 150px;
+    padding: 0 22px;
+    margin: 0 8px;
   }
+  .pl-word { font-size: 1.35rem; }
+  .pl-aws { font-size: 1.2rem; }
   .platform-nodes {
     grid-template-columns: 1fr;
   }

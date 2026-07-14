@@ -768,38 +768,105 @@
       <h2 class="section-title">Built on relationships, not contracts.</h2>
       <p class="section-subtitle">Our partner ecosystem spans hardware OEMs, cloud providers, network carriers, and technology platforms - giving you vendor-neutral recommendations backed by real procurement leverage.</p>
 
-      <div class="partners-grid">
-        <div class="partner-logo-card" id="partner-dell">
-          <span class="partner-name">Dell Technologies</span>
-          <span class="partner-type">Hardware OEM</span>
-        </div>
-        <div class="partner-logo-card" id="partner-arista">
-          <span class="partner-name">Arista Networks</span>
-          <span class="partner-type">Networking</span>
-        </div>
-        <div class="partner-logo-card" id="partner-aws">
-          <span class="partner-name">Amazon Web Services</span>
-          <span class="partner-type">Cloud Platform</span>
-        </div>
-        <div class="partner-logo-card" id="partner-azure">
-          <span class="partner-name">Microsoft Azure</span>
-          <span class="partner-type">Cloud Platform</span>
-        </div>
-        <div class="partner-logo-card" id="partner-gcp">
-          <span class="partner-name">Google Cloud</span>
-          <span class="partner-type">Cloud Platform</span>
-        </div>
-        <div class="partner-logo-card" id="partner-nvidia">
-          <span class="partner-name">NVIDIA</span>
-          <span class="partner-type">GPU & AI</span>
-        </div>
-        <div class="partner-logo-card" id="partner-cisco">
-          <span class="partner-name">Cisco Systems</span>
-          <span class="partner-type">Enterprise Networking</span>
-        </div>
-        <div class="partner-logo-card" id="partner-netapp">
-          <span class="partner-name">NetApp</span>
-          <span class="partner-type">Storage</span>
+      <!-- Auto-scrolling logo marquee. The logo set is rendered twice back-to-back so the
+           CSS translateX(-50%) loop is seamless; the second set is hidden from assistive tech. -->
+      <div class="partners-marquee" role="list" aria-label="Strategic technology partners">
+        <div class="partners-track">
+
+          <!-- ===== Logo set (accessible) ===== -->
+          <div class="partner-logo" role="listitem" title="Dell Technologies">
+            <span class="pl-word pl-dell">DELL</span>
+            <span class="pl-tag">Technologies</span>
+          </div>
+          <div class="partner-logo" role="listitem" title="Arista Networks">
+            <span class="pl-word pl-arista">ARISTA</span>
+          </div>
+          <div class="partner-logo" role="listitem" title="Amazon Web Services">
+            <span class="pl-aws-lockup">
+              <span class="pl-word pl-aws">aws</span>
+              <svg class="pl-aws-smile" viewBox="0 0 50 13" fill="none" aria-hidden="true">
+                <path d="M3 4 C 15 13, 33 13, 47 5" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M42 2.2 L47.6 5 L43.4 9.6" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="partner-logo" role="listitem" title="Microsoft Azure">
+            <svg class="pl-mark" width="26" height="26" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M17 5 L30 34 L14 34 Z" fill="#0A7BD4"/>
+              <path d="M12 18 L22 34 L3 34 Z" fill="#3AB0E6"/>
+            </svg>
+            <span class="pl-word pl-azure">Azure</span>
+          </div>
+          <div class="partner-logo" role="listitem" title="Google Cloud">
+            <span class="pl-word pl-google"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span>
+            <span class="pl-tag pl-google-cloud">Cloud</span>
+          </div>
+          <div class="partner-logo" role="listitem" title="NVIDIA">
+            <span class="pl-word pl-nvidia">NVIDIA</span>
+          </div>
+          <div class="partner-logo" role="listitem" title="Cisco Systems">
+            <svg class="pl-mark" width="50" height="26" viewBox="0 0 50 24" fill="#00A0D6" aria-hidden="true">
+              <rect x="0"  y="13" width="2.6" height="9"  rx="1.3"/>
+              <rect x="7"  y="7"  width="2.6" height="15" rx="1.3"/>
+              <rect x="14" y="1"  width="2.6" height="21" rx="1.3"/>
+              <rect x="21" y="7"  width="2.6" height="15" rx="1.3"/>
+              <rect x="28" y="1"  width="2.6" height="21" rx="1.3"/>
+              <rect x="35" y="7"  width="2.6" height="15" rx="1.3"/>
+              <rect x="44" y="13" width="2.6" height="9"  rx="1.3"/>
+            </svg>
+            <span class="pl-word pl-cisco">cisco</span>
+          </div>
+          <div class="partner-logo" role="listitem" title="NetApp">
+            <span class="pl-word pl-netapp">NetApp</span>
+          </div>
+
+          <!-- ===== Duplicate set (aria-hidden, purely for the seamless loop) ===== -->
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <span class="pl-word pl-dell">DELL</span>
+            <span class="pl-tag">Technologies</span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <span class="pl-word pl-arista">ARISTA</span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <span class="pl-aws-lockup">
+              <span class="pl-word pl-aws">aws</span>
+              <svg class="pl-aws-smile" viewBox="0 0 50 13" fill="none" aria-hidden="true">
+                <path d="M3 4 C 15 13, 33 13, 47 5" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M42 2.2 L47.6 5 L43.4 9.6" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <svg class="pl-mark" width="26" height="26" viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M17 5 L30 34 L14 34 Z" fill="#0A7BD4"/>
+              <path d="M12 18 L22 34 L3 34 Z" fill="#3AB0E6"/>
+            </svg>
+            <span class="pl-word pl-azure">Azure</span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <span class="pl-word pl-google"><span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span></span>
+            <span class="pl-tag pl-google-cloud">Cloud</span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <span class="pl-word pl-nvidia">NVIDIA</span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <svg class="pl-mark" width="50" height="26" viewBox="0 0 50 24" fill="#00A0D6" aria-hidden="true">
+              <rect x="0"  y="13" width="2.6" height="9"  rx="1.3"/>
+              <rect x="7"  y="7"  width="2.6" height="15" rx="1.3"/>
+              <rect x="14" y="1"  width="2.6" height="21" rx="1.3"/>
+              <rect x="21" y="7"  width="2.6" height="15" rx="1.3"/>
+              <rect x="28" y="1"  width="2.6" height="21" rx="1.3"/>
+              <rect x="35" y="7"  width="2.6" height="15" rx="1.3"/>
+              <rect x="44" y="13" width="2.6" height="9"  rx="1.3"/>
+            </svg>
+            <span class="pl-word pl-cisco">cisco</span>
+          </div>
+          <div class="partner-logo partner-logo--dup" aria-hidden="true">
+            <span class="pl-word pl-netapp">NetApp</span>
+          </div>
+
         </div>
       </div>
     </div>
