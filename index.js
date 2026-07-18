@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const handleScroll = () => {
     // Shrink the header once the page is scrolled
-    header.classList.toggle('header-scrolled', window.scrollY > 20);
+    if (header) header.classList.toggle('header-scrolled', window.scrollY > 20);
 
     // Highlight the nav link for the section currently in view
     let current = '';
@@ -287,8 +287,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const name = document.getElementById('inquiry-name').value;
-      const email = document.getElementById('inquiry-email').value;
+      const name = document.getElementById('inquiry-name')?.value || '';
+      const email = document.getElementById('inquiry-email')?.value || '';
 
       setLoading(true);
       window.setTimeout(() => {

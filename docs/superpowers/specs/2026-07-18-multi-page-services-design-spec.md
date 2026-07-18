@@ -43,7 +43,7 @@ Each new page will contain:
 *   A bold, high-contrast Outfit heading.
 *   A concise, 2-line service value proposition description.
 *   Two buttons:
-    1.  **Primary CTA:** Link back to the inquiry form with a pre-population query parameter (e.g., `index.html#inquiry?service=ip-transit`).
+    1.  **Primary CTA:** Link back to the inquiry form with a pre-population query parameter (e.g., `index.html?service=ip-transit#inquiry`).
     2.  **Secondary Action:** Smooth scroll link to the Technical Specifications section (e.g., `href="#specs"`).
 
 ### C. Technical Specifications Grid

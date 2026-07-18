@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const parseQuery = (search) => {
   const params = new URLSearchParams(search);
   const service = params.get('service');
