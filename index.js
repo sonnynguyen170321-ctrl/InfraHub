@@ -311,5 +311,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Parse URL parameter to auto-select and focus the Inquiry Use Case
+  const queryParams = new URLSearchParams(window.location.search);
+  const serviceParam = queryParams.get('service');
+  if (serviceParam) {
+    const useCaseSelect = document.getElementById('inquiry-use-case');
+    if (useCaseSelect) {
+      const mapping = {
+        'ip-transit': 'bandwidth',
+        'ddos-protection': 'security',
+        'wavelengths': 'bandwidth',
+        'cloud-connectivity': 'multi-cloud',
+        'colocation': 'colocation',
+        'managed-noc': 'other'
+      };
+      const mappedValue = mapping[serviceParam];
+      if (mappedValue) {
+        useCaseSelect.value = mappedValue;
+        useCaseSelect.classList.add('highlight-select');
+        setTimeout(() => useCaseSelect.classList.remove('highlight-select'), 2000);
+      }
+    }
+  }
 
 });

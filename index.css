@@ -3651,3 +3651,9 @@ img {
     font-size: 0.75rem;
   }
 }
+
+.highlight-select {
+  border-color: var(--accent-teal) !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15) !important;
+  transition: all 0.5s ease-in-out;
+}
