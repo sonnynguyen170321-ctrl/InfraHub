@@ -1,540 +1,638 @@
 ---
 // src/components/EcosystemSolutions.astro
-const partners = [
-  { name: "FastNetMon", tag: "DDoS Telemetry", slug: "fastnetmon" },
-  { name: "Zenlayer", tag: "Global Edge & Compute", slug: "zenlayer" },
-  { name: "Gcore", tag: "Edge Cloud & AI", slug: "gcore" },
-  { name: "Vates", tag: "Open Virtualization", slug: "vates" },
-  { name: "StormWall", tag: "Cloud Scrubbing", slug: "stormwall" },
-  { name: "ITcare", tag: "Managed Operations", slug: "itcare" },
-  { name: "Supertrace", tag: "Route Intelligence", slug: "supertrace" },
-  { name: "IPXO", tag: "IPv4 Solutions", slug: "ipxo" }
-];
-
-const families = [
+const solutionFamilies = [
   {
     id: "infrastructure",
+    number: "01",
     name: "Infrastructure",
-    tagline: "Dedicated Servers, Custom IaaS, GPU Clusters & Colocation",
-    description: "High-density single-tenant compute, custom VoIP/financial hardware architectures, enterprise chassis sourcing, and carrier-neutral colocation halls across Tier-3+ facilities.",
+    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade certified hardware.",
     image: "/images/hero-datacenter.jpg",
-    subServices: [
-      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "Single-tenant bare metal compute in EU, US, and APAC" },
-      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored server + network stacks with bespoke AS routing" },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "NVIDIA H100/A100 training and inference clusters" },
-      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Certified refurbished Dell PowerEdge & Supermicro" },
-      { name: "Colocation Sourcing", url: "/colocation", desc: "High-density racks (5kW to 40kW+) in major MMRs" }
-    ],
-    ctaUrl: "/solutions/infrastructure",
-    ctaLabel: "Explore Infrastructure Solutions"
+    imageAlt: "Enterprise datacenter server racks with precision cooling",
+    ctaLink: "/solutions/infrastructure",
+    services: [
+      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom storage & RAM" },
+      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare metal clusters & dedicated hypervisors" },
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "NVIDIA H100 / L40S clusters for inference & training" },
+      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Dell, HPE, Cisco servers & optics with full warranty" },
+      { name: "Colocation", url: "/colocation", desc: "Fractional racks, private cages, and wholesale suites" }
+    ]
   },
   {
-    id: "cloud-virtualization",
+    id: "cloud",
+    number: "02",
     name: "Cloud & Virtualization",
-    tagline: "Private Clouds, VMware Alternatives & Sovereign Stacks",
-    description: "Architectural evaluation and migration paths away from proprietary hypervisor licensing. Enterprise private cloud deployments, KVM, Proxmox, and Vates (XCP-ng).",
-    image: "/images/network-fiber.jpg",
-    subServices: [
-      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Vates XCP-ng & Proxmox migration frameworks" },
-      { name: "Private Cloud", url: "/private-cloud", desc: "Sovereign, GDPR-compliant dedicated hypervisors" },
-      { name: "Kubernetes & Bare Metal", url: "/solutions/cloud-virtualization", desc: "Container control planes on dedicated compute" },
-      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Warm standby and cross-facility SAN replication" }
-    ],
-    ctaUrl: "/solutions/cloud-virtualization",
-    ctaLabel: "Explore Cloud & Virtualization"
+    summary: "Sovereign European private clouds, VMware licensing alternatives, managed Kubernetes, and multi-region failover.",
+    image: "/images/hero-datacenter.jpg",
+    imageAlt: "Private cloud virtualization hypervisors and storage pools",
+    ctaLink: "/solutions/cloud-virtualization",
+    services: [
+      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated sovereign hypervisors with predictable OpEx" },
+      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates migration paths" },
+      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Direct enterprise interconnects to AWS, Azure, and GCP" },
+      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Replication and automated failover architectures" }
+    ]
   },
   {
-    id: "network-connectivity",
+    id: "network",
+    number: "03",
     name: "Network & Connectivity",
-    tagline: "IP Transit, Wavelengths, Layer 2 & Cloud Interconnects",
-    description: "Upstream Tier-1 transit, dedicated lit DWDM optical wavelengths, cross-connects into major exchange points, and clean IPv4 subnet allocations.",
+    summary: "Upstream Tier-1 IP Transit, dedicated dark fiber wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
     image: "/images/network-fiber.jpg",
-    subServices: [
-      { name: "IP Transit", url: "/ip-transit", desc: "10G–400G ports with 95th percentile burst formulas" },
-      { name: "Wavelengths", url: "/wavelengths", desc: "Lit DWDM optical circuits with verified path diversity" },
-      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Direct private links to AWS, Azure, and Google Cloud" },
-      { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private point-to-point Ethernet and metro interconnect" },
-      { name: "IPv4 Solutions", url: "/ipv4", desc: "Clean /24 to /20 subnet leasing with instant LOA" }
-    ],
-    ctaUrl: "/solutions/network-connectivity",
-    ctaLabel: "Explore Network & Connectivity"
+    imageAlt: "High-density optical fiber patch panel and LC transceivers",
+    ctaLink: "/solutions/network-connectivity",
+    services: [
+      { name: "IP Transit", url: "/ip-transit", desc: "Tier-1 BGP bandwidth with burstable 95th percentile" },
+      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated 10G to 400G point-to-point optical lit waves" },
+      { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro DCI interconnects" },
+      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Carrier-grade private bypass to hyperscaler cloud ramps" },
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "Clean, verified /24 to /16 ARIN and RIPE allocations" }
+    ]
   },
   {
     id: "security",
-    name: "Security & Protection",
-    tagline: "DDoS Cloud Scrubbing, Flow Telemetry & Routing Defense",
-    description: "Defend your Autonomous System from volumetric attacks and route leaks. Sub-second automated flow analysis, BGP FlowSpec, and multi-Tbps scrubbing capacity.",
-    image: "/images/hero-datacenter.jpg",
-    subServices: [
-      { name: "DDoS Cloud Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand BGP traffic diversion" },
-      { name: "Flow Detection & Automation", url: "/ddos-detection-automation", desc: "FastNetMon Advanced with automated RTBH triggers" },
-      { name: "BGP Routing Intelligence", url: "/bgp-routing-intelligence", desc: "RPKI ROA validation and AS-path monitoring" },
-      { name: "Cybersecurity & Audits", url: "/cybersecurity", desc: "External penetration testing and perimeter hardening" }
-    ],
-    ctaUrl: "/solutions/security",
-    ctaLabel: "Explore Security Solutions"
+    number: "04",
+    name: "Security",
+    summary: "Tbps-scale DDoS mitigation, real-time BGP telemetry, automated flow filtering, and edge web protection.",
+    image: "/images/network-fiber.jpg",
+    imageAlt: "Network operations security monitoring console",
+    ctaLink: "/solutions/security",
+    services: [
+      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand multiterabit traffic scrubbing" },
+      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon real-time FlowSpec & BGP blackholing" },
+      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Automated latency optimization & path telemetry" },
+      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "WAF, perimeter defense, and managed SOC capabilities" }
+    ]
   },
   {
-    id: "managed-services",
+    id: "managed",
+    number: "05",
     name: "Managed Services",
-    tagline: "24/7 NOC, AI Network Operations & Systems Engineering",
-    description: "Extend your engineering capacity with 24/7 incident response, alert clustering, proactive transit monitoring, and automated operational runbooks.",
+    summary: "Round-the-clock Tier 1–3 network operations, automated incident triage, BGP engineering, and infrastructure desks.",
     image: "/images/hero-datacenter.jpg",
-    subServices: [
-      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous Tier 1–3 triage and incident remediation" },
-      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Machine learning noise reduction and correlation" },
-      { name: "BGP Routing Design", url: "/solutions/managed-services", desc: "Carrier multi-homing and traffic engineering" },
-      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "IaC pipelines with Ansible, Terraform, and NetBox" }
-    ],
-    ctaUrl: "/solutions/managed-services",
-    ctaLabel: "Explore Managed Operations"
+    imageAlt: "Network engineering operations control room",
+    ctaLink: "/solutions/managed-services",
+    services: [
+      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring with sub-5 minute escalation SLA" },
+      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated incident dispatch" },
+      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP tuning, hardware provisioning, and rack cabling" },
+      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Ansible, Terraform, and NetBox workflow pipelines" }
+    ]
   }
 ];
 ---
 
-<section class="section section-ecosystem" id="solutions-ecosystem">
+<section class="section section-solutions" id="solutions-ecosystem">
   <div class="container">
-    <!-- Part A: Restrained Ecosystem Strip -->
-    <div class="ecosystem-strip">
-      <div class="strip-label">
-        <span class="strip-tag">OUR ECOSYSTEM</span>
-        <span class="strip-sub">Specialist Infrastructure & Technology Partners</span>
-      </div>
-      <div class="partners-rail">
-        {partners.map(p => (
-          <a href={`/partners/${p.slug}`} class="partner-chip" title={`${p.name} — ${p.tag}`}>
-            <span class="p-name">{p.name}</span>
-            <span class="p-tag">{p.tag}</span>
-          </a>
+    <!-- Header -->
+    <div class="solutions-header">
+      <span class="solutions-kicker">SOLUTION DISCOVERY</span>
+      <h2 class="solutions-title">Start with the requirement.</h2>
+      <p class="solutions-subhead">
+        You do not need the provider or product figured out first. Explore by discipline or discuss your operational constraints directly with our advisory desk.
+      </p>
+    </div>
+
+    <!-- Desktop 3-Column Interactive Console -->
+    <div class="console-desktop" id="solutionConsole">
+      <!-- Col 1: Family Tabs -->
+      <nav class="console-nav" aria-label="Solution Categories">
+        {solutionFamilies.map((family, idx) => (
+          <button 
+            type="button"
+            class={`nav-tab-btn ${idx === 0 ? 'active' : ''}`}
+            data-target={family.id}
+            id={`tab-${family.id}`}
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            role="tab"
+          >
+            <span class="tab-num">{family.number}</span>
+            <div class="tab-text-wrap">
+              <span class="tab-name">{family.name}</span>
+            </div>
+            <svg class="tab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        ))}
+      </nav>
+
+      <!-- Col 2 & 3: Panels -->
+      <div class="console-stage">
+        {solutionFamilies.map((family, idx) => (
+          <div 
+            class={`solution-panel ${idx === 0 ? 'active' : ''}`}
+            id={`panel-${family.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${family.id}`}
+          >
+            <!-- Center Visual -->
+            <div class="panel-visual">
+              <img 
+                src={family.image} 
+                alt={family.imageAlt}
+                class="panel-img"
+                loading="lazy"
+                width="600"
+                height="450"
+              />
+              <div class="panel-visual-overlay">
+                <span class="visual-category">{family.name}</span>
+              </div>
+            </div>
+
+            <!-- Right Content -->
+            <div class="panel-content">
+              <div class="panel-summary-block">
+                <h3 class="panel-family-name">{family.name}</h3>
+                <p class="panel-narrative">{family.summary}</p>
+              </div>
+
+              <div class="panel-services-block">
+                <span class="services-block-label">Relevant Services</span>
+                <ul class="panel-services-list">
+                  {family.services.map(s => (
+                    <li class="service-item">
+                      <a href={s.url} class="service-link">
+                        <span class="s-name">{s.name}</span>
+                        <span class="s-desc">{s.desc}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="panel-footer">
+                <a href={family.ctaLink} class="btn-panel-cta">
+                  <span>Explore All {family.name} Solutions</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
 
-    <!-- Part B: Interactive 5-Family Solution Explorer -->
-    <div class="explorer-wrapper">
-      <div class="section-lead text-left">
-        <span class="mono-kicker">SOLUTION FAMILIES</span>
-        <h2 class="explorer-headline">Comprehensive infrastructure sourcing across five core domains.</h2>
-      </div>
-
-      <div class="selector-console" id="solution-console">
-        <!-- Column 1: Five Category Tabs -->
-        <nav class="selector-nav" role="tablist" aria-label="Infrastructure Solution Families">
-          {families.map((fam, idx) => (
-            <button
-              class={`family-tab ${idx === 0 ? 'is-active' : ''}`}
-              role="tab"
-              id={`fam-tab-${fam.id}`}
-              aria-selected={idx === 0 ? "true" : "false"}
-              aria-controls={`fam-panel-${fam.id}`}
-              data-family={fam.id}
-            >
-              <span class="tab-index">{String(idx + 1).padStart(2, '0')}</span>
-              <span class="tab-label">{fam.name}</span>
-              <svg class="tab-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </button>
-          ))}
-        </nav>
-
-        <!-- Columns 2 & 3: Active Family Detail (Center: Visual, Right: Scope & Sub-services) -->
-        <div class="selector-panels">
-          {families.map((fam, idx) => (
-            <div
-              class={`family-panel ${idx === 0 ? 'is-active' : ''}`}
-              id={`fam-panel-${fam.id}`}
-              role="tabpanel"
-              aria-labelledby={`fam-tab-${fam.id}`}
-            >
-              <!-- Center Column: Contextual Visual -->
-              <div class="panel-visual">
-                <img 
-                  src={fam.image} 
-                  alt={`${fam.name} Infrastructure`} 
-                  class="panel-img"
-                  loading="lazy"
-                  width="720"
-                  height="450"
-                />
-                <div class="panel-visual-overlay">
-                  <span class="visual-badge">{fam.name.toUpperCase()}</span>
-                </div>
-              </div>
-
-              <!-- Right Column: Description & Sub-services -->
-              <div class="panel-details">
-                <div class="panel-header">
-                  <h3 class="panel-title">{fam.tagline}</h3>
-                  <p class="panel-desc">{fam.description}</p>
-                </div>
-
-                <div class="panel-services-list">
-                  <span class="services-list-title">SPECIALIST CAPABILITIES</span>
-                  <ul class="services-ul">
-                    {fam.subServices.map(sub => (
-                      <li class="service-li">
-                        <a href={sub.url} class="service-link">
-                          <span class="service-name">{sub.name}</span>
-                          <span class="service-desc">{sub.desc}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div class="panel-cta-wrap">
-                  <a href={fam.ctaUrl} class="btn btn-accent btn-sm">
-                    <span>{fam.ctaLabel}</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+    <!-- Mobile Accordion View -->
+    <div class="accordion-mobile" id="solutionAccordion">
+      {solutionFamilies.map((family, idx) => (
+        <div class="acc-item">
+          <button 
+            type="button" 
+            class={`acc-trigger ${idx === 0 ? 'active' : ''}`}
+            aria-expanded={idx === 0 ? 'true' : 'false'}
+            data-acc-target={family.id}
+          >
+            <div class="acc-title-wrap">
+              <span class="acc-num">{family.number}</span>
+              <span class="acc-name">{family.name}</span>
             </div>
-          ))}
+            <svg class="acc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div class={`acc-content ${idx === 0 ? 'open' : ''}`} id={`acc-${family.id}`}>
+            <p class="acc-narrative">{family.summary}</p>
+            <ul class="acc-services">
+              {family.services.map(s => (
+                <li>
+                  <a href={s.url} class="acc-service-link">
+                    <span class="acc-s-name">{s.name}</span>
+                    <span class="acc-s-desc">{s.desc}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href={family.ctaLink} class="btn-acc-cta">
+              <span>View {family.name} Solutions</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
 
+<script is:inline>
+  // Interactive Console Switcher
+  const buttons = document.querySelectorAll('.nav-tab-btn');
+  const panels = document.querySelectorAll('.solution-panel');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      
+      buttons.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(p => {
+        p.classList.remove('active');
+      });
+
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      const targetPanel = document.getElementById(`panel-${targetId}`);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+    });
+  });
+
+  // Mobile Accordion
+  const accTriggers = document.querySelectorAll('.acc-trigger');
+  accTriggers.forEach(trig => {
+    trig.addEventListener('click', () => {
+      const targetId = trig.getAttribute('data-acc-target');
+      const content = document.getElementById(`acc-${targetId}`);
+      const isExpanded = trig.getAttribute('aria-expanded') === 'true';
+
+      // Close all
+      accTriggers.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-expanded', 'false');
+      });
+      document.querySelectorAll('.acc-content').forEach(c => {
+        c.classList.remove('open');
+      });
+
+      // Toggle clicked if it was closed
+      if (!isExpanded && content) {
+        trig.classList.add('active');
+        trig.setAttribute('aria-expanded', 'true');
+        content.classList.add('open');
+      }
+    });
+  });
+</script>
+
 <style>
-  .section-ecosystem {
+  .section-solutions {
     background-color: #ffffff;
-    padding: 72px 0 88px;
+    padding: 96px 0;
     border-bottom: 1px solid var(--border-color);
   }
 
-  /* Ecosystem Strip */
-  .ecosystem-strip {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid var(--border-color);
+  /* Header */
+  .solutions-header {
+    max-width: 780px;
     margin-bottom: 56px;
-  }
-  @media (min-width: 1024px) {
-    .ecosystem-strip {
-      flex-direction: row;
-      align-items: center;
-      gap: 32px;
-    }
-  }
-
-  .strip-label {
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 12px;
   }
-  .strip-tag {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+  .solutions-kicker {
+    font-size: 0.74rem;
     font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: 0.1em;
-  }
-  .strip-sub {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .partners-rail {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-  }
-  .partner-chip {
-    display: inline-flex;
-    flex-direction: column;
-    padding: 6px 12px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    transition: var(--transition-fast);
-  }
-  .partner-chip:hover {
-    border-color: var(--accent-blue);
-    background-color: var(--bg-primary);
-    transform: translateY(-1px);
-  }
-  .p-name {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    line-height: 1.2;
-  }
-  .p-tag {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    letter-spacing: 0.02em;
-  }
-
-  /* Solution Explorer Lead */
-  .explorer-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-  }
-  .mono-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
     color: var(--accent-blue);
-    letter-spacing: 0.1em;
-    font-weight: 700;
-    display: block;
-    margin-bottom: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
-  .explorer-headline {
-    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  .solutions-title {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
     font-weight: 800;
     line-height: 1.15;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
     color: var(--text-primary);
-    max-width: 800px;
+  }
+  .solutions-subhead {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
   }
 
-  /* Console Layout: Left Nav + Detail Panels */
-  .selector-console {
+  /* Desktop Console (3-Column Layout) */
+  .console-desktop {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    background-color: #ffffff;
-    box-shadow: var(--shadow-md);
     overflow: hidden;
-  }
-  @media (min-width: 1024px) {
-    .selector-console {
-      grid-template-columns: 280px 1fr;
-    }
+    box-shadow: var(--shadow-sm);
   }
 
-  /* Nav Tabs */
-  .selector-nav {
+  /* Nav Column */
+  .console-nav {
     display: flex;
     flex-direction: column;
     background-color: var(--bg-secondary);
     border-right: 1px solid var(--border-color);
   }
-  .family-tab {
+  .nav-tab-btn {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 20px 24px;
+    padding: 22px 20px;
     text-align: left;
     background: none;
     border: none;
     border-bottom: 1px solid var(--border-color);
     cursor: pointer;
     transition: var(--transition-fast);
-    position: relative;
+    width: 100%;
   }
-  .family-tab:last-child {
+  .nav-tab-btn:last-child {
     border-bottom: none;
   }
-  .family-tab:hover {
+  .nav-tab-btn:hover {
     background-color: #ffffff;
   }
-  .family-tab.is-active {
+  .nav-tab-btn.active {
     background-color: #ffffff;
-  }
-  .family-tab.is-active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: var(--accent-blue);
+    border-left: 3px solid var(--accent-blue);
   }
 
-  .tab-index {
+  .tab-num {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.76rem;
+    font-weight: 700;
     color: var(--text-muted);
-    font-weight: 600;
   }
-  .family-tab.is-active .tab-index {
+  .nav-tab-btn.active .tab-num {
     color: var(--accent-blue);
   }
 
-  .tab-label {
+  .tab-text-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .tab-name {
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--text-primary);
-    flex-grow: 1;
   }
+  .nav-tab-btn.active .tab-name {
+    color: var(--accent-blue);
+  }
+
   .tab-arrow {
     color: var(--text-muted);
     transition: transform 0.2s ease;
   }
-  .family-tab.is-active .tab-arrow {
+  .nav-tab-btn.active .tab-arrow {
     color: var(--accent-blue);
     transform: translateX(3px);
   }
 
-  /* Panels Container */
-  .selector-panels {
+  /* Console Stage & Panels */
+  .console-stage {
     position: relative;
     background-color: #ffffff;
+    min-height: 480px;
   }
-  .family-panel {
+  .solution-panel {
     display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 32px;
+    height: 100%;
   }
-  .family-panel.is-active {
+  .solution-panel.active {
     display: grid;
-    grid-template-columns: 1fr;
+    animation: fadeIn 0.25s ease forwards;
   }
-  @media (min-width: 1024px) {
-    .family-panel.is-active {
-      grid-template-columns: 1.05fr 1fr;
-      min-height: 480px;
-    }
+  @keyframes fadeIn {
+    from { opacity: 0.4; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* Visual Column */
   .panel-visual {
     position: relative;
+    border-radius: var(--radius-md);
     overflow: hidden;
     background-color: #0b1120;
-    min-height: 240px;
+    aspect-ratio: 4 / 3;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
   .panel-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.8) contrast(1.1);
+    filter: brightness(0.85);
   }
   .panel-visual-overlay {
     position: absolute;
-    bottom: 16px;
-    left: 16px;
-  }
-  .visual-badge {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    bottom: 12px;
+    left: 12px;
     background: rgba(15, 23, 42, 0.85);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 5px 10px;
+    padding: 4px 10px;
     border-radius: var(--radius-sm);
-    backdrop-filter: blur(4px);
+  }
+  .visual-category {
+    font-size: 0.72rem;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.06em;
   }
 
-  /* Details Column */
-  .panel-details {
-    padding: 36px 32px;
+  /* Content Column */
+  .panel-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
   }
-  .panel-header {
+  .panel-summary-block {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .panel-title {
-    font-size: 1.25rem;
+  .panel-family-name {
+    font-size: 1.4rem;
     font-weight: 800;
-    line-height: 1.25;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
   }
-  .panel-desc {
-    font-size: 0.9rem;
+  .panel-narrative {
+    font-size: 0.92rem;
     color: var(--text-secondary);
     line-height: 1.55;
   }
 
-  .panel-services-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .services-list-title {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-  }
-  .services-ul {
-    list-style: none;
+  .panel-services-block {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .service-li {
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 8px;
+  .services-block-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
-  .service-li:last-child {
+  .panel-services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .service-item {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 6px;
+  }
+  .service-item:last-child {
     border-bottom: none;
     padding-bottom: 0;
   }
   .service-link {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 1px;
+    text-decoration: none;
+    transition: var(--transition-fast);
   }
-  .service-link:hover .service-name {
-    color: var(--accent-blue);
-  }
-  .service-name {
+  .s-name {
     font-size: 0.88rem;
     font-weight: 700;
     color: var(--text-primary);
-    transition: color 0.15s ease;
   }
-  .service-desc {
-    font-size: 0.78rem;
+  .service-link:hover .s-name {
+    color: var(--accent-blue);
+  }
+  .s-desc {
+    font-size: 0.76rem;
     color: var(--text-muted);
   }
 
-  .panel-cta-wrap {
-    padding-top: 12px;
+  .btn-panel-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    padding: 10px 0;
+    transition: var(--transition-fast);
+  }
+  .btn-panel-cta:hover {
+    color: var(--accent-blue-hover);
+  }
+
+  /* Mobile Accordion */
+  .accordion-mobile {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .console-desktop {
+      display: none;
+    }
+    .accordion-mobile {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .acc-item {
+      border-bottom: 1px solid var(--border-color);
+    }
+    .acc-item:last-child {
+      border-bottom: none;
+    }
+    .acc-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 18px 20px;
+      background-color: #ffffff;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .acc-trigger.active {
+      background-color: var(--bg-secondary);
+      border-left: 3px solid var(--accent-blue);
+    }
+    .acc-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .acc-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+    }
+    .acc-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .acc-icon {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+    .acc-trigger.active .acc-icon {
+      transform: rotate(180deg);
+      color: var(--accent-blue);
+    }
+
+    .acc-content {
+      display: none;
+      padding: 20px;
+      background-color: #ffffff;
+      border-top: 1px solid var(--border-color);
+    }
+    .acc-content.open {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .acc-narrative {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .acc-services {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .acc-service-link {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .acc-s-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .acc-s-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .btn-acc-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-top: 4px;
+    }
   }
 </style>
-
-<script>
-  function initSelector() {
-    const tabs = document.querySelectorAll('.family-tab');
-    const panels = document.querySelectorAll('.family-panel');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const familyId = tab.getAttribute('data-family');
-
-        tabs.forEach(t => {
-          t.classList.remove('is-active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        panels.forEach(p => p.classList.remove('is-active'));
-
-        tab.classList.add('is-active');
-        tab.setAttribute('aria-selected', 'true');
-
-        const activePanel = document.getElementById(`fam-panel-${familyId}`);
-        if (activePanel) {
-          activePanel.classList.add('is-active');
-        }
-      });
-    });
-  }
-
-  // Run on mount and page swap
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSelector);
-  } else {
-    initSelector();
-  }
-</script>
