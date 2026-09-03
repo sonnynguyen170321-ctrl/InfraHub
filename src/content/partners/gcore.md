@@ -1,21 +1,24 @@
 ---
 name: "Gcore"
-logo: "/images/partners/gcore.svg"
+officialWebsite: "https://gcore.com/"
+sourceUrls:
+  - "https://gcore.com/"
+  - "https://gcore.com/media-kit"
 category: "Infrastructure & Cloud"
-tagline: "Global Content Delivery, Edge Compute & GPU Infrastructure"
+tagline: "Cloud, Edge, AI Infrastructure & Security"
 capabilities:
-  - "Next-generation edge cloud spanning 160+ locations"
-  - "Specialized NVIDIA H100 / L40S GPU AI clusters"
-  - "Low-latency global CDN with live streaming optimization"
-  - "Built-in web application security and DDoS scrubbing"
+  - "Virtual machines, bare metal, storage, containers, databases, and cloud networking"
+  - "GPU Cloud, AI inference, and private AI cloud services"
+  - "CDN, DNS, streaming, and edge application delivery"
+  - "DDoS protection, WAF, and bot-management services"
 strategic: false
-verified: true
-shortRole: "Global Cloud, Edge & GPU Infrastructure"
+verified: false
+shortRole: "Cloud, Edge, AI & Security Platform"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "sourced"
+logoStatus: "missing"
 logoApproved: false
-capabilityClaimsStatus: "approved"
+capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
 relationshipConfirmed: true
@@ -28,4 +31,10 @@ logoScale: 1
 
 ## Gcore + InfraHub
 
-Gcore delivers hyperscale compute, GPU clusters, and high-throughput content acceleration across Europe, the Americas, and global hubs.
+Gcore provides cloud, edge-network, AI infrastructure, content delivery, and security services. Its portfolio spans compute and bare metal through CDN, streaming, DDoS protection, WAF, and GPU-based AI services.
+
+### Where it can fit
+Gcore can be relevant when a requirement combines infrastructure, distributed application delivery, AI compute, or network and application security across multiple regions.
+
+### How InfraHub can help
+InfraHub can help buyers compare Gcore against other infrastructure options based on workload, geography, connectivity, security requirements, and commercial constraints.
