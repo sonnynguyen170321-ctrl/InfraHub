@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout 
   title="DDoS Protection & Detection Sourcing | InfraHub"
-  description="Compare always-on cloud scrubbing, on-demand BGP diversion, FlowSpec telemetry, and FastNetMon automation across specialist DDoS mitigation partners."
+  description="Compare always-on cloud protection, on-demand BGP diversion, FastNetMon detection automation, and StormWall DDoS protection architectures."
   canonicalPath="/ddos-protection"
 >
   <div class="section section-hero network-overlay">
@@ -17,7 +17,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h1 class="service-title">Multi-Layer DDoS Protection & Detection</h1>
         <p class="service-lead">
-          Protect your infrastructure from volumetric floods, state-exhaustion attacks, and application-layer exploits. We evaluate cloud scrubbing centers, on-premise virtual appliances, and automated BGP FlowSpec diversion architectures.
+          Evaluate network-layer detection, BGP-based traffic diversion, external cloud scrubbing, and web-application protection as separate parts of a DDoS architecture. InfraHub helps clarify which controls fit the traffic profile, network design, and operational model before introducing a specialist provider.
         </p>
         <div class="service-hero-actions">
           <a href="/lets-talk?service=ddos-protection" class="btn btn-accent btn-lg">Request DDoS Evaluation</a>
@@ -25,47 +25,45 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <!-- Architectural Comparison -->
       <div class="content-section" id="architectures">
         <span class="section-sub-tag">Mitigation Models</span>
-        <h2>Available DDoS Defense Architectures</h2>
+        <h2>Common DDoS Defense Architectures</h2>
         <div class="architecture-grid">
           <div class="arch-card">
             <span class="arch-pill">Cloud Scrubbing</span>
-            <h3>Always-On BGP Diversion</h3>
-            <p>All traffic permanently routes through a global scrubbing center network before clean packets are delivered via GRE tunnel or direct cross-connect.</p>
+            <h3>Always-On Diversion</h3>
+            <p>Traffic is continuously routed through a protection provider so malicious traffic can be filtered before clean traffic is returned to the protected network or application.</p>
             <ul class="arch-points">
-              <li><strong>Reaction:</strong> Zero-second latency spike; attacks absorbed instantly</li>
-              <li><strong>Trade-off:</strong> Slight continuous latency overhead (5-20ms depending on scrubbing PoP proximity)</li>
-              <li><strong>Best for:</strong> Mission-critical financial APIs, VoIP platforms, and high-frequency gaming</li>
+              <li><strong>Consider:</strong> scrubbing location, return path, latency, and capacity model</li>
+              <li><strong>Trade-off:</strong> protection is continuously in path rather than activated only during an incident</li>
+              <li><strong>Fits:</strong> services where continuous upstream protection is preferred</li>
             </ul>
           </div>
 
           <div class="arch-card">
             <span class="arch-pill">On-Demand</span>
-            <h3>BGP Route Announcement Diversion</h3>
-            <p>Traffic flows normally during peace time. When telemetry detects an attack threshold breach, BGP routes are announced to the scrubbing center.</p>
+            <h3>BGP Route Diversion</h3>
+            <p>Traffic follows its normal path until an incident triggers route changes that divert affected prefixes through external filtering infrastructure.</p>
             <ul class="arch-points">
-              <li><strong>Reaction:</strong> 60-120 seconds for global BGP convergence during initial diversion</li>
-              <li><strong>Trade-off:</strong> Zero added latency during peace time; significantly lower monthly operational cost</li>
-              <li><strong>Best for:</strong> Hosting providers, SaaS backends, and regional network operators</li>
+              <li><strong>Consider:</strong> detection trigger, routing convergence, tunnel or cross-connect return path</li>
+              <li><strong>Trade-off:</strong> the mitigation path must be activated and routing changes must propagate</li>
+              <li><strong>Fits:</strong> networks that want normal routing outside attack periods</li>
             </ul>
           </div>
 
           <div class="arch-card">
             <span class="arch-pill">Flow Telemetry</span>
-            <h3>Out-of-Band Detection (FastNetMon)</h3>
-            <p>Analyzes sFlow, NetFlow, or IPFIX telemetry from core routers. Automatically signals upstream routers using BGP FlowSpec or RTBH.</p>
+            <h3>Detection & Routing Automation</h3>
+            <p>Tools such as FastNetMon analyze live network telemetry and can trigger operator-defined FlowSpec, RTBH, or external scrubbing-diversion actions.</p>
             <ul class="arch-points">
-              <li><strong>Reaction:</strong> Sub-2-second detection and automated upstream rule injection</li>
-              <li><strong>Trade-off:</strong> Drops attack traffic; does not clean payload unless paired with a scrubbing center</li>
-              <li><strong>Best for:</strong> ISPs and network carriers defending backbone router links</li>
+              <li><strong>Consider:</strong> telemetry sources, thresholds, router support, and escalation policy</li>
+              <li><strong>Trade-off:</strong> detection and routing automation do not replace payload-cleaning capacity when scrubbing is required</li>
+              <li><strong>Fits:</strong> ISPs, hosting platforms, cloud operators, and other networks controlling their own routing policy</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <!-- Decision Matrix -->
       <div class="content-section">
         <span class="section-sub-tag">Decision Framework</span>
         <h2>Technical Decision Factors</h2>
@@ -75,65 +73,63 @@ import Layout from '../layouts/Layout.astro';
               <tr>
                 <th>Criteria</th>
                 <th>Consideration</th>
-                <th>Engineering Reality</th>
+                <th>Why It Matters</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Scrubbing Capacity</strong></td>
-                <td>Global Tbps capacity vs Regional PoP</td>
-                <td>Volumetric reflection attacks routinely top 1.5 Tbps. Local appliance mitigation collapses without upstream cloud absorption.</td>
+                <td>Provider capacity, location, and protected-traffic model</td>
+                <td>The protection path needs enough headroom for the attack profile without turning the buyer's own internet edge into the bottleneck.</td>
               </tr>
               <tr>
                 <td><strong>Return Traffic Path</strong></td>
-                <td>GRE Tunnel vs Cross-Connect vs Direct L2</td>
-                <td>GRE tunnels introduce MTU fragmentation (clamping required to 1476/1454). Dedicated cross-connects eliminate MTU issues.</td>
+                <td>GRE/IPIP tunnel, IX, direct connection, or other provider handoff</td>
+                <td>Return-path design affects routing, MTU planning, operational complexity, and where clean traffic rejoins the network.</td>
               </tr>
               <tr>
-                <td><strong>BGP FlowSpec Support</strong></td>
-                <td>RFC 5575 / RFC 8955 router compatibility</td>
-                <td>Allows surgical filtering of specific UDP ports or packet lengths upstream without blackholing the entire customer IP.</td>
+                <td><strong>BGP FlowSpec / RTBH</strong></td>
+                <td>Router compatibility and operator-defined policy</td>
+                <td>Routing-based controls can distribute targeted filters or blackhole routes without requiring every mitigation action to be performed manually.</td>
               </tr>
               <tr>
-                <td><strong>Application-Layer (L7)</strong></td>
-                <td>HTTPS flood mitigation & Challenge Pages</td>
-                <td>Requires TLS certificate termination at the scrubbing edge to inspect HTTP request headers and cookies.</td>
+                <td><strong>Application-Layer Protection</strong></td>
+                <td>Web proxying, WAF, bot controls, and TLS handling</td>
+                <td>Network-layer mitigation and web-application protection solve different problems and may need to be combined for internet-facing applications.</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Partner Integration -->
       <div class="content-section">
         <div class="infrahub-role-card">
           <span class="pill-badge badge-teal">Specialist Ecosystem</span>
-          <h2>Ecosystem Providers: FastNetMon & StormWall</h2>
+          <h2>FastNetMon & StormWall</h2>
           <p>
-            We partner with industry-leading mitigation and telemetry providers to deliver custom architectures tailored to your autonomous system:
+            These partners address different layers of the DDoS problem. InfraHub can help determine whether the requirement calls for detection automation, external mitigation capacity, web protection, or a combination.
           </p>
           <div class="role-points-grid">
             <div class="role-point">
-              <h3>FastNetMon Advanced</h3>
-              <p>Turnkey detection engine that monitors multi-100G networks with granular threshold alerts and automated mitigation scripts.</p>
+              <h3><a href="/partners/fastnetmon">FastNetMon</a></h3>
+              <p>Network-layer DDoS detection and mitigation control plane supporting operator-defined BGP FlowSpec, RTBH, and external scrubbing-diversion workflows.</p>
             </div>
             <div class="role-point">
-              <h3>StormWall Protection</h3>
-              <p>Enterprise cloud scrubbing network spanning European, North American, and Asian mitigation centers with SLA-backed guarantees.</p>
+              <h3><a href="/partners/stormwall">StormWall</a></h3>
+              <p>Cloud-based DDoS protection for networks, TCP/UDP services, and web applications, with BGP-based network protection plus WAF and antibot options.</p>
             </div>
             <div class="role-point">
-              <h3>Hybrid Architecture Sourcing</h3>
-              <p>Combine local FastNetMon flow detection with automated on-demand diversion to eliminate expensive continuous scrubbing fees.</p>
+              <h3>Combined Architecture</h3>
+              <p>A buyer may pair local or network-owned detection policy with external mitigation capacity when that separation fits its routing, operating, and commercial requirements.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- CTA -->
       <div class="service-footer-cta">
-        <h2>Protect Your Network Autonomous System</h2>
-        <p>Talk to our network security architects to review your telemetry and mitigation options.</p>
-        <a href="/lets-talk?service=ddos-protection" class="btn btn-accent btn-lg">Request Security Architecture Review</a>
+        <h2>Review Your DDoS Architecture</h2>
+        <p>Start with traffic profile, routing control, protected services, and the operational response you need.</p>
+        <a href="/lets-talk?service=ddos-protection" class="btn btn-accent btn-lg">Discuss DDoS Protection</a>
       </div>
     </div>
   </div>
@@ -171,6 +167,8 @@ import Layout from '../layouts/Layout.astro';
   @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
   .role-point { background-color: transparent; border: none; border-top: 1px solid rgba(255, 255, 255, 0.12); border-radius: 0; padding: 18px 0 0; }
   .role-point h3 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point h3 a { color: inherit; text-decoration: none; }
+  .role-point h3 a:hover { color: #93c5fd; }
   .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
 
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; border-top: 1px solid var(--border-color); }
