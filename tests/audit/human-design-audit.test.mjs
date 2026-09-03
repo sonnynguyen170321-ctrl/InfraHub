@@ -50,6 +50,20 @@ if (fs.existsSync(globalCssFile)) {
   } else {
     console.log('✓ Button glow shadows removed from stylesheet');
   }
+
+  // Check for overused AI fonts
+  if (css.includes("'Inter'") || css.includes("'Plus Jakarta Sans'")) {
+    errors.push(`Found overused AI template font in ${globalCssFile}. Use bespoke engineering typeface (e.g. Instrument Sans).`);
+  } else {
+    console.log('✓ Verified bespoke non-overused typography family (Instrument Sans)');
+  }
+
+  // Check that headings have relaxed line-height (no tight line height on cards)
+  if (css.includes('h3, h4, h5, h6 {\n  font-family: var(--font-heading);\n  color: var(--text-primary);\n  line-height: 1.2;')) {
+    errors.push(`Headings h3-h6 must not have tight line-height (1.2) in ${globalCssFile}. Use >= 1.4 for multi-line titles.`);
+  } else {
+    console.log('✓ Card titles and sub-headings have relaxed line-height (>= 1.4)');
+  }
 }
 
 // 3. Check Homepage rendered HTML for Eyebrow count
