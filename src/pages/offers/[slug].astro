@@ -13,6 +13,76 @@ export async function getStaticPaths() {
 
 const { offer } = Astro.props;
 const { Content } = await offer.render();
+
+const SITE = 'https://infrahub.tech';
+const offerUrl = `${SITE}/offers/${offer.slug}`;
+
+// Hardware is a Product; transit, colocation, scrubbing and the rest are Services. Branching
+// on the collection's own category keeps the markup describing what the thing actually is
+// rather than forcing everything into one shape.
+const isHardware = offer.data.category === 'hardware';
+
+// PRICE IS DELIBERATELY NOT EMITTED.
+//
+// Three separate reasons, any one of which is sufficient:
+//
+//   1. `verifiedPrice` is prose, not a number — "From €1,450/mo" is a lower bound and a
+//      billing period, not a price. Encoding it as schema.org `price` would be factually
+//      wrong even if the figure were confirmed.
+//   2. None of these figures is verified. docs/CLAIMS_REGISTER.md carries them as C-01 and
+//      C-06, state OWNER INPUT.
+//   3. Structured data is a machine-readable assertion that search engines may surface as a
+//      price. Publishing an unconfirmed figure in that form amplifies it rather than
+//      qualifying it.
+//
+// `availability` is omitted for the same class of reason: the project has no verified
+// inventory, and claiming stock is exactly what directive §22 forbids.
+//
+// When the owner confirms pricing, add `priceSpecification` here — the shape is small and the
+// data it needs is already on the offer.
+const offerNode = {
+  '@type': 'Offer',
+  url: offerUrl,
+  category: offer.data.category,
+  ...(offer.data.expiryDate && { validThrough: offer.data.expiryDate.toISOString().slice(0, 10) }),
+  seller: { '@type': 'Organization', name: 'InfraHub', url: SITE }
+};
+
+const primaryNode = isHardware
+  ? {
+      '@type': 'Product',
+      '@id': `${offerUrl}#product`,
+      name: offer.data.title,
+      description: offer.data.shortDescription,
+      category: offer.data.category,
+      offers: offerNode
+    }
+  : {
+      '@type': 'Service',
+      '@id': `${offerUrl}#service`,
+      name: offer.data.title,
+      description: offer.data.shortDescription,
+      serviceType: offer.data.category,
+      areaServed: offer.data.location,
+      provider: { '@type': 'Organization', name: 'InfraHub', url: SITE },
+      offers: offerNode
+    };
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    primaryNode,
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${offerUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+        { '@type': 'ListItem', position: 2, name: 'Featured Offers', item: `${SITE}/offers` },
+        { '@type': 'ListItem', position: 3, name: offer.data.title }
+      ]
+    }
+  ]
+};
 ---
 
 <Layout 
@@ -112,6 +182,8 @@ const { Content } = await offer.render();
       </aside>
     </div>
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 </Layout>
 
 <style>
