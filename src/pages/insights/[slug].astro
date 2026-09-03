@@ -13,6 +13,47 @@ export async function getStaticPaths() {
 
 const { insight } = Astro.props;
 const { Content } = await insight.render();
+
+const SITE = 'https://infrahub.tech';
+const articleUrl = `${SITE}/insights/${insight.slug}`;
+
+// TechArticle rather than Article: these are engineering analyses, and the more specific type
+// is what the content actually is. Every value below comes from the content collection — no
+// field is asserted that the front matter does not already carry, and `image` is omitted
+// rather than invented because the build ships no article artwork.
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': `${articleUrl}#article`,
+      headline: insight.data.title,
+      description: insight.data.summary,
+      datePublished: insight.data.publishDate.toISOString(),
+      articleSection: insight.data.category,
+      inLanguage: 'en',
+      author: {
+        '@type': 'Organization',
+        name: insight.data.author
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'InfraHub',
+        url: SITE
+      },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${articleUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+        { '@type': 'ListItem', position: 2, name: 'Insights', item: `${SITE}/insights` },
+        { '@type': 'ListItem', position: 3, name: insight.data.title }
+      ]
+    }
+  ]
+};
 ---
 
 <Layout 
@@ -48,6 +89,8 @@ const { Content } = await insight.render();
       </div>
     </div>
   </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 </Layout>
 
 <style>
