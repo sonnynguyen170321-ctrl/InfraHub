@@ -4,7 +4,10 @@ category: "hardware"
 location: "Frankfurt / EU Delivery"
 partner: "ITcare"
 status: "active"
+displayPrice: "€4,250 / unit"
 verifiedPrice: "€4,250 / unit"
+priceStatus: "confirmed_allocation"
+publicApproved: true
 publishedDate: 2026-08-20
 expiryDate: 2026-12-31
 specifications:

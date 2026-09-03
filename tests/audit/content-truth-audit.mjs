@@ -127,11 +127,11 @@ for (const file of offerFiles) {
   }
 
   // A price is a commercial claim. It has to be attributable to somebody.
-  if (data.verifiedPrice && !data.partner) {
+  if ((data.verifiedPrice || data.displayPrice) && !data.partner) {
     warn(
       where,
       'price-without-partner',
-      `verifiedPrice "${data.verifiedPrice}" with no partner named — who is quoting it?`
+      `Price "${data.displayPrice || data.verifiedPrice}" with no partner named — who is quoting it?`
     );
   }
 }

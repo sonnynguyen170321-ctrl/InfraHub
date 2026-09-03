@@ -8,12 +8,18 @@ capabilities:
   - "Specialized NVIDIA H100 / L40S GPU AI clusters"
   - "Low-latency global CDN with live streaming optimization"
   - "Built-in web application security and DDoS scrubbing"
-strategic: true
+strategic: false
 verified: true
 shortRole: "Global Cloud, Edge & GPU Infrastructure"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 2
 partnerPageEnabled: true

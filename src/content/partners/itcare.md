@@ -8,12 +8,18 @@ capabilities:
   - "Sub-5 minute initial ticket response SLA"
   - "BGP route flap and circuit loopback triage"
   - "Integration with Datadog, Zabbix, and PagerDuty"
-strategic: true
+strategic: false
 verified: true
 shortRole: "Enterprise NOC & Systems Operations"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 7
 partnerPageEnabled: true

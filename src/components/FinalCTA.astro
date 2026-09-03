@@ -1,25 +1,26 @@
 ---
-// src/components/FinalCTA.astro  -  Architectural Conversion Band
+// src/components/FinalCTA.astro
 ---
 
 <section class="section-conversion-band" id="contact">
-  <div class="container">
-    <div class="conversion-card">
-      <div class="conversion-content">
-        <h2 class="conversion-headline">Tell us what you're trying to build.</h2>
-        <p class="conversion-copy">
-          You do not need the provider or product decided first. Start with your technical requirement, location constraints, and timeline.
-        </p>
-        <div class="conversion-actions">
-          <a href="/lets-talk" class="btn btn-accent btn-lg">
-            Discuss Your Requirement
-          </a>
-          <a href="/how-we-work" class="conversion-text-link">
-            <span>Review how we work</span>
-            <span class="link-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </div>
-      </div>
+  <div class="container conversion-container">
+    <div class="conversion-left">
+      <h2 class="conversion-headline">
+        Tell us what you're<br />trying to build.
+      </h2>
+      <p class="conversion-copy">
+        Start with the requirement, location constraints, and timeline. Sourcing through InfraHub connects your team directly with verified infrastructure specialists.
+      </p>
+    </div>
+
+    <div class="conversion-right">
+      <a href="/lets-talk" class="btn btn-accent btn-lg">
+        Discuss your requirement
+      </a>
+      <a href="/how-we-work" class="conversion-text-link">
+        <span>Review how we work</span>
+        <span class="link-arrow" aria-hidden="true">&rarr;</span>
+      </a>
     </div>
   </div>
 </section>
@@ -27,53 +28,58 @@
 <style>
   .section-conversion-band {
     background-color: #0b1120;
-    padding: 88px 0 72px;
+    padding: 104px 0 96px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .conversion-card {
-    background-color: #0f172a;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-    padding: 64px 32px;
-    text-align: center;
+  .conversion-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
   }
-  @media (min-width: 768px) {
-    .conversion-card {
-      padding: 72px 56px;
+
+  @media (min-width: 960px) {
+    .conversion-container {
+      grid-template-columns: 1.35fr 1fr;
+      gap: 72px;
     }
   }
 
-  .conversion-content {
-    max-width: 680px;
-    margin: 0 auto;
+  .conversion-left {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
+    max-width: 620px;
   }
 
   .conversion-headline {
-    font-size: clamp(2rem, 3.8vw, 2.8rem);
+    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
     color: #ffffff;
   }
 
   .conversion-copy {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.12rem;
+    line-height: 1.65;
     color: #cbd5e1;
-    max-width: 54ch;
+    max-width: 50ch;
   }
 
-  .conversion-actions {
+  .conversion-right {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  @media (min-width: 960px) {
+    .conversion-right {
+      align-items: flex-start;
+      padding-left: 24px;
+    }
   }
 
   .conversion-text-link {
@@ -81,7 +87,7 @@
     align-items: center;
     gap: 8px;
     color: #cbd5e1;
-    font-size: 0.98rem;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     transition: color 160ms ease;
@@ -91,18 +97,9 @@
   }
   .link-arrow {
     transition: transform 160ms ease;
+    display: inline-block;
   }
   .conversion-text-link:hover .link-arrow {
     transform: translateX(3px);
-  }
-
-  @media (max-width: 640px) {
-    .conversion-actions {
-      flex-direction: column;
-      gap: 16px;
-    }
-    .btn {
-      width: 100%;
-    }
   }
 </style>

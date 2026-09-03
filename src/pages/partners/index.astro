@@ -4,159 +4,428 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const allPartners = await getCollection('partners');
+
+// Filter strictly for partners with confirmed relationship and approved naming
+const publishedPartners = allPartners
+  .filter(p => p.data.partnerPageEnabled && p.data.relationshipConfirmed && p.data.publicNameApproved)
+  .sort((a, b) => (a.data.homepagePriority ?? 10) - (b.data.homepagePriority ?? 10));
+
+const categories = [
+  'All Disciplines',
+  'Infrastructure & Cloud',
+  'Network & Connectivity',
+  'Security',
+  'Managed Operations',
+  'Virtualization'
+];
 ---
 
 <Layout 
-  title="Our Partner Ecosystem  -  Specialized Infrastructure Providers"
-  description="Explore InfraHub's vetted partner ecosystem spanning Tier-1 network transit, bare-metal compute, DDoS mitigation, and enterprise virtualization."
+  title="Our Partner Ecosystem — Specialized Infrastructure Providers"
+  description="Explore InfraHub's independent partner ecosystem spanning Tier-1 network transit, bare-metal compute, DDoS mitigation, and enterprise virtualization."
   canonicalPath="/partners"
 >
-  <div class="section section-hero network-overlay">
-    <div class="container">
+  <div class="partners-page-wrapper">
+    <div class="container partners-container">
+      
+      <!-- Editorial Header -->
       <header class="catalog-header">
         <span class="catalog-kicker">INDEPENDENT SPECIALIST ECOSYSTEM</span>
-        <h1 class="catalog-title">Specialists in Their Field.<br />Connected Through InfraHub.</h1>
+        <h1 class="catalog-title">Specialist Infrastructure Providers.<br />Connected Through InfraHub.</h1>
         <p class="catalog-lead">
-          We do not resell generic commodity clouds. We build technical partnerships with specialized operators who lead their respective infrastructure disciplines.
+          We do not resell commodity clouds or act as a generic broker. We build direct relationships with specialized operators who engineer and operate their own infrastructure footprints.
         </p>
       </header>
 
-      <div class="partners-directory-grid">
-        {allPartners.map(partner => (
-          <article class="partner-dir-card">
-            <div class="partner-dir-header">
-              <span class="pill-badge badge-teal">{partner.data.category}</span>
-              {partner.data.strategic && <span class="strategic-pill">Strategic Partner</span>}
+      <!-- Category Filter Tabs -->
+      <nav class="category-filter-nav" aria-label="Partner Categories">
+        {categories.map((cat, idx) => (
+          <button 
+            type="button" 
+            class={`category-tab ${idx === 0 ? 'active' : ''}`}
+            data-category={cat === 'All Disciplines' ? 'all' : cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </nav>
+
+      <!-- Partners Directory Grid -->
+      <div class="partners-directory-grid" id="partners-grid">
+        {publishedPartners.map(partner => (
+          <article class="partner-dir-card" data-category={partner.data.category}>
+            <div class="partner-dir-top">
+              <div class="partner-brand-area">
+                {partner.data.logoApproved && partner.data.logoStatus === 'approved' ? (
+                  <img 
+                    src={partner.data.logo} 
+                    alt={`${partner.data.name} logo`} 
+                    class="partner-card-logo"
+                    width="120"
+                    height="28"
+                  />
+                ) : (
+                  <div class="partner-text-mark">
+                    <span class="partner-name">{partner.data.name}</span>
+                    {partner.data.shortRole && <span class="partner-role">{partner.data.shortRole}</span>}
+                  </div>
+                )}
+              </div>
+              <span class="partner-category-pill">{partner.data.category}</span>
             </div>
-            <h2 class="partner-dir-name">{partner.data.name}</h2>
-            <p class="partner-dir-tagline">{partner.data.tagline}</p>
-            
-            <ul class="partner-dir-caps">
-              {partner.data.capabilities.map(cap => (
-                <li>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                  <span>{cap}</span>
-                </li>
-              ))}
-            </ul>
+
+            <div class="partner-dir-body">
+              <h2 class="partner-headline">
+                <a href={`/partners/${partner.slug}`}>{partner.data.name}</a>
+              </h2>
+              <p class="partner-tagline">{partner.data.tagline}</p>
+              
+              <ul class="partner-caps-list">
+                {partner.data.capabilities.slice(0, 3).map(cap => (
+                  <li>{cap}</li>
+                ))}
+              </ul>
+            </div>
 
             <div class="partner-dir-footer">
               <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm">
-                <span>Partnership Profile</span>
+                <span>View Partner Profile</span>
               </a>
-              <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-sm">
-                <span>Talk to Partner Architect</span>
+              <a href={`/lets-talk?partner=${partner.slug}`} class="partner-discuss-link">
+                <span>Discuss Scope</span>
+                <span class="link-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </article>
         ))}
       </div>
 
-      <div class="partners-sourcing-banner text-center">
-        <h2>Become an InfraHub Sourcing Partner</h2>
-        <p>Do you operate specialized enterprise infrastructure, transit backbones, or security appliances?</p>
-        <a href="mailto:partners@infrahub.tech" class="btn btn-primary">Inquire About Partner Onboarding</a>
-      </div>
+      <!-- Sourcing Inquiry Band -->
+      <section class="partners-inquiry-band">
+        <div class="inquiry-content">
+          <h2 class="inquiry-title">Join the InfraHub Sourcing Ecosystem</h2>
+          <p class="inquiry-desc">
+            Do you operate independent networking transit, specialized cloud virtualization, scrubbing capacity, or enterprise hardware supply?
+          </p>
+        </div>
+        <a href="mailto:partners@infrahub.tech" class="btn btn-secondary">
+          <span>Inquire About Onboarding</span>
+        </a>
+      </section>
+
     </div>
   </div>
 </Layout>
 
 <style>
+  .partners-page-wrapper {
+    background-color: #ffffff;
+    padding: 72px 0 96px;
+  }
+
+  .partners-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .catalog-header {
+    max-width: 820px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 40px;
+  }
+
+  .catalog-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+
+  .catalog-title {
+    font-size: clamp(2.4rem, 4.4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+
+  .catalog-lead {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 65ch;
+  }
+
+  /* Filter Tabs */
+  .category-filter-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 8px;
+  }
+
+  .category-tab {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 160ms ease;
+  }
+
+  .category-tab:hover {
+    color: var(--text-primary);
+    border-color: #cbd5e1;
+  }
+
+  .category-tab.active {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+  }
+
+  /* Partners Directory Grid */
   .partners-directory-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 28px;
-    margin: 48px 0 72px;
   }
-  @media (min-width: 640px) {
+
+  @media (min-width: 768px) {
     .partners-directory-grid {
       grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
     }
   }
 
   .partner-dir-card {
-    background-color: #ffffff;
+    background: #ffffff;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: 32px;
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: var(--transition);
-  }
-  .partner-dir-card:hover {
-    border-color: var(--accent-blue);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
+    gap: 24px;
+    transition: border-color 160ms ease, transform 160ms ease;
   }
 
-  .partner-dir-header {
+  .partner-dir-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+
+  .partner-dir-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .strategic-pill {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--accent-blue);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 18px;
   }
 
-  .partner-dir-name {
-    font-size: 1.6rem;
+  .partner-card-logo {
+    height: 24px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .partner-text-mark {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .partner-name {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
     font-weight: 800;
-    margin-bottom: 8px;
+    color: var(--text-primary);
+    line-height: 1.2;
   }
 
-  .partner-dir-tagline {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin-bottom: 20px;
+  .partner-role {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-top: 2px;
   }
 
-  .partner-dir-caps {
-    list-style: none;
+  .partner-category-pill {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .partner-dir-body {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 18px 0;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 24px;
+    gap: 14px;
     flex-grow: 1;
   }
-  .partner-dir-caps li {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    font-size: 0.88rem;
+
+  .partner-headline {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .partner-headline a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .partner-headline a:hover {
+    color: var(--accent-blue);
+  }
+
+  .partner-tagline {
+    font-size: 0.92rem;
+    line-height: 1.6;
     color: var(--text-secondary);
   }
-  .partner-dir-caps svg {
-    margin-top: 3px;
-    flex-shrink: 0;
+
+  .partner-caps-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .partner-caps-list li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #475569;
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .partner-caps-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-blue);
+    font-weight: bold;
   }
 
   .partner-dir-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-color);
   }
 
-  .partners-sourcing-banner {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: 54px 32px;
+  .partner-discuss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .partner-discuss-link:hover {
+    color: var(--accent-blue);
+  }
+
+  .link-arrow {
+    transition: transform 160ms ease;
+    display: inline-block;
+  }
+
+  .partner-discuss-link:hover .link-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Inquiry Band */
+  .partners-inquiry-band {
+    background: #0b1120;
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 44px 36px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 860px) {
+    .partners-inquiry-band {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+  }
+
+  .inquiry-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 600px;
+  }
+
+  .inquiry-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .inquiry-desc {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: #cbd5e1;
   }
 </style>
+
+<script>
+  function setupCategoryFilters() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.category-tab');
+    const cards = document.querySelectorAll<HTMLElement>('.partner-dir-card');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const cat = tab.getAttribute('data-category');
+        cards.forEach(card => {
+          if (cat === 'all' || card.getAttribute('data-category') === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupCategoryFilters);
+</script>

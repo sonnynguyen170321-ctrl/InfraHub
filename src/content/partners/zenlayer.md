@@ -8,12 +8,18 @@ capabilities:
   - "Private global backbone connecting East Asia, Southeast Asia, and Americas"
   - "Sub-30ms regional transit routing"
   - "Direct Multi-Cloud Interconnect (AWS, Azure, GCP)"
-strategic: true
+strategic: false
 verified: true
 shortRole: "Global Edge Network & Bare Metal"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 3
 partnerPageEnabled: true

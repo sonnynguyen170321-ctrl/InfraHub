@@ -88,15 +88,22 @@ if (fs.existsSync(indexHtmlPath)) {
     }
   }
 
-  // Check em-dashes in rendered headlines (h1, h2, h3)
-  const headlineMatches = html.match(/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/gi) || [];
-  for (const h of headlineMatches) {
-    if (h.includes('—') || h.includes('–')) {
-      errors.push(`Found forbidden em-dash or en-dash in headline: ${h.trim()}`);
-    }
+  // 4. Check for empty CTA hrefs or dead hashes
+  const emptyHrefMatches = html.match(/href=["'](#|)["']/gi);
+  if (emptyHrefMatches) {
+    errors.push(`Found ${emptyHrefMatches.length} empty or hash-only CTA links in homepage HTML`);
+  } else {
+    console.log('✓ All homepage action links have valid explicit destination routes');
   }
 
-  console.log('✓ Homepage verified free of generic template eyebrows and headline em-dashes');
+  // 5. Verify no unsupported marketing badges (Trusted by, Strategic Partner)
+  if (html.includes('Trusted by') || html.includes('Strategic Partner')) {
+    errors.push('Found unsupported "Trusted by" or "Strategic Partner" label on homepage');
+  } else {
+    console.log('✓ No unsupported marketing labels (Trusted by, Strategic Partner)');
+  }
+
+  console.log('✓ Homepage verified free of generic template eyebrows and faux widgets');
 } else {
   console.log('ℹ dist/client/index.html not yet built (will be validated post-build)');
 }

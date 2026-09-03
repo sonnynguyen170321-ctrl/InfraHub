@@ -4,7 +4,10 @@ category: "connectivity"
 location: "RIPE NCC / ARIN Region"
 partner: "IPXO"
 status: "active"
+displayPrice: "$280 / mo"
 verifiedPrice: "$280 / mo"
+priceStatus: "confirmed_allocation"
+publicApproved: true
 publishedDate: 2026-08-20
 expiryDate: 2026-12-31
 specifications:

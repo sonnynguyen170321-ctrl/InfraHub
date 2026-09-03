@@ -8,12 +8,18 @@ capabilities:
   - "BGP route leak and path anomaly detection"
   - "90%+ raw alert noise reduction"
   - "Automated incident post-mortem generation"
-strategic: true
+strategic: false
 verified: true
 shortRole: "Autonomous Network Path Observability"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 8
 partnerPageEnabled: true

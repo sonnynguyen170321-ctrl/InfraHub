@@ -8,12 +8,18 @@ capabilities:
   - "Sub-2-second automated attack detection"
   - "BGP FlowSpec, RTBH, and Cloud Diversion triggers"
   - "Host unblocking and traffic metric logging"
-strategic: true
+strategic: false
 verified: true
 shortRole: "DDoS Detection & Network Telemetry"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 1
 partnerPageEnabled: true

@@ -1,5 +1,5 @@
 ---
-// src/components/Hero.astro  -  Human-Authored Editorial Hero
+// src/components/Hero.astro
 ---
 
 <section class="hero-section" id="hero">
@@ -43,13 +43,14 @@
 <style>
   .hero-section {
     position: relative;
-    min-height: 78vh;
+    min-height: 64dvh;
+    max-height: 680px;
     display: flex;
     align-items: center;
     background-color: #070b14;
     color: #ffffff;
     overflow: hidden;
-    padding: 120px 0 96px;
+    padding: 80px 0 64px;
   }
 
   /* Authentic Photography Backdrop */
@@ -87,18 +88,18 @@
     max-width: 800px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   .hero-title {
-    font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+    font-size: clamp(2.6rem, 5.2vw, 4.2rem);
     font-weight: 800;
     line-height: 1.08;
     letter-spacing: -0.035em;
     color: #ffffff;
   }
   .hero-title-accent {
-    color: #93c5fd;
+    color: #e2e8f0;
   }
 
   .hero-description {

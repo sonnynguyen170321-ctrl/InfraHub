@@ -1,11 +1,11 @@
 ---
-// src/pages/about.astro  -  Editorial Architecture & Operating Model
+// src/pages/about.astro
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="About InfraHub  -  Infrastructure Sourcing & Advisory"
-  description="Learn about InfraHub's commercial model, engineering background, and mission to connect businesses with specialist infrastructure providers."
+  title="About InfraHub — Infrastructure Sourcing & Advisory"
+  description="Learn about InfraHub's commercial model, delivery roles, and mission to connect businesses with specialist infrastructure providers."
   canonicalPath="/about"
 >
   <div class="about-page-wrapper">
@@ -13,101 +13,102 @@ import Layout from '../layouts/Layout.astro';
       
       <!-- Editorial Header -->
       <header class="about-header">
-        <span class="about-kicker">COMPANY & OPERATING MODEL</span>
+        <span class="about-kicker">COMPANY &amp; COMMERCIAL MODEL</span>
         <h1 class="about-title">Better infrastructure decisions begin with understanding the requirement.</h1>
         <p class="about-lead">
-          InfraHub was built to solve a fundamental disconnect in enterprise infrastructure: the gap between complex technical parameters and specialized global providers. We serve as the knowledgeable front door to an independent specialist ecosystem.
+          InfraHub operates as an independent infrastructure sourcing and technical advisory desk. We help engineering and commercial teams evaluate technical constraints, compare architectural options, and connect directly with specialist providers across networking, compute, cloud, security, and hardware.
         </p>
       </header>
 
-      <!-- 3 Core Foundations (Architectural Broadsheet) -->
-      <section class="about-section">
-        <div class="foundations-grid">
-          <div class="foundation-col">
-            <span class="col-num">01</span>
-            <h2 class="col-title">What InfraHub Is</h2>
-            <p class="col-desc">
-              We are an independent infrastructure sourcing and technical advisory desk. We evaluate workloads, latency constraints, transit commits, and hardware specifications to connect buyers directly with verified independent specialists across networking, cloud, security, and bare metal.
+      <!-- Business Architecture Narrative -->
+      <section class="about-narrative-section">
+        <div class="narrative-grid">
+          <div class="narrative-main">
+            <h2 class="narrative-heading">How InfraHub Operates</h2>
+            <p class="narrative-prose">
+              The modern infrastructure market is fragmented. No single carrier, cloud hyperscaler, or hardware distributor leads across every metro, route, and workload.
+            </p>
+            <p class="narrative-prose">
+              Rather than reselling commodity cloud or operating as a rigid reseller, InfraHub acts as an experienced sourcing guide. We clarify technical parameters—such as committed data rates, latency thresholds, physical conduit diversity, and hypervisor dependencies—before matching you with the specialist operator best equipped for that exact scope.
             </p>
           </div>
 
-          <div class="foundation-col">
-            <span class="col-num">02</span>
-            <h2 class="col-title">What InfraHub Is Not</h2>
-            <p class="col-desc">
-              We do not pretend to own a proprietary global fiber network or 50 global datacenters. World-class engineering organizations already build transoceanic cables, operate Tbps-scale scrubbing centers, and run Tier-3+ facilities. We understand their technology and help you benchmark the right one.
+          <div class="commercial-disclosure-box">
+            <h3 class="disclosure-title">Commercial Transparency</h3>
+            <p class="disclosure-text">
+              InfraHub is compensated by participating network carriers, hardware distributors, and platform operators when a qualified introduction results in an executed agreement.
             </p>
-          </div>
-
-          <div class="foundation-col">
-            <span class="col-num">03</span>
-            <h2 class="col-title">How the Commercials Work</h2>
-            <p class="col-desc">
-              InfraHub is compensated by participating network carriers and platform operators when a qualified introduction results in an agreement. Sourcing through InfraHub never adds fees or markups to your provider invoices  -  you contract directly with the verified specialist.
+            <p class="disclosure-text">
+              Sourcing through InfraHub never adds fees or intermediary markups to your provider invoices. You contract directly with the selected specialist under their standard master service terms.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- The Three Operating Modes (Directive §3) -->
-      <section class="about-section">
-        <div class="disciplines-header">
-          <span class="section-kicker">OPERATING ARCHITECTURE</span>
-          <h2 class="section-headline">Three Distinct Commercial Modes</h2>
-          <p class="section-subhead">We maintain strict transparency across how infrastructure is delivered and contracted.</p>
+      <!-- Three Commercial Delivery Roles -->
+      <section class="roles-section">
+        <div class="roles-header">
+          <h2 class="roles-title">Three Commercial Delivery Roles</h2>
+          <p class="roles-subhead">
+            Infrastructure requirements differ in delivery mechanics. We maintain strict clarity regarding InfraHub's role in every transaction.
+          </p>
         </div>
 
-        <div class="disciplines-grid">
-          <div class="discipline-row">
-            <div class="discipline-left">
-              <span class="mode-tag">MODE 01</span>
-              <h3 class="mode-title">Direct Hardware</h3>
+        <div class="roles-flow">
+          <div class="role-card">
+            <div class="role-meta">
+              <span class="role-index">01</span>
+              <span class="role-type">Sourcing &amp; Procurement</span>
             </div>
-            <div class="discipline-center">
-              <p>InfraHub sources and supplies enterprise server hardware, optical transceivers, and switching equipment directly where true, backed by certified warranties and direct dispatch.</p>
-            </div>
-            <div class="discipline-right">
-              <span class="mode-scope">Dell / HPE / Cisco / Lit Optics</span>
-            </div>
+            <h3 class="role-title">Hardware Sourcing</h3>
+            <p class="role-desc">
+              Sourcing enterprise server hardware, optical transceivers, switches, and optics through verified distributors. Quotations, hardware warranties, and delivery logistics are coordinated directly with certified stocking partners.
+            </p>
+            <span class="role-scope">Servers / Switches / Optics / Memory Allocations</span>
           </div>
 
-          <div class="discipline-row">
-            <div class="discipline-left">
-              <span class="mode-tag">MODE 02</span>
-              <h3 class="mode-title">Partner-Delivered Services</h3>
+          <div class="role-card">
+            <div class="role-meta">
+              <span class="role-index">02</span>
+              <span class="role-type">Direct Specialist Introduction</span>
             </div>
-            <div class="discipline-center">
-              <p>InfraHub qualifies, benchmarks, and introduces. The selected specialist contracts, delivers, and operates the infrastructure under direct carrier-grade SLAs.</p>
-            </div>
-            <div class="discipline-right">
-              <span class="mode-scope">IP Transit / Wavelengths / DDoS / Cloud</span>
-            </div>
+            <h3 class="role-title">Partner-Delivered Services</h3>
+            <p class="role-desc">
+              InfraHub evaluates requirements and introduces your engineering team directly to specialized network carriers, scrubbing providers, and colocation operators. The partner contracts and operates the service under their own SLAs.
+            </p>
+            <span class="role-scope">IP Transit / Lit Waves / DDoS Scrubbing / Managed NOC</span>
           </div>
 
-          <div class="discipline-row">
-            <div class="discipline-left">
-              <span class="mode-tag">MODE 03</span>
-              <h3 class="mode-title">Advisory & Evaluation</h3>
+          <div class="role-card">
+            <div class="role-meta">
+              <span class="role-index">03</span>
+              <span class="role-type">Architecture &amp; Benchmarking</span>
             </div>
-            <div class="discipline-center">
-              <p>Independent architecture guidance, BGP multi-homing evaluations, VMware exit benchmarking, datacenter diversity audits, and wholesale price comparisons.</p>
-            </div>
-            <div class="discipline-right">
-              <span class="mode-scope">Sourcing / Benchmarking / Architecture</span>
-            </div>
+            <h3 class="role-title">Advisory &amp; Evaluation</h3>
+            <p class="role-desc">
+              Vendor-neutral technical guidance: multi-carrier BGP evaluations, physical conduit diversity reviews, VMware migration cost benchmarking, and commercial contract reviews to ensure technical and commercial alignment.
+            </p>
+            <span class="role-scope">Route Diversity / BGP Strategy / VMware Alternatives</span>
           </div>
         </div>
       </section>
 
-      <!-- Footer CTA -->
-      <div class="about-footer-cta">
-        <h2 class="cta-headline">Tell us what you're trying to build.</h2>
-        <p class="cta-desc">Start with your technical parameters and operational constraints. InfraHub will help identify the right path forward.</p>
-        <div class="cta-actions">
-          <a href="/lets-talk" class="btn btn-accent btn-lg">Discuss Your Requirement</a>
-          <a href="/how-we-work" class="btn btn-secondary btn-lg">How We Work</a>
+      <!-- Closing Direct Action -->
+      <section class="about-cta-band">
+        <div class="cta-inner">
+          <div class="cta-copy">
+            <h2 class="cta-title">Discuss an upcoming infrastructure requirement.</h2>
+            <p class="cta-desc">Whether you have a known specification or need assistance benchmarking options, our advisory desk is ready to review your constraints.</p>
+          </div>
+          <div class="cta-actions">
+            <a href="/lets-talk" class="btn btn-accent btn-lg">Discuss your requirement</a>
+            <a href="/partners" class="cta-link">
+              <span>Review our partner ecosystem</span>
+              <span class="link-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         </div>
-      </div>
+      </section>
 
     </div>
   </div>
@@ -116,200 +117,286 @@ import Layout from '../layouts/Layout.astro';
 <style>
   .about-page-wrapper {
     background-color: #ffffff;
-    padding: 64px 0 96px;
+    padding: 72px 0 96px;
   }
+
   .about-container {
-    max-width: 1080px;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     flex-direction: column;
-    gap: 72px;
+    gap: 80px;
   }
 
   /* Editorial Header */
   .about-header {
-    max-width: 860px;
+    max-width: 820px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
+    padding-bottom: 48px;
   }
+
   .about-kicker {
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     color: var(--accent-blue);
     text-transform: uppercase;
   }
+
   .about-title {
-    font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.12;
     letter-spacing: -0.03em;
     color: var(--text-primary);
   }
+
   .about-lead {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
+    font-size: 1.18rem;
     line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 65ch;
   }
 
-  /* Sections */
-  .about-section {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  /* 3 Foundations (Broadsheet dividing layout) */
-  .foundations-grid {
+  /* Narrative Section */
+  .narrative-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 48px;
+    align-items: start;
   }
-  @media (min-width: 768px) {
-    .foundations-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 36px;
+
+  @media (min-width: 900px) {
+    .narrative-grid {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 64px;
     }
   }
-  .foundation-col {
+
+  .narrative-main {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    border-top: 1px solid var(--border-color);
-    padding-top: 24px;
+    gap: 18px;
   }
-  .col-num {
+
+  .narrative-heading {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .narrative-prose {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 58ch;
+  }
+
+  .commercial-disclosure-box {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: var(--radius-sm);
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .disclosure-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .disclosure-text {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Three Commercial Roles */
+  .roles-section {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .roles-header {
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .roles-title {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .roles-subhead {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 58ch;
+  }
+
+  .roles-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 860px) {
+    .roles-flow {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  }
+
+  .role-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .role-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+  }
+
+  .role-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .role-index {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--accent-blue);
   }
-  .col-title {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    letter-spacing: -0.01em;
-  }
-  .col-desc {
-    font-size: 0.92rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
 
-  /* Disciplines */
-  .disciplines-header {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .section-kicker {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-  .section-headline {
-    font-size: clamp(1.8rem, 3vw, 2.3rem);
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    color: var(--text-primary);
-  }
-  .section-subhead {
-    font-size: 1.02rem;
-    color: var(--text-secondary);
-  }
-
-  .disciplines-grid {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-  }
-  .discipline-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 28px 32px;
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .discipline-row:last-child {
-    border-bottom: none;
-  }
-  @media (min-width: 900px) {
-    .discipline-row {
-      grid-template-columns: 220px 1.4fr 1fr;
-      align-items: center;
-      gap: 32px;
-    }
-  }
-  .discipline-left {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .mode-tag {
+  .role-type {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--accent-blue);
-  }
-  .mode-title {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--text-primary);
-  }
-  .discipline-center p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-  .discipline-right {
-    display: flex;
-    justify-content: flex-start;
-  }
-  @media (min-width: 900px) {
-    .discipline-right {
-      justify-content: flex-end;
-    }
-  }
-  .mode-scope {
-    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--text-muted);
-    background-color: var(--bg-secondary);
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.02em;
   }
 
-  /* Footer CTA */
-  .about-footer-cta {
+  .role-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .role-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    flex-grow: 1;
+  }
+
+  .role-scope {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #475569;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+    line-height: 1.4;
+  }
+
+  /* Closing CTA Band */
+  .about-cta-band {
+    background: #0b1120;
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 48px 40px;
+  }
+
+  .cta-inner {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border-color);
+    gap: 28px;
   }
-  .cta-headline {
-    font-size: 1.8rem;
+
+  @media (min-width: 860px) {
+    .cta-inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+  }
+
+  .cta-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 580px;
+  }
+
+  .cta-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 800;
-    color: var(--text-primary);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #ffffff;
   }
+
   .cta-desc {
     font-size: 1.05rem;
-    color: var(--text-secondary);
-    max-width: 680px;
+    line-height: 1.6;
+    color: #cbd5e1;
   }
+
   .cta-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .cta-link {
+    display: inline-flex;
     align-items: center;
-    gap: 14px;
-    margin-top: 8px;
+    gap: 8px;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .cta-link:hover {
+    color: #ffffff;
+  }
+
+  .link-arrow {
+    transition: transform 160ms ease;
+    display: inline-block;
+  }
+
+  .cta-link:hover .link-arrow {
+    transform: translateX(3px);
   }
 </style>

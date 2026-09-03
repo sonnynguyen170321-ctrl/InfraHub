@@ -1,5 +1,5 @@
 ---
-// src/components/FeaturedOffers.astro  -  Asymmetric Commercial Layout
+// src/components/FeaturedOffers.astro
 import { getCollection } from 'astro:content';
 
 const now = new Date();
@@ -10,89 +10,102 @@ const activeOffers = allOffers.filter(o => {
   return true;
 });
 
-// Primary featured offer + two secondary offers
+// Primary featured opportunity + secondary opportunities
 const primaryOffer = activeOffers.find(o => o.slug === '100g-transit-frankfurt') || activeOffers[0];
-const secondaryOffers = activeOffers.filter(o => o.slug !== primaryOffer.slug).slice(0, 2);
+const secondaryOffers = primaryOffer 
+  ? activeOffers.filter(o => o.slug !== primaryOffer.slug).slice(0, 2)
+  : [];
 ---
 
 <section class="section section-offers" id="featured-offers">
   <div class="container">
     
-    <!-- Clean Headline (No Eyebrow, Stacked Prose) -->
+    <!-- Clean Headline -->
     <div class="offers-header">
       <h2 class="offers-headline">Featured Offers</h2>
       <p class="offers-lead">
-        Verified hardware allocations, transit commitments, and defensive infrastructure available directly through our partner network.
+        Current infrastructure, connectivity, hardware and security opportunities available through the InfraHub ecosystem.
       </p>
     </div>
 
-    <!-- Asymmetric Composition: 1 Featured Opportunity + 2 Compact Secondary Rows -->
-    <div class="offers-composition">
-      
-      <!-- Prominent Primary Opportunity -->
-      {primaryOffer && (
-        <article class="featured-primary-card">
-          <div class="primary-card-top">
-            <span class="primary-kicker">{primaryOffer.data.category.toUpperCase()} ALLOCATION</span>
-            <h3 class="primary-title">
-              <a href={`/offers/${primaryOffer.slug}`}>{primaryOffer.data.title}</a>
-            </h3>
-            <span class="primary-location">{primaryOffer.data.location}</span>
-          </div>
-
-          <p class="primary-desc">{primaryOffer.data.shortDescription}</p>
-
-          <ul class="primary-specs-list">
-            {primaryOffer.data.specifications.slice(0, 3).map(spec => (
-              <li>{spec}</li>
-            ))}
-          </ul>
-
-          <div class="primary-card-bottom">
-            <div class="primary-price">
-              <span class="price-figure">{primaryOffer.data.verifiedPrice}</span>
+    <!-- Empty State Guard -->
+    {activeOffers.length === 0 ? (
+      <div class="offers-empty-state">
+        <p class="empty-state-text">Current commercial allocations are being updated for the current cycle.</p>
+        <a href="/lets-talk" class="btn btn-secondary btn-sm">
+          <span>Discuss a specific requirement</span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    ) : (
+      <!-- Asymmetric Composition: 1 Featured Opportunity + 2 Compact Secondary Rows -->
+      <div class="offers-composition">
+        
+        <!-- Prominent Primary Opportunity -->
+        {primaryOffer && (
+          <article class="featured-primary-card">
+            <div class="primary-card-top">
+              <span class="primary-kicker">{primaryOffer.data.category.toUpperCase()} ALLOCATION</span>
+              <h3 class="primary-title">
+                <a href={`/offers/${primaryOffer.slug}`}>{primaryOffer.data.title}</a>
+              </h3>
+              <span class="primary-location">{primaryOffer.data.location}</span>
             </div>
-            <a href={`/lets-talk?offer=${primaryOffer.slug}`} class="btn btn-accent btn-sm">
-              <span>Request Pricing</span>
-            </a>
-          </div>
-        </article>
-      )}
 
-      <!-- Two Compact Secondary Commercial Rows -->
-      <div class="secondary-offers-list">
-        {secondaryOffers.map(offer => (
-          <article class="secondary-offer-row">
-            <div class="secondary-meta">
-              <div class="secondary-badge-row">
-                <span class="secondary-category">{offer.data.category}</span>
-                <span class="secondary-location">{offer.data.location}</span>
+            <p class="primary-desc">{primaryOffer.data.shortDescription}</p>
+
+            <ul class="primary-specs-list">
+              {primaryOffer.data.specifications.slice(0, 3).map(spec => (
+                <li>{spec}</li>
+              ))}
+            </ul>
+
+            <div class="primary-card-bottom">
+              <div class="primary-price">
+                <span class="price-figure">{primaryOffer.data.displayPrice || primaryOffer.data.verifiedPrice}</span>
               </div>
-              <h4 class="secondary-title">
-                <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
-              </h4>
-              <p class="secondary-spec">{offer.data.specifications[0]}</p>
-            </div>
-
-            <div class="secondary-action-group">
-              <span class="secondary-price">{offer.data.verifiedPrice}</span>
-              <a href={`/offers/${offer.slug}`} class="secondary-link">
-                <span>View Offer</span>
-                <span class="link-arrow" aria-hidden="true">&rarr;</span>
+              <a href={`/lets-talk?offer=${primaryOffer.slug}`} class="btn btn-accent btn-sm">
+                <span>Request Pricing</span>
               </a>
             </div>
           </article>
-        ))}
+        )}
 
-        <div class="offers-all-link-wrap">
-          <a href="/offers" class="offers-view-all">
-            <span>View all active commercial offers</span>
-            <span class="link-arrow" aria-hidden="true">&rarr;</span>
-          </a>
+        <!-- Two Compact Secondary Commercial Rows -->
+        <div class="secondary-offers-list">
+          {secondaryOffers.map(offer => (
+            <article class="secondary-offer-row">
+              <div class="secondary-meta">
+                <div class="secondary-badge-row">
+                  <span class="secondary-category">{offer.data.category}</span>
+                  <span class="secondary-location">{offer.data.location}</span>
+                </div>
+                <h4 class="secondary-title">
+                  <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
+                </h4>
+                <p class="secondary-spec">{offer.data.specifications[0]}</p>
+              </div>
+
+              <div class="secondary-action-group">
+                <span class="secondary-price">{offer.data.displayPrice || offer.data.verifiedPrice}</span>
+                <a href={`/offers/${offer.slug}`} class="secondary-link">
+                  <span>View Offer</span>
+                  <span class="link-arrow" aria-hidden="true">&rarr;</span>
+                </a>
+              </div>
+            </article>
+          ))}
+
+          <div class="offers-all-link-wrap">
+            <a href="/offers" class="offers-view-all">
+              <span>View all active commercial offers</span>
+              <span class="link-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
         </div>
-      </div>
 
-    </div>
+      </div>
+    )}
 
   </div>
 </section>

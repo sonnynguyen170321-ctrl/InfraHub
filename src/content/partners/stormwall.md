@@ -8,12 +8,18 @@ capabilities:
   - "Multi-terabit global scrubbing network across EU and US"
   - "Layer 3/4 network and Layer 7 HTTPS flood defense"
   - "SLA-backed sub-3-second time to mitigate"
-strategic: true
+strategic: false
 verified: true
 shortRole: "Multi-Tbps DDoS Scrubbing & Mitigation"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 4
 partnerPageEnabled: true

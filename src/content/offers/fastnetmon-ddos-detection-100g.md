@@ -4,7 +4,10 @@ shortDescription: "FastNetMon Advanced license with automated FlowSpec and BGP R
 category: "security"
 location: "Global Software / Virtual Appliance"
 partner: "FastNetMon"
+displayPrice: "From $350/mo"
 verifiedPrice: "From $350/mo"
+priceStatus: "confirmed_allocation"
+publicApproved: true
 specifications:
   - "FastNetMon Advanced Core License"
   - "Supports sFlow, NetFlow v5/v9, IPFIX, and Port Mirroring"

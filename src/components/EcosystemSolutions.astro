@@ -1,75 +1,75 @@
 ---
-// src/components/EcosystemSolutions.astro  -  Editorial Solution Selector
+// src/components/EcosystemSolutions.astro
 const solutionFamilies = [
   {
     id: "infrastructure",
     name: "Infrastructure & Compute",
-    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade certified hardware.",
+    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade hardware sourcing.",
     image: "/images/hero-datacenter.jpg",
     imageAlt: "Enterprise datacenter server racks with precision cooling",
     ctaLink: "/solutions/infrastructure",
     services: [
-      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom storage & RAM" },
-      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare metal clusters & dedicated hypervisors" },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "NVIDIA H100 / L40S clusters for inference & training" },
-      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Dell, HPE, Cisco servers & optics with full warranty" },
+      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom storage and memory options" },
+      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare metal clusters and dedicated hypervisors" },
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "High-density GPU accelerators for compute and AI workloads" },
+      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Certified enterprise servers, optical modules, and routing hardware" },
       { name: "Colocation", url: "/colocation", desc: "Fractional racks, private cages, and wholesale suites" }
     ]
   },
   {
     id: "cloud",
     name: "Cloud & Virtualization",
-    summary: "Sovereign European private clouds, VMware licensing alternatives, managed Kubernetes, and multi-region failover.",
+    summary: "European private cloud deployments, VMware licensing alternatives, managed containers, and disaster recovery.",
     image: "/images/cloud-compute.jpg",
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
-      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated sovereign hypervisors with predictable OpEx" },
-      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates migration paths" },
+      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable operational economics" },
+      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates migration architectures" },
       { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Direct enterprise interconnects to AWS, Azure, and GCP" },
-      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Replication and automated failover architectures" }
+      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and automated failover architectures" }
     ]
   },
   {
     id: "network",
     name: "Network & Connectivity",
-    summary: "Upstream Tier-1 IP Transit, dedicated dark fiber wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
+    summary: "High-bandwidth upstream IP transit, dedicated metro wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
     image: "/images/network-fiber.jpg",
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
     ctaLink: "/solutions/network-connectivity",
     services: [
-      { name: "IP Transit", url: "/ip-transit", desc: "Tier-1 BGP bandwidth with burstable 95th percentile" },
-      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated 10G to 400G point-to-point optical lit waves" },
+      { name: "IP Transit", url: "/ip-transit", desc: "Direct BGP connectivity with burstable 95th percentile billing" },
+      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths across major metros" },
       { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro DCI interconnects" },
-      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Carrier-grade private bypass to hyperscaler cloud ramps" },
-      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "Clean, verified /24 to /16 ARIN and RIPE allocations" }
+      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Private direct-connect bypass to cloud access points" },
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "RIPE and ARIN IPv4 subnet leasing and transfer support" }
     ]
   },
   {
     id: "security",
     name: "Security & Telemetry",
-    summary: "Multi-terabit DDoS mitigation, real-time BGP telemetry, automated flow filtering, and edge web protection.",
+    summary: "DDoS mitigation, real-time BGP routing telemetry, automated flow filtering, and perimeter security.",
     image: "/images/security-operations.jpg",
     imageAlt: "Network operations security monitoring console and BGP telemetry",
     ctaLink: "/solutions/security",
     services: [
-      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand multiterabit traffic scrubbing" },
-      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon real-time FlowSpec & BGP blackholing" },
-      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Automated latency optimization & path telemetry" },
-      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter defense and managed SOC capabilities" }
+      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing through specialized scrubbing networks" },
+      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon real-time FlowSpec and automated diversion triggers" },
+      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Path telemetry and automated routing optimization" },
+      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter defense and managed security capabilities" }
     ]
   },
   {
     id: "managed",
     name: "Managed Operations",
-    summary: "Round-the-clock Tier 1-3 network operations, automated incident triage, BGP engineering, and infrastructure desks.",
+    summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure desks.",
     image: "/images/managed-noc.jpg",
     imageAlt: "24/7 carrier Network Operations Center control room",
     ctaLink: "/solutions/managed-services",
     services: [
-      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring with sub-5 minute escalation SLA" },
+      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and rapid incident escalation workflows" },
       { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated incident dispatch" },
-      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP tuning, hardware provisioning, and rack cabling" },
+      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP route engineering, hardware provisioning, and physical patching" },
       { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Ansible, Terraform, and NetBox workflow pipelines" }
     ]
   }
@@ -352,12 +352,14 @@ const solutionFamilies = [
   }
   .service-arrow {
     font-size: 1.1rem;
-    color: var(--text-muted);
-    transition: transform 160ms ease, color 160ms ease;
+    color: var(--accent-blue);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 160ms ease, transform 160ms ease;
   }
   .service-row-item:hover .service-arrow {
-    color: var(--accent-blue);
-    transform: translateX(2px);
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .panel-action {

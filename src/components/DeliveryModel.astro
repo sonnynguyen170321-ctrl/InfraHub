@@ -1,5 +1,5 @@
 ---
-// src/components/DeliveryModel.astro — Human-Authored Delivery Model & Editorial Experience
+// src/components/DeliveryModel.astro
 const steps = [
   {
     num: "01",
@@ -8,18 +8,18 @@ const steps = [
   },
   {
     num: "02",
-    title: "Evaluate & Match",
-    detail: "Compare architecture approaches and benchmark independent specialist providers across verified technical footprints."
+    title: "Match",
+    detail: "Evaluate architecture approaches and identify independent specialist providers matching your technical footprint."
   },
   {
     num: "03",
     title: "Introduce",
-    detail: "Connect your team directly to the engineering and commercial leadership of the selected provider with zero intermediary markup."
+    detail: "Connect your team directly to the engineering and commercial leadership of the selected specialist provider."
   },
   {
     num: "04",
     title: "Deliver",
-    detail: "The selected specialist handles partner-delivered implementation and ongoing service directly under contract with you."
+    detail: "The selected specialist contracts and delivers the partner service directly under their agreement with you."
   }
 ];
 
@@ -33,7 +33,7 @@ const annotations = [
     detail: "Two separate carriers frequently share the same bridge crossing, rail conduit, or building entrance duct. Diversity requires physical path verification."
   },
   {
-    title: "The right provider depends on the requirement.",
+    title: "The strongest provider depends on the requirement.",
     detail: "No single provider leads across every metro, route, and platform. Independent evaluation matches you with the specialist that excels in your exact location."
   }
 ];
@@ -43,28 +43,28 @@ const annotations = [
   <div class="container">
     <div class="delivery-asymmetric-split">
       
-      <!-- Left Column (40%): Headline & Business Model Narrative -->
+      <!-- Left Column: Headline & Business Model Narrative -->
       <div class="delivery-narrative-col">
         <h2 class="delivery-title">
           One requirement.<br />
           A network of specialists.
         </h2>
         <p class="delivery-lead">
-          InfraHub provides technical qualification, architectural evaluation, and direct specialist introduction.
+          InfraHub qualifies requirements, compares architectural approaches, and introduces specialist providers.
         </p>
         <p class="delivery-body">
-          We do not resell commodity cloud or mark up invoices. Sourcing through InfraHub connects you directly with verified engineering teams, contracting on direct carrier-grade Master Service Agreements.
+          InfraHub acts as an independent sourcing advisor. Sourcing through InfraHub connects your team directly with specialist operators, contracting on direct service agreements with zero intermediary markup.
         </p>
         
         <div class="delivery-action">
           <a href="/how-we-work" class="delivery-link">
-            <span>Learn how we work</span>
+            <span>Review how we work</span>
             <span class="delivery-arrow" aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </div>
 
-      <!-- Right Column (60%): 4-Step Sequence + Editorial Experience Annotations -->
+      <!-- Right Column: 4-Step Sequence + Editorial Experience Annotations -->
       <div class="delivery-sequence-col">
         
         <!-- Process Steps (Clean horizontal/vertical sequence, no cards) -->
@@ -80,9 +80,9 @@ const annotations = [
           ))}
         </div>
 
-        <!-- Integrated Experience Annotations (Editorial notes woven beneath, optimal measure) -->
+        <!-- Integrated Experience Annotations -->
         <div class="experience-annotations-block">
-          <span class="annotations-heading">What changes the answer</span>
+          <span class="annotations-heading">What changes the answer?</span>
           
           <div class="annotations-list">
             {annotations.map(note => (

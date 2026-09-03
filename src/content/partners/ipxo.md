@@ -8,12 +8,18 @@ capabilities:
   - "Automated RPKI ROA signing and LOA generation"
   - "Rigorous IP reputation scoring and blacklist cleansing"
   - "Compliant RIR lease management"
-strategic: true
+strategic: false
 verified: true
 shortRole: "IPv4 Sourcing & Marketplace Infrastructure"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 5
 partnerPageEnabled: true

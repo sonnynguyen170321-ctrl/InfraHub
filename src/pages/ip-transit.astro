@@ -1,127 +1,148 @@
 ---
-// src/pages/ip-transit.astro  -  Flagship Reference Service Page
+// src/pages/ip-transit.astro
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Carrier-Neutral IP Transit Sourcing (10G-400G) | InfraHub"
+  title="Carrier-Neutral IP Transit Sourcing — InfraHub"
   description="Compare Tier-1 and regional IP Transit providers. Evaluate 95th percentile burst billing, committed data rates, BGP community feeds, and cross-connect costs."
   canonicalPath="/ip-transit"
 >
   <div class="service-page-wrapper">
     <div class="container service-container">
       
-      <!-- Service Hero (Left-aligned, authoritative editorial) -->
+      <!-- 01 Service Hero -->
       <header class="service-hero-band">
-        <span class="service-kicker">NETWORK & CONNECTIVITY // PARTNER DELIVERED</span>
-        <h1 class="service-title">Enterprise & Wholesale IP Transit</h1>
+        <span class="service-kicker">NETWORK &amp; CONNECTIVITY</span>
+        <h1 class="service-title">Enterprise &amp; Wholesale IP Transit</h1>
         <p class="service-lead">
-          Connect your Autonomous System (ASN) to global Tier-1 backbones and regional transit providers. We evaluate port commitments, 95th percentile burst ratios, BGP community controls, and cross-connect fees across major colocation meet-me rooms.
+          Connect your Autonomous System (ASN) to global backbones and regional transit providers. We evaluate port commitments, 95th percentile burst ratios, BGP community controls, and meet-me room cross-connect fees to secure the optimal upstream mix.
         </p>
         <div class="service-hero-actions">
           <a href="/lets-talk?service=ip-transit" class="btn btn-accent btn-lg">Request Transit Comparison</a>
-          <a href="#decision-framework" class="btn btn-secondary btn-lg">Review Decision Factors</a>
+          <a href="#decision-factors" class="btn btn-secondary btn-lg">Review Decision Factors</a>
         </div>
       </header>
 
-      <!-- Problem Statement (Architectural Broadsheet Layout, no floating rounded cards) -->
+      <!-- 02 Core Decision Parameters -->
       <section class="service-section">
-        <span class="section-kicker">THE REQUIREMENT</span>
-        <h2 class="section-headline">What problem are you trying to solve?</h2>
+        <h2 class="section-headline">What IP Transit decision are you actually making?</h2>
         <p class="section-lead">
-          Selecting IP transit solely on price-per-megabit frequently leads to operational surprises: unexpected burst penalties, poor latency to specific regional eyeballs, or asymmetric routing loops. Technical buyers generally need transit to address three specific network realities:
+          Selecting IP transit solely on price per megabit frequently creates operational issues: unexpected burst penalties, poor latency to specific regional eyeballs, or unexpected datacenter cross-connect charges. Network teams evaluate transit across three key realities:
         </p>
         
         <div class="architectural-triad">
           <div class="triad-item">
             <span class="triad-num">01</span>
             <h3 class="triad-title">Eyeball Reachability</h3>
-            <p class="triad-desc">Direct, low-latency paths to consumer ISPs without traversing congested third-party peering fabrics or secondary settlement-free hops.</p>
+            <p class="triad-desc">
+              Direct, low-latency paths to residential and enterprise networks without traversing congested third-party peering fabrics or secondary settlement-free hops.
+            </p>
           </div>
           <div class="triad-item">
             <span class="triad-num">02</span>
             <h3 class="triad-title">BGP Traffic Engineering</h3>
-            <p class="triad-desc">Granular BGP community support to deprioritize backup upstreams, trigger blackholing (RTBH), or shape outbound flows by geographic destination.</p>
+            <p class="triad-desc">
+              Granular BGP community support to deprioritize backup upstreams, trigger automated blackholing (RTBH), or steer outbound traffic on a per-region basis.
+            </p>
           </div>
           <div class="triad-item">
             <span class="triad-num">03</span>
             <h3 class="triad-title">Cost Predictability</h3>
-            <p class="triad-desc">Balancing committed data rates (CDR) against unpredictable traffic spikes using verified 95th percentile burst calculations and port sizing.</p>
+            <p class="triad-desc">
+              Balancing committed data rates (CDR) against traffic spikes using transparent 95th percentile burst calculations and appropriate port sizing.
+            </p>
           </div>
         </div>
       </section>
 
-      <!-- Experience Note Module (Directive §18) -->
-      <div class="experience-note">
-        <span class="experience-note-kicker">INFRAHUB FIELD NOTE // WHAT BUYERS OFTEN MISS</span>
-        <h3 class="experience-note-title">A low price per Mbps can cost more after cross-connects and bursts.</h3>
-        <p class="experience-note-body">
-          Carriers frequently quote attractive headline rates (€0.20-€0.45/Mbps) on 10G or 100G ports, but recover margin through mandatory datacenter cross-connect recurring fees, punitive 95th percentile burst tiers, or restrictive BGP traffic engineering communities. Before committing to an upstream provider, calculate the blended monthly cost including MMR patching and regional eyeball path quality.
-        </p>
-      </div>
-
-      <!-- Available Approaches -->
+      <!-- 03 Meaningful Network Topology Diagram (SVG) -->
       <section class="service-section">
-        <span class="section-kicker">ARCHITECTURE</span>
-        <h2 class="section-headline">Available Transit Approaches</h2>
-        <div class="approaches-list">
-          <div class="approach-row">
-            <div class="approach-col-title">
-              <h3>Single Tier-1 Backbone</h3>
-              <span class="approach-sub">Settlement-Free Global Core</span>
-            </div>
-            <div class="approach-col-desc">
-              <p>Connect directly to a global Tier-1 network with extensive settlement-free peering across five continents.</p>
-            </div>
-            <div class="approach-col-points">
-              <ul>
-                <li>Lowest hop count for international enterprise destinations</li>
-                <li>Strict SLA commitments on packet delivery and latency</li>
-                <li>Higher cost per megabit; higher baseline commit requirements</li>
-              </ul>
-            </div>
-          </div>
+        <h2 class="section-headline">Transit Architecture &amp; Upstream Topologies</h2>
+        <p class="section-lead">
+          A resilient edge pairs diverse upstream transit carriers with local Internet Exchange peering and out-of-band DDoS diversion capabilities:
+        </p>
 
-          <div class="approach-row">
-            <div class="approach-col-title">
-              <h3>Multi-Homed Blended Transit</h3>
-              <span class="approach-sub">Managed BGP Blend</span>
-            </div>
-            <div class="approach-col-desc">
-              <p>Purchase a pre-blended BGP transit mix delivered over a single cross-connect in your colocation facility.</p>
-            </div>
-            <div class="approach-col-points">
-              <ul>
-                <li>Automatic BGP best-path failover without running your own edge routers</li>
-                <li>Economical commit thresholds for growing networks and platforms</li>
-                <li>Less granular control over individual upstream carrier communities</li>
-              </ul>
-            </div>
-          </div>
+        <div class="topology-diagram-container">
+          <svg viewBox="0 0 900 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="topology-svg" role="img" aria-label="Network transit topology diagram showing Customer ASN connected to Upstream A, Upstream B, Regional IXP, and DDoS scrubbing network">
+            <rect width="900" height="360" rx="8" fill="#0b1120" />
+            
+            <!-- Grid Lines Background -->
+            <path d="M50 0V360M150 0V360M250 0V360M350 0V360M450 0V360M550 0V360M650 0V360M750 0V360M850 0V360" stroke="#1e293b" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.6"/>
+            <path d="M0 60H900M0 120H900M0 180H900M0 240H900M0 300H900" stroke="#1e293b" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.6"/>
 
-          <div class="approach-row">
-            <div class="approach-col-title">
-              <h3>Direct Dual Multi-Homing</h3>
-              <span class="approach-sub">Independent Autonomous System</span>
-            </div>
-            <div class="approach-col-desc">
-              <p>Contract two distinct Tier-1 / Tier-2 carriers terminated directly on your own redundant BGP border routers.</p>
-            </div>
-            <div class="approach-col-points">
-              <ul>
-                <li>Maximum fault tolerance against carrier-wide fiber cuts or BGP route leaks</li>
-                <li>Full control over local preference, AS-path prepending, and FlowSpec</li>
-                <li>Requires ASN ownership and dual MMR cross-connect recurring fees</li>
-              </ul>
-            </div>
-          </div>
+            <!-- Interconnect Lines -->
+            <!-- Customer to Upstream A -->
+            <path d="M220 180 C 320 180, 320 70, 440 70" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+            <text x="310" y="105" fill="#93c5fd" font-family="monospace" font-size="11">BGP Session (Full Feed)</text>
+
+            <!-- Customer to Upstream B -->
+            <path d="M220 180 C 320 180, 320 150, 440 150" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
+            <text x="310" y="158" fill="#93c5fd" font-family="monospace" font-size="11">BGP Session (Diverse Path)</text>
+
+            <!-- Customer to Regional IXP -->
+            <path d="M220 180 C 320 180, 320 230, 440 230" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
+            <text x="310" y="215" fill="#6ee7b7" font-family="monospace" font-size="11">Settlement-Free Peering</text>
+
+            <!-- Customer to DDoS Diversion -->
+            <path d="M220 180 C 320 180, 320 300, 440 300" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" />
+            <text x="310" y="280" fill="#fcd34d" font-family="monospace" font-size="11">BGP FlowSpec / RTBH</text>
+
+            <!-- Customer Border Routers Node -->
+            <g transform="translate(60, 130)">
+              <rect width="160" height="100" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+              <text x="80" y="32" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">Customer Edge</text>
+              <text x="80" y="52" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Border ASNs</text>
+              <rect x="20" y="68" width="120" height="20" rx="3" fill="#0f172a" />
+              <text x="80" y="82" fill="#38bdf8" font-family="monospace" font-size="10" text-anchor="middle">eBGP Border Routers</text>
+            </g>
+
+            <!-- Target 1: Upstream Carrier A -->
+            <g transform="translate(440, 45)">
+              <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+              <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Upstream Carrier A</text>
+              <text x="100" y="40" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">Tier-1 Global Core Backbone</text>
+            </g>
+            <path d="M640 70 H730" stroke="#475569" stroke-width="1.5" />
+
+            <!-- Target 2: Upstream Carrier B -->
+            <g transform="translate(440, 125)">
+              <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+              <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Upstream Carrier B</text>
+              <text x="100" y="40" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">Regional Low-Latency Fiber</text>
+            </g>
+            <path d="M640 150 H730" stroke="#475569" stroke-width="1.5" />
+
+            <!-- Target 3: Internet Exchange (IXP) -->
+            <g transform="translate(440, 205)">
+              <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1" />
+              <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Metro Internet Exchange</text>
+              <text x="100" y="40" fill="#6ee7b7" font-family="monospace" font-size="10" text-anchor="middle">Public Bilateral Peering Fabric</text>
+            </g>
+            <path d="M640 230 H730" stroke="#475569" stroke-width="1.5" />
+
+            <!-- Target 4: DDoS Scrubbing Center -->
+            <g transform="translate(440, 280)">
+              <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1" />
+              <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Cloud Scrubbing Center</text>
+              <text x="100" y="40" fill="#fcd34d" font-family="monospace" font-size="10" text-anchor="middle">Automated Diversion Network</text>
+            </g>
+            <path d="M640 305 H730" stroke="#475569" stroke-width="1.5" />
+
+            <!-- Global Internet Cloud -->
+            <g transform="translate(730, 50)">
+              <rect width="130" height="280" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+              <text x="65" y="130" fill="#e2e8f0" font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">Global</text>
+              <text x="65" y="150" fill="#e2e8f0" font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">Internet</text>
+              <text x="65" y="175" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">All Eyeballs</text>
+            </g>
+          </svg>
         </div>
       </section>
 
-      <!-- Technical Decision Factors Table -->
-      <section class="service-section" id="decision-framework">
-        <span class="section-kicker">TECHNICAL EVALUATION</span>
-        <h2 class="section-headline">Decision Factors & Specifications</h2>
+      <!-- 04 Comparison Framework Table -->
+      <section class="service-section" id="decision-factors">
+        <h2 class="section-headline">Decision Factors &amp; Specifications</h2>
         <div class="factors-table-wrap">
           <table class="factors-table">
             <thead>
@@ -134,110 +155,124 @@ import Layout from '../layouts/Layout.astro';
             <tbody>
               <tr>
                 <td><strong>Port vs Commit (CDR)</strong></td>
-                <td><span class="mono-text">100G port with 20G CDR</span></td>
-                <td>Provides headroom to absorb DDoS spikes or viral traffic surges without port saturation.</td>
+                <td><span class="mono-text">e.g. 100G port with 20G CDR</span></td>
+                <td>Provides immediate capacity to absorb traffic surges without port saturation.</td>
               </tr>
               <tr>
                 <td><strong>95th Percentile Billing</strong></td>
-                <td><span class="mono-text">Top 5% burst samples discarded</span></td>
-                <td>Protects against transient traffic spikes driving up monthly bandwidth commitments.</td>
+                <td><span class="mono-text">Top 5% burst samples excluded</span></td>
+                <td>Industry-standard sampling formula protecting against transient traffic spikes.</td>
               </tr>
               <tr>
-                <td><strong>Route Feeds</strong></td>
-                <td><span class="mono-text">Full Table (~950k v4 / ~200k v6)</span></td>
-                <td>Enables precise BGP path selection; requires enterprise router memory (16GB+ RAM).</td>
+                <td><strong>BGP Route Feeds</strong></td>
+                <td><span class="mono-text">Full Table feeds</span></td>
+                <td>Enables autonomous path engineering; requires routers with adequate memory and TCAM capacity.</td>
               </tr>
               <tr>
                 <td><strong>BGP Communities</strong></td>
-                <td><span class="mono-text">Blackhole (RTBH), prepending</span></td>
-                <td>Essential for autonomous DDoS defense and traffic steering during maintenance.</td>
+                <td><span class="mono-text">Blackhole (RTBH) &amp; prepending</span></td>
+                <td>Essential for rapid attack mitigation and fine-grained outbound traffic steering.</td>
               </tr>
               <tr>
                 <td><strong>MMR Cross-Connect Costs</strong></td>
-                <td><span class="mono-text">Facility Monthly Recurring Charge</span></td>
-                <td>Often costs more than the bandwidth itself in premium carrier-neutral datacenters.</td>
+                <td><span class="mono-text">Monthly datacenter charge</span></td>
+                <td>Recurring facility patching fees can represent a meaningful portion of total connectivity spend.</td>
               </tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- When It Fits vs When Another Approach Fits -->
+      <!-- 05 Editorial Field Note -->
+      <div class="experience-note">
+        <h3 class="experience-note-title">A low price per Mbps can cost more after cross-connects and bursts.</h3>
+        <p class="experience-note-body">
+          Carriers often quote competitive headline unit pricing on high-capacity ports, but total operational costs depend heavily on datacenter cross-connect recurring fees, burst pricing terms, and regional path latency. Before committing to an upstream provider, calculate the blended monthly cost including MMR patching and target eyeball performance.
+        </p>
+      </div>
+
+      <!-- 06 Available Approaches -->
       <section class="service-section">
-        <div class="fit-editorial-split">
-          <div class="fit-col">
-            <h3 class="fit-title">When Direct IP Transit Fits</h3>
-            <ul class="fit-list">
-              <li>You own an Autonomous System Number (ASN) and portable IPv4/IPv6 allocations.</li>
-              <li>You operate hardware in a carrier-neutral colocation facility.</li>
-              <li>You require upstream path diversity, BGP multi-homing, and strict SLA latency bounds.</li>
-              <li>You consume 1 Gbps or more of consistent outbound or inbound traffic.</li>
-            </ul>
+        <h2 class="section-headline">Available Transit Approaches</h2>
+        <div class="approaches-list">
+          <div class="approach-row">
+            <div class="approach-col-title">
+              <h3>Direct Dual Multi-Homing</h3>
+              <span class="approach-sub">Independent Autonomous System</span>
+            </div>
+            <div class="approach-col-desc">
+              <p>Contract two distinct upstream carriers terminated on redundant customer BGP border routers.</p>
+            </div>
+            <div class="approach-col-points">
+              <ul>
+                <li>Maximum resilience against carrier fiber cuts or routing incidents</li>
+                <li>Full control over local preference, AS prepending, and FlowSpec</li>
+                <li>Requires ASN ownership and dual facility cross-connect fees</li>
+              </ul>
+            </div>
           </div>
 
-          <div class="fit-col fit-alt">
-            <h3 class="fit-title">When Another Approach Fits Better</h3>
-            <ul class="fit-list">
-              <li><strong>Dedicated Server / Cloud:</strong> Under 500 Mbps, host-bundled transit is significantly more economical.</li>
-              <li><strong>Internet Exchange (IXP):</strong> If over 60% of traffic flows to local ISPs, an IXP port reduces transit spend.</li>
-              <li><strong>Edge CDN:</strong> For static media delivery, an edge caching layer suppresses origin transit by 80%+.</li>
-            </ul>
+          <div class="approach-row">
+            <div class="approach-col-title">
+              <h3>Managed Blended Transit</h3>
+              <span class="approach-sub">Single Hand-Off Mix</span>
+            </div>
+            <div class="approach-col-desc">
+              <p>Purchase a pre-aggregated multi-carrier BGP blend delivered over a single cross-connect.</p>
+            </div>
+            <div class="approach-col-points">
+              <ul>
+                <li>Automated upstream failover without managing complex border routing tables</li>
+                <li>Economical commitment thresholds for growing platforms</li>
+                <li>Less granular control over individual upstream carrier communities</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="approach-row">
+            <div class="approach-col-title">
+              <h3>Single Tier-1 Core</h3>
+              <span class="approach-sub">Global Backbone</span>
+            </div>
+            <div class="approach-col-desc">
+              <p>Connect directly to a global Tier-1 network with extensive international settlement-free peering.</p>
+            </div>
+            <div class="approach-col-points">
+              <ul>
+                <li>Minimal hop count for long-haul enterprise traffic</li>
+                <li>Strict latency and availability service level agreements</li>
+                <li>Higher baseline commit thresholds</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- How InfraHub Helps (Architectural Dark Band, no cards inside cards) -->
-      <section class="role-architectural-band">
-        <div class="role-header">
-          <span class="role-kicker">INFRAHUB SOURCING ROLE</span>
-          <h2 class="role-headline">How InfraHub Helps You Evaluate IP Transit</h2>
-          <p class="role-subhead">
-            Rather than managing multiple carrier sales desks, InfraHub audits your facility meet-me room presence and provides independent technical benchmarking:
-          </p>
-        </div>
-
-        <div class="role-columns-grid">
-          <div class="role-col-item">
-            <span class="role-step-num">01</span>
-            <h3 class="role-item-title">MMR On-Net Verification</h3>
-            <p class="role-item-desc">We confirm which carriers have lit fiber in your exact datacenter meet-me room to avoid third-party local loop charges.</p>
-          </div>
-          <div class="role-col-item">
-            <span class="role-step-num">02</span>
-            <h3 class="role-item-title">Commit & Burst Benchmarking</h3>
-            <p class="role-item-desc">We benchmark commercial rates for 10G, 40G, 100G, and 400G ports against current wholesale market intelligence.</p>
-          </div>
-          <div class="role-col-item">
-            <span class="role-step-num">03</span>
-            <h3 class="role-item-title">Cross-Connect Coordination</h3>
-            <p class="role-item-desc">We assist with Letters of Authorization (LOA/CFA) and ensure fiber patch parameters match carrier specifications.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Active Offer (Clean, minimal, no AI banner styling) -->
+      <!-- 07 Current Relevant Offer (Frankfurt 100G) -->
       <section class="service-offer-card">
         <div class="offer-info">
-          <span class="offer-kicker">CONFIRMED COMMERCIAL OPPORTUNITY</span>
-          <h3 class="offer-title">100G IP Transit  -  Frankfurt</h3>
-          <p class="offer-desc">20G Committed Data Rate on 100G port, burstable 95th percentile, from €1,450/month across Equinix and Interxion facilities.</p>
+          <span class="offer-kicker">FEATURED COMMERCIAL OPPORTUNITY</span>
+          <h3 class="offer-title">100G IP Transit — Frankfurt</h3>
+          <p class="offer-desc">20G Committed Data Rate on 100G port, burstable 95th percentile billing, from €1,450/month across Equinix and Interxion Frankfurt campuses.</p>
         </div>
         <a href="/offers/100g-transit-frankfurt" class="btn btn-primary">
           <span>View Offer Details</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
       </section>
 
-      <!-- Footer CTA -->
+      <!-- 08 Final CTA -->
       <div class="service-footer-cta">
-        <h2 class="cta-headline">Discuss Your Transit Requirements</h2>
-        <p class="cta-desc">Talk with an infrastructure sourcing advisor to evaluate carrier paths and commitments in your target facility.</p>
+        <div class="cta-left">
+          <h2 class="cta-headline">Discuss your IP transit requirements.</h2>
+          <p class="cta-desc">Evaluate carrier meet-me room presence, burst structures, and commercial terms with an infrastructure advisor.</p>
+        </div>
         <div class="cta-actions">
           <a href="/lets-talk?service=ip-transit" class="btn btn-accent btn-lg">Request Transit Sourcing</a>
-          <a href="/how-we-work" class="btn btn-secondary btn-lg">How We Work</a>
+          <a href="/how-we-work" class="cta-link">
+            <span>Review how we work</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         </div>
       </div>
 
@@ -248,374 +283,408 @@ import Layout from '../layouts/Layout.astro';
 <style>
   .service-page-wrapper {
     background-color: #ffffff;
-    padding: 64px 0 96px;
+    padding: 72px 0 96px;
   }
+
   .service-container {
     max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     flex-direction: column;
     gap: 72px;
   }
 
-  /* Left-aligned, Authoritative Service Hero */
+  /* 01 Hero Band */
   .service-hero-band {
-    max-width: 840px;
+    max-width: 820px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding-bottom: 24px;
+    gap: 18px;
     border-bottom: 1px solid var(--border-color);
+    padding-bottom: 48px;
   }
+
   .service-kicker {
-    font-size: 0.74rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     color: var(--accent-blue);
     text-transform: uppercase;
   }
+
   .service-title {
-    font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: var(--text-primary);
   }
+
   .service-lead {
     font-size: 1.15rem;
-    color: var(--text-secondary);
     line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 65ch;
   }
+
   .service-hero-actions {
     display: flex;
     flex-wrap: wrap;
+    gap: 16px;
     align-items: center;
-    gap: 14px;
     margin-top: 8px;
   }
 
-  /* Section Anatomy */
+  /* 02 Sections */
   .service-section {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 20px;
   }
-  .section-kicker {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
+
   .section-headline {
-    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
     font-weight: 800;
     letter-spacing: -0.025em;
     color: var(--text-primary);
-  }
-  .section-lead {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 820px;
-    margin-bottom: 16px;
+    line-height: 1.2;
   }
 
-  /* Architectural Triad (Broadsheet Divider Layout) */
+  .section-lead {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 65ch;
+  }
+
+  /* Triad */
   .architectural-triad {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
+    margin-top: 12px;
   }
-  @media (min-width: 768px) {
+
+  @media (min-width: 860px) {
     .architectural-triad {
       grid-template-columns: repeat(3, 1fr);
-      gap: 36px;
+      gap: 28px;
     }
   }
+
   .triad-item {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 28px 24px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border-top: 1px solid var(--border-color);
-    padding-top: 20px;
+    gap: 12px;
   }
+
   .triad-num {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--accent-blue);
   }
+
   .triad-title {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-primary);
+    line-height: 1.3;
   }
+
   .triad-desc {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
     color: var(--text-secondary);
-    line-height: 1.55;
   }
 
-  /* Approaches List */
-  .approaches-list {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border-color);
+  /* 03 SVG Topology Diagram */
+  .topology-diagram-container {
+    background: #0b1120;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
-    overflow: hidden;
-  }
-  .approach-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 28px 32px;
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .approach-row:last-child {
-    border-bottom: none;
-  }
-  @media (min-width: 900px) {
-    .approach-row {
-      grid-template-columns: 240px 1.1fr 1.2fr;
-      align-items: flex-start;
-      gap: 32px;
-    }
-  }
-  .approach-col-title {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .approach-col-title h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  .approach-sub {
-    font-size: 0.76rem;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-  .approach-col-desc p {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-  .approach-col-points ul {
-    list-style: disc;
-    padding-left: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.84rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
+    padding: 24px;
+    overflow-x: auto;
   }
 
-  /* Table */
+  .topology-svg {
+    width: 100%;
+    min-width: 760px;
+    height: auto;
+    display: block;
+  }
+
+  /* 04 Table */
   .factors-table-wrap {
     overflow-x: auto;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
   }
+
   .factors-table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.9rem;
-  }
-  .factors-table th, .factors-table td {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .factors-table th {
-    background-color: var(--bg-secondary);
-    font-size: 0.76rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .factors-table tr:last-child td {
-    border-bottom: none;
-  }
-  .mono-text {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--text-primary);
+    font-size: 0.95rem;
   }
 
-  /* When It Fits Split */
-  .fit-editorial-split {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  @media (min-width: 768px) {
-    .fit-editorial-split {
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-  }
-  .fit-col {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 28px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-  }
-  .fit-title {
-    font-size: 1.2rem;
+  .factors-table th {
+    background: #f8fafc;
+    padding: 16px 20px;
     font-weight: 700;
     color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
   }
-  .fit-list {
-    list-style: disc;
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 0.88rem;
+
+  .factors-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
+    vertical-align: top;
     line-height: 1.55;
   }
 
-  /* Architectural Dark Band for InfraHub Role */
-  .role-architectural-band {
-    background-color: #0b1120;
-    color: #ffffff;
-    border-radius: var(--radius-lg);
-    padding: 48px 40px;
+  .factors-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .mono-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  /* 05 Field Note */
+  .experience-note {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: var(--radius-sm);
+    padding: 28px 32px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 12px;
   }
-  .role-header {
-    max-width: 720px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .role-kicker {
-    font-size: 0.72rem;
+
+  .experience-note-title {
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--accent-teal);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    color: var(--text-primary);
   }
-  .role-headline {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.025em;
+
+  .experience-note-body {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 65ch;
   }
-  .role-subhead {
-    font-size: 0.98rem;
-    color: #94a3b8;
-    line-height: 1.6;
+
+  /* 06 Approaches */
+  .approaches-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
   }
-  .role-columns-grid {
+
+  .approach-row {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 20px;
+    padding: 28px 24px;
+    border-bottom: 1px solid var(--border-color);
+    background: #ffffff;
   }
-  @media (min-width: 768px) {
-    .role-columns-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+
+  .approach-row:last-child {
+    border-bottom: none;
+  }
+
+  @media (min-width: 860px) {
+    .approach-row {
+      grid-template-columns: 240px 1fr 1.2fr;
+      gap: 36px;
+      align-items: start;
     }
   }
-  .role-col-item {
+
+  .approach-col-title h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .approach-sub {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  .approach-col-desc p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .approach-col-points ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-top: 18px;
-  }
-  .role-step-num {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent-teal);
-  }
-  .role-item-title {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #ffffff;
-  }
-  .role-item-desc {
-    font-size: 0.86rem;
-    color: #94a3b8;
-    line-height: 1.5;
   }
 
-  /* Clean Offer Card */
+  .approach-col-points li {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #475569;
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .approach-col-points li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-blue);
+    font-weight: bold;
+  }
+
+  /* 07 Offer Card */
   .service-offer-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: var(--radius-sm);
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
-    justify-content: space-between;
-    padding: 32px 36px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
   }
-  @media (min-width: 768px) {
+
+  @media (min-width: 800px) {
     .service-offer-card {
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
     }
   }
+
   .offer-info {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-  }
-  .offer-kicker {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--accent-blue);
-    text-transform: uppercase;
-  }
-  .offer-title {
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: var(--text-primary);
-  }
-  .offer-desc {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
+    gap: 8px;
+    max-width: 620px;
   }
 
-  /* Footer CTA */
-  .service-footer-cta {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border-color);
+  .offer-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
   }
-  .cta-headline {
-    font-size: 1.75rem;
+
+  .offer-title {
+    font-size: 1.4rem;
     font-weight: 800;
     color: var(--text-primary);
   }
-  .cta-desc {
-    font-size: 1rem;
+
+  .offer-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
     color: var(--text-secondary);
-    max-width: 640px;
   }
+
+  /* 08 Footer CTA */
+  .service-footer-cta {
+    background: #0b1120;
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  @media (min-width: 860px) {
+    .service-footer-cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+  }
+
+  .cta-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 560px;
+  }
+
+  .cta-headline {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-desc {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+  }
+
   .cta-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .cta-link {
+    display: inline-flex;
     align-items: center;
-    gap: 14px;
-    margin-top: 8px;
+    gap: 8px;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .cta-link:hover {
+    color: #ffffff;
+  }
+
+  .link-arrow {
+    transition: transform 160ms ease;
+    display: inline-block;
+  }
+
+  .cta-link:hover .link-arrow {
+    transform: translateX(3px);
   }
 </style>

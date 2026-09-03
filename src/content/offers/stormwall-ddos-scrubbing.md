@@ -4,7 +4,10 @@ category: "security"
 location: "Frankfurt & Ashburn (Multi-PoP)"
 partner: "StormWall"
 status: "active"
+displayPrice: "From €650/mo"
 verifiedPrice: "From €650/mo"
+priceStatus: "confirmed_allocation"
+publicApproved: true
 publishedDate: 2026-08-20
 expiryDate: 2026-12-31
 specifications:

@@ -12,10 +12,10 @@ import Layout from '../layouts/Layout.astro';
     <div class="container talk-container">
       <!-- Left Column: Context & Guidelines -->
       <div class="talk-intro">
-        <span class="pill-badge badge-blue">Direct Qualification</span>
+        <span class="talk-kicker">TECHNICAL SOURCING &amp; ADVISORY INTAKE</span>
         <h1 class="talk-title">Tell us what you're trying to build.</h1>
         <p class="talk-sub">
-          You don't need an exact part number or provider decided. Start with your technical constraints, budget, and geographic goals  -  our architects will map suitable specialist providers.
+          You don't need a final provider or bill of materials figured out first. Start with your technical constraints, location requirements, and timeline.
         </p>
 
         <div class="qualification-card">
@@ -24,35 +24,30 @@ import Layout from '../layouts/Layout.astro';
             <li>
               <span class="step-badge">1</span>
               <div>
-                <strong>Architect Review</strong>
-                <p>We review your technical requirements, latency needs, and commercial criteria.</p>
+                <strong>Advisor Review</strong>
+                <p>An infrastructure advisor reviews your parameters and technical constraints within one business day.</p>
               </div>
             </li>
             <li>
               <span class="step-badge">2</span>
               <div>
-                <strong>Ecosystem Evaluation</strong>
-                <p>We match 2-3 vetted specialist providers capable of delivering the solution.</p>
+                <strong>Ecosystem Matching</strong>
+                <p>We identify verified specialist providers matching your exact location and technical footprint.</p>
               </div>
             </li>
             <li>
               <span class="step-badge">3</span>
               <div>
                 <strong>Direct Introduction</strong>
-                <p>We introduce you directly to the engineering team for contracting and implementation.</p>
+                <p>We introduce your engineering team directly to provider leadership for direct contracting.</p>
               </div>
             </li>
           </ul>
         </div>
 
         <div class="commercial-callout">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-          </svg>
           <p>
-            <strong>Zero Additional Fees:</strong> InfraHub is compensated by our participating partners. Sourcing through InfraHub never adds fees or markups to your provider invoices.
+            <strong>Commercial Transparency:</strong> Sourcing through InfraHub never adds fees or markups to provider invoices. InfraHub is compensated directly by participating partners upon contracted delivery.
           </p>
         </div>
       </div>
@@ -75,81 +70,87 @@ import Layout from '../layouts/Layout.astro';
             <span class="pill-badge badge-teal" id="context-badge-text">Inquiring about: ...</span>
           </div>
 
-          <!-- Question 1: What are you looking for? -->
-          <div class="form-group">
-            <label for="lookingFor" class="form-label">What are you looking for? <span class="required">*</span></label>
-            <select name="lookingFor" id="lookingFor" class="form-select" required>
-              <option value="" disabled selected>Select an infrastructure area...</option>
-              <option value="hardware">Hardware & Servers (Buy / Refurbished)</option>
-              <option value="dedicated-infrastructure">Dedicated Infrastructure & Bare Metal</option>
-              <option value="cloud">Cloud & Virtualization (Private Cloud / VMware Alt)</option>
-              <option value="connectivity">Connectivity & IP Transit (10G-400G / Wavelengths)</option>
-              <option value="ddos-security">DDoS Protection & Detection (FastNetMon / BGP)</option>
-              <option value="cybersecurity">Cybersecurity & Network Audit</option>
-              <option value="managed-services">Managed Services & 24/7 NOC</option>
-              <option value="ipv4">IPv4 Sourcing & Leasing</option>
-              <option value="other">Other Infrastructure Requirement</option>
-            </select>
-          </div>
-
-          <!-- Question 2: Target Location -->
-          <div class="form-group">
-            <label for="targetLocation" class="form-label">Target Location / Datacenter</label>
-            <input 
-              type="text" 
-              name="targetLocation" 
-              id="targetLocation" 
-              class="form-input" 
-              placeholder="e.g. Frankfurt, London, Singapore, Equinix, Interxion, etc." 
-            />
-          </div>
-
-          <!-- Question 3: Requirements Description -->
-          <div class="form-group">
-            <label for="requirementsDescription" class="form-label">Tell us about your requirements <span class="required">*</span></label>
-            <textarea 
-              name="requirementsDescription" 
-              id="requirementsDescription" 
-              class="form-textarea" 
-              rows="4" 
-              placeholder="Describe port speeds, commit levels, server specifications, timeline, or current technical challenges..."
-              required
-            ></textarea>
-          </div>
-
-          <!-- Question 4: Timeline -->
-          <div class="form-group">
-            <label for="timeline" class="form-label">Implementation Timeline <span class="required">*</span></label>
-            <select name="timeline" id="timeline" class="form-select" required>
-              <option value="" disabled selected>Select anticipated timeline...</option>
-              <option value="immediate">Immediate (Next 7-14 days)</option>
-              <option value="under-30-days">Under 30 days</option>
-              <option value="1-3-months">1 to 3 months</option>
-              <option value="3-plus-months">3+ months</option>
-              <option value="researching">Just researching options</option>
-            </select>
-          </div>
-
-          <!-- Contact Details -->
-          <div class="form-row">
+          <!-- Section 1: Technical Discipline -->
+          <div class="form-fieldset">
+            <span class="fieldset-legend">1. Technical Discipline</span>
             <div class="form-group">
-              <label for="contactName" class="form-label">Your Name <span class="required">*</span></label>
-              <input type="text" name="contactName" id="contactName" class="form-input" required />
-            </div>
-            <div class="form-group">
-              <label for="companyName" class="form-label">Company Name <span class="required">*</span></label>
-              <input type="text" name="companyName" id="companyName" class="form-input" required />
+              <label for="lookingFor" class="form-label">Primary Infrastructure Scope <span class="required">*</span></label>
+              <select name="lookingFor" id="lookingFor" class="form-select" required>
+                <option value="" disabled selected>Select an infrastructure discipline...</option>
+                <option value="connectivity">Connectivity &amp; IP Transit (10G–400G / Wavelengths)</option>
+                <option value="hardware">Hardware &amp; Enterprise Servers (Refurbished / Certified)</option>
+                <option value="dedicated-infrastructure">Dedicated Infrastructure &amp; Bare Metal Clusters</option>
+                <option value="cloud">Cloud &amp; Virtualization (Private Cloud / VMware Alternatives)</option>
+                <option value="ddos-security">DDoS Mitigation &amp; FlowSpec Automation</option>
+                <option value="managed-services">Managed NOC &amp; Network Operations Desk</option>
+                <option value="ipv4">IPv4 Sourcing &amp; Subnet Leasing</option>
+                <option value="other">Other Infrastructure Requirement</option>
+              </select>
             </div>
           </div>
 
-          <div class="form-row">
+          <!-- Section 2: Requirement Parameters & Location -->
+          <div class="form-fieldset">
+            <span class="fieldset-legend">2. Location &amp; Technical Constraints</span>
             <div class="form-group">
-              <label for="workEmail" class="form-label">Work Email <span class="required">*</span></label>
-              <input type="email" name="workEmail" id="workEmail" class="form-input" required />
+              <label for="targetLocation" class="form-label">Target Facility / Metro</label>
+              <input 
+                type="text" 
+                name="targetLocation" 
+                id="targetLocation" 
+                class="form-input" 
+                placeholder="e.g. Equinix FR5 Frankfurt, Telehouse North London, Interxion FRA" 
+              />
             </div>
+
             <div class="form-group">
-              <label for="phone" class="form-label">Phone Number (Optional)</label>
-              <input type="tel" name="phone" id="phone" class="form-input" />
+              <label for="requirementsDescription" class="form-label">Technical Parameters &amp; Workload <span class="required">*</span></label>
+              <textarea 
+                name="requirementsDescription" 
+                id="requirementsDescription" 
+                class="form-textarea" 
+                rows="4" 
+                placeholder="Detail port capacity (e.g. 10G/100G), commit (e.g. 20G CDR), ASN (e.g. AS12345), server specs, or specific hypervisor dependencies..."
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="timeline" class="form-label">Anticipated Timeline <span class="required">*</span></label>
+              <select name="timeline" id="timeline" class="form-select" required>
+                <option value="" disabled selected>Select implementation timeline...</option>
+                <option value="immediate">Immediate (Next 7–14 days)</option>
+                <option value="under-30-days">Under 30 days</option>
+                <option value="1-3-months">1 to 3 months</option>
+                <option value="3-plus-months">3+ months</option>
+                <option value="researching">Evaluating market options</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Section 3: Contact Details -->
+          <div class="form-fieldset">
+            <span class="fieldset-legend">3. Contact &amp; Organization</span>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="contactName" class="form-label">Your Name <span class="required">*</span></label>
+                <input type="text" name="contactName" id="contactName" class="form-input" placeholder="First and last name" required />
+              </div>
+              <div class="form-group">
+                <label for="companyName" class="form-label">Organization <span class="required">*</span></label>
+                <input type="text" name="companyName" id="companyName" class="form-input" placeholder="Company or ASN name" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="workEmail" class="form-label">Work Email <span class="required">*</span></label>
+                <input type="email" name="workEmail" id="workEmail" class="form-input" placeholder="name@company.com" required />
+              </div>
+              <div class="form-group">
+                <label for="phone" class="form-label">Direct Phone (Optional)</label>
+                <input type="tel" name="phone" id="phone" class="form-input" placeholder="+1..." />
+              </div>
             </div>
           </div>
 
@@ -160,33 +161,30 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <button type="submit" id="submit-btn" class="btn btn-accent btn-block btn-lg">
-            <span>Send Technical Requirement</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
+            <span>Submit Technical Requirement</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
           </button>
 
           <p class="form-privacy-note">
-            We value your privacy. Your information is only shared with approved specialist providers relevant to your requirement.
+            Your details are only shared with specialist providers directly relevant to your scope.
           </p>
         </form>
 
         <!-- Success Confirmation State -->
         <div id="form-success-card" class="form-success-card" style="display: none;">
           <div class="success-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>
           </div>
           <h2>Requirement Received</h2>
           <p>
-            Thank you. Your inquiry reference is <strong id="lead-id-display">#LEAD-0000</strong>.
+            Inquiry reference: <strong id="lead-id-display">#LEAD-0000</strong>
           </p>
           <p class="success-desc">
-            An infrastructure architect is reviewing your specifications and will follow up shortly with qualified options.
+            An infrastructure advisor is reviewing your parameters and will follow up within one business day with independent provider options or clarifying technical questions.
           </p>
-          <a href="/" class="btn btn-secondary">Back to Homepage</a>
+          <a href="/" class="btn btn-secondary">Return to Homepage</a>
         </div>
       </div>
     </div>
@@ -221,6 +219,16 @@ import Layout from '../layouts/Layout.astro';
     margin-bottom: 36px;
   }
 
+  .talk-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    display: inline-block;
+  }
+
   /* Qualification Card */
   .qualification-card {
     background-color: var(--bg-secondary);
@@ -239,6 +247,8 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     flex-direction: column;
     gap: 18px;
+    padding: 0;
+    margin: 0;
   }
   .qual-steps li {
     display: flex;
@@ -268,21 +278,39 @@ import Layout from '../layouts/Layout.astro';
     font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.45;
+    margin: 0;
   }
 
   .commercial-callout {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 16px;
-    background-color: var(--accent-teal-light);
-    border: 1px solid rgba(13, 148, 136, 0.25);
-    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-blue);
+    border-radius: var(--radius-sm);
   }
   .commercial-callout p {
     font-size: 0.88rem;
-    color: #0f766e;
-    line-height: 1.5;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Form Fieldsets */
+  .form-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+  }
+  .fieldset-legend {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
   }
 
   /* Form Card */

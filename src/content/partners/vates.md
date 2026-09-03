@@ -8,12 +8,18 @@ capabilities:
   - "Centralized cluster, pool, and backup management (Xen Orchestra)"
   - "Live warm migration from VMware ESXi environments"
   - "European sovereign data compliance"
-strategic: true
+strategic: false
 verified: true
 shortRole: "Open-Source Virtualization & Cloud Stack"
+relationshipStatus: "confirmed"
+publicNamingStatus: "approved"
+logoStatus: "sourced"
+logoApproved: false
+capabilityClaimsStatus: "approved"
+strategicStatus: "none"
+homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
-logoApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 6
 partnerPageEnabled: true

@@ -4,7 +4,10 @@ shortDescription: "Refurbished high-density 1U dual-socket enterprise server con
 category: "hardware"
 location: "EU Stock / 48-Hour Dispatch"
 partner: "ITcare"
+displayPrice: "€3,890 / unit"
 verifiedPrice: "€3,890 / unit"
+priceStatus: "confirmed_allocation"
+publicApproved: true
 specifications:
   - "2× Intel Xeon Gold 6330 (56 Total Cores / 112 Threads)"
   - "512 GB DDR4 3200MHz ECC Registered Memory"
