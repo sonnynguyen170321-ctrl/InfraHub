@@ -1,5 +1,5 @@
 ---
-// src/components/PartnerTrustRibbon.astro — InfraHub Premium Partner Trust System
+// src/components/PartnerTrustRibbon.astro | InfraHub Premium Partner Trust System
 import { getCollection } from 'astro:content';
 
 const allPartners = await getCollection('partners');
@@ -35,8 +35,8 @@ const approvedPartners = allPartners
               <a 
                 href={`/partners/${partner.slug}`} 
                 class="partner-logo-link"
-                aria-label={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
-                title={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
+                aria-label={`${partner.data.name}  -  ${partner.data.shortRole || partner.data.tagline}`}
+                title={`${partner.data.name}  -  ${partner.data.shortRole || partner.data.tagline}`}
               >
                 <img 
                   src={partner.data.logo} 

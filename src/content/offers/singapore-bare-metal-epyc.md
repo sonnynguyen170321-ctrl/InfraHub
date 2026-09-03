@@ -1,5 +1,5 @@
 ---
-title: "AMD EPYC Bare Metal — Singapore"
+title: "AMD EPYC Bare Metal  -  Singapore"
 shortDescription: "Ultra-low latency dedicated bare metal compute located in Singapore with direct Southeast Asian fiber peering."
 category: "infrastructure"
 location: "Singapore (Tier III Facility)"

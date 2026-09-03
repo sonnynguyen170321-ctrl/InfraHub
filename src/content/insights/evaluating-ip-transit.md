@@ -23,7 +23,7 @@ In wholesale IP transit contracts, bandwidth consumption is rarely billed on tot
 
 ### Committed Data Rate (CDR) vs Bursting
 
-Carriers require a **Committed Data Rate (CDR)** — a baseline contractual commit (e.g., 20 Gbps on a 100 Gbps physical port). If your 95th percentile calculation is below 20 Gbps, you pay the minimum commit fee. If your 95th percentile reaches 35 Gbps, you pay the commit fee plus 15 Gbps of burst at the agreed burst rate.
+Carriers require a **Committed Data Rate (CDR)**  -  a baseline contractual commit (e.g., 20 Gbps on a 100 Gbps physical port). If your 95th percentile calculation is below 20 Gbps, you pay the minimum commit fee. If your 95th percentile reaches 35 Gbps, you pay the commit fee plus 15 Gbps of burst at the agreed burst rate.
 
 ### Key Traffic Profiling Considerations
 

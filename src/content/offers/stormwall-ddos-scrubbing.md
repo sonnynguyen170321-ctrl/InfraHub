@@ -22,4 +22,4 @@ Delivered in partnership with StormWall, this commercial package protects your A
 ### Commercial Terms
 - **Commitment:** 12 or 24-month terms.
 - **Port Speed:** 10 Gbps, 40 Gbps, or 100 Gbps clean traffic handoff.
-- **Setup Time:** 24–48 hours for GRE tunnel turnup and BGP testing.
+- **Setup Time:** 24-48 hours for GRE tunnel turnup and BGP testing.

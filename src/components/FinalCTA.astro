@@ -1,26 +1,22 @@
 ---
-// src/components/FinalCTA.astro
+// src/components/FinalCTA.astro  -  Architectural Conversion Band
 ---
 
 <section class="section-conversion-band" id="contact">
   <div class="container">
     <div class="conversion-card">
       <div class="conversion-content">
-        <span class="conversion-kicker">QUALIFICATION & SOURCING</span>
         <h2 class="conversion-headline">Tell us what you're trying to build.</h2>
         <p class="conversion-copy">
-          You do not need the provider or product decided. Start with the technical requirement, location, constraints and timing.
+          You do not need the provider or product decided first. Start with your technical requirement, location constraints, and timeline.
         </p>
         <div class="conversion-actions">
           <a href="/lets-talk" class="btn btn-accent btn-lg">
-            <span>Discuss Your Requirement</span>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
+            Discuss Your Requirement
           </a>
-          <a href="/how-we-work" class="btn btn-outline-light btn-lg">
-            <span>How We Work</span>
+          <a href="/how-we-work" class="conversion-text-link">
+            <span>Review how we work</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </div>
@@ -30,28 +26,25 @@
 
 <style>
   .section-conversion-band {
-    background-color: var(--bg-dark);
-    padding: 80px 0 60px;
+    background-color: #0b1120;
+    padding: 88px 0 72px;
   }
 
   .conversion-card {
-    background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.25) 0%, transparent 60%),
-                radial-gradient(circle at 20% 80%, rgba(13, 148, 136, 0.2) 0%, transparent 60%),
-                #0f172a;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-xl);
-    padding: 72px 32px;
+    background-color: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: 64px 32px;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   }
   @media (min-width: 768px) {
     .conversion-card {
-      padding: 80px 56px;
+      padding: 72px 56px;
     }
   }
 
   .conversion-content {
-    max-width: 740px;
+    max-width: 680px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -59,27 +52,18 @@
     gap: 20px;
   }
 
-  .conversion-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--accent-teal);
-    letter-spacing: 0.12em;
-  }
-
   .conversion-headline {
-    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+    font-size: clamp(2rem, 3.8vw, 2.8rem);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
     color: #ffffff;
   }
 
   .conversion-copy {
-    font-size: clamp(1.05rem, 1.25vw, 1.2rem);
-    color: #cbd5e1;
+    font-size: 1.1rem;
     line-height: 1.6;
-    max-width: 640px;
+    color: #94a3b8;
   }
 
   .conversion-actions {
@@ -87,26 +71,37 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 24px;
     margin-top: 12px;
   }
 
-  .btn-outline-light {
+  .conversion-text-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    padding: 13px 26px;
-    border-radius: var(--radius-md);
+    color: #cbd5e1;
+    font-size: 0.98rem;
     font-weight: 600;
-    font-size: 0.95rem;
-    transition: var(--transition-fast);
+    text-decoration: none;
+    transition: color 160ms ease;
   }
-  .btn-outline-light:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-color: #ffffff;
+  .conversion-text-link:hover {
     color: #ffffff;
+  }
+  .link-arrow {
+    transition: transform 160ms ease;
+  }
+  .conversion-text-link:hover .link-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 640px) {
+    .conversion-actions {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .btn {
+      width: 100%;
+    }
   }
 </style>

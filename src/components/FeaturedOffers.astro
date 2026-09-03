@@ -1,5 +1,5 @@
 ---
-// src/components/FeaturedOffers.astro
+// src/components/FeaturedOffers.astro  -  Asymmetric Commercial Layout
 import { getCollection } from 'astro:content';
 
 const now = new Date();
@@ -10,267 +10,299 @@ const activeOffers = allOffers.filter(o => {
   return true;
 });
 
-// Show only the top 3 live offers on the homepage per specification
-const homepageOffers = activeOffers.slice(0, 3);
+// Primary featured offer + two secondary offers
+const primaryOffer = activeOffers.find(o => o.slug === '100g-transit-frankfurt') || activeOffers[0];
+const secondaryOffers = activeOffers.filter(o => o.slug !== primaryOffer.slug).slice(0, 2);
 ---
 
 <section class="section section-offers" id="featured-offers">
   <div class="container">
+    
+    <!-- Clean Headline (No Eyebrow, Stacked Prose) -->
     <div class="offers-header">
-      <div class="header-left">
-        <span class="mono-kicker">COMMERCIAL OPPORTUNITIES</span>
-        <h2 class="offers-headline">Featured Offers</h2>
-      </div>
-      <div class="header-right">
-        <p class="offers-lead">Verified hardware stock, transit allocations, and defensive licenses directly through our specialist ecosystem.</p>
-      </div>
+      <h2 class="offers-headline">Featured Offers</h2>
+      <p class="offers-lead">
+        Verified hardware allocations, transit commitments, and defensive infrastructure available directly through our partner network.
+      </p>
     </div>
 
-    <div class="offers-triad-grid">
-      {homepageOffers.map(offer => (
-        <article class="offer-minimal-card">
-          <div class="card-meta">
-            <span class="offer-category-badge">{offer.data.category.toUpperCase()}</span>
-            <span class="offer-location-text">{offer.data.location}</span>
+    <!-- Asymmetric Composition: 1 Featured Opportunity + 2 Compact Secondary Rows -->
+    <div class="offers-composition">
+      
+      <!-- Prominent Primary Opportunity -->
+      {primaryOffer && (
+        <article class="featured-primary-card">
+          <div class="primary-card-top">
+            <span class="primary-kicker">{primaryOffer.data.category.toUpperCase()} ALLOCATION</span>
+            <h3 class="primary-title">
+              <a href={`/offers/${primaryOffer.slug}`}>{primaryOffer.data.title}</a>
+            </h3>
+            <span class="primary-location">{primaryOffer.data.location}</span>
           </div>
 
-          <h3 class="offer-card-title">
-            <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
-          </h3>
+          <p class="primary-desc">{primaryOffer.data.shortDescription}</p>
 
-          <div class="offer-key-spec">
-            <span class="spec-label">Key Specification</span>
-            <span class="spec-value">{offer.data.specifications[0]}</span>
-          </div>
+          <ul class="primary-specs-list">
+            {primaryOffer.data.specifications.slice(0, 3).map(spec => (
+              <li>{spec}</li>
+            ))}
+          </ul>
 
-          <div class="offer-card-action">
-            <div class="offer-pricing">
-              <span class="price-title">Commercial Rate</span>
-              <span class="price-amount">{offer.data.verifiedPrice}</span>
+          <div class="primary-card-bottom">
+            <div class="primary-price">
+              <span class="price-figure">{primaryOffer.data.verifiedPrice}</span>
             </div>
-            <a href={`/lets-talk?offer=${offer.slug}`} class="btn-request">
+            <a href={`/lets-talk?offer=${primaryOffer.slug}`} class="btn btn-accent btn-sm">
               <span>Request Pricing</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
             </a>
           </div>
         </article>
-      ))}
+      )}
+
+      <!-- Two Compact Secondary Commercial Rows -->
+      <div class="secondary-offers-list">
+        {secondaryOffers.map(offer => (
+          <article class="secondary-offer-row">
+            <div class="secondary-meta">
+              <div class="secondary-badge-row">
+                <span class="secondary-category">{offer.data.category}</span>
+                <span class="secondary-location">{offer.data.location}</span>
+              </div>
+              <h4 class="secondary-title">
+                <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
+              </h4>
+              <p class="secondary-spec">{offer.data.specifications[0]}</p>
+            </div>
+
+            <div class="secondary-action-group">
+              <span class="secondary-price">{offer.data.verifiedPrice}</span>
+              <a href={`/offers/${offer.slug}`} class="secondary-link">
+                <span>View Offer</span>
+                <span class="link-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </article>
+        ))}
+
+        <div class="offers-all-link-wrap">
+          <a href="/offers" class="offers-view-all">
+            <span>View all active commercial offers</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
     </div>
 
-    <div class="offers-bottom-bar">
-      <a href="/offers" class="view-all-link">
-        <span>View all live commercial offers ({activeOffers.length})</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
-      <span class="offers-disclaimer">Allocations and pricing are verified against partner inventories.</span>
-    </div>
   </div>
 </section>
 
 <style>
   .section-offers {
-    background-color: #f8fafc;
-    padding: 80px 0;
+    background-color: #ffffff;
+    padding: 96px 0;
     border-bottom: 1px solid var(--border-color);
   }
 
+  /* Clean Headline */
   .offers-header {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
+    max-width: 720px;
     margin-bottom: 48px;
   }
-  @media (min-width: 1024px) {
-    .offers-header {
-      grid-template-columns: 1fr 1fr;
-      align-items: flex-end;
-      gap: 48px;
-    }
-  }
-
-  .mono-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--accent-blue);
-    letter-spacing: 0.1em;
-    font-weight: 700;
-    display: block;
-    margin-bottom: 8px;
-  }
   .offers-headline {
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
     color: var(--text-primary);
+    margin-bottom: 14px;
   }
   .offers-lead {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
     line-height: 1.6;
   }
 
-  /* 3-Card Focused Grid */
-  .offers-triad-grid {
+  /* Asymmetric 1 Primary + 2 Secondary Composition */
+  .offers-composition {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
-    margin-bottom: 36px;
+    gap: 32px;
   }
-  @media (min-width: 768px) {
-    .offers-triad-grid {
-      grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 960px) {
+    .offers-composition {
+      grid-template-columns: 1.25fr 1fr;
+      gap: 48px;
+      align-items: stretch;
     }
   }
 
-  .offer-minimal-card {
-    background-color: #ffffff;
+  /* Primary Featured Opportunity */
+  .featured-primary-card {
+    background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 28px;
+    padding: 36px 32px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 24px;
-    transition: var(--transition-fast);
-    box-shadow: var(--shadow-sm);
+    gap: 20px;
   }
-  .offer-minimal-card:hover {
-    border-color: var(--accent-blue);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .card-meta {
+  .primary-card-top {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 8px;
   }
-  .offer-category-badge {
+  .primary-kicker {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     color: var(--accent-blue);
-    background: var(--accent-blue-light);
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
   }
-  .offer-location-text {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .offer-card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.3;
+  .primary-title {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    font-weight: 800;
     color: var(--text-primary);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
-  .offer-card-title a:hover {
+  .primary-title a:hover {
     color: var(--accent-blue);
   }
-
-  .offer-key-spec {
+  .primary-location {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+  .primary-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .primary-specs-list {
+    list-style: disc;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 14px 0;
-    border-top: 1px solid #f1f5f9;
-    border-bottom: 1px solid #f1f5f9;
-  }
-  .spec-label {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .spec-value {
+    gap: 6px;
     font-size: 0.88rem;
     color: var(--text-secondary);
-    line-height: 1.4;
-    font-weight: 500;
   }
-
-  .offer-card-action {
+  .primary-card-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 8px;
   }
-  .offer-pricing {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .price-title {
+  .primary-price .price-figure {
     font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-  .price-amount {
-    font-size: 1rem;
-    font-weight: 800;
+    font-size: 1.15rem;
+    font-weight: 700;
     color: var(--text-primary);
   }
 
-  .btn-request {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--accent-blue);
-    padding: 8px 12px;
-    border-radius: var(--radius-sm);
-    background-color: var(--accent-blue-light);
-    transition: var(--transition-fast);
-  }
-  .btn-request:hover {
-    background-color: var(--accent-blue);
-    color: #ffffff;
-  }
-
-  /* Bottom Bar */
-  .offers-bottom-bar {
+  /* Secondary Commercial Rows */
+  .secondary-offers-list {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .secondary-offer-row {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: space-between;
+  }
+  .secondary-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .secondary-badge-row {
+    display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
-  @media (min-width: 768px) {
-    .offers-bottom-bar {
-      flex-direction: row;
-      justify-content: space-between;
-    }
+  .secondary-category {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
   }
-
-  .view-all-link {
+  .secondary-location {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+  .secondary-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .secondary-title a:hover {
+    color: var(--accent-blue);
+  }
+  .secondary-spec {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .secondary-action-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+  }
+  .secondary-price {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .secondary-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.86rem;
+    font-weight: 600;
     color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 160ms ease;
   }
-  .view-all-link:hover {
+  .secondary-link:hover {
     color: var(--accent-blue-hover);
   }
+  .link-arrow {
+    transition: transform 160ms ease;
+  }
+  .secondary-link:hover .link-arrow,
+  .offers-view-all:hover .link-arrow {
+    transform: translateX(3px);
+  }
 
-  .offers-disclaimer {
-    font-size: 0.78rem;
-    color: var(--text-muted);
+  .offers-all-link-wrap {
+    padding-top: 8px;
+  }
+  .offers-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+  .offers-view-all:hover {
+    color: var(--accent-blue);
   }
 </style>

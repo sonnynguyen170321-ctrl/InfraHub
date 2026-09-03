@@ -1,5 +1,5 @@
 ---
-title: "100G IP Transit — Frankfurt"
+title: "100G IP Transit  -  Frankfurt"
 shortDescription: "Carrier-neutral high-bandwidth IP Transit with flexible commit and burstable 95th percentile billing in Frankfurt."
 category: "connectivity"
 location: "Frankfurt, Germany (Equinix / Interxion)"

@@ -1,5 +1,5 @@
 ---
-// src/components/Hero.astro
+// src/components/Hero.astro  -  Human-Authored Editorial Hero
 ---
 
 <section class="hero-section" id="hero">
@@ -18,33 +18,22 @@
 
   <div class="container hero-container">
     <div class="hero-content">
-      <div class="hero-badge-wrap">
-        <span class="hero-kicker">INFRASTRUCTURE SOURCING & ADVISORY</span>
-      </div>
-
       <h1 class="hero-title">
         The right infrastructure.<br />
         <span class="hero-title-accent">The right partner.</span>
       </h1>
 
       <p class="hero-description">
-        InfraHub helps businesses understand infrastructure requirements, evaluate suitable approaches and connect with specialist providers across infrastructure, cloud, connectivity, security and managed operations.
+        InfraHub helps businesses evaluate infrastructure requirements and connect with specialist providers across networking, cloud, security, hardware and managed operations.
       </p>
 
       <div class="hero-actions">
         <a href="#solutions-ecosystem" class="btn btn-accent btn-lg">
-          <span>Explore Solutions</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <polyline points="19 12 12 19 5 12"></polyline>
-          </svg>
+          Explore Solutions
         </a>
-        <a href="/lets-talk" class="btn btn-outline-light btn-lg">
-          <span>Tell Us What You're Building</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
+        <a href="/lets-talk" class="hero-text-action">
+          <span>Tell us what you're building</span>
+          <span class="action-arrow" aria-hidden="true">&rarr;</span>
         </a>
       </div>
     </div>
@@ -54,7 +43,7 @@
 <style>
   .hero-section {
     position: relative;
-    min-height: 82vh;
+    min-height: 78vh;
     display: flex;
     align-items: center;
     background-color: #070b14;
@@ -95,22 +84,10 @@
   }
 
   .hero-content {
-    max-width: 820px;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
-
-  .hero-badge-wrap {
-    display: flex;
-    align-items: center;
-  }
-  .hero-kicker {
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--accent-teal);
-    text-transform: uppercase;
   }
 
   .hero-title {
@@ -128,48 +105,50 @@
     font-size: clamp(1.1rem, 1.4vw, 1.25rem);
     line-height: 1.6;
     color: #cbd5e1;
-    max-width: 720px;
+    max-width: 700px;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 16px;
+    gap: 28px;
     margin-top: 12px;
   }
 
-  .btn-outline-light {
+  /* Quiet, confident secondary text action */
+  .hero-text-action {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    color: #ffffff;
-    padding: 13px 24px;
-    border-radius: var(--radius-md);
+    color: #e2e8f0;
+    font-size: 1.02rem;
     font-weight: 600;
-    font-size: 0.95rem;
-    transition: var(--transition-fast);
+    padding: 8px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 160ms ease, border-color 160ms ease;
   }
-  .btn-outline-light:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-color: #ffffff;
+  .hero-text-action:hover {
     color: #ffffff;
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+  }
+  .action-arrow {
+    transition: transform 160ms ease;
+    display: inline-block;
+  }
+  .hero-text-action:hover .action-arrow {
+    transform: translateX(3px);
   }
 
   @media (max-width: 768px) {
     .hero-section {
       min-height: auto;
-      padding: 96px 0 64px;
+      padding: 88px 0 56px;
     }
     .hero-actions {
       flex-direction: column;
-      align-items: stretch;
-    }
-    .btn-outline-light,
-    .btn-accent {
-      justify-content: center;
+      align-items: flex-start;
+      gap: 18px;
     }
   }
 </style>

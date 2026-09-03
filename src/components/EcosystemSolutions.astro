@@ -1,10 +1,9 @@
 ---
-// src/components/EcosystemSolutions.astro
+// src/components/EcosystemSolutions.astro  -  Editorial Solution Selector
 const solutionFamilies = [
   {
     id: "infrastructure",
-    number: "01",
-    name: "Infrastructure",
+    name: "Infrastructure & Compute",
     summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade certified hardware.",
     image: "/images/hero-datacenter.jpg",
     imageAlt: "Enterprise datacenter server racks with precision cooling",
@@ -19,11 +18,10 @@ const solutionFamilies = [
   },
   {
     id: "cloud",
-    number: "02",
     name: "Cloud & Virtualization",
     summary: "Sovereign European private clouds, VMware licensing alternatives, managed Kubernetes, and multi-region failover.",
-    image: "/images/hero-datacenter.jpg",
-    imageAlt: "Private cloud virtualization hypervisors and storage pools",
+    image: "/images/cloud-compute.jpg",
+    imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
       { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated sovereign hypervisors with predictable OpEx" },
@@ -34,7 +32,6 @@ const solutionFamilies = [
   },
   {
     id: "network",
-    number: "03",
     name: "Network & Connectivity",
     summary: "Upstream Tier-1 IP Transit, dedicated dark fiber wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
     image: "/images/network-fiber.jpg",
@@ -50,26 +47,24 @@ const solutionFamilies = [
   },
   {
     id: "security",
-    number: "04",
-    name: "Security",
-    summary: "Tbps-scale DDoS mitigation, real-time BGP telemetry, automated flow filtering, and edge web protection.",
-    image: "/images/network-fiber.jpg",
-    imageAlt: "Network operations security monitoring console",
+    name: "Security & Telemetry",
+    summary: "Multi-terabit DDoS mitigation, real-time BGP telemetry, automated flow filtering, and edge web protection.",
+    image: "/images/security-operations.jpg",
+    imageAlt: "Network operations security monitoring console and BGP telemetry",
     ctaLink: "/solutions/security",
     services: [
       { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand multiterabit traffic scrubbing" },
       { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon real-time FlowSpec & BGP blackholing" },
       { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Automated latency optimization & path telemetry" },
-      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "WAF, perimeter defense, and managed SOC capabilities" }
+      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter defense and managed SOC capabilities" }
     ]
   },
   {
     id: "managed",
-    number: "05",
-    name: "Managed Services",
-    summary: "Round-the-clock Tier 1–3 network operations, automated incident triage, BGP engineering, and infrastructure desks.",
-    image: "/images/hero-datacenter.jpg",
-    imageAlt: "Network engineering operations control room",
+    name: "Managed Operations",
+    summary: "Round-the-clock Tier 1-3 network operations, automated incident triage, BGP engineering, and infrastructure desks.",
+    image: "/images/managed-noc.jpg",
+    imageAlt: "24/7 carrier Network Operations Center control room",
     ctaLink: "/solutions/managed-services",
     services: [
       { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring with sub-5 minute escalation SLA" },
@@ -83,196 +78,127 @@ const solutionFamilies = [
 
 <section class="section section-solutions" id="solutions-ecosystem">
   <div class="container">
-    <!-- Header -->
+    
+    <!-- Editorial Header (No Eyebrow) -->
     <div class="solutions-header">
-      <span class="solutions-kicker">SOLUTION DISCOVERY</span>
       <h2 class="solutions-title">Start with the requirement.</h2>
       <p class="solutions-subhead">
         You do not need the provider or product figured out first. Explore by discipline or discuss your operational constraints directly with our advisory desk.
       </p>
     </div>
 
-    <!-- Desktop 3-Column Interactive Console -->
-    <div class="console-desktop" id="solutionConsole">
-      <!-- Col 1: Family Tabs -->
-      <nav class="console-nav" aria-label="Solution Categories">
+    <!-- Editorial Solution Selector (Desktop) -->
+    <div class="selector-desktop" id="solutionSelector">
+      
+      <!-- Left Column: Navigation Items (No blue 3px rail, typographic active state) -->
+      <nav class="selector-nav" role="tablist" aria-label="Infrastructure Disciplines">
         {solutionFamilies.map((family, idx) => (
           <button 
-            type="button"
-            class={`nav-tab-btn ${idx === 0 ? 'active' : ''}`}
-            data-target={family.id}
-            id={`tab-${family.id}`}
-            aria-selected={idx === 0 ? 'true' : 'false'}
             role="tab"
+            class={`selector-tab ${idx === 0 ? 'active' : ''}`}
+            id={`tab-${family.id}`}
+            aria-selected={idx === 0 ? "true" : "false"}
+            aria-controls={`panel-${family.id}`}
+            data-target={family.id}
           >
-            <span class="tab-num">{family.number}</span>
-            <div class="tab-text-wrap">
-              <span class="tab-name">{family.name}</span>
-            </div>
-            <svg class="tab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
+            <span class="tab-title">{family.name}</span>
           </button>
         ))}
       </nav>
 
-      <!-- Col 2 & 3: Panels -->
-      <div class="console-stage">
+      <!-- Right Column: Active Content Panels -->
+      <div class="selector-panels">
         {solutionFamilies.map((family, idx) => (
           <div 
-            class={`solution-panel ${idx === 0 ? 'active' : ''}`}
-            id={`panel-${family.id}`}
             role="tabpanel"
+            class={`selector-panel ${idx === 0 ? 'active' : ''}`}
+            id={`panel-${family.id}`}
             aria-labelledby={`tab-${family.id}`}
+            hidden={idx !== 0}
           >
-            <!-- Center Visual -->
+            <!-- Panel Photography -->
             <div class="panel-visual">
               <img 
                 src={family.image} 
-                alt={family.imageAlt}
+                alt={family.imageAlt} 
                 class="panel-img"
-                loading="lazy"
-                width="600"
-                height="450"
+                loading={idx === 0 ? "eager" : "lazy"}
+                width="720"
+                height="400"
               />
-              <div class="panel-visual-overlay">
-                <span class="visual-category">{family.name}</span>
-              </div>
             </div>
 
-            <!-- Right Content -->
-            <div class="panel-content">
-              <div class="panel-summary-block">
-                <h3 class="panel-family-name">{family.name}</h3>
-                <p class="panel-narrative">{family.summary}</p>
+            <!-- Panel Details & Service List -->
+            <div class="panel-details">
+              <p class="panel-summary">{family.summary}</p>
+              
+              <div class="service-links-list">
+                {family.services.map(svc => (
+                  <a href={svc.url} class="service-row-item">
+                    <div class="service-meta">
+                      <span class="service-name">{svc.name}</span>
+                      <span class="service-desc">{svc.desc}</span>
+                    </div>
+                    <span class="service-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                ))}
               </div>
 
-              <div class="panel-services-block">
-                <span class="services-block-label">Relevant Services</span>
-                <ul class="panel-services-list">
-                  {family.services.map(s => (
-                    <li class="service-item">
-                      <a href={s.url} class="service-link">
-                        <span class="s-name">{s.name}</span>
-                        <span class="s-desc">{s.desc}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="panel-footer">
-                <a href={family.ctaLink} class="btn-panel-cta">
-                  <span>Explore All {family.name} Solutions</span>
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
+              <div class="panel-action">
+                <a href={family.ctaLink} class="btn btn-secondary btn-sm">
+                  <span>Explore {family.name} Solutions</span>
                 </a>
               </div>
             </div>
           </div>
         ))}
       </div>
+
     </div>
 
-    <!-- Mobile Accordion View -->
-    <div class="accordion-mobile" id="solutionAccordion">
+    <!-- Mobile Clean Accordion (No nested card surfaces) -->
+    <div class="solutions-accordion-mobile">
       {solutionFamilies.map((family, idx) => (
-        <div class="acc-item">
-          <button 
-            type="button" 
-            class={`acc-trigger ${idx === 0 ? 'active' : ''}`}
-            aria-expanded={idx === 0 ? 'true' : 'false'}
-            data-acc-target={family.id}
-          >
-            <div class="acc-title-wrap">
-              <span class="acc-num">{family.number}</span>
-              <span class="acc-name">{family.name}</span>
+        <details class="accordion-item" open={idx === 0}>
+          <summary class="accordion-summary">
+            <span class="accordion-title">{family.name}</span>
+            <span class="accordion-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="accordion-body">
+            <div class="accordion-visual">
+              <img 
+                src={family.image} 
+                alt={family.imageAlt} 
+                class="panel-img"
+                loading="lazy"
+                width="600"
+                height="320"
+              />
             </div>
-            <svg class="acc-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          
-          <div class={`acc-content ${idx === 0 ? 'open' : ''}`} id={`acc-${family.id}`}>
-            <p class="acc-narrative">{family.summary}</p>
-            <ul class="acc-services">
-              {family.services.map(s => (
-                <li>
-                  <a href={s.url} class="acc-service-link">
-                    <span class="acc-s-name">{s.name}</span>
-                    <span class="acc-s-desc">{s.desc}</span>
-                  </a>
-                </li>
+            <p class="accordion-summary-text">{family.summary}</p>
+            <div class="accordion-services">
+              {family.services.map(svc => (
+                <a href={svc.url} class="service-row-item">
+                  <div class="service-meta">
+                    <span class="service-name">{svc.name}</span>
+                    <span class="service-desc">{svc.desc}</span>
+                  </div>
+                  <span class="service-arrow" aria-hidden="true">&rarr;</span>
+                </a>
               ))}
-            </ul>
-            <a href={family.ctaLink} class="btn-acc-cta">
-              <span>View {family.name} Solutions</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
+            </div>
+            <div class="accordion-cta">
+              <a href={family.ctaLink} class="btn btn-secondary btn-sm">
+                <span>Explore {family.name} Solutions</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </details>
       ))}
     </div>
+
   </div>
 </section>
-
-<script is:inline>
-  // Interactive Console Switcher
-  const buttons = document.querySelectorAll('.nav-tab-btn');
-  const panels = document.querySelectorAll('.solution-panel');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      
-      buttons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      panels.forEach(p => {
-        p.classList.remove('active');
-      });
-
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-      const targetPanel = document.getElementById(`panel-${targetId}`);
-      if (targetPanel) {
-        targetPanel.classList.add('active');
-      }
-    });
-  });
-
-  // Mobile Accordion
-  const accTriggers = document.querySelectorAll('.acc-trigger');
-  accTriggers.forEach(trig => {
-    trig.addEventListener('click', () => {
-      const targetId = trig.getAttribute('data-acc-target');
-      const content = document.getElementById(`acc-${targetId}`);
-      const isExpanded = trig.getAttribute('aria-expanded') === 'true';
-
-      // Close all
-      accTriggers.forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-expanded', 'false');
-      });
-      document.querySelectorAll('.acc-content').forEach(c => {
-        c.classList.remove('open');
-      });
-
-      // Toggle clicked if it was closed
-      if (!isExpanded && content) {
-        trig.classList.add('active');
-        trig.setAttribute('aria-expanded', 'true');
-        content.classList.add('open');
-      }
-    });
-  });
-</script>
 
 <style>
   .section-solutions {
@@ -281,358 +207,276 @@ const solutionFamilies = [
     border-bottom: 1px solid var(--border-color);
   }
 
-  /* Header */
+  /* Editorial Header (No Eyebrow) */
   .solutions-header {
-    max-width: 780px;
+    max-width: 760px;
     margin-bottom: 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .solutions-kicker {
-    font-size: 0.74rem;
-    font-weight: 700;
-    color: var(--accent-blue);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
   }
   .solutions-title {
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.12;
     letter-spacing: -0.03em;
     color: var(--text-primary);
+    margin-bottom: 16px;
   }
   .solutions-subhead {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
+    font-size: 1.12rem;
     line-height: 1.6;
+    color: var(--text-secondary);
   }
 
-  /* Desktop Console (3-Column Layout) */
-  .console-desktop {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 32px;
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
+  /* Desktop Selector: Open, Architectural, No Outer Box */
+  .selector-desktop {
+    display: none;
+  }
+  @media (min-width: 960px) {
+    .selector-desktop {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 56px;
+      align-items: start;
+    }
   }
 
-  /* Nav Column */
-  .console-nav {
+  /* Left Navigation Tabs (Typographic, Open) */
+  .selector-nav {
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-secondary);
-    border-right: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
   }
-  .nav-tab-btn {
+  .selector-tab {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 22px 20px;
+    justify-content: space-between;
+    padding: 20px 0;
     text-align: left;
-    background: none;
-    border: none;
     border-bottom: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: var(--transition-fast);
-    width: 100%;
-  }
-  .nav-tab-btn:last-child {
-    border-bottom: none;
-  }
-  .nav-tab-btn:hover {
-    background-color: #ffffff;
-  }
-  .nav-tab-btn.active {
-    background-color: #ffffff;
-    border-left: 3px solid var(--accent-blue);
-  }
-
-  .tab-num {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 700;
+    background: transparent;
     color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 160ms ease;
   }
-  .nav-tab-btn.active .tab-num {
-    color: var(--accent-blue);
-  }
-
-  .tab-text-wrap {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  .tab-name {
-    font-size: 0.95rem;
-    font-weight: 700;
+  .selector-tab:hover {
     color: var(--text-primary);
   }
-  .nav-tab-btn.active .tab-name {
+  .selector-tab.active {
     color: var(--accent-blue);
+    font-weight: 800;
   }
 
-  .tab-arrow {
-    color: var(--text-muted);
-    transition: transform 0.2s ease;
-  }
-  .nav-tab-btn.active .tab-arrow {
-    color: var(--accent-blue);
-    transform: translateX(3px);
-  }
-
-  /* Console Stage & Panels */
-  .console-stage {
-    position: relative;
-    background-color: #ffffff;
+  /* Right Panels */
+  .selector-panels {
     min-height: 480px;
   }
-  .solution-panel {
+  .selector-panel {
     display: none;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    padding: 32px;
-    height: 100%;
   }
-  .solution-panel.active {
+  .selector-panel.active {
     display: grid;
-    animation: fadeIn 0.25s ease forwards;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0.4; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
   }
 
-  /* Visual Column */
   .panel-visual {
-    position: relative;
-    border-radius: var(--radius-md);
     overflow: hidden;
-    background-color: #0b1120;
-    aspect-ratio: 4 / 3;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
   }
   .panel-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.85);
-  }
-  .panel-visual-overlay {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-    background: rgba(15, 23, 42, 0.85);
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-  }
-  .visual-category {
-    font-size: 0.72rem;
-    color: #ffffff;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    display: block;
+    aspect-ratio: 16 / 10;
   }
 
-  /* Content Column */
-  .panel-content {
+  .panel-details {
     display: flex;
     flex-direction: column;
+    gap: 24px;
+  }
+  .panel-summary {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Service Rows (Clean dividers, no cards) */
+  .service-links-list,
+  .accordion-services {
+    display: flex;
+    flex-direction: column;
+  }
+  .service-row-item {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: transform 160ms ease;
   }
-  .panel-summary-block {
+  .service-row-item:last-child {
+    border-bottom: none;
+  }
+  .service-row-item:hover {
+    transform: translateX(3px);
+  }
+  .service-meta {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 2px;
   }
-  .panel-family-name {
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  .service-name {
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--text-primary);
+    transition: color 160ms ease;
   }
-  .panel-narrative {
-    font-size: 0.92rem;
+  .service-row-item:hover .service-name {
+    color: var(--accent-blue);
+  }
+  .service-desc {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .service-arrow {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    transition: transform 160ms ease, color 160ms ease;
+  }
+  .service-row-item:hover .service-arrow {
+    color: var(--accent-blue);
+    transform: translateX(2px);
+  }
+
+  .panel-action {
+    padding-top: 8px;
+  }
+
+  /* Mobile Clean Accordion */
+  .solutions-accordion-mobile {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-color);
+  }
+  @media (min-width: 960px) {
+    .solutions-accordion-mobile {
+      display: none;
+    }
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid var(--border-color);
+  }
+  .accordion-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    font-family: var(--font-heading);
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    cursor: pointer;
+    list-style: none;
+  }
+  .accordion-summary::-webkit-details-marker {
+    display: none;
+  }
+  .accordion-icon {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    transition: transform 200ms ease;
+  }
+  details[open] .accordion-icon {
+    transform: rotate(45deg);
+  }
+  .accordion-body {
+    padding: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .accordion-visual {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+  .accordion-summary-text {
+    font-size: 0.98rem;
     color: var(--text-secondary);
     line-height: 1.55;
   }
-
-  .panel-services-block {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .services-block-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .panel-services-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .service-item {
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 6px;
-  }
-  .service-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-  .service-link {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    text-decoration: none;
-    transition: var(--transition-fast);
-  }
-  .s-name {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  .service-link:hover .s-name {
-    color: var(--accent-blue);
-  }
-  .s-desc {
-    font-size: 0.76rem;
-    color: var(--text-muted);
-  }
-
-  .btn-panel-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--accent-blue);
-    padding: 10px 0;
-    transition: var(--transition-fast);
-  }
-  .btn-panel-cta:hover {
-    color: var(--accent-blue-hover);
-  }
-
-  /* Mobile Accordion */
-  .accordion-mobile {
-    display: none;
-  }
-
-  @media (max-width: 1024px) {
-    .console-desktop {
-      display: none;
-    }
-    .accordion-mobile {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-    }
-    .acc-item {
-      border-bottom: 1px solid var(--border-color);
-    }
-    .acc-item:last-child {
-      border-bottom: none;
-    }
-    .acc-trigger {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      padding: 18px 20px;
-      background-color: #ffffff;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-    }
-    .acc-trigger.active {
-      background-color: var(--bg-secondary);
-      border-left: 3px solid var(--accent-blue);
-    }
-    .acc-title-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .acc-num {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--accent-blue);
-    }
-    .acc-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .acc-icon {
-      color: var(--text-muted);
-      transition: transform 0.2s ease;
-    }
-    .acc-trigger.active .acc-icon {
-      transform: rotate(180deg);
-      color: var(--accent-blue);
-    }
-
-    .acc-content {
-      display: none;
-      padding: 20px;
-      background-color: #ffffff;
-      border-top: 1px solid var(--border-color);
-    }
-    .acc-content.open {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .acc-narrative {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-    .acc-services {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .acc-service-link {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 6px 0;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    .acc-s-name {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .acc-s-desc {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-    .btn-acc-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent-blue);
-      margin-top: 4px;
-    }
+  .accordion-cta {
+    padding-top: 10px;
   }
 </style>
+
+<script>
+  function setupSolutionSelector() {
+    const tabs = document.querySelectorAll<HTMLButtonElement>('.selector-tab');
+    const panels = document.querySelectorAll<HTMLElement>('.selector-panel');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-target');
+
+        // Deactivate all
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('hidden', '');
+        });
+
+        // Activate selected
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        const activePanel = document.getElementById(`panel-${targetId}`);
+        if (activePanel) {
+          activePanel.classList.add('active');
+          activePanel.removeAttribute('hidden');
+        }
+      });
+
+      // Keyboard navigation support
+      tab.addEventListener('keydown', (e) => {
+        const tabList = Array.from(tabs);
+        const index = tabList.indexOf(tab);
+
+        let newIndex: number | null = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          newIndex = (index + 1) % tabList.length;
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          newIndex = (index - 1 + tabList.length) % tabList.length;
+        } else if (e.key === 'Home') {
+          newIndex = 0;
+        } else if (e.key === 'End') {
+          newIndex = tabList.length - 1;
+        }
+
+        if (newIndex !== null) {
+          e.preventDefault();
+          tabList[newIndex].focus();
+          tabList[newIndex].click();
+        }
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', setupSolutionSelector);
+</script>

@@ -26,7 +26,7 @@ const isHardware = offer.data.category === 'hardware';
 //
 // Three separate reasons, any one of which is sufficient:
 //
-//   1. `verifiedPrice` is prose, not a number — "From €1,450/mo" is a lower bound and a
+//   1. `verifiedPrice` is prose, not a number  -  "From €1,450/mo" is a lower bound and a
 //      billing period, not a price. Encoding it as schema.org `price` would be factually
 //      wrong even if the figure were confirmed.
 //   2. None of these figures is verified. docs/CLAIMS_REGISTER.md carries them as C-01 and
@@ -38,7 +38,7 @@ const isHardware = offer.data.category === 'hardware';
 // `availability` is omitted for the same class of reason: the project has no verified
 // inventory, and claiming stock is exactly what directive §22 forbids.
 //
-// When the owner confirms pricing, add `priceSpecification` here — the shape is small and the
+// When the owner confirms pricing, add `priceSpecification` here  -  the shape is small and the
 // data it needs is already on the offer.
 const offerNode = {
   '@type': 'Offer',
@@ -86,7 +86,7 @@ const structuredData = {
 ---
 
 <Layout 
-  title={`${offer.data.title} — Offer Details`}
+  title={`${offer.data.title}  -  Offer Details`}
   description={offer.data.shortDescription}
   canonicalPath={`/offers/${offer.slug}`}
 >

@@ -1,5 +1,5 @@
 ---
-// src/components/DeliveryModel.astro
+// src/components/DeliveryModel.astro  -  Human-Authored Delivery Model & Editorial Experience
 const steps = [
   {
     num: "01",
@@ -23,131 +23,111 @@ const steps = [
   }
 ];
 
-const insights = [
+const annotations = [
   {
-    principle: "Price isn't total cost",
-    detail: "A low price per Mbps can be misleading if the proposal carries steep cross-connect fees, weak regional routing, or restrictive burst terms."
+    title: "Price isn't total cost.",
+    detail: "A low rate per Mbps can cost significantly more once cross-connect fees, restrictive burst tiers, and regional eyeball hops are tallied."
   },
   {
-    principle: "Logical diversity isn't physical diversity",
-    detail: "Two separate carriers often share the exact same bridge crossing, rail right-of-way, or building entrance duct. Diversity requires physical path verification."
+    title: "Logical diversity isn't physical diversity.",
+    detail: "Two separate carriers frequently share the same bridge crossing, rail conduit, or building entrance duct. Diversity requires physical path verification."
   },
   {
-    principle: "More cloud isn't always better",
-    detail: "Dedicated bare-metal and sovereign private clouds often deliver 4–6× better performance and cost predictability for steady workloads than hyperscaler VMs."
-  },
-  {
-    principle: "The strongest provider depends on the requirement",
-    detail: "No single provider leads in every metro, route, and platform. Independent evaluation matches you with the specialist that excels in your exact location and discipline."
+    title: "The right provider depends on the requirement.",
+    detail: "No single provider leads across every metro, route, and platform. Independent evaluation matches you with the specialist that excels in your exact location."
   }
 ];
 ---
 
 <section class="section section-delivery" id="how-it-works">
-  <div class="delivery-bg" aria-hidden="true">
-    <div class="delivery-grid-overlay"></div>
-  </div>
-
-  <div class="container delivery-container">
-    <!-- Header -->
-    <div class="delivery-header">
-      <span class="delivery-mono-tag">OPERATING MODEL & EXPERIENCE</span>
-      <h2 class="delivery-title">One requirement.<br class="hide-mobile" /> A network of specialists.</h2>
-      <p class="delivery-subhead">
-        InfraHub provides technical qualification, architectural evaluation, and direct specialist introduction. Partner-delivered services are contracted and delivered directly by the verified provider.
-      </p>
-    </div>
-
-    <!-- The 4-Step Process -->
-    <div class="lifecycle-timeline">
-      {steps.map((s, idx) => (
-        <div class="timeline-step">
-          <div class="step-top-line">
-            <span class="step-number">{s.num}</span>
-            {idx < 3 && <span class="step-divider" aria-hidden="true"></span>}
-          </div>
-          <h3 class="step-name">{s.title}</h3>
-          <p class="step-detail">{s.detail}</p>
+  <div class="container">
+    <div class="delivery-asymmetric-split">
+      
+      <!-- Left Column (40%): Headline & Business Model Narrative -->
+      <div class="delivery-narrative-col">
+        <h2 class="delivery-title">
+          One requirement.<br />
+          A network of specialists.
+        </h2>
+        <p class="delivery-lead">
+          InfraHub provides technical qualification, architectural evaluation, and direct specialist introduction.
+        </p>
+        <p class="delivery-body">
+          We do not resell commodity cloud or mark up invoices. Sourcing through InfraHub connects you directly with verified engineering teams, contracting on direct carrier-grade Master Service Agreements.
+        </p>
+        
+        <div class="delivery-action">
+          <a href="/how-we-work" class="delivery-link">
+            <span>Learn how we work</span>
+            <span class="delivery-arrow" aria-hidden="true">&rarr;</span>
+          </a>
         </div>
-      ))}
-    </div>
-
-    <!-- Intellectual Heart: What Changes the Answer? -->
-    <div class="experience-judgment-block">
-      <div class="judgment-header">
-        <span class="judgment-kicker">INFRASTRUCTURE JUDGMENT</span>
-        <h3 class="judgment-title">What changes the answer?</h3>
-        <p class="judgment-desc">Experience is knowing which technical details make or break a production deployment.</p>
       </div>
 
-      <div class="judgment-grid">
-        {insights.map(item => (
-          <div class="judgment-item">
-            <h4 class="judgment-principle">{item.principle}</h4>
-            <p class="judgment-detail">{item.detail}</p>
+      <!-- Right Column (60%): 4-Step Sequence + Editorial Experience Annotations -->
+      <div class="delivery-sequence-col">
+        
+        <!-- Process Steps (Clean horizontal/vertical sequence, no cards) -->
+        <div class="process-flow">
+          {steps.map(step => (
+            <div class="process-step-item">
+              <span class="step-num">{step.num}</span>
+              <div class="step-text">
+                <h3 class="step-title">{step.title}</h3>
+                <p class="step-desc">{step.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Integrated Experience Annotations (Editorial notes woven beneath, no card-in-card) -->
+        <div class="experience-annotations-block">
+          <span class="annotations-heading">What changes the answer</span>
+          
+          <div class="annotations-list">
+            {annotations.map(note => (
+              <div class="annotation-item">
+                <h4 class="annotation-title">{note.title}</h4>
+                <p class="annotation-desc">{note.detail}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
 
-    <!-- Footer Links -->
-    <div class="delivery-footer">
-      <a href="/how-we-work" class="delivery-link">
-        <span>Read full details on How We Work & our commercial disclosures</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
+      </div>
+
     </div>
   </div>
 </section>
 
 <style>
   .section-delivery {
-    position: relative;
-    background-color: #080d1a;
+    background-color: #0b1120;
     color: #ffffff;
-    padding: 96px 0;
-    overflow: hidden;
+    padding: 104px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .delivery-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+  /* Asymmetric 40 / 60 Split */
+  .delivery-asymmetric-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
   }
-  .delivery-grid-overlay {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-
-  .delivery-container {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
+  @media (min-width: 960px) {
+    .delivery-asymmetric-split {
+      grid-template-columns: 1fr 1.35fr;
+      gap: 72px;
+      align-items: start;
+    }
   }
 
-  /* Header */
-  .delivery-header {
-    max-width: 780px;
+  /* Left Narrative Column */
+  .delivery-narrative-col {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-  }
-  .delivery-mono-tag {
-    font-size: 0.74rem;
-    letter-spacing: 0.12em;
-    color: var(--accent-teal);
-    font-weight: 700;
-    text-transform: uppercase;
+    gap: 20px;
+    max-width: 480px;
   }
   .delivery-title {
     font-size: clamp(2.2rem, 4vw, 3.2rem);
@@ -156,138 +136,116 @@ const insights = [
     letter-spacing: -0.03em;
     color: #ffffff;
   }
-  .delivery-subhead {
-    font-size: 1.05rem;
-    color: #94a3b8;
+  .delivery-lead {
+    font-size: 1.15rem;
     line-height: 1.6;
-  }
-
-  /* 4-Step Process */
-  .lifecycle-timeline {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  @media (min-width: 640px) {
-    .lifecycle-timeline {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (min-width: 1024px) {
-    .lifecycle-timeline {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-    }
-  }
-
-  .timeline-step {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-  }
-  .step-top-line {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .step-number {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #60a5fa;
-  }
-  .step-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #ffffff;
-  }
-  .step-detail {
-    font-size: 0.88rem;
-    color: #94a3b8;
-    line-height: 1.55;
-  }
-
-  /* What Changes The Answer (Intellectual Heart) */
-  .experience-judgment-block {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .judgment-header {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding-bottom: 18px;
-  }
-  .judgment-kicker {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--accent-teal);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .judgment-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-  }
-  .judgment-desc {
-    font-size: 0.88rem;
     color: #94a3b8;
   }
-
-  .judgment-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
+  .delivery-body {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #64748b;
   }
-  @media (min-width: 768px) {
-    .judgment-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
-    }
-  }
-
-  .judgment-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .judgment-principle {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #f1f5f9;
-    letter-spacing: -0.01em;
-  }
-  .judgment-detail {
-    font-size: 0.85rem;
-    color: #94a3b8;
-    line-height: 1.55;
-  }
-
-  /* Footer Link */
-  .delivery-footer {
-    padding-top: 8px;
+  .delivery-action {
+    margin-top: 8px;
   }
   .delivery-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.9rem;
     color: #93c5fd;
+    font-size: 0.98rem;
     font-weight: 600;
-    transition: color 0.15s ease;
+    text-decoration: none;
+    transition: color 160ms ease;
   }
   .delivery-link:hover {
     color: #ffffff;
+  }
+  .delivery-arrow {
+    transition: transform 160ms ease;
+  }
+  .delivery-link:hover .delivery-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Right Sequence Column */
+  .delivery-sequence-col {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  /* 4-Step Process Flow */
+  .process-flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 28px;
+  }
+  @media (min-width: 640px) {
+    .process-flow {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+  .process-step-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .step-num {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    letter-spacing: 0.04em;
+  }
+  .step-title {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  .step-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #94a3b8;
+  }
+
+  /* Editorial Annotations (Woven beneath) */
+  .experience-annotations-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 36px;
+  }
+  .annotations-heading {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+  }
+  .annotations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .annotation-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .annotation-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .annotation-desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #94a3b8;
   }
 </style>

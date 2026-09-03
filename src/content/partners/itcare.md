@@ -2,7 +2,7 @@
 name: "ITcare"
 logo: "/images/partners/itcare.svg"
 category: "Managed Operations"
-tagline: "24/7/365 Tier 1–3 NOC & Managed Infrastructure Desk"
+tagline: "24/7/365 Tier 1-3 NOC & Managed Infrastructure Desk"
 capabilities:
   - "Continuous 24/7/365 infrastructure monitoring"
   - "Sub-5 minute initial ticket response SLA"

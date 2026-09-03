@@ -18,7 +18,7 @@ const SITE = 'https://infrahub.tech';
 const articleUrl = `${SITE}/insights/${insight.slug}`;
 
 // TechArticle rather than Article: these are engineering analyses, and the more specific type
-// is what the content actually is. Every value below comes from the content collection — no
+// is what the content actually is. Every value below comes from the content collection  -  no
 // field is asserted that the front matter does not already carry, and `image` is omitted
 // rather than invented because the build ships no article artwork.
 const structuredData = {
@@ -57,7 +57,7 @@ const structuredData = {
 ---
 
 <Layout 
-  title={`${insight.data.title} — InfraHub Insights`}
+  title={`${insight.data.title} | InfraHub Insights`}
   description={insight.data.summary}
   canonicalPath={`/insights/${insight.slug}`}
   ogType="article"
