@@ -155,7 +155,8 @@ import Layout from '../layouts/Layout.astro';
 
           <!-- Honeypot Bot Shield -->
           <div style="display:none;" aria-hidden="true">
-            <input type="text" name="website_trap_field" id="website_trap_field" tabindex="-1" autocomplete="off" />
+            <label for="website_trap_field">Do not fill this field</label>
+            <input type="text" name="website_trap_field" id="website_trap_field" tabindex="-1" autocomplete="off" aria-label="Do not fill" />
           </div>
 
           <button type="submit" id="submit-btn" class="btn btn-accent btn-block btn-lg">
