@@ -10,6 +10,14 @@ capabilities:
   - "European sovereign data compliance"
 strategic: true
 verified: true
+shortRole: "Open-Source Virtualization & Cloud Stack"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 6
+partnerPageEnabled: true
+logoScale: 0.98
 ---
 
 ## Vates + InfraHub

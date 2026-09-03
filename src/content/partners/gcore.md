@@ -10,6 +10,14 @@ capabilities:
   - "Built-in web application security and DDoS scrubbing"
 strategic: true
 verified: true
+shortRole: "Global Cloud, Edge & GPU Infrastructure"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 2
+partnerPageEnabled: true
+logoScale: 1
 ---
 
 ## Gcore + InfraHub

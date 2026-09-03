@@ -10,6 +10,14 @@ capabilities:
   - "Direct Multi-Cloud Interconnect (AWS, Azure, GCP)"
 strategic: true
 verified: true
+shortRole: "Global Edge Network & Bare Metal"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 3
+partnerPageEnabled: true
+logoScale: 1.05
 ---
 
 ## Zenlayer + InfraHub

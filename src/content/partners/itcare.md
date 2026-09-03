@@ -10,6 +10,14 @@ capabilities:
   - "Integration with Datadog, Zabbix, and PagerDuty"
 strategic: true
 verified: true
+shortRole: "Enterprise NOC & Systems Operations"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 7
+partnerPageEnabled: true
+logoScale: 0.96
 ---
 
 ## ITcare + InfraHub

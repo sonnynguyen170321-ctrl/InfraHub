@@ -10,6 +10,14 @@ capabilities:
   - "Automated incident post-mortem generation"
 strategic: true
 verified: true
+shortRole: "Autonomous Network Path Observability"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 8
+partnerPageEnabled: true
+logoScale: 1
 ---
 
 ## Supertrace + InfraHub

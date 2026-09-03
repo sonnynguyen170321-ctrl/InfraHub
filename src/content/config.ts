@@ -23,6 +23,9 @@ const partners = defineCollection({
   schema: z.object({
     name: z.string(),
     logo: z.string(),
+    logoDark: z.string().optional(),
+    logoLight: z.string().optional(),
+    logoScale: z.number().default(1),
     category: z.enum([
       'Infrastructure & Cloud',
       'Network & Connectivity',
@@ -32,9 +35,16 @@ const partners = defineCollection({
       'Hardware'
     ]),
     tagline: z.string(),
+    shortRole: z.string().optional(),
     capabilities: z.array(z.string()),
     strategic: z.boolean().default(false),
-    verified: z.boolean().default(false)
+    verified: z.boolean().default(false),
+    relationshipConfirmed: z.boolean().default(true),
+    publicNameApproved: z.boolean().default(true),
+    logoApproved: z.boolean().default(true),
+    homepageMarqueeEnabled: z.boolean().default(true),
+    homepagePriority: z.number().default(10),
+    partnerPageEnabled: z.boolean().default(true)
   })
 });
 

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 36" fill="none" role="img" aria-label="StormWall">
+  <!-- StormWall Shield & Bolt -->
+  <g transform="translate(2, 4)">
+    <path d="M14 0L26 5V14C26 21 19 26 14 28C9 26 2 21 2 14V5L14 0Z" fill="#2563EB" fill-opacity="0.14" stroke="#2563EB" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M16 6L9 15H15L12 22L20 13H14L16 6Z" fill="#2563EB"/>
+  </g>
+  <!-- StormWall Wordmark -->
+  <text x="36" y="24" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.02em" fill="#0F172A">
+    Storm<tspan fill="#2563EB">Wall</tspan>
+  </text>
+</svg>

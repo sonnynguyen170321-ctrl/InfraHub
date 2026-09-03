@@ -1,0 +1,264 @@
+---
+// src/components/PartnerTrustRibbon.astro — InfraHub Premium Partner Trust System
+import { getCollection } from 'astro:content';
+
+const allPartners = await getCollection('partners');
+
+// Filter strictly for verified, approved partners configured for homepage marquee
+const approvedPartners = allPartners
+  .filter(p => 
+    p.data.homepageMarqueeEnabled && 
+    p.data.relationshipConfirmed && 
+    p.data.logoApproved && 
+    p.data.publicNameApproved
+  )
+  .sort((a, b) => (a.data.homepagePriority ?? 10) - (b.data.homepagePriority ?? 10));
+---
+
+<section class="partner-trust-ribbon" aria-label="Partner Ecosystem">
+  <div class="ribbon-inner">
+    
+    <!-- Zone 1: Fixed Left Anchor -->
+    <div class="ribbon-fixed-zone">
+      <span class="ribbon-kicker">OUR PARTNER ECOSYSTEM</span>
+      <span class="ribbon-subtitle">Specialist infrastructure providers &amp; technologies</span>
+    </div>
+
+    <!-- Zone 2: Moving Horizontal Ecosystem Track -->
+    <div class="ribbon-track-wrapper">
+      <div class="ribbon-marquee-content">
+        
+        <!-- Primary Track (Accessible, Interactive) -->
+        <ul class="marquee-track primary-track" aria-label="Partner Technologies Rail">
+          {approvedPartners.map(partner => (
+            <li class="partner-item">
+              <a 
+                href={`/partners/${partner.slug}`} 
+                class="partner-logo-link"
+                aria-label={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
+                title={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
+              >
+                <img 
+                  src={partner.data.logo} 
+                  alt={`${partner.data.name} logo`} 
+                  class="partner-logo-img"
+                  style={partner.data.logoScale && partner.data.logoScale !== 1 ? `transform: scale(${partner.data.logoScale});` : undefined}
+                  loading="eager"
+                  width="140"
+                  height="32"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Visual Duplicate Track (Seamless Loop, Hidden from Screen Readers & Non-interactive) -->
+        <ul class="marquee-track duplicate-track" aria-hidden="true">
+          {approvedPartners.map(partner => (
+            <li class="partner-item">
+              <span class="partner-logo-link decorative">
+                <img 
+                  src={partner.data.logo} 
+                  alt="" 
+                  class="partner-logo-img"
+                  style={partner.data.logoScale && partner.data.logoScale !== 1 ? `transform: scale(${partner.data.logoScale});` : undefined}
+                  loading="lazy"
+                  width="140"
+                  height="32"
+                />
+              </span>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .partner-trust-ribbon {
+    background-color: #f8fafc;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  .ribbon-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 24px;
+    gap: 16px;
+  }
+
+  @media (min-width: 960px) {
+    .ribbon-inner {
+      flex-direction: row;
+      align-items: center;
+      padding: 0 32px;
+      height: 96px;
+      gap: 36px;
+    }
+  }
+
+  /* Zone 1: Fixed Left */
+  .ribbon-fixed-zone {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+    padding-right: 28px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    width: 100%;
+  }
+
+  @media (min-width: 960px) {
+    .ribbon-fixed-zone {
+      width: 250px;
+      padding-bottom: 0;
+      border-bottom: none;
+      border-right: 1px solid var(--border-color);
+    }
+  }
+
+  .ribbon-kicker {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .ribbon-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  /* Zone 2: Moving Rail */
+  .ribbon-track-wrapper {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    /* Edge fade masks for quiet entrance & exit */
+    mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+  }
+
+  .ribbon-marquee-content {
+    display: flex;
+    width: max-content;
+  }
+
+  /* Marquee animation: compositor-friendly translateX */
+  @keyframes marqueeSlide {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
+
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding-right: 56px;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    animation: marqueeSlide 50s linear infinite;
+    will-change: transform;
+  }
+
+  @media (min-width: 1200px) {
+    .marquee-track {
+      gap: 72px;
+      padding-right: 72px;
+    }
+  }
+
+  /* Pause on hover and keyboard focus so users can inspect/click */
+  .ribbon-track-wrapper:hover .marquee-track,
+  .ribbon-track-wrapper:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .partner-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .partner-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.72;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    padding: 6px 4px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+
+  .partner-logo-link:hover,
+  .partner-logo-link:focus-visible {
+    opacity: 1;
+    transform: translateY(-1px);
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 4px;
+  }
+
+  .partner-logo-link.decorative {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .partner-logo-img {
+    height: 26px;
+    max-height: 28px;
+    width: auto;
+    max-width: 135px;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Accessibility: Prefers-reduced-motion fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .ribbon-track-wrapper {
+      mask-image: none;
+      -webkit-mask-image: none;
+      overflow-x: auto;
+    }
+
+    .ribbon-marquee-content {
+      width: 100%;
+    }
+
+    .marquee-track {
+      animation: none !important;
+      transform: none !important;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 12px 0;
+    }
+
+    .duplicate-track {
+      display: none !important;
+    }
+  }
+</style>

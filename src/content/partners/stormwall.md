@@ -10,6 +10,14 @@ capabilities:
   - "SLA-backed sub-3-second time to mitigate"
 strategic: true
 verified: true
+shortRole: "Multi-Tbps DDoS Scrubbing & Mitigation"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 4
+partnerPageEnabled: true
+logoScale: 1
 ---
 
 ## StormWall + InfraHub

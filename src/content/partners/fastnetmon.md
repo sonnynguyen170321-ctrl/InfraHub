@@ -10,6 +10,14 @@ capabilities:
   - "Host unblocking and traffic metric logging"
 strategic: true
 verified: true
+shortRole: "DDoS Detection & Network Telemetry"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 1
+partnerPageEnabled: true
+logoScale: 1
 ---
 
 ## FastNetMon + InfraHub

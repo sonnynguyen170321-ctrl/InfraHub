@@ -10,6 +10,14 @@ capabilities:
   - "Compliant RIR lease management"
 strategic: true
 verified: true
+shortRole: "IPv4 Sourcing & Marketplace Infrastructure"
+relationshipConfirmed: true
+publicNameApproved: true
+logoApproved: true
+homepageMarqueeEnabled: true
+homepagePriority: 5
+partnerPageEnabled: true
+logoScale: 0.95
 ---
 
 ## IPXO + InfraHub

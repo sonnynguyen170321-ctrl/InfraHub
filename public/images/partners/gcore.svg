@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 36" fill="none" role="img" aria-label="Gcore">
+  <!-- Gcore Hexagonal Prism Mark -->
+  <g transform="translate(2, 4)">
+    <path d="M14 1L26 8V21L14 28L2 21V8L14 1Z" fill="#F97316" fill-opacity="0.18" stroke="#F97316" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M14 1V28M2 8L26 21M2 21L26 8" stroke="#F97316" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+  <!-- Gcore Wordmark -->
+  <text x="36" y="24" font-family="'Inter', -apple-system, BlinkMacSystemFont, sans-serif" font-size="19" font-weight="800" letter-spacing="-0.03em" fill="#0F172A">
+    G<tspan fill="#F97316">CORE</tspan>
+  </text>
+</svg>
