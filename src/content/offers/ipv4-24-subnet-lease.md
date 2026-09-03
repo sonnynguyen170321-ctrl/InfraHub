@@ -1,23 +1,24 @@
 ---
-title: "Clean IPv4 /24 Subnet Lease (256 Addresses)"
+title: "IPv4 /24 Subnet Leasing through IPXO"
 category: "connectivity"
-location: "RIPE NCC / ARIN Region"
+location: "Availability by RIR and geolocation"
 partner: "IPXO"
-status: "active"
-displayPrice: "$280 / mo"
-verifiedPrice: "$280 / mo"
-priceStatus: "confirmed_allocation"
-publicApproved: true
+status: "review"
+displayPrice: "Request current pricing"
+priceStatus: "unverified"
+publicApproved: false
 publishedDate: 2026-08-20
 expiryDate: 2026-12-31
 specifications:
-  - "256 Clean Public IPv4 Addresses"
-  - "Instant Letter of Authorization (LOA) generation"
-  - "Automated RPKI ROA creation for your ASN"
-  - "Zero blacklist listings on Spamhaus / Barracuda"
-shortDescription: "Ready-to-announce /24 IPv4 block available for immediate lease, complete with RPKI validation and carrier LOA."
+  - "256-address IPv4 /24 lease requirement"
+  - "Subnet search by size, RIR, and geolocation"
+  - "RPKI support and address-governance tooling"
+  - "Abuse and reputation monitoring available through the IPXO platform"
+shortDescription: "Evaluate a /24 IPv4 lease through IPXO with requirements matched by RIR, geolocation, routing, reputation, and term."
 ---
 
-## Verified Clean IPv4 Subnet Allocation
+## IPv4 Leasing through IPXO
 
-Lease a clean, fully verified /24 IPv4 subnet with zero capital expenditure. Ideal for hosting providers, ISPs running CGNAT, or VPN platform scaling.
+IPXO publishes IPv4 leasing with subnet search by size, RIR, and geolocation together with RPKI support, abuse controls, and reputation-management tooling. Public platform pricing changes over time and by block characteristics.
+
+This InfraHub offer record is held in review until a specific allocation, lease term, and commercial price are confirmed. No guarantee of a particular block's blacklist status or immediate availability is made without verification of that exact allocation.

@@ -1,28 +1,24 @@
 ---
-title: "Enterprise Cloud DDoS Scrubbing (10G/40G/100G)"
+title: "StormWall Network DDoS Protection"
 category: "security"
-location: "Frankfurt & Ashburn (Multi-PoP)"
+location: "Provider network / availability by location"
 partner: "StormWall"
-status: "active"
-displayPrice: "From €650/mo"
-verifiedPrice: "From €650/mo"
-priceStatus: "confirmed_allocation"
-publicApproved: true
+status: "review"
+displayPrice: "Request current pricing"
+priceStatus: "unverified"
+publicApproved: false
 publishedDate: 2026-08-20
 expiryDate: 2026-12-31
 specifications:
-  - "Always-on or On-demand BGP diversion"
-  - "Multi-Tbps global scrubbing capacity"
-  - "Layer 3/4 & Layer 7 HTTPS flood mitigation"
-  - "GRE tunnel or direct cross-connect clean return"
-shortDescription: "Comprehensive BGP diversion cloud scrubbing defending against massive volumetric and sophisticated application-layer floods."
+  - "Cloud-based DDoS protection for networks via BGP"
+  - "Permanent or on-demand protection models available depending on configuration"
+  - "IPIP/GRE tunnel, Internet Exchange, or physical connection options"
+  - "Separate protection options for TCP/UDP services and web applications"
+shortDescription: "StormWall provides cloud-based DDoS protection for networks, servers, and web applications, with BGP-based network protection and multiple clean-traffic return options."
 ---
 
-## Cloud Scrubbing Mitigation Architecture
+## StormWall Network Protection
 
-Delivered in partnership with StormWall, this commercial package protects your Autonomous System from volumetric attacks exceeding 1 Tbps without saturating your origin internet ports.
+StormWall's published network-protection service establishes BGP routing for protected prefixes, filters incoming attack traffic, and returns clean traffic using connection methods that can include IPIP/GRE tunnels, Internet Exchange connectivity, or a physical connection at supported locations.
 
-### Commercial Terms
-- **Commitment:** 12 or 24-month terms.
-- **Port Speed:** 10 Gbps, 40 Gbps, or 100 Gbps clean traffic handoff.
-- **Setup Time:** 24-48 hours for GRE tunnel turnup and BGP testing.
+This InfraHub offer record is held in review until any specific commercial package, bandwidth tier, geography, commitment, and price are confirmed. Those terms must not be inferred from StormWall's public plan catalogue.

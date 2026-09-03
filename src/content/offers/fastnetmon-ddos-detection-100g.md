@@ -1,25 +1,26 @@
 ---
-title: "100 Gbps DDoS Detection & BGP Automation"
-shortDescription: "FastNetMon Advanced license with automated FlowSpec and BGP RTBH triggers for network operators."
+title: "FastNetMon Advanced DDoS Detection & BGP Automation"
+shortDescription: "FastNetMon Advanced for network-layer DDoS detection with operator-defined FlowSpec, RTBH, and external scrubbing-diversion workflows."
 category: "security"
-location: "Global Software / Virtual Appliance"
+location: "Software deployment / availability by requirement"
 partner: "FastNetMon"
-displayPrice: "From $350/mo"
-verifiedPrice: "From $350/mo"
-priceStatus: "confirmed_allocation"
-publicApproved: true
+displayPrice: "Request current pricing"
+priceStatus: "unverified"
+publicApproved: false
 specifications:
-  - "FastNetMon Advanced Core License"
-  - "Supports sFlow, NetFlow v5/v9, IPFIX, and Port Mirroring"
-  - "Automated BGP FlowSpec, RTBH, and External Scrubbing Diversion Workflows"
-  - "Near-real-time detection using operator-defined thresholds and mitigation logic"
-status: "active"
-featured: true
+  - "FastNetMon Advanced commercial edition"
+  - "Network telemetry support including sFlow, NetFlow, IPFIX, and mirrored traffic"
+  - "Operator-defined BGP FlowSpec and RTBH automation"
+  - "External scrubbing-centre diversion workflows"
+status: "review"
+featured: false
 publishedDate: 2026-07-15
 expiryDate: 2026-12-31
-campaignTag: "fastnetmon-100g"
+campaignTag: "fastnetmon-ddos-automation"
 ---
 
 ## Network-Layer DDoS Detection & Automation
 
-FastNetMon Advanced analyzes network telemetry out of band and can trigger operator-defined mitigation actions through BGP FlowSpec, remote-triggered blackholing (RTBH), or diversion to external scrubbing infrastructure. The commercial pricing and allocation shown on this offer are InfraHub offer terms rather than claims taken from FastNetMon's public website.
+FastNetMon Advanced analyzes live network traffic in near real time and can trigger operator-defined mitigation actions through BGP FlowSpec, remote-triggered blackholing (RTBH), or diversion to external scrubbing infrastructure.
+
+This record is held in review until InfraHub's specific commercial pricing and allocation terms are confirmed. Public FastNetMon product capabilities are sourced from FastNetMon's official website; an InfraHub-specific price must come from an approved commercial source rather than being inferred from public product pages.

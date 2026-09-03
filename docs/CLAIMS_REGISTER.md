@@ -22,10 +22,10 @@
 | C-02 | Supplier is a "Tier-1 Carrier Network" | same | **OWNER INPUT** | A category, not a named provider. If the carrier cannot be named publicly, that is itself a publishing decision. |
 | C-03 | "Sub-1ms Cross-Connect into Frankfurt MMRs" | same | VERIFY | Latency claim tied to specific facilities. |
 | C-04 | "100 Gbps Port with 20G Committed Data Rate" | same | VERIFY | Commercial term; confirm it matches a real available product. |
-| C-05 | FastNetMon offer pricing (`From $350/mo`) and allocation status | `content/offers/fastnetmon-ddos-detection-100g.md` | **OWNER INPUT** | Not a claim sourced from FastNetMon's public site. Keep capability wording separate from InfraHub commercial terms. |
+| C-05 | FastNetMon-specific InfraHub pricing/allocation | `content/offers/fastnetmon-ddos-detection-100g.md` | **OWNER INPUT** | Record is now `review`, `publicApproved: false`, and shows `Request current pricing`. Product capability wording is sourced from FastNetMon; any InfraHub commercial price must be separately confirmed. |
 | C-06 | Other active offers | `content/offers/` | VERIFY | Price, stock/allocation, provider attribution, and validity must remain current. |
-| C-07 | StormWall offer pricing (`From €650/mo`) and specific commercial package terms | `content/offers/stormwall-ddos-scrubbing.md` | **OWNER INPUT** | StormWall publishes public service details, but this exact InfraHub package/pricing requires internal commercial confirmation. |
-| C-08 | IPXO offer pricing (`$280/mo` for /24) | `content/offers/ipv4-24-subnet-lease.md` | **OWNER INPUT** | IPXO's public pricing is dynamic and currently differs from this figure; treat this as an InfraHub-specific offer only if owner-confirmed. |
+| C-07 | StormWall-specific InfraHub package/pricing | `content/offers/stormwall-ddos-scrubbing.md` | **OWNER INPUT** | Record is now `review`, `publicApproved: false`, and shows `Request current pricing`. StormWall publishes its own service/plans; an InfraHub package must come from an approved commercial source. |
+| C-08 | IPXO-specific InfraHub /24 price and allocation | `content/offers/ipv4-24-subnet-lease.md` | **OWNER INPUT** | Record is now `review`, `publicApproved: false`, and shows `Request current pricing`. IPXO publishes dynamic public IPv4 pricing, so a distinct InfraHub offer must be confirmed rather than inferred. |
 
 ---
 
@@ -71,12 +71,12 @@ Claims deliberately removed from partner profiles because they were stale, unsup
 
 The partner source-of-truth sweep also covers service pages that mention these brands, not just `/partners/*`:
 
-- `ddos-detection-automation.astro`: removed the universal FastNetMon "sub-2-second" reaction claim and aligned the page to near-real-time telemetry analysis, FlowSpec, RTBH, and external scrubbing diversion.
+- `ddos-detection-automation.astro`: removed the universal FastNetMon "sub-2-second" reaction claim and aligned the page to near-real-time telemetry analysis, FlowSpec, RTBH, and external scrubbing diversion. The page no longer links to an unverified commercial offer; it routes buyers to the partner profile or requirement discussion instead.
 - `ddos-protection.astro`: removed fabricated/overprecise reaction-time and latency ranges; FastNetMon and StormWall are now described according to their distinct published roles.
 - `managed-noc.astro`: removed stale Supertrace/vExpertAI references, invented staffing economics, unsupported response SLAs, and the `90%+` alert-noise claim. ITcare is now the named managed-operations partner, aligned to its public network engineering, 24/7 NOC, automation, and HORA scope.
 - `ai-network-operations.astro`: reframed from autonomous-operation promises to AI-assisted workflows and ITcare HORA context.
 - `vmware-alternatives.astro`: removed "drop-in replacement" and blanket warm-migration/SLA claims; Vates is described around XCP-ng, Xen Orchestra, backup/replication, support, and migration services.
-- `fastnetmon-ddos-detection-100g.md`: removed the unsupported "Sub-2-Second Detection and Mitigation Reaction Time" specification. Commercial price remains an InfraHub/owner verification item (C-05), separate from FastNetMon's public capability claims.
+- `fastnetmon-ddos-detection-100g.md`, `stormwall-ddos-scrubbing.md`, and `ipv4-24-subnet-lease.md`: partner-branded commercial records are held in review with no public-approved pricing until InfraHub-specific terms are confirmed.
 
 ---
 
@@ -113,7 +113,7 @@ The risk here is implying InfraHub owns infrastructure it introduces.
 
 ## Open owner questions, consolidated
 
-1. **Offer truth:** confirm pricing, supplier attribution, validity, stock/allocation, and commercial terms for active offers, including the FastNetMon, StormWall, and IPXO branded offers above.
+1. **Offer truth:** confirm pricing, supplier attribution, validity, stock/allocation, and commercial terms for partner-branded offer records. FastNetMon, StormWall, and IPXO records are deliberately held in review until confirmed rather than showing guessed public prices.
 2. **Partner logos:** provide or approve official logo assets for the eight canonical partners. FastNetMon and Gcore publish official brand/media kits; IPXO also publishes brand assets. Until imported and approved, the site intentionally uses text-only partner marks.
 3. **Strategic designations:** none of the eight partners is currently labeled strategic. Add such a designation only if the owner explicitly wants and can support it.
 4. **"Verified" terminology:** define what InfraHub verifies operationally before using the word as a broad trust claim.
