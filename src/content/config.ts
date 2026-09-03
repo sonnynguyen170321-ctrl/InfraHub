@@ -26,7 +26,9 @@ const partners = defineCollection({
   type: 'content',
   schema: z.object({
     name: z.string(),
-    logo: z.string(),
+    officialWebsite: z.string().url(),
+    sourceUrls: z.array(z.string().url()).default([]),
+    logo: z.string().optional(),
     logoDark: z.string().optional(),
     logoLight: z.string().optional(),
     logoScale: z.number().default(1),
@@ -36,6 +38,7 @@ const partners = defineCollection({
       'Security',
       'Managed Operations',
       'Virtualization',
+      'AI & Transformation',
       'Hardware'
     ]),
     tagline: z.string(),

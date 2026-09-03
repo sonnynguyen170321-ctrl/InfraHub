@@ -16,13 +16,14 @@ const categories = [
   'Network & Connectivity',
   'Security',
   'Managed Operations',
-  'Virtualization'
+  'Virtualization',
+  'AI & Transformation'
 ];
 ---
 
 <Layout 
-  title="Our Partner Ecosystem — Specialized Infrastructure Providers"
-  description="Explore InfraHub's independent partner ecosystem spanning Tier-1 network transit, bare-metal compute, DDoS mitigation, and enterprise virtualization."
+  title="Our Partner Ecosystem — Infrastructure & Technology Specialists"
+  description="Explore InfraHub's partner ecosystem across cloud, connectivity, DDoS security, IPv4, virtualization, network operations, and AI transformation."
   canonicalPath="/partners"
 >
   <div class="partners-page-wrapper">
@@ -30,10 +31,10 @@ const categories = [
       
       <!-- Editorial Header -->
       <header class="catalog-header">
-        <span class="catalog-kicker">INDEPENDENT SPECIALIST ECOSYSTEM</span>
-        <h1 class="catalog-title">Specialist Infrastructure Providers.<br />Connected Through InfraHub.</h1>
+        <span class="catalog-kicker">SPECIALIST PARTNER ECOSYSTEM</span>
+        <h1 class="catalog-title">Infrastructure and technology specialists.<br />Connected through InfraHub.</h1>
         <p class="catalog-lead">
-          We do not resell commodity clouds or act as a generic broker. We build direct relationships with specialized operators who engineer and operate their own infrastructure footprints.
+          InfraHub works with specialist infrastructure operators, software vendors, and technology platforms. We start with the buyer's requirement, then identify where a partner's actual capabilities fit.
         </p>
       </header>
 
@@ -56,7 +57,7 @@ const categories = [
           <article class="partner-dir-card" data-category={partner.data.category}>
             <div class="partner-dir-top">
               <div class="partner-brand-area">
-                {partner.data.logoApproved && partner.data.logoStatus === 'approved' ? (
+                {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
                   <img 
                     src={partner.data.logo} 
                     alt={`${partner.data.name} logo`} 
@@ -91,9 +92,9 @@ const categories = [
               <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm">
                 <span>View Partner Profile</span>
               </a>
-              <a href={`/lets-talk?partner=${partner.slug}`} class="partner-discuss-link">
-                <span>Discuss Scope</span>
-                <span class="link-arrow" aria-hidden="true">&rarr;</span>
+              <a href={partner.data.officialWebsite} class="partner-discuss-link" target="_blank" rel="noopener noreferrer">
+                <span>Official Website</span>
+                <span class="link-arrow" aria-hidden="true">&nearr;</span>
               </a>
             </div>
           </article>
@@ -103,9 +104,9 @@ const categories = [
       <!-- Sourcing Inquiry Band -->
       <section class="partners-inquiry-band">
         <div class="inquiry-content">
-          <h2 class="inquiry-title">Join the InfraHub Sourcing Ecosystem</h2>
+          <h2 class="inquiry-title">Join the InfraHub sourcing ecosystem</h2>
           <p class="inquiry-desc">
-            Do you operate independent networking transit, specialized cloud virtualization, scrubbing capacity, or enterprise hardware supply?
+            Do you provide specialist infrastructure, networking, security, cloud, virtualization, managed operations, or enterprise technology capabilities?
           </p>
         </div>
         <a href="mailto:partners@infrahub.tech" class="btn btn-secondary">
@@ -183,7 +184,7 @@ const categories = [
     font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 160ms ease;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
   }
 
   .category-tab:hover {
@@ -360,7 +361,7 @@ const categories = [
   }
 
   .partner-discuss-link:hover .link-arrow {
-    transform: translateX(3px);
+    transform: translate(2px, -2px);
   }
 
   /* Inquiry Band */

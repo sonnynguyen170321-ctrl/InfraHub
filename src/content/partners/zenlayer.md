@@ -1,37 +1,40 @@
 ---
 name: "Zenlayer"
-logo: "/images/partners/zenlayer.svg"
+officialWebsite: "https://www.zenlayer.com/"
+sourceUrls:
+  - "https://www.zenlayer.com/"
+  - "https://www.zenlayer.com/partner/"
 category: "Infrastructure & Cloud"
-tagline: "Global Edge Cloud, Bare Metal & Interconnection Backbone"
+tagline: "Distributed Cloud, Bare Metal & Global Connectivity"
 capabilities:
-  - "High-performance bare metal across 110+ global PoPs"
-  - "Private global backbone connecting East Asia, Southeast Asia, and Americas"
-  - "Sub-30ms regional transit routing"
-  - "Direct Multi-Cloud Interconnect (AWS, Azure, GCP)"
+  - "Bare metal and elastic compute services"
+  - "Cloud networking, Cloud Connect, Cloud Router, Private Connect, and Virtual Edge"
+  - "IP transit, global acceleration, and CDN services"
+  - "Edge colocation and distributed AI infrastructure services"
 strategic: false
-verified: true
-shortRole: "Global Edge Network & Bare Metal"
+verified: false
+shortRole: "Distributed Cloud, Compute & Connectivity"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "sourced"
+logoStatus: "missing"
 logoApproved: false
-capabilityClaimsStatus: "approved"
+capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
 homepageMarqueeEnabled: true
-homepagePriority: 3
+homepagePriority: 4
 partnerPageEnabled: true
-logoScale: 1.05
+logoScale: 1
 ---
 
 ## Zenlayer + InfraHub
 
-Zenlayer operates one of the most extensive private global edge backbones in the world, with deep footprint across emerging markets in Southeast Asia, India, South America, and China.
+Zenlayer provides distributed cloud infrastructure spanning compute, networking, acceleration, connectivity, edge colocation, and AI-focused services.
 
-### Who is it for?
-Gaming enterprises, global SaaS companies, and content providers requiring local bare metal compute with ultra-low latency fiber peering.
+### Where it can fit
+Zenlayer can be relevant when a buyer needs compute and network services across multiple regions, particularly where bare metal, private connectivity, cloud interconnection, IP transit, or application acceleration must work together.
 
-### Why InfraHub works with Zenlayer
-We partner with Zenlayer to provide our clients with preferred bare metal provisioning windows, burstable bandwidth packages, and cross-border private networking.
+### How InfraHub can help
+InfraHub can help compare Zenlayer services against other infrastructure and connectivity options based on target geography, workload placement, latency, network architecture, and commercial requirements.

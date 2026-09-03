@@ -1,21 +1,24 @@
 ---
 name: "FastNetMon"
-logo: "/images/partners/fastnetmon.svg"
+officialWebsite: "https://fastnetmon.com/"
+sourceUrls:
+  - "https://fastnetmon.com/"
+  - "https://fastnetmon.com/fastnetmon-brand-kit/"
 category: "Security"
-tagline: "High-Performance DDoS Detection & BGP Routing Automation"
+tagline: "Network-Layer DDoS Detection & Mitigation Automation"
 capabilities:
-  - "Out-of-band flow analysis (sFlow, NetFlow, IPFIX)"
-  - "Sub-2-second automated attack detection"
-  - "BGP FlowSpec, RTBH, and Cloud Diversion triggers"
-  - "Host unblocking and traffic metric logging"
+  - "Near-real-time analysis of live network traffic for DDoS detection"
+  - "BGP FlowSpec and remote-triggered blackholing (RTBH) automation"
+  - "Traffic diversion to external scrubbing centres using routing controls"
+  - "APIs, blocklist integration, and operator-defined mitigation workflows"
 strategic: false
-verified: true
-shortRole: "DDoS Detection & Network Telemetry"
+verified: false
+shortRole: "DDoS Detection & Mitigation Control Plane"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "sourced"
+logoStatus: "missing"
 logoApproved: false
-capabilityClaimsStatus: "approved"
+capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
 relationshipConfirmed: true
@@ -28,15 +31,10 @@ logoScale: 1
 
 ## FastNetMon + InfraHub
 
-FastNetMon is an industry-standard DDoS detection engine engineered specifically for telecom carriers, ISPs, hosting platforms, and large cloud networks. It analyzes traffic telemetry out-of-band, avoiding the latency and packet bottlenecks of inline firewalls.
+FastNetMon is a network-layer DDoS detection and mitigation platform. It analyzes live traffic and can trigger operator-defined responses such as BGP FlowSpec, remote-triggered blackholing, or diversion to external scrubbing infrastructure.
 
-### Who is it for?
-Network engineering teams running autonomous systems (ASNs) who need rapid, reliable detection of volumetric floods without paying high monthly per-gigabit inspection fees.
+### Where it can fit
+FastNetMon is relevant to ISPs, hosting providers, cloud platforms, and network operators that want automated DDoS detection and routing-based mitigation while retaining control of their own response policy.
 
-### What problems does it solve?
-- **Speed:** Identifies volumetric attacks in under 2 seconds.
-- **Precision:** Uses BGP FlowSpec to discard attack vectors surgically while allowing legitimate user traffic to reach destination ports.
-- **Automation:** Eliminates manual 3 AM engineer intervention to announce blackhole routes during attacks.
-
-### Why InfraHub works with FastNetMon
-InfraHub helps network operators integrate FastNetMon with upstream transit carriers and automated cloud scrubbing providers, delivering hybrid protection that eliminates unnecessary bandwidth bills.
+### How InfraHub can help
+InfraHub can help buyers evaluate where FastNetMon fits in a broader DDoS architecture, including telemetry collection, BGP policy, upstream transit, and third-party scrubbing integration.

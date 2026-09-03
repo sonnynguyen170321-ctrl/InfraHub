@@ -5,10 +5,12 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const partners = await getCollection('partners');
-  return partners.map(partner => ({
-    params: { slug: partner.slug },
-    props: { partner }
-  }));
+  return partners
+    .filter(partner => partner.data.partnerPageEnabled && partner.data.relationshipConfirmed && partner.data.publicNameApproved)
+    .map(partner => ({
+      params: { slug: partner.slug },
+      props: { partner }
+    }));
 }
 
 const { partner } = Astro.props;
@@ -16,7 +18,7 @@ const { Content } = await partner.render();
 ---
 
 <Layout 
-  title={`${partner.data.name} + InfraHub  -  Strategic Sourcing Partnership`}
+  title={`${partner.data.name} + InfraHub | Partner Ecosystem`}
   description={partner.data.tagline}
   canonicalPath={`/partners/${partner.slug}`}
 >
@@ -25,26 +27,32 @@ const { Content } = await partner.render();
       <div class="partner-detail-header">
         <div class="partner-header-badge">
           <span class="pill-badge badge-blue">{partner.data.category}</span>
-          <span class="pill-badge badge-teal">Verified Ecosystem Partner</span>
+          <span class="partner-status-label">InfraHub partner ecosystem</span>
         </div>
         <h1 class="partner-hero-title">{partner.data.name} + InfraHub</h1>
         <p class="partner-hero-tagline">{partner.data.tagline}</p>
+        <a href={partner.data.officialWebsite} class="official-site-link" target="_blank" rel="noopener noreferrer">
+          Visit {partner.data.name}'s official website <span aria-hidden="true">&nearr;</span>
+        </a>
       </div>
 
       <div class="partner-main-grid">
         <div class="partner-prose-content">
           <div class="capabilities-box">
-            <h2>Verified Technical Capabilities</h2>
+            <h2>Key capabilities</h2>
             <ul class="caps-list">
               {partner.data.capabilities.map(cap => (
                 <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
+                  <span class="cap-marker" aria-hidden="true">•</span>
                   <span>{cap}</span>
                 </li>
               ))}
             </ul>
+            {partner.data.sourceUrls.length > 0 && (
+              <p class="source-note">
+                Capability descriptions are aligned to {partner.data.name}'s official public materials.
+              </p>
+            )}
           </div>
 
           <div class="markdown-body">
@@ -54,22 +62,18 @@ const { Content } = await partner.render();
 
         <aside class="partner-sidebar">
           <div class="partner-action-card">
-            <h2>Inquire About {partner.data.name}</h2>
+            <h2>Discuss {partner.data.name}</h2>
             <p>
-              Connect directly with our architects to evaluate whether {partner.data.name} fits your network constraints and commercial budget.
+              Tell InfraHub what you are trying to achieve. We can help assess whether {partner.data.name} fits the requirement and coordinate an introduction where appropriate.
             </p>
             <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-block btn-lg">
-              <span>Talk to Partner Specialist</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
+              <span>Discuss Your Requirement</span>
             </a>
             
             <div class="partner-sourcing-assurances">
-              <p>✓ Direct partner contract & SLA</p>
-              <p>✓ Zero broker fees through InfraHub</p>
-              <p>✓ Engineering-led qualification</p>
+              <p>Requirement-led evaluation</p>
+              <p>Direct provider introduction where appropriate</p>
+              <p>Partner-delivered services remain contracted and delivered by the provider</p>
             </div>
           </div>
         </aside>
@@ -84,16 +88,21 @@ const { Content } = await partner.render();
   }
 
   .partner-detail-header {
-    text-align: center;
     max-width: 800px;
-    margin: 0 auto 54px;
+    margin-bottom: 54px;
   }
 
   .partner-header-badge {
     display: flex;
-    justify-content: center;
-    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 16px;
+  }
+
+  .partner-status-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
   }
 
   .partner-hero-title {
@@ -106,6 +115,21 @@ const { Content } = await partner.render();
     font-size: 1.2rem;
     color: var(--text-secondary);
     line-height: 1.5;
+    max-width: 64ch;
+  }
+
+  .official-site-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  .official-site-link:hover {
+    text-decoration: underline;
   }
 
   .partner-main-grid {
@@ -145,9 +169,19 @@ const { Content } = await partner.render();
     font-size: 0.95rem;
     color: var(--text-secondary);
   }
-  .caps-list svg {
-    margin-top: 3px;
+
+  .cap-marker {
+    color: var(--accent-blue);
+    line-height: 1.4;
     flex-shrink: 0;
+  }
+
+  .source-note {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.82rem;
+    color: var(--text-muted);
   }
 
   .markdown-body {
@@ -175,7 +209,6 @@ const { Content } = await partner.render();
     margin-bottom: 20px;
   }
 
-  /* Sidebar */
   .partner-sidebar {
     position: sticky;
     top: calc(var(--header-height) + 24px);
@@ -193,7 +226,7 @@ const { Content } = await partner.render();
     font-weight: 700;
     margin-bottom: 12px;
   }
-  .partner-action-card p {
+  .partner-action-card > p {
     font-size: 0.9rem;
     color: var(--text-secondary);
     line-height: 1.5;
@@ -207,7 +240,11 @@ const { Content } = await partner.render();
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
+  }
+
+  .partner-sourcing-assurances p {
+    margin: 0;
   }
 </style>

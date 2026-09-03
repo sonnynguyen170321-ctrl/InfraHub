@@ -1,21 +1,24 @@
 ---
 name: "Vates"
-logo: "/images/partners/vates.svg"
+officialWebsite: "https://vates.tech/"
+sourceUrls:
+  - "https://vates.tech/en/virtualization-management-stack/"
+  - "https://vates.tech/en/virtualization-management-stack/xen-orchestra/"
 category: "Virtualization"
-tagline: "Open-Source Enterprise Virtualization (XCP-ng & Xen Orchestra)"
+tagline: "Open-Source Virtualization with XCP-ng & Xen Orchestra"
 capabilities:
-  - "Turnkey VMware-alternative hypervisor stack (XCP-ng)"
-  - "Centralized cluster, pool, and backup management (Xen Orchestra)"
-  - "Live warm migration from VMware ESXi environments"
-  - "European sovereign data compliance"
+  - "XCP-ng open-source virtualization platform built on the Xen Project hypervisor"
+  - "Xen Orchestra web and API management for XCP-ng environments"
+  - "Integrated VM backup, replication, metrics, and automation workflows"
+  - "Commercial support and services around the Vates Virtualization Management Stack"
 strategic: false
-verified: true
-shortRole: "Open-Source Virtualization & Cloud Stack"
+verified: false
+shortRole: "Open-Source Virtualization & Management Stack"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "sourced"
+logoStatus: "missing"
 logoApproved: false
-capabilityClaimsStatus: "approved"
+capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
 relationshipConfirmed: true
@@ -23,12 +26,15 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 6
 partnerPageEnabled: true
-logoScale: 0.98
+logoScale: 1
 ---
 
 ## Vates + InfraHub
 
-Vates provides a complete open-source enterprise virtualization ecosystem (XCP-ng hypervisor and Xen Orchestra management platform).
+Vates develops an open-source virtualization stack centered on XCP-ng and Xen Orchestra. XCP-ng provides the virtualization platform, while Xen Orchestra provides browser-based management, backup, replication, metrics, and automation capabilities.
 
-### Who is it for?
-Enterprises, hosting providers, and cloud architects looking for an escape from punitive per-core Broadcom/VMware licensing models while maintaining enterprise backup, high availability, and live migration capabilities.
+### Where it can fit
+Vates can be relevant to enterprises, hosting providers, and cloud operators evaluating alternatives to proprietary virtualization platforms or building new virtual infrastructure on an open-source stack.
+
+### How InfraHub can help
+InfraHub can help buyers compare virtualization approaches, define migration and operational requirements, and assess where Vates fits alongside hardware, storage, backup, and infrastructure-management needs.

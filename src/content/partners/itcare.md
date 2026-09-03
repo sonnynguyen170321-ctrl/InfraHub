@@ -1,21 +1,23 @@
 ---
 name: "ITcare"
-logo: "/images/partners/itcare.svg"
+officialWebsite: "https://itcare.net/"
+sourceUrls:
+  - "https://itcare.net/"
 category: "Managed Operations"
-tagline: "24/7/365 Tier 1-3 NOC & Managed Infrastructure Desk"
+tagline: "Network Engineering, 24/7 NOC & Automation for Connectivity Providers"
 capabilities:
-  - "Continuous 24/7/365 infrastructure monitoring"
-  - "Sub-5 minute initial ticket response SLA"
-  - "BGP route flap and circuit loopback triage"
-  - "Integration with Datadog, Zabbix, and PagerDuty"
+  - "Network architecture and engineering across BGP, MPLS, EVPN-VXLAN, peering, and IP transit"
+  - "24/7 Network Operations Center monitoring and incident response"
+  - "DevOps and network automation using infrastructure-as-code workflows"
+  - "AI-assisted network operations through ITcare's HORA platform"
 strategic: false
-verified: true
-shortRole: "Enterprise NOC & Systems Operations"
+verified: false
+shortRole: "Network Engineering, NOC & Automation"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "sourced"
+logoStatus: "missing"
 logoApproved: false
-capabilityClaimsStatus: "approved"
+capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
 relationshipConfirmed: true
@@ -23,15 +25,15 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 7
 partnerPageEnabled: true
-logoScale: 0.96
+logoScale: 1
 ---
 
 ## ITcare + InfraHub
 
-ITcare provides round-the-clock outsourced Network Operations Center (NOC) teams that act as an integrated extension of your engineering organization.
+ITcare designs, builds, and operates production networks for ISPs, data-center operators, and cloud and hosting providers. Its services span network architecture, 24/7 NOC operations, DevOps and automation, and AI-assisted network operations.
 
-### Who is it for?
-Telecom carriers, internet service providers, and growing hosting companies that require 24/7/365 incident coverage without hiring 6 full-time internal shift engineers.
+### Where it can fit
+ITcare can be relevant to connectivity providers and infrastructure operators that need network design, operational support, automation, or continuous monitoring without building every capability internally.
 
-### Why InfraHub works with ITcare
-ITcare combines disciplined runbook execution with senior network engineering escalation, ensuring your critical infrastructure is protected through nights, weekends, and holidays.
+### How InfraHub can help
+InfraHub can help buyers define the required operational scope, escalation model, network technologies, automation requirements, and handoff boundaries before evaluating managed-network and engineering options.

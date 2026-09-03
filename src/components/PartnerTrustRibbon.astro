@@ -1,5 +1,5 @@
 ---
-// src/components/PartnerTrustRibbon.astro | InfraHub Premium Partner Trust System
+// src/components/PartnerTrustRibbon.astro | InfraHub Partner Ecosystem Ribbon
 import { getCollection } from 'astro:content';
 
 const allPartners = await getCollection('partners');
@@ -16,19 +16,14 @@ const approvedPartners = allPartners
 
 <section class="partner-trust-ribbon" aria-label="Partner Ecosystem">
   <div class="ribbon-inner">
-    
-    <!-- Zone 1: Fixed Left Anchor -->
     <div class="ribbon-fixed-zone">
       <span class="ribbon-kicker">Our partner ecosystem</span>
-      <span class="ribbon-subtitle">Specialist infrastructure providers &amp; technologies</span>
+      <span class="ribbon-subtitle">Specialist infrastructure, network, security &amp; technology partners</span>
     </div>
 
-    <!-- Zone 2: Moving Horizontal Ecosystem Track -->
     <div class="ribbon-track-wrapper">
       <div class="ribbon-marquee-content">
-        
-        <!-- Primary Track (Accessible, Interactive) -->
-        <ul class="marquee-track primary-track" aria-label="Partner Technologies Rail">
+        <ul class="marquee-track primary-track" aria-label="Partner ecosystem">
           {approvedPartners.map(partner => (
             <li class="partner-item">
               <a 
@@ -37,7 +32,7 @@ const approvedPartners = allPartners
                 aria-label={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
                 title={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
               >
-                {partner.data.logoApproved && partner.data.logoStatus === 'approved' ? (
+                {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
                   <img 
                     src={partner.data.logo} 
                     alt={`${partner.data.name} logo`} 
@@ -58,12 +53,11 @@ const approvedPartners = allPartners
           ))}
         </ul>
 
-        <!-- Visual Duplicate Track (Seamless Loop, Hidden from Screen Readers & Non-interactive) -->
         <ul class="marquee-track duplicate-track" aria-hidden="true">
           {approvedPartners.map(partner => (
             <li class="partner-item">
               <span class="partner-logo-link decorative">
-                {partner.data.logoApproved && partner.data.logoStatus === 'approved' ? (
+                {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
                   <img 
                     src={partner.data.logo} 
                     alt="" 
@@ -117,7 +111,6 @@ const approvedPartners = allPartners
     }
   }
 
-  /* Zone 1: Fixed Anchor */
   .ribbon-fixed-zone {
     flex-shrink: 0;
     display: flex;
@@ -152,7 +145,6 @@ const approvedPartners = allPartners
     line-height: 1.35;
   }
 
-  /* Typographic Partner Mark (Authentic Non-Synthetic Fallback) */
   .partner-text-mark {
     display: inline-flex;
     flex-direction: column;
@@ -188,13 +180,11 @@ const approvedPartners = allPartners
     margin-top: 2px;
   }
 
-  /* Zone 2: Moving Rail */
   .ribbon-track-wrapper {
     flex-grow: 1;
     overflow: hidden;
     position: relative;
     width: 100%;
-    /* Edge fade masks for quiet entrance & exit */
     mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
   }
@@ -204,7 +194,6 @@ const approvedPartners = allPartners
     width: max-content;
   }
 
-  /* Marquee animation: compositor-friendly translateX */
   @keyframes marqueeSlide {
     0% {
       transform: translate3d(0, 0, 0);
@@ -233,7 +222,6 @@ const approvedPartners = allPartners
     }
   }
 
-  /* Pause on hover and keyboard focus so users can inspect/click */
   .ribbon-track-wrapper:hover .marquee-track,
   .ribbon-track-wrapper:focus-within .marquee-track {
     animation-play-state: paused;
@@ -281,7 +269,6 @@ const approvedPartners = allPartners
     pointer-events: none;
   }
 
-  /* Accessibility: Prefers-reduced-motion fallback */
   @media (prefers-reduced-motion: reduce) {
     .ribbon-track-wrapper {
       mask-image: none;
