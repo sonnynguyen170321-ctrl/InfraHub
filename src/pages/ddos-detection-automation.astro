@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout 
   title="DDoS Detection & Automation (FastNetMon Advanced) | InfraHub"
-  description="Out-of-band flow telemetry processing with automated BGP FlowSpec and RTBH mitigation triggers. Protect network routers with sub-2-second reaction times."
+  description="Evaluate FastNetMon for near-real-time network-layer DDoS detection, BGP FlowSpec, RTBH automation, and external scrubbing-centre diversion."
   canonicalPath="/ddos-detection-automation"
 >
   <div class="section section-hero network-overlay">
@@ -17,36 +17,36 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h1 class="service-title">DDoS Detection & BGP Automation</h1>
         <p class="service-lead">
-          Detect and isolate network-layer volumetric attacks in under 2 seconds. Process sFlow, NetFlow, and IPFIX out-of-band to trigger automated BGP FlowSpec rules and cloud scrubbing diversion.
+          FastNetMon analyzes live network telemetry to detect network-layer DDoS activity in near real time. Operators can use it to trigger policy-defined responses including BGP FlowSpec, remote-triggered blackholing (RTBH), and diversion to external scrubbing infrastructure.
         </p>
         <div class="service-hero-actions">
-          <a href="/partners/fastnetmon" class="btn btn-accent btn-lg">Explore FastNetMon Architecture</a>
-          <a href="/offers/fastnetmon-ddos-detection-100g" class="btn btn-secondary btn-lg">View Official Partner Offer</a>
+          <a href="/partners/fastnetmon" class="btn btn-accent btn-lg">Explore FastNetMon</a>
+          <a href="/offers/fastnetmon-ddos-detection-100g" class="btn btn-secondary btn-lg">View FastNetMon Offer</a>
         </div>
       </div>
 
       <div class="content-section">
-        <span class="section-sub-tag">Telemetry Processing</span>
-        <h2>How Automated Telemetry Works</h2>
+        <span class="section-sub-tag">Telemetry & Mitigation Control</span>
+        <h2>How FastNetMon Fits a DDoS Response Stack</h2>
         <div class="problem-grid">
           <div class="problem-card">
             <h3>Out-of-Band Analysis</h3>
-            <p>Routers mirror packet headers without passing traffic through an inline bottleneck, ensuring zero latency penalty for normal traffic.</p>
+            <p>FastNetMon can ingest network telemetry such as sFlow, NetFlow, IPFIX, and mirrored traffic without placing the detection engine inline with normal packet forwarding.</p>
           </div>
           <div class="problem-card">
-            <h3>BGP FlowSpec (RFC 5575)</h3>
-            <p>Surgically filter specific attack vectors (e.g. DNS amplification on UDP 53) upstream rather than null-routing your entire customer IP.</p>
+            <h3>BGP FlowSpec</h3>
+            <p>Operator-defined FlowSpec policies can distribute targeted filtering rules to compatible routers, allowing selected malicious traffic patterns to be filtered without blackholing all traffic to the destination.</p>
           </div>
           <div class="problem-card">
-            <h3>Automated Cloud Diversion</h3>
-            <p>Automatically signal cloud scrubbing centers when attack thresholds exceed local router capacity, then auto-withdraw BGP routes when clean.</p>
+            <h3>RTBH & Scrubbing Diversion</h3>
+            <p>FastNetMon can automate remote-triggered blackholing or trigger diversion toward external scrubbing infrastructure when the operator's thresholds and escalation rules are met.</p>
           </div>
         </div>
       </div>
 
       <div class="service-footer-cta">
-        <h2>Automate Your Network DDoS Response</h2>
-        <a href="/lets-talk?service=ddos-detection" class="btn btn-accent btn-lg">Consult a Flow Security Specialist</a>
+        <h2>Evaluate DDoS Detection for Your Network</h2>
+        <a href="/lets-talk?service=ddos-detection" class="btn btn-accent btn-lg">Discuss Your DDoS Architecture</a>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@ import Layout from '../layouts/Layout.astro';
   .header-badge-row { display: flex; justify-content: flex-start; gap: 8px; margin-bottom: 16px; }
   .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
   .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
-  .service-hero-actions { display: flex; justify-content: center; gap: 14px; }
+  .service-hero-actions { display: flex; justify-content: flex-start; gap: 14px; flex-wrap: wrap; }
   .content-section { margin-bottom: 72px; }
   .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
   .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
