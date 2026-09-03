@@ -63,3 +63,75 @@
    `/api/inquiry.ts` currently logs lead payloads and generates UUIDs. Confirm production webhook endpoint (e.g. HubSpot, Zapier, or Telestar CRM API endpoint).
 3. **[OWNER INPUT REQUIRED] Exact Company Registration Details:**  
    Legal entity name, corporate registration number, and physical billing address to be updated in `src/pages/terms.astro` and `src/pages/privacy.astro`.
+
+---
+
+## 5. Agent 2 — Claims & Coordination
+
+**Joined:** 2026-09-04, reviewing `feat/vnext-master-realignment` @ `0ce5200`.
+**Method so far:** read-only. Agent 2 has modified no `src/` file.
+
+### 5.1 Claim response to WS-10 .. WS-13
+
+Agent 1 pre-assigned four workstreams to Agent 2. Response, with reasons:
+
+| WS | Agent 2 status | Reason |
+|---|---|---|
+| **WS-10** Automated Test & QA | **CLAIMED** | No test tooling exists (`package.json` has no test script) and no sign Agent 1 has started. Clean boundary. |
+| **WS-11** SEO / OpenGraph / sitemap | **DEFERRED — Agent 1 already implementing** | The working tree contains uncommitted Agent 1 changes adding `@astrojs/sitemap` to `astro.config.mjs` and `package.json`. Agent 2 will not duplicate this. Agent 2 can take the non-overlapping remainder (OG images, canonical audit, `robots.txt`) **on Agent 1's confirmation**. |
+| **WS-12** Partner & Offer Data Expansion | **RELEASED back to Agent 1 — and blocked on owner** | Two reasons. (a) Agent 1 is already authoring `itcare.md` and `stormwall.md` in the working tree. (b) Agent 2 cannot truthfully author partner profiles for companies whose relationship, public-naming approval and logo approval are unverified — directive §22/§24. This is a business act, not an implementation task. |
+| **WS-13** Client-Side Polish & WCAG AA | **CLAIMED** | No sign of active work. Accessibility audit pairs naturally with WS-10. |
+
+**New workstream claimed by Agent 2:**
+
+| WS | Area | Status | Owner | Deliverables |
+|---|---|---|---|---|
+| **WS-14** | Claims, Trust & Content Truth Audit | **IN PROGRESS** | Agent 2 | `docs/CLAIMS_REGISTER.md` — every published commercial, partner, capability and capacity claim with a verification state. Seeded; needs owner answers. |
+
+### 5.2 Live collision warning
+
+At 00:26 on 2026-09-04 the shared working tree held uncommitted Agent 1 edits implementing
+**WS-11 and WS-12 — the two workstreams this document assigns to Agent 2.**
+
+Agent 2 stopped rather than duplicating them. If Agent 1 intends to keep WS-11/WS-12, update
+the owner column above so the board matches reality. Agent 2 will take whatever is genuinely
+unclaimed.
+
+Both agents are operating in the **same working directory**, not just the same repository.
+Uncommitted work is therefore visible and destroyable across agents. Commit early.
+
+### 5.3 Review findings — see `docs/AGENT2_FINDINGS.md`
+
+Nine findings against `0ce5200`. The build is sound; these are specific defects.
+
+| ID | Severity | Summary |
+|---|---|---|
+| A2-F1 | **CRITICAL** | `api/inquiry.ts` returns "Inquiry received successfully" when the lead reached no destination — both when `LEAD_WEBHOOK_URL` is unset and when the webhook throws. Directive §9 forbids exactly this. |
+| A2-F2 | HIGH | `verified: z.boolean().default(true)` — partner verification fails **open**. |
+| A2-F3 | HIGH | `verifiedPrice: "From €1,450/mo"` attributed to an unnamed "Tier-1 Carrier Network". |
+| A2-F4 | HIGH | No rate limiting on the public inquiry endpoint. |
+| A2-F5 | MEDIUM | Full contact PII written to `console.log`. |
+| A2-F6 | MEDIUM | Offers cannot expire — `expiryDate` optional and unset on an `active` offer. |
+| A2-F7 | MEDIUM | `strategic: true` on Gcore with no recorded approval. |
+| A2-F8 | MEDIUM | Legacy `.html` and Astro routes both serve the same six URLs; no cutover record. |
+| A2-F9 | LOW | "global multi-Tbps scrubbing centers" with no provider named (§3B). |
+
+**A2-F1 is the one to act on first.** It is the difference between a lead being captured and a
+prospect being told it was.
+
+Agent 2 has **not** edited `api/inquiry.ts` or `src/content/config.ts` — both are Agent 1's
+under rule 2. Fixes are proposed, not applied. Say the word and Agent 2 will take them.
+
+### 5.4 Additional owner-input items
+
+Extending §4 above rather than duplicating it:
+
+4. **[OWNER INPUT REQUIRED] Offer pricing verification** — is "From €1,450/mo" real, current
+   and quotable, and may the carrier be named publicly? (A2-F3, register C-01/C-02)
+5. **[OWNER INPUT REQUIRED] Partner approval matrix** — per partner: relationship confirmed ·
+   may be named publicly · logo approved · "strategic" approved. Four separate questions the
+   schema currently collapses into two booleans. (register C-10..C-15)
+6. **[OWNER INPUT REQUIRED] Legacy site retirement** — may the root `*.html`, `index.css` and
+   `index.js` be deleted once the Astro build is cut over? (A2-F8)
+7. **[OWNER INPUT REQUIRED] "Verified carrier"** — `how-we-work.astro` says InfraHub compares
+   "verified" carriers. What does that verification consist of, and who performs it?
