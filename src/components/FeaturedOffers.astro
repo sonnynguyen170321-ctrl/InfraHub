@@ -172,12 +172,13 @@ const secondaryOffers = activeOffers.filter(o => o.slug !== primaryOffer.slug).s
   }
   .primary-location {
     font-size: 0.88rem;
-    color: var(--text-muted);
+    color: #475569;
   }
   .primary-desc {
     font-size: 0.95rem;
     line-height: 1.6;
     color: var(--text-secondary);
+    max-width: 54ch;
   }
   .primary-specs-list {
     list-style: disc;
@@ -239,7 +240,7 @@ const secondaryOffers = activeOffers.filter(o => o.slug !== primaryOffer.slug).s
   }
   .secondary-location {
     font-size: 0.82rem;
-    color: var(--text-muted);
+    color: #475569;
   }
   .secondary-title {
     font-size: 1.15rem;
@@ -254,6 +255,7 @@ const secondaryOffers = activeOffers.filter(o => o.slug !== primaryOffer.slug).s
     font-size: 0.88rem;
     color: var(--text-secondary);
     line-height: 1.45;
+    max-width: 50ch;
   }
   .secondary-action-group {
     display: flex;
