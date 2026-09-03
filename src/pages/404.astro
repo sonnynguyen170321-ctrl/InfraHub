@@ -1,0 +1,221 @@
+---
+// src/pages/404.astro
+//
+// Astro builds this to dist/client/404.html, which Vercel serves with a real 404 status for
+// any unmatched path. The status code is what keeps it out of the index, so no robots meta is
+// needed here.
+//
+// Written to route people onward rather than apologise. A 404 is usually a stale link, a typo,
+// or a URL that moved during the VNext migration — in every one of those cases the visitor
+// still wants the thing they came for, so the five solution families are the main content.
+import Layout from '../layouts/Layout.astro';
+
+const solutions = [
+  {
+    href: '/solutions/infrastructure',
+    title: 'Infrastructure',
+    description: 'Dedicated servers, colocation, enterprise hardware and custom IaaS.'
+  },
+  {
+    href: '/solutions/cloud-virtualization',
+    title: 'Cloud & Virtualization',
+    description: 'Private cloud, VMware alternatives and GPU/AI infrastructure.'
+  },
+  {
+    href: '/solutions/network-connectivity',
+    title: 'Network & Connectivity',
+    description: 'IP transit, wavelengths, layer 2 connectivity, cloud on-ramps and IPv4.'
+  },
+  {
+    href: '/solutions/security',
+    title: 'Security',
+    description: 'DDoS protection, detection automation and cybersecurity services.'
+  },
+  {
+    href: '/solutions/managed-services',
+    title: 'Managed Services',
+    description: 'Managed NOC, AI network operations and BGP routing intelligence.'
+  }
+];
+
+const elsewhere = [
+  { href: '/offers', label: 'Featured Offers' },
+  { href: '/partners', label: 'Partner Ecosystem' },
+  { href: '/industries', label: 'Industries' },
+  { href: '/insights', label: 'Insights' }
+];
+---
+
+<Layout
+  title="Page Not Found — InfraHub"
+  description="That page could not be found. Browse InfraHub's infrastructure, cloud, connectivity, security and managed service solutions, or talk to an architect about your requirement."
+  canonicalPath="/404"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container notfound-container">
+      <span class="pill-badge badge-blue">Error 404</span>
+      <h1 class="notfound-title">That page isn&rsquo;t here.</h1>
+      <p class="notfound-lead">
+        The link may be out of date, or the address may have a typo. Everything below is
+        working &mdash; pick the area closest to what you were looking for.
+      </p>
+
+      <div class="notfound-actions">
+        <a href="/lets-talk" class="btn btn-accent btn-lg">Talk to an architect</a>
+        <a href="/" class="btn btn-secondary btn-lg">Back to homepage</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-white">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Browse by solution</h2>
+        <p>The five areas InfraHub qualifies, sources and matches against.</p>
+      </div>
+
+      <ul class="notfound-grid">
+        {solutions.map((solution) => (
+          <li class="notfound-card">
+            <a href={solution.href}>
+              <h3>{solution.title}</h3>
+              <p>{solution.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <nav class="notfound-elsewhere" aria-label="Other sections">
+        <span class="notfound-elsewhere-label">Or go to</span>
+        <ul>
+          {elsewhere.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .notfound-container {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .notfound-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 1.25rem 0 0;
+    color: var(--text-primary);
+  }
+
+  .notfound-lead {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 1rem auto 2rem;
+    max-width: 56ch;
+  }
+
+  .notfound-actions {
+    display: flex;
+    gap: 0.875rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .notfound-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .notfound-card a {
+    display: block;
+    height: 100%;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-primary);
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .notfound-card a:hover,
+  .notfound-card a:focus-visible {
+    border-color: var(--border-color-active);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .notfound-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .notfound-card p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .notfound-elsewhere {
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .notfound-elsewhere-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .notfound-elsewhere ul {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
+
+  .notfound-elsewhere a {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--accent-blue);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .notfound-elsewhere a:hover,
+  .notfound-elsewhere a:focus-visible {
+    border-bottom-color: currentColor;
+  }
+
+  /* The card lift is decoration, not information. */
+  @media (prefers-reduced-motion: reduce) {
+    .notfound-card a {
+      transition: none;
+    }
+
+    .notfound-card a:hover,
+    .notfound-card a:focus-visible {
+      transform: none;
+    }
+  }
+</style>
