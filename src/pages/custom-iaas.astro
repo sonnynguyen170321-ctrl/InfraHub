@@ -29,15 +29,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Ideal Workloads for Custom IaaS</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>VoIP & Telecom Platforms</h4>
+            <h3>VoIP & Telecom Platforms</h3>
             <p>Dedicated SIP signaling servers paired with direct Layer 2 carrier interconnects and low-latency transit routing.</p>
           </div>
           <div class="problem-card">
-            <h4>Financial Execution Backends</h4>
+            <h3>Financial Execution Backends</h3>
             <p>Deterministic kernel-bypass network cards (Solarflare/AMD Xilinx) combined with sub-millisecond optical DCI links.</p>
           </div>
           <div class="problem-card">
-            <h4>Private Streaming Clusters</h4>
+            <h3>Private Streaming Clusters</h3>
             <p>High-egress storage servers directly cross-connected to multiple 100G IP transit upstreams with 95th percentile burst pooling.</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

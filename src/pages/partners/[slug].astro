@@ -34,7 +34,7 @@ const { Content } = await partner.render();
       <div class="partner-main-grid">
         <div class="partner-prose-content">
           <div class="capabilities-box">
-            <h3>Verified Technical Capabilities</h3>
+            <h2>Verified Technical Capabilities</h2>
             <ul class="caps-list">
               {partner.data.capabilities.map(cap => (
                 <li>
@@ -54,7 +54,7 @@ const { Content } = await partner.render();
 
         <aside class="partner-sidebar">
           <div class="partner-action-card">
-            <h3>Inquire About {partner.data.name}</h3>
+            <h2>Inquire About {partner.data.name}</h2>
             <p>
               Connect directly with our architects to evaluate whether {partner.data.name} fits your network constraints and commercial budget.
             </p>
@@ -127,7 +127,7 @@ const { Content } = await partner.render();
     padding: 32px;
     margin-bottom: 40px;
   }
-  .capabilities-box h3 {
+  .capabilities-box h2 {
     font-size: 1.2rem;
     font-weight: 700;
     margin-bottom: 18px;
@@ -188,7 +188,7 @@ const { Content } = await partner.render();
     padding: 32px;
     box-shadow: var(--shadow-lg);
   }
-  .partner-action-card h3 {
+  .partner-action-card h2 {
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 12px;

@@ -22,35 +22,35 @@ import Layout from '../../layouts/Layout.astro';
       <div class="services-grid">
         <div class="service-discovery-card">
           <span class="disc-pill">Compute</span>
-          <h3>Dedicated Bare Metal</h3>
+          <h2>Dedicated Bare Metal</h2>
           <p>Single-tenant enterprise servers with unmetered high-bandwidth network ports in Europe, North America, and Asia.</p>
           <a href="/offers" class="disc-link">View Bare Metal Offers →</a>
         </div>
 
         <div class="service-discovery-card">
           <span class="disc-pill">Tailored Stacks</span>
-          <h3>Custom IaaS</h3>
+          <h2>Custom IaaS</h2>
           <p>Bespoke combinations of compute + dedicated private networking + cross-connects (e.g. VoIP stacks, high-volume transactional platforms).</p>
           <a href="/lets-talk?service=custom-iaas" class="disc-link">Inquire Custom IaaS →</a>
         </div>
 
         <div class="service-discovery-card">
           <span class="disc-pill">Accelerated Computing</span>
-          <h3>GPU & AI Infrastructure</h3>
+          <h2>GPU & AI Infrastructure</h2>
           <p>High-density NVIDIA H100, L40S, and A100 clusters with high-bandwidth InfiniBand and RoCE fabric interconnects.</p>
           <a href="/lets-talk?service=gpu-ai" class="disc-link">Inquire GPU Sourcing →</a>
         </div>
 
         <div class="service-discovery-card">
           <span class="disc-pill">Datacenter Facilities</span>
-          <h3>Colocation Space & Power</h3>
+          <h2>Colocation Space & Power</h2>
           <p>Secure 10kW to 40kW+ per rack across carrier-neutral facilities with direct MMR access and smart remote hands.</p>
           <a href="/colocation" class="disc-link">Explore Colocation →</a>
         </div>
 
         <div class="service-discovery-card">
           <span class="disc-pill">Hardware Direct</span>
-          <h3>Enterprise Hardware</h3>
+          <h2>Enterprise Hardware</h2>
           <p>Procure certified refurbished Dell and Supermicro servers with 3-year advanced replacement warranties.</p>
           <a href="/offers/dell-poweredge-r650-refurbished" class="disc-link">Inspect Server Stock →</a>
         </div>
@@ -61,15 +61,15 @@ import Layout from '../../layouts/Layout.astro';
         <h2>Infrastructure Decision Framework</h2>
         <div class="framework-grid">
           <div class="framework-col">
-            <h4>Workload Profile</h4>
+            <h3>Workload Profile</h3>
             <p>Steady-state 24/7 database workloads are 50% cheaper on dedicated bare metal than on hyperscaler virtual machines.</p>
           </div>
           <div class="framework-col">
-            <h4>CapEx vs OpEx</h4>
+            <h3>CapEx vs OpEx</h3>
             <p>Direct hardware sourcing amortizes over 3–5 years for maximum margin; bare metal hosting provides zero-CapEx monthly flexibility.</p>
           </div>
           <div class="framework-col">
-            <h4>Geographic Proximity</h4>
+            <h3>Geographic Proximity</h3>
             <p>Placing compute directly inside metropolitan exchange MMRs (Frankfurt, Singapore) reduces eyeball RTT by up to 40ms.</p>
           </div>
         </div>
@@ -95,7 +95,7 @@ import Layout from '../../layouts/Layout.astro';
 
   .service-discovery-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
   .disc-pill { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 12px; }
-  .service-discovery-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .service-discovery-card h2 { font-size: 1.3rem; margin-bottom: 12px; }
   .service-discovery-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
   .disc-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
   .disc-link:hover { text-decoration: underline; }
@@ -105,7 +105,7 @@ import Layout from '../../layouts/Layout.astro';
   .framework-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 768px) { .framework-grid { grid-template-columns: repeat(3, 1fr); } }
   .framework-col { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; }
-  .framework-col h4 { font-size: 1.1rem; margin-bottom: 8px; }
+  .framework-col h3 { font-size: 1.1rem; margin-bottom: 8px; }
   .framework-col p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
 
   .hub-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }

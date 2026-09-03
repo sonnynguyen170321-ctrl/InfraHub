@@ -29,15 +29,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Available Layer 2 Topologies</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>Point-to-Point (E-Line)</h4>
+            <h3>Point-to-Point (E-Line)</h3>
             <p>Dedicated pseudowire linking two datacenter MMRs with 802.1Q VLAN tagging and transparent MTU (up to 9000 bytes jumbo frames).</p>
           </div>
           <div class="problem-card">
-            <h4>Multipoint Ethernet (E-LAN)</h4>
+            <h3>Multipoint Ethernet (E-LAN)</h3>
             <p>Mesh multiple branch offices, public cloud VPCs, and colocation cages into a single unified broadcast domain using EVPN-VXLAN.</p>
           </div>
           <div class="problem-card">
-            <h4>Software-Defined Cloud Fabrics</h4>
+            <h3>Software-Defined Cloud Fabrics</h3>
             <p>Spin up private virtual cross-connects dynamically through modern SDI fabrics without physical cabling delays.</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

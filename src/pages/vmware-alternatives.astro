@@ -30,15 +30,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Top Production VMware Alternatives</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>Vates (XCP-ng & Xen Orchestra)</h4>
+            <h3>Vates (XCP-ng & Xen Orchestra)</h3>
             <p>Direct drop-in replacement for ESXi/vCenter with native warm migration from VMware, delta backup, high availability, and 24/7 enterprise SLAs.</p>
           </div>
           <div class="problem-card">
-            <h4>Proxmox VE (KVM + Ceph)</h4>
+            <h3>Proxmox VE (KVM + Ceph)</h3>
             <p>Popular Debian-based virtualization environment with built-in backup server integration and high-performance Ceph storage clustering.</p>
           </div>
           <div class="problem-card">
-            <h4>Enterprise Linux KVM</h4>
+            <h3>Enterprise Linux KVM</h3>
             <p>Kernel-level hypervisor architecture ideal for container orchestration, OpenStack clouds, and hyperscale environments.</p>
           </div>
         </div>
@@ -65,7 +65,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

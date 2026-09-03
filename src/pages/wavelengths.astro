@@ -34,15 +34,15 @@ import Layout from '../layouts/Layout.astro';
         </p>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>Zero Packet Jitter</h4>
+            <h3>Zero Packet Jitter</h3>
             <p>Pure optical layer-1 framing ensures constant, deterministic latency with zero packet buffering or queuing delays.</p>
           </div>
           <div class="problem-card">
-            <h4>Full Line-Rate Throughput</h4>
+            <h3>Full Line-Rate Throughput</h3>
             <p>Unmetered, flat-rate throughput allowing continuous 24/7 saturation without burst surcharges or oversubscription.</p>
           </div>
           <div class="problem-card">
-            <h4>Physical Path Security</h4>
+            <h3>Physical Path Security</h3>
             <p>Dedicated private optical frequency isolated from third-party IP routing tables and public internet vulnerabilities.</p>
           </div>
         </div>
@@ -58,15 +58,15 @@ import Layout from '../layouts/Layout.astro';
           </p>
           <div class="role-points-grid">
             <div class="role-point">
-              <h4>KMZ Route Mapping</h4>
+              <h3>KMZ Route Mapping</h3>
               <p>We audit GIS fiber trace maps to ensure paths maintain at least 500 meters of physical separation across metropolitan spans.</p>
             </div>
             <div class="role-point">
-              <h4>Dual Building Entrances</h4>
+              <h3>Dual Building Entrances</h3>
               <p>We verify carrier fiber enters the target datacenter facilities through separate Zero Manholes and diverse building entries.</p>
             </div>
             <div class="role-point">
-              <h4>Direct Carrier Contracts</h4>
+              <h3>Direct Carrier Contracts</h3>
               <p>You contract directly with specialized dark fiber and optical transport operators under enforceable SLA availability credits.</p>
             </div>
           </div>
@@ -124,7 +124,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
 
   .infrahub-role-card { background-color: var(--bg-dark); color: #ffffff; border-radius: var(--radius-xl); padding: 48px; }
@@ -133,7 +133,7 @@ import Layout from '../layouts/Layout.astro';
   .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
   .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
-  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point h3 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
   .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
 
   .fit-comparison-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }

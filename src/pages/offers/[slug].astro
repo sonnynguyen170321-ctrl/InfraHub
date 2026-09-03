@@ -118,7 +118,7 @@ const structuredData = {
         </div>
 
         <div class="offer-body-content">
-          <h3>Core Technical Specifications</h3>
+          <h2>Core Technical Specifications</h2>
           <ul class="specs-checklist">
             {offer.data.specifications.map(spec => (
               <li>
@@ -135,7 +135,7 @@ const structuredData = {
           </div>
 
           <div class="what-happens-next">
-            <h3>What happens after requesting this offer?</h3>
+            <h2>What happens after requesting this offer?</h2>
             <p>
               When you submit an inquiry for this offer, our team confirms live stock and allocation availability with {offer.data.partner || "the delivering partner"}. You receive a detailed technical sheet and commercial quote within 1 business day.
             </p>
@@ -283,7 +283,7 @@ const structuredData = {
     border: 1px solid rgba(13, 148, 136, 0.25);
     border-radius: var(--radius-md);
   }
-  .what-happens-next h3 {
+  .what-happens-next h2 {
     font-size: 1.1rem;
     font-weight: 700;
     color: #0f766e;

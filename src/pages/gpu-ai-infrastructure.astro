@@ -29,15 +29,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Available GPU Compute Architectures</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>NVIDIA H100 SXM5 / PCIe</h4>
+            <h3>NVIDIA H100 SXM5 / PCIe</h3>
             <p>80GB HBM3 memory with 3.2 Tbps NVLink interconnect for foundation model pre-training and multi-node distributed training.</p>
           </div>
           <div class="problem-card">
-            <h4>NVIDIA L40S & A100</h4>
+            <h3>NVIDIA L40S & A100</h3>
             <p>High-efficiency inference acceleration, fine-tuning, and multimodal generation with generous PCIe Gen5 bandwidth.</p>
           </div>
           <div class="problem-card">
-            <h4>High-Density AI Colocation</h4>
+            <h3>High-Density AI Colocation</h3>
             <p>Facilities delivering 30kW to 60kW+ per cabinet with rear-door heat exchangers or direct-to-chip liquid cooling.</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

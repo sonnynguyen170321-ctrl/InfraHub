@@ -34,15 +34,15 @@ import Layout from '../layouts/Layout.astro';
         </p>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>Power Density per Rack</h4>
+            <h3>Power Density per Rack</h3>
             <p>Moving beyond legacy 3kW–5kW allocations to modern 10kW–40kW+ circuits required for dense compute and AI workloads.</p>
           </div>
           <div class="problem-card">
-            <h4>True Carrier Neutrality</h4>
+            <h3>True Carrier Neutrality</h3>
             <p>Access to open Meet-Me-Rooms (MMRs) with 20+ on-net fiber carriers to ensure competitive transit and wavelength pricing.</p>
           </div>
           <div class="problem-card">
-            <h4>24/7 Smart Remote Hands</h4>
+            <h3>24/7 Smart Remote Hands</h3>
             <p>SLA-backed hardware replacement, optics cleaning, loopback testing, and serial console access by on-site engineers.</p>
           </div>
         </div>
@@ -115,15 +115,15 @@ import Layout from '../layouts/Layout.astro';
           </p>
           <div class="role-points-grid">
             <div class="role-point">
-              <h4>Inventory & Power Audits</h4>
+              <h3>Inventory & Power Audits</h3>
               <p>We verify real available power capacity, circuit lead times, and rack dimensions before you initiate RFP cycles.</p>
             </div>
             <div class="role-point">
-              <h4>Cross-Connect Transparency</h4>
+              <h3>Cross-Connect Transparency</h3>
               <p>We compare facility cross-connect recurring fees, which often represent 30%+ of the total monthly datacenter expenditure.</p>
             </div>
             <div class="role-point">
-              <h4>Direct Facility Contracts</h4>
+              <h3>Direct Facility Contracts</h3>
               <p>You contract directly with the facility operator under their standard datacenter service agreements.</p>
             </div>
           </div>
@@ -155,7 +155,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
 
   .colo-types-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
@@ -182,7 +182,7 @@ import Layout from '../layouts/Layout.astro';
   .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
   .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
-  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point h3 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
   .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
 
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }

@@ -29,15 +29,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Core BGP Routing Safeguards</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>RPKI ROA Validation</h4>
+            <h3>RPKI ROA Validation</h3>
             <p>Cryptographically authorize which Autonomous System is permitted to originate your IP prefixes, preventing accidental global hijacks.</p>
           </div>
           <div class="problem-card">
-            <h4>Route Leak Detection</h4>
+            <h3>Route Leak Detection</h3>
             <p>Real-time alerting when an upstream transit carrier accidentally advertises your peer prefixes to another transit provider.</p>
           </div>
           <div class="problem-card">
-            <h4>AS-Path Optimization</h4>
+            <h3>AS-Path Optimization</h3>
             <p>Identify suboptimal multi-hop routes across international backbones to improve round-trip latency to critical eyeball networks.</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

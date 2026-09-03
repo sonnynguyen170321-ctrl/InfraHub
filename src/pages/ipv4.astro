@@ -29,15 +29,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Leasing vs Permanent Transfer</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>IPv4 Leasing (OpEx)</h4>
+            <h3>IPv4 Leasing (OpEx)</h3>
             <p>Flexible month-to-month or annual leases without tying up millions in capital. Immediate LOA and RPKI authorization to announce on your ASN.</p>
           </div>
           <div class="problem-card">
-            <h4>Direct Transfer (CapEx)</h4>
+            <h3>Direct Transfer (CapEx)</h3>
             <p>Permanent ownership transfer through official RIR mechanisms (RIPE, ARIN, APNIC) with verified chain-of-custody and zero lien encumbrances.</p>
           </div>
           <div class="problem-card">
-            <h4>Reputation & Blacklist Check</h4>
+            <h3>Reputation & Blacklist Check</h3>
             <p>Every IP block undergoes rigorous reputation checks (Spamhaus, SURBL, Barracuda) before delivery to ensure clean mail and web deliverability.</p>
           </div>
         </div>
@@ -64,7 +64,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

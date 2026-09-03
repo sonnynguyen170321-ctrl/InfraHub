@@ -30,15 +30,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>Why Pure Bare Metal Outperforms Hyperscaler Cloud</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>100% Dedicated Hardware</h4>
+            <h3>100% Dedicated Hardware</h3>
             <p>Direct access to raw CPU instructions, hardware virtualization extensions, and NVMe controller queues with zero hypervisor jitter.</p>
           </div>
           <div class="problem-card">
-            <h4>Unmetered Bandwidth</h4>
+            <h3>Unmetered Bandwidth</h3>
             <p>1 Gbps, 10 Gbps, and 25 Gbps unmetered port options eliminate punitive $0.08/GB cloud egress charges.</p>
           </div>
           <div class="problem-card">
-            <h4>Custom Hardware Profiles</h4>
+            <h3>Custom Hardware Profiles</h3>
             <p>Tailor exact CPU core counts (AMD EPYC 9004 / Intel Xeon Scalable), RAM densities (up to 2TB ECC), and storage arrays.</p>
           </div>
         </div>
@@ -51,15 +51,15 @@ import Layout from '../layouts/Layout.astro';
           <p>We source bare metal through vetted regional and global operators who own the datacenter floor and maintain on-site hardware spares.</p>
           <div class="role-points-grid">
             <div class="role-point">
-              <h4>Frankfurt & Amsterdam</h4>
+              <h3>Frankfurt & Amsterdam</h3>
               <p>Ultra-low latency to European eyeball networks with direct DE-CIX and AMS-IX peering routes.</p>
             </div>
             <div class="role-point">
-              <h4>Singapore & Hong Kong</h4>
+              <h3>Singapore & Hong Kong</h3>
               <p>Direct subsea fiber connectivity across Southeast Asia, Japan, and India with sub-30ms regional reach.</p>
             </div>
             <div class="role-point">
-              <h4>Ashburn & Dallas</h4>
+              <h3>Ashburn & Dallas</h3>
               <p>Massive domestic North American transit blending with carrier-neutral cross-connect flexibility.</p>
             </div>
           </div>
@@ -87,7 +87,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .infrahub-role-card { background-color: var(--bg-dark); color: #ffffff; border-radius: var(--radius-xl); padding: 48px; }
   .infrahub-role-card h2 { color: #ffffff; margin: 12px 0 16px; }
@@ -95,7 +95,7 @@ import Layout from '../layouts/Layout.astro';
   .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
   .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
-  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point h3 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
   .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>

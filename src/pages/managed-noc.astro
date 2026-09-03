@@ -34,15 +34,15 @@ import Layout from '../layouts/Layout.astro';
         </p>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>Engineering Burnout & Churn</h4>
+            <h3>Engineering Burnout & Churn</h3>
             <p>High-value senior network architects burn out when interrupted by routine 3 AM server restarts and transient route flaps.</p>
           </div>
           <div class="problem-card">
-            <h4>Extreme Fixed Payroll Costs</h4>
+            <h3>Extreme Fixed Payroll Costs</h3>
             <p>Salary, benefits, and overnight shift differentials cost upwards of $350,000/year before managing a single incident.</p>
           </div>
           <div class="problem-card">
-            <h4>Inconsistent Triage Times</h4>
+            <h3>Inconsistent Triage Times</h3>
             <p>Off-shift response times slip, turning minor fiber maintenance events into catastrophic customer-facing outages.</p>
           </div>
         </div>
@@ -98,15 +98,15 @@ import Layout from '../layouts/Layout.astro';
           </p>
           <div class="role-points-grid">
             <div class="role-point">
-              <h4>Toolchain Integration</h4>
+              <h3>Toolchain Integration</h3>
               <p>Our partners integrate seamlessly into your existing Datadog, Zabbix, Prometheus, Grafana, Slack, and PagerDuty stacks.</p>
             </div>
             <div class="role-point">
-              <h4>Hybrid "Follow-the-Sun"</h4>
+              <h3>Hybrid "Follow-the-Sun"</h3>
               <p>Cover night shifts and weekends externally while retaining primary daytime engineering control in-house.</p>
             </div>
             <div class="role-point">
-              <h4>Direct Operational SLAs</h4>
+              <h3>Direct Operational SLAs</h3>
               <p>You contract directly with the specialized NOC operator under strict Mean-Time-to-Acknowledge (MTTA) and Resolve (MTTR) terms.</p>
             </div>
           </div>
@@ -138,7 +138,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
 
   .noc-tiers-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
@@ -157,7 +157,7 @@ import Layout from '../layouts/Layout.astro';
   .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
   .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
-  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point h3 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
   .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
 
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }

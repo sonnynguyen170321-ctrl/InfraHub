@@ -30,15 +30,15 @@ import Layout from '../layouts/Layout.astro';
         <h2>How Automated Telemetry Works</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h4>Out-of-Band Analysis</h4>
+            <h3>Out-of-Band Analysis</h3>
             <p>Routers mirror packet headers without passing traffic through an inline bottleneck, ensuring zero latency penalty for normal traffic.</p>
           </div>
           <div class="problem-card">
-            <h4>BGP FlowSpec (RFC 5575)</h4>
+            <h3>BGP FlowSpec (RFC 5575)</h3>
             <p>Surgically filter specific attack vectors (e.g. DNS amplification on UDP 53) upstream rather than null-routing your entire customer IP.</p>
           </div>
           <div class="problem-card">
-            <h4>Automated Cloud Diversion</h4>
+            <h3>Automated Cloud Diversion</h3>
             <p>Automatically signal cloud scrubbing centers when attack thresholds exceed local router capacity, then auto-withdraw BGP routes when clean.</p>
           </div>
         </div>
@@ -65,7 +65,7 @@ import Layout from '../layouts/Layout.astro';
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
-  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 </style>
