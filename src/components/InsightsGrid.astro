@@ -1,0 +1,151 @@
+---
+// src/components/InsightsGrid.astro
+const articles = [
+  {
+    title: "Evaluating IP Transit: 95th Percentile vs Fixed Commit Economics",
+    category: "Networks",
+    summary: "How 95th percentile billing calculations work in practice, when to commit to higher CIR rates, and how inbound-heavy profiles affect wholesale transit pricing.",
+    readTime: "6 min read",
+    url: "/insights/evaluating-ip-transit",
+    date: "July 2026"
+  },
+  {
+    title: "Always-On vs On-Demand DDoS Protection: Architecture Comparison",
+    category: "Security",
+    summary: "Comparing the trade-offs of continuous BGP diversion GRE tunnels against on-demand RTBH/FlowSpec activation during high-volume volumetric attacks.",
+    readTime: "8 min read",
+    url: "/insights/ddos-always-on-vs-ondemand",
+    date: "August 2026"
+  },
+  {
+    title: "VMware Exit Strategies: Evaluating KVM, Proxmox, and Vates XCP-ng",
+    category: "Cloud",
+    summary: "A practical evaluation of enterprise migration paths away from Broadcom licensing, focusing on storage multipathing, backup compatibility, and live migration.",
+    readTime: "10 min read",
+    url: "/insights/vmware-alternatives-migration",
+    date: "August 2026"
+  }
+];
+---
+
+<section class="section section-white" id="insights">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="pill-badge badge-blue section-tag">Technical Knowledge</span>
+      <h2>Insights for Infrastructure Buyers</h2>
+      <p>Practical thinking on network architectures, cloud economics, bare metal sizing, and cybersecurity.</p>
+    </div>
+
+    <div class="insights-grid">
+      {articles.map(art => (
+        <article class="insight-card">
+          <div class="insight-card-top">
+            <div class="insight-meta">
+              <span class="pill-badge badge-teal">{art.category}</span>
+              <span class="insight-time">{art.readTime}</span>
+            </div>
+            <h3 class="insight-title">
+              <a href={art.url}>{art.title}</a>
+            </h3>
+            <p class="insight-summary">{art.summary}</p>
+          </div>
+          <div class="insight-card-bottom">
+            <a href={art.url} class="insight-link">
+              <span>Read Analysis</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="insights-footer text-center">
+      <a href="/insights" class="btn btn-secondary">
+        <span>View All Technical Insights</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .insights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .insights-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .insight-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition-fast);
+  }
+  .insight-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .insight-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .insight-time {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .insight-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .insight-title a:hover {
+    color: var(--accent-blue);
+  }
+
+  .insight-summary {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .insight-card-bottom {
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .insight-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+  .insight-link:hover {
+    text-decoration: underline;
+  }
+</style>

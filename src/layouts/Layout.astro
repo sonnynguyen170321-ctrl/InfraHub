@@ -1,0 +1,76 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+  ogType?: string;
+}
+
+const {
+  title,
+  description = "InfraHub helps businesses navigate infrastructure, cloud, connectivity, security and managed-service requirements by connecting them with specialist providers.",
+  canonicalPath = "",
+  ogType = "website"
+} = Astro.props;
+
+const canonicalURL = new URL(canonicalPath, "https://infrahub.tech").href;
+const fullTitle = title.includes("InfraHub") ? title : `${title} | InfraHub`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#0b1120" />
+    
+    <!-- OpenGraph / Social -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="InfraHub" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" 
+      rel="stylesheet" 
+    />
+
+    <!-- Schema.org Organization Structured Data -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "InfraHub",
+        "url": "https://infrahub.tech",
+        "logo": "https://infrahub.tech/logo.svg",
+        "description": "Infrastructure Sourcing, Advisory and Partner Ecosystem.",
+        "sameAs": [
+          "https://www.linkedin.com/company/infrahub"
+        ]
+      }
+    </script>
+
+    <title>{fullTitle}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <Header />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

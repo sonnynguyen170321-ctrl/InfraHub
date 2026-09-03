@@ -1,0 +1,280 @@
+---
+// src/pages/how-we-work.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="How We Work — Commercial Model & Sourcing Process"
+  description="Learn how InfraHub qualifies technical requirements, matches specialist providers, and why our advisory costs you nothing."
+  canonicalPath="/how-we-work"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container work-container">
+      <div class="section-header text-center">
+        <span class="pill-badge badge-teal section-tag">Process & Transparency</span>
+        <h1>How InfraHub Works</h1>
+        <p>A simple, transparent four-stage process designed to eliminate vendor bias and save technical engineering teams weeks of sourcing time.</p>
+      </div>
+
+      <!-- 4 Stages in Detail -->
+      <div class="stages-timeline">
+        <div class="stage-block">
+          <div class="stage-sidebar">
+            <span class="stage-number">01</span>
+            <span class="stage-line"></span>
+          </div>
+          <div class="stage-content">
+            <span class="stage-badge">Discovery</span>
+            <h2>Understand Your Technical Architecture</h2>
+            <p>
+              We start with your engineering and commercial constraints. Whether you need 100G transit with burstable 95th percentile billing, dual-socket EPYC bare metal in Singapore, or automated DDoS detection with BGP FlowSpec triggers, we clarify:
+            </p>
+            <ul class="stage-list">
+              <li>Traffic profiles: Inbound-heavy, outbound-heavy, or balanced peering</li>
+              <li>SLA requirements: Mean Time to Detect (MTTD), jitter tolerances, and hardware replacement windows</li>
+              <li>Budget and contract term: 12, 24, or 36-month commitments</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <div class="stage-sidebar">
+            <span class="stage-number">02</span>
+            <span class="stage-line"></span>
+          </div>
+          <div class="stage-content">
+            <span class="stage-badge">Evaluation</span>
+            <h2>Match with Specialized Providers</h2>
+            <p>
+              We compare your requirements across our network of verified carriers, colocation operators, and bare-metal providers. We filter out providers with single points of failure (e.g. shared conduit routes) and present options based on:
+            </p>
+            <ul class="stage-list">
+              <li>Actual route telemetry and autonomous system (ASN) connectivity</li>
+              <li>Direct colocation MMR presence and cross-connect turnaround times</li>
+              <li>Competitive commercial packaging without hidden burst fees</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <div class="stage-sidebar">
+            <span class="stage-number">03</span>
+            <span class="stage-line"></span>
+          </div>
+          <div class="stage-content">
+            <span class="stage-badge">Connection</span>
+            <h2>Introduce You Directly to the Specialist</h2>
+            <p>
+              We connect your engineering leadership directly with senior technical architects and account directors at the matched provider. No junior middlemen or bureaucratic call center layers.
+            </p>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <div class="stage-sidebar">
+            <span class="stage-number">04</span>
+          </div>
+          <div class="stage-content">
+            <span class="stage-badge">Execution</span>
+            <h2>Direct Contracting & SLA Delivery</h2>
+            <p>
+              You contract directly with the infrastructure provider under their standard carrier Master Services Agreement (MSA) and Service Level Agreement (SLA). InfraHub remains available throughout onboarding as an escalation and advisory point.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section: The Buyer's Tough Questions -->
+      <div class="work-faq">
+        <h2 class="faq-main-title text-center">Frequently Asked Commercial Questions</h2>
+        
+        <div class="faq-item">
+          <h3>Does using InfraHub cost more?</h3>
+          <p>
+            <strong>No.</strong> InfraHub is compensated directly by participating providers through standard partner channels when an introduction converts. We never add broker fees, advisory markups, or administrative overhead to your bills. In many cases, our partner volume relationships unlock preferential commit rates and waived cross-connect setup fees.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Why wouldn't I just go directly to the provider?</h3>
+          <p>
+            You can. But going direct means:
+          </p>
+          <ul>
+            <li>Talking to a sales rep who can only sell their own platform, even if it lacks local stock or optimal routes.</li>
+            <li>Spending weeks submitting individual sales inquiries to multiple providers.</li>
+            <li>Lacking market visibility into current wholesale pricing benchmarks.</li>
+          </ul>
+          <p>
+            With InfraHub, you get an independent sounding board who knows current stock, actual carrier route quality, and pricing trends across the entire market.
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Who do I sign contracts with?</h3>
+          <p>
+            For partner-delivered services (IP transit, cloud, colocation, DDoS), your contractual agreement and monthly billing are directly with the delivering partner. For direct hardware sales, you purchase through InfraHub or our authorized distributor.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-cta text-center">
+        <h2>Ready to evaluate your infrastructure?</h2>
+        <a href="/lets-talk" class="btn btn-accent btn-lg">Start a Sourcing Conversation</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .work-container {
+    max-width: 960px;
+  }
+
+  .stages-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 60px 0 80px;
+  }
+
+  .stage-block {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 640px) {
+    .stage-block {
+      grid-template-columns: 50px 1fr;
+      gap: 16px;
+    }
+  }
+
+  .stage-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stage-number {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    width: 54px;
+    height: 54px;
+    background-color: var(--accent-blue-light);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stage-line {
+    width: 2px;
+    background-color: var(--border-color);
+    flex-grow: 1;
+    margin: 12px 0;
+  }
+
+  .stage-content {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stage-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-teal);
+    margin-bottom: 8px;
+  }
+
+  .stage-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .stage-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .stage-list {
+    list-style: disc;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  /* FAQ */
+  .work-faq {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 54px 44px;
+    margin-bottom: 70px;
+  }
+  @media (max-width: 640px) {
+    .work-faq {
+      padding: 32px 20px;
+    }
+  }
+
+  .faq-main-title {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+  }
+
+  .faq-item {
+    padding-bottom: 28px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .faq-item:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .faq-item h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+
+  .faq-item p {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .faq-item ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 10px 0 16px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .work-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+// src/pages/industries/saas-technology.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Infrastructure Sourcing for SaaS & Technology Companies — InfraHub"
+  description="Escape hyperscaler egress lock-in. Sourcing private cloud, bare metal Kubernetes nodes, global low-latency CDN, and multi-cloud direct connects."
+  canonicalPath="/industries/saas-technology"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container industry-container">
+      <div class="industry-header">
+        <span class="pill-badge badge-blue">Industry Sourcing Framework</span>
+        <h1>SaaS & Technology Companies</h1>
+        <p class="lead">
+          Protect gross margins from hyperscaler cloud creep. Sourcing dedicated bare-metal clusters, private cloud fabrics, low-latency CDN acceleration, and multi-cloud egress bypasses.
+        </p>
+      </div>
+
+      <div class="industry-stack-grid">
+        <div class="stack-card">
+          <span class="stack-pill">Cost Optimization</span>
+          <h3>Hyperscaler Exit & Hybrid Cloud</h3>
+          <p>Migrate steady-state database and compute workloads from expensive AWS/Azure EC2 instances to dedicated bare-metal infrastructure, saving 50%+ on monthly compute bills.</p>
+          <a href="/solutions/cloud-virtualization" class="stack-link">Explore Private Cloud Sourcing →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Interconnection</span>
+          <h3>Direct Cloud On-Ramps</h3>
+          <p>Establish private Layer 2 cross-connects (Direct Connect / ExpressRoute) to reduce cloud egress penalties by 60%–80% for high-volume replication.</p>
+          <a href="/cloud-connectivity" class="stack-link">Explore Cloud Connectivity →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Global Performance</span>
+          <h3>Low-Latency Edge CDN</h3>
+          <p>Deliver APIs and dynamic web content within sub-30ms round-trip times globally through specialized edge networks without enterprise hyperscaler minimums.</p>
+          <a href="/partners/gcore" class="stack-link">Review Edge Capabilities →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Availability</span>
+          <h3>Cross-Region Disaster Recovery</h3>
+          <p>Build resilient active-passive or active-active DR failover architectures across geographically distinct datacenter providers.</p>
+          <a href="/lets-talk?industry=saas" class="stack-link">Consult on DR Architecture →</a>
+        </div>
+      </div>
+
+      <div class="industry-cta-box text-center">
+        <h2>Audit Your SaaS Infrastructure Costs</h2>
+        <a href="/lets-talk?industry=saas" class="btn btn-accent btn-lg">Request Cloud Cost Audit</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .industry-container { max-width: 1040px; }
+  .industry-header { text-align: center; max-width: 800px; margin: 0 auto 54px; }
+  .industry-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; margin: 16px 0; }
+  .industry-header .lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
+  .industry-stack-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 60px; }
+  @media (min-width: 640px) { .industry-stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stack-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+  .stack-pill { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 12px; }
+  .stack-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .stack-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
+  .stack-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
+  .stack-link:hover { text-decoration: underline; }
+  .industry-cta-box { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

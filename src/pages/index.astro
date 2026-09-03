@@ -1,0 +1,63 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
+import PartnerTrustStrip from '../components/PartnerTrustStrip.astro';
+import SolutionExplorer from '../components/SolutionExplorer.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import FeaturedOffers from '../components/FeaturedOffers.astro';
+import WhyInfraHub from '../components/WhyInfraHub.astro';
+import PartnerFeature from '../components/PartnerFeature.astro';
+import IndustriesGrid from '../components/IndustriesGrid.astro';
+import EditorialFeature from '../components/EditorialFeature.astro';
+import InsightsGrid from '../components/InsightsGrid.astro';
+import FinalCTA from '../components/FinalCTA.astro';
+---
+
+<Layout 
+  title="The Right Infrastructure. The Right Partner."
+  description="InfraHub connects businesses with specialized providers across IT infrastructure, bare metal, cloud, connectivity, cybersecurity and managed operations."
+  canonicalPath="/"
+>
+  <!-- 01 Hero -->
+  <Hero />
+
+  <!-- 02 Announcement Strip -->
+  <AnnouncementBar 
+    tag="CURRENT OFFER"
+    headline="100G IP Transit in Frankfurt — Burstable commit options available from €1,450/mo"
+    linkText="View Offer Details"
+    href="/offers/100g-transit-frankfurt"
+  />
+
+  <!-- 03 Partner Trust Strip -->
+  <PartnerTrustStrip />
+
+  <!-- 04 Interactive Solutions Explorer (VCG Benchmark Layout) -->
+  <SolutionExplorer />
+
+  <!-- 05 How InfraHub Works (Dark Photographic Panel) -->
+  <HowItWorks />
+
+  <!-- 06 Featured Offers (SDR Sales Engine) -->
+  <FeaturedOffers />
+
+  <!-- 07 Why InfraHub (Tabbed Clean Value Rhythm) -->
+  <WhyInfraHub />
+
+  <!-- 08 Partner Ecosystem Feature -->
+  <PartnerFeature />
+
+  <!-- 09 Industries / Who We Work With -->
+  <IndustriesGrid />
+
+  <!-- 10 Editorial Proof (Infrastructure in Practice) -->
+  <EditorialFeature />
+
+  <!-- 11 Insights -->
+  <InsightsGrid />
+
+  <!-- 12 Final Conversion CTA -->
+  <FinalCTA />
+</Layout>

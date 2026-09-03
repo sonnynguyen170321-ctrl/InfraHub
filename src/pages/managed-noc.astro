@@ -1,0 +1,164 @@
+---
+// src/pages/managed-noc.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="24/7 NOC & AI Network Operations Sourcing — InfraHub"
+  description="Outsource Tier 1–3 Network Operations Center (NOC) coverage and AI-driven autonomous incident triage. 24/7/365 infrastructure monitoring with SLA-backed runbook response."
+  canonicalPath="/managed-noc"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container service-container">
+      <div class="service-header">
+        <div class="header-badge-row">
+          <span class="pill-badge badge-blue">Operational Resilience</span>
+          <span class="pill-badge badge-teal">Partner Delivered</span>
+        </div>
+        <h1 class="service-title">24/7 NOC & Managed Operations</h1>
+        <p class="service-lead">
+          Augment your engineering team with round-the-clock Tier 1–3 incident response, proactive telemetry monitoring, synthetic performance checks, and AI-accelerated alert correlation.
+        </p>
+        <div class="service-hero-actions">
+          <a href="/lets-talk?service=managed-noc" class="btn btn-accent btn-lg">Request NOC Coverage Evaluation</a>
+          <a href="#coverage-models" class="btn btn-secondary btn-lg">Review Coverage Tiers</a>
+        </div>
+      </div>
+
+      <!-- Problem Solved -->
+      <div class="content-section" id="coverage-models">
+        <span class="section-sub-tag">The Operational Hurdle</span>
+        <h2>Why In-House 24/7 NOC Rotations Fail</h2>
+        <p>
+          Maintaining an in-house 24/7/365 engineering desk requires at least 5–6 dedicated full-time engineers to cover weekends, night shifts, and sick leave. This introduces:
+        </p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h4>Engineering Burnout & Churn</h4>
+            <p>High-value senior network architects burn out when interrupted by routine 3 AM server restarts and transient route flaps.</p>
+          </div>
+          <div class="problem-card">
+            <h4>Extreme Fixed Payroll Costs</h4>
+            <p>Salary, benefits, and overnight shift differentials cost upwards of $350,000/year before managing a single incident.</p>
+          </div>
+          <div class="problem-card">
+            <h4>Inconsistent Triage Times</h4>
+            <p>Off-shift response times slip, turning minor fiber maintenance events into catastrophic customer-facing outages.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Operational Tiers -->
+      <div class="content-section">
+        <span class="section-sub-tag">Support Tiers</span>
+        <h2>NOC Operational Coverage Levels</h2>
+        <div class="noc-tiers-grid">
+          <div class="noc-tier-card">
+            <span class="tier-pill">Tier 1</span>
+            <h3>Alert Triage & Runbook Execution</h3>
+            <p>24/7 continuous alert acknowledgment, initial customer communication, ticket classification, and predefined runbook remediation.</p>
+            <ul class="tier-features">
+              <li>Sub-5 minute initial response SLA</li>
+              <li>Service reboot & transit circuit loopback checks</li>
+              <li>Customer communication & status page updates</li>
+            </ul>
+          </div>
+
+          <div class="noc-tier-card">
+            <span class="tier-pill">Tier 2</span>
+            <h3>Network Engineering Remediation</h3>
+            <p>Hands-on configuration troubleshooting across BGP routing tables, interface flapping, optical optical power degradation, and VPN drops.</p>
+            <ul class="tier-features">
+              <li>Sub-15 minute engineering escalation SLA</li>
+              <li>Carrier ticket management & dispatch coordination</li>
+              <li>BGP route leak isolation & traffic re-routing</li>
+            </ul>
+          </div>
+
+          <div class="noc-tier-card highlight-tier">
+            <span class="tier-pill tier-ai">AI-Driven</span>
+            <h3>AI Network Operations (AIOps)</h3>
+            <p>Autonomous machine-learning pipelines that cluster storm alerts, correlate cross-chassis root causes, and execute autonomous remediation.</p>
+            <ul class="tier-features">
+              <li>90%+ reduction in raw alert noise</li>
+              <li>Automated incident post-mortem generation</li>
+              <li>Synthetic latency degradation detection</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- How InfraHub Helps -->
+      <div class="content-section">
+        <div class="infrahub-role-card">
+          <span class="pill-badge badge-teal">NOC Ecosystem</span>
+          <h2>How InfraHub Matches Your Operations Desk</h2>
+          <p>
+            We work with verified NOC specialists (including ITcare, Supertrace, and vExpertAI) to design custom operational arrangements:
+          </p>
+          <div class="role-points-grid">
+            <div class="role-point">
+              <h4>Toolchain Integration</h4>
+              <p>Our partners integrate seamlessly into your existing Datadog, Zabbix, Prometheus, Grafana, Slack, and PagerDuty stacks.</p>
+            </div>
+            <div class="role-point">
+              <h4>Hybrid "Follow-the-Sun"</h4>
+              <p>Cover night shifts and weekends externally while retaining primary daytime engineering control in-house.</p>
+            </div>
+            <div class="role-point">
+              <h4>Direct Operational SLAs</h4>
+              <p>You contract directly with the specialized NOC operator under strict Mean-Time-to-Acknowledge (MTTA) and Resolve (MTTR) terms.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="service-footer-cta text-center">
+        <h2>Secure 24/7 Network Peace of Mind</h2>
+        <p>Talk to our operations architects to review your telemetry and monitoring runbooks.</p>
+        <a href="/lets-talk?service=managed-noc" class="btn btn-accent btn-lg">Request NOC Sourcing Consultation</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .service-container { max-width: 1040px; }
+  .service-header { text-align: center; max-width: 820px; margin: 0 auto 64px; }
+  .header-badge-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
+  .service-hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .content-section { margin-bottom: 72px; }
+  .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
+  .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
+  .content-section > p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.65; max-width: 780px; margin-bottom: 28px; }
+
+  .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
+  .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
+  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+  .noc-tiers-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .noc-tiers-grid { grid-template-columns: repeat(3, 1fr); } }
+  .noc-tier-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+  .highlight-tier { border-color: var(--accent-blue); background-color: var(--accent-blue-light); }
+  .tier-pill { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-teal); margin-bottom: 10px; }
+  .tier-ai { color: var(--accent-blue); }
+  .noc-tier-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+  .noc-tier-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px; }
+  .tier-features { list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); }
+
+  .infrahub-role-card { background-color: var(--bg-dark); color: #ffffff; border-radius: var(--radius-xl); padding: 48px; }
+  .infrahub-role-card h2 { color: #ffffff; margin: 12px 0 16px; }
+  .infrahub-role-card > p { color: var(--text-on-dark-muted); font-size: 1.05rem; margin-bottom: 32px; }
+  .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
+  .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
+  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
+
+  .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

@@ -1,0 +1,73 @@
+---
+// src/pages/industries/hosting-cloud-providers.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Infrastructure Sourcing for Hosting & Cloud Providers — InfraHub"
+  description="Source wholesale bare metal fleets, refurbished enterprise hardware, carrier-neutral colocation, and high-capacity optical transport for hosting and IaaS platforms."
+  canonicalPath="/industries/hosting-cloud-providers"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container industry-container">
+      <div class="industry-header">
+        <span class="pill-badge badge-blue">Industry Sourcing Framework</span>
+        <h1>Hosting & Cloud Providers</h1>
+        <p class="lead">
+          Scale your hosting or cloud platform profitably. Sourcing wholesale bare-metal compute, enterprise server hardware, high-density colocation space, and carrier-neutral cross connects.
+        </p>
+      </div>
+
+      <div class="industry-stack-grid">
+        <div class="stack-card">
+          <span class="stack-pill">Compute Fleet</span>
+          <h3>Wholesale Bare Metal & IaaS</h3>
+          <p>Deploy unbranded dedicated bare metal clusters in Europe, Asia, and North America with customized storage, high-memory configurations, and unmetered network ports.</p>
+          <a href="/offers" class="stack-link">View Current Bare Metal Offers →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">CapEx Hardware</span>
+          <h3>Enterprise Refurbished Servers</h3>
+          <p>Acquire enterprise dual-socket Dell PowerEdge and Supermicro servers with 3-year warranty at 50%–70% below new manufacturer list prices.</p>
+          <a href="/offers/dell-poweredge-r650-refurbished" class="stack-link">Inspect Server Inventory →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Physical Footprint</span>
+          <h3>Colocation Space & Power</h3>
+          <p>Secure 42U cabinets and private cages with verified 10kW to 30kW redundant power circuits in carrier-neutral facilities with low cross-connect overheads.</p>
+          <a href="/colocation" class="stack-link">Explore Colocation Sourcing →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Transport</span>
+          <h3>Optical Interconnect (DCI)</h3>
+          <p>Link your datacenter locations with dedicated 10G/100G lit wavelengths and dark fiber paths with verified conduit diversity.</p>
+          <a href="/wavelengths" class="stack-link">Explore Optical DCI →</a>
+        </div>
+      </div>
+
+      <div class="industry-cta-box text-center">
+        <h2>Source Infrastructure for Your Hosting Platform</h2>
+        <a href="/lets-talk?industry=hosting" class="btn btn-accent btn-lg">Request Wholesale Sourcing Review</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .industry-container { max-width: 1040px; }
+  .industry-header { text-align: center; max-width: 800px; margin: 0 auto 54px; }
+  .industry-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; margin: 16px 0; }
+  .industry-header .lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
+  .industry-stack-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 60px; }
+  @media (min-width: 640px) { .industry-stack-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stack-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+  .stack-pill { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 12px; }
+  .stack-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .stack-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
+  .stack-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
+  .stack-link:hover { text-decoration: underline; }
+  .industry-cta-box { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

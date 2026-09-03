@@ -1,0 +1,151 @@
+---
+// src/pages/wavelengths.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Dedicated Optical Wavelengths (10G–400G) — InfraHub"
+  description="Source high-capacity lit DWDM optical wavelengths for metro and long-haul datacenter interconnect. Evaluate physical conduit diversity and sub-millisecond latencies."
+  canonicalPath="/wavelengths"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container service-container">
+      <div class="service-header">
+        <div class="header-badge-row">
+          <span class="pill-badge badge-blue">Optical Transport</span>
+          <span class="pill-badge badge-teal">Partner Delivered</span>
+        </div>
+        <h1 class="service-title">Dedicated Optical Wavelengths</h1>
+        <p class="service-lead">
+          Connect critical datacenter facilities with dedicated, unconstrained lit DWDM optical spectrum. Delivering 10G, 100G, and 400G point-to-point bandwidth with verifiable physical path diversity and deterministic sub-millisecond latency.
+        </p>
+        <div class="service-hero-actions">
+          <a href="/lets-talk?service=wavelengths" class="btn btn-accent btn-lg">Request Optical Sourcing</a>
+          <a href="#optical-factors" class="btn btn-secondary btn-lg">Review Path Factors</a>
+        </div>
+      </div>
+
+      <!-- Problem Solved -->
+      <div class="content-section">
+        <span class="section-sub-tag">The Challenge</span>
+        <h2>Why Enterprise Workloads Require Optical Transport</h2>
+        <p>
+          Shared packet-switched Ethernet connections struggle with synchronous database replication, Ceph cluster mirroring, and multi-terabyte backup windows. Lit optical wavelengths provide:
+        </p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h4>Zero Packet Jitter</h4>
+            <p>Pure optical layer-1 framing ensures constant, deterministic latency with zero packet buffering or queuing delays.</p>
+          </div>
+          <div class="problem-card">
+            <h4>Full Line-Rate Throughput</h4>
+            <p>Unmetered, flat-rate throughput allowing continuous 24/7 saturation without burst surcharges or oversubscription.</p>
+          </div>
+          <div class="problem-card">
+            <h4>Physical Path Security</h4>
+            <p>Dedicated private optical frequency isolated from third-party IP routing tables and public internet vulnerabilities.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Path Diversity Verification -->
+      <div class="content-section" id="optical-factors">
+        <div class="infrahub-role-card">
+          <span class="pill-badge badge-teal">Engineering Integrity</span>
+          <h2>The Path Diversity Audit: Beyond Billing Guarantees</h2>
+          <p>
+            The most common disaster in optical DCI is ordering two circuits from separate carriers, only to discover both carriers lease dark fiber inside the exact same municipal bridge conduit or railway right-of-way.
+          </p>
+          <div class="role-points-grid">
+            <div class="role-point">
+              <h4>KMZ Route Mapping</h4>
+              <p>We audit GIS fiber trace maps to ensure paths maintain at least 500 meters of physical separation across metropolitan spans.</p>
+            </div>
+            <div class="role-point">
+              <h4>Dual Building Entrances</h4>
+              <p>We verify carrier fiber enters the target datacenter facilities through separate Zero Manholes and diverse building entries.</p>
+            </div>
+            <div class="role-point">
+              <h4>Direct Carrier Contracts</h4>
+              <p>You contract directly with specialized dark fiber and optical transport operators under enforceable SLA availability credits.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison: Wavelength vs Layer 2 Ethernet -->
+      <div class="content-section">
+        <span class="section-sub-tag">Architecture Selection</span>
+        <h2>When Optical Wavelengths Fit vs Layer 2 Ethernet</h2>
+        <div class="fit-comparison-grid">
+          <div class="fit-card fit-yes">
+            <h3>When Wavelengths Fit</h3>
+            <ul>
+              <li>You require 10 Gbps, 100 Gbps, or 400 Gbps of dedicated point-to-point bandwidth.</li>
+              <li>You run synchronous database mirroring (e.g. Oracle RAC, PostgreSQL streaming replication) with strict RTT latency boundaries.</li>
+              <li>You operate active-active storage clusters across twin metropolitan facilities.</li>
+              <li>You need absolute predictability of monthly transport costs.</li>
+            </ul>
+          </div>
+
+          <div class="fit-card fit-no">
+            <h3>When Layer 2 Ethernet Is Better</h3>
+            <ul>
+              <li><strong>Fractional Speeds:</strong> If your bandwidth requirement is under 5 Gbps, Layer 2 EVPN/VPLS is more economical.</li>
+              <li><strong>Multipoint Topologies:</strong> If you need to mesh 5+ sites together without deploying dedicated optical muxes.</li>
+              <li><strong>Cloud On-Ramps:</strong> Direct interconnects to AWS/Azure generally terminate on Layer 2 cloud partner fabrics.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="service-footer-cta text-center">
+        <h2>Source Dedicated Optical Connectivity</h2>
+        <p>Consult with our optical transport architects to audit path routes between your facilities.</p>
+        <a href="/lets-talk?service=wavelengths" class="btn btn-accent btn-lg">Request Optical Path Sourcing</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .service-container { max-width: 1040px; }
+  .service-header { text-align: center; max-width: 820px; margin: 0 auto 64px; }
+  .header-badge-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
+  .service-hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .content-section { margin-bottom: 72px; }
+  .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
+  .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
+  .content-section > p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.65; max-width: 780px; margin-bottom: 28px; }
+
+  .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
+  .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
+  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+  .infrahub-role-card { background-color: var(--bg-dark); color: #ffffff; border-radius: var(--radius-xl); padding: 48px; }
+  .infrahub-role-card h2 { color: #ffffff; margin: 12px 0 16px; }
+  .infrahub-role-card > p { color: var(--text-on-dark-muted); font-size: 1.05rem; margin-bottom: 32px; }
+  .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
+  .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
+  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
+
+  .fit-comparison-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .fit-comparison-grid { grid-template-columns: 1fr 1fr; } }
+  .fit-card { border-radius: var(--radius-lg); padding: 32px; }
+  .fit-card h3 { font-size: 1.3rem; margin-bottom: 16px; }
+  .fit-card ul { list-style: disc; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; font-size: 0.92rem; line-height: 1.55; }
+  .fit-yes { background-color: var(--accent-teal-light); border: 1px solid rgba(13, 148, 136, 0.3); color: #0f766e; }
+  .fit-yes h3 { color: #0f766e; }
+  .fit-yes ul { color: #115e59; }
+  .fit-no { background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-secondary); }
+  .fit-no h3 { color: var(--text-primary); }
+
+  .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

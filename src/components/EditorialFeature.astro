@@ -1,0 +1,167 @@
+---
+// src/components/EditorialFeature.astro
+---
+
+<section class="section section-white" id="infrastructure-in-practice">
+  <div class="container">
+    <div class="editorial-card">
+      <div class="editorial-grid">
+        <!-- Visual Diagram / Map Side -->
+        <div class="editorial-visual" aria-hidden="true">
+          <div class="diagram-container">
+            <svg class="diagram-svg" viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="460" height="320" rx="12" fill="#0F172A" />
+              
+              <!-- Route A: Diverse Carrier 1 -->
+              <path d="M 60 80 Q 200 40 260 140 T 400 240" stroke="#2563EB" stroke-width="3" fill="none" />
+              <!-- Route B: Diverse Carrier 2 -->
+              <path d="M 60 240 Q 140 280 260 180 T 400 80" stroke="#0D9488" stroke-width="3" stroke-dasharray="8 6" fill="none" />
+
+              <!-- Common Bridge / Conduit Point of Failure -->
+              <g transform="translate(260, 160)">
+                <circle r="38" fill="rgba(239, 68, 68, 0.15)" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4 4" />
+                <circle r="12" fill="#EF4444" />
+                <text y="58" text-anchor="middle" fill="#FCA5A5" font-family="Outfit" font-size="11" font-weight="700">SHARED CONDUIT / BRIDGE</text>
+                <text y="72" text-anchor="middle" fill="#94A3B8" font-family="Outfit" font-size="9">(SINGLE POINT OF FAILURE)</text>
+              </g>
+
+              <!-- Node A: Frankfurt MMR -->
+              <g transform="translate(60, 160)">
+                <rect x="-30" y="-30" width="60" height="60" rx="8" fill="#1E293B" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+                <text y="5" text-anchor="middle" fill="#FFFFFF" font-family="Outfit" font-size="11" font-weight="600">POP A</text>
+                <text y="46" text-anchor="middle" fill="#94A3B8" font-family="Outfit" font-size="10">Origin</text>
+              </g>
+
+              <!-- Node B: Amsterdam MMR -->
+              <g transform="translate(400, 160)">
+                <rect x="-30" y="-30" width="60" height="60" rx="8" fill="#1E293B" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+                <text y="5" text-anchor="middle" fill="#FFFFFF" font-family="Outfit" font-size="11" font-weight="600">POP B</text>
+                <text y="46" text-anchor="middle" fill="#94A3B8" font-family="Outfit" font-size="10">Target</text>
+              </g>
+            </svg>
+            <div class="diagram-tag">KMZ & Fiber Path Verification</div>
+          </div>
+        </div>
+
+        <!-- Editorial Content Side -->
+        <div class="editorial-content">
+          <span class="pill-badge badge-blue">Infrastructure In Practice</span>
+          <h2 class="editorial-title">Why two "diverse" network circuits may not actually be physically diverse</h2>
+          <p class="editorial-lead">
+            Carriers often market path diversity by selling circuits through separate billing entities. In reality, both often lease dark fiber strands inside the exact same municipal trench, railway crossing, or river bridge.
+          </p>
+          <p class="editorial-body">
+            A single construction backhoe or conduit cut can sever both "redundant" paths simultaneously. We evaluate actual KMZ route maps, right-of-way documentation, and subsea landing points to verify true physical separation before you commit to 36-month contracts.
+          </p>
+
+          <div class="editorial-actions">
+            <a href="/insights/physical-path-diversity" class="btn btn-primary">
+              <span>Read Full Technical Analysis</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <span class="read-time">7 min engineering read</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .editorial-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .editorial-grid {
+      grid-template-columns: 1fr 1.1fr;
+    }
+  }
+
+  .editorial-visual {
+    background-color: var(--bg-dark);
+    padding: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .diagram-container {
+    width: 100%;
+    position: relative;
+  }
+  .diagram-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+  }
+  .diagram-tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background-color: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--accent-teal);
+    border-radius: var(--radius-sm);
+  }
+
+  .editorial-content {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  @media (max-width: 768px) {
+    .editorial-content {
+      padding: 32px 24px;
+    }
+  }
+
+  .editorial-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+  }
+
+  .editorial-lead {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .editorial-body {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .editorial-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .read-time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>

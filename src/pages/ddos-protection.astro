@@ -1,0 +1,177 @@
+---
+// src/pages/ddos-protection.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="DDoS Protection & Detection Sourcing — InfraHub"
+  description="Compare always-on cloud scrubbing, on-demand BGP diversion, FlowSpec telemetry, and FastNetMon automation across specialist DDoS mitigation partners."
+  canonicalPath="/ddos-protection"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container service-container">
+      <div class="service-header">
+        <div class="header-badge-row">
+          <span class="pill-badge badge-blue">Security & Network Defense</span>
+          <span class="pill-badge badge-teal">Partner Delivered</span>
+        </div>
+        <h1 class="service-title">Multi-Layer DDoS Protection & Detection</h1>
+        <p class="service-lead">
+          Protect your infrastructure from volumetric floods, state-exhaustion attacks, and application-layer exploits. We evaluate cloud scrubbing centers, on-premise virtual appliances, and automated BGP FlowSpec diversion architectures.
+        </p>
+        <div class="service-hero-actions">
+          <a href="/lets-talk?service=ddos-protection" class="btn btn-accent btn-lg">Request DDoS Evaluation</a>
+          <a href="#architectures" class="btn btn-secondary btn-lg">Compare Architectures</a>
+        </div>
+      </div>
+
+      <!-- Architectural Comparison -->
+      <div class="content-section" id="architectures">
+        <span class="section-sub-tag">Mitigation Models</span>
+        <h2>Available DDoS Defense Architectures</h2>
+        <div class="architecture-grid">
+          <div class="arch-card">
+            <span class="arch-pill">Cloud Scrubbing</span>
+            <h3>Always-On BGP Diversion</h3>
+            <p>All traffic permanently routes through a global scrubbing center network before clean packets are delivered via GRE tunnel or direct cross-connect.</p>
+            <ul class="arch-points">
+              <li><strong>Reaction:</strong> Zero-second latency spike; attacks absorbed instantly</li>
+              <li><strong>Trade-off:</strong> Slight continuous latency overhead (5–20ms depending on scrubbing PoP proximity)</li>
+              <li><strong>Best for:</strong> Mission-critical financial APIs, VoIP platforms, and high-frequency gaming</li>
+            </ul>
+          </div>
+
+          <div class="arch-card">
+            <span class="arch-pill">On-Demand</span>
+            <h3>BGP Route Announcement Diversion</h3>
+            <p>Traffic flows normally during peace time. When telemetry detects an attack threshold breach, BGP routes are announced to the scrubbing center.</p>
+            <ul class="arch-points">
+              <li><strong>Reaction:</strong> 60–120 seconds for global BGP convergence during initial diversion</li>
+              <li><strong>Trade-off:</strong> Zero added latency during peace time; significantly lower monthly operational cost</li>
+              <li><strong>Best for:</strong> Hosting providers, SaaS backends, and regional network operators</li>
+            </ul>
+          </div>
+
+          <div class="arch-card">
+            <span class="arch-pill">Flow Telemetry</span>
+            <h3>Out-of-Band Detection (FastNetMon)</h3>
+            <p>Analyzes sFlow, NetFlow, or IPFIX telemetry from core routers. Automatically signals upstream routers using BGP FlowSpec or RTBH.</p>
+            <ul class="arch-points">
+              <li><strong>Reaction:</strong> Sub-2-second detection and automated upstream rule injection</li>
+              <li><strong>Trade-off:</strong> Drops attack traffic; does not clean payload unless paired with a scrubbing center</li>
+              <li><strong>Best for:</strong> ISPs and network carriers defending backbone router links</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decision Matrix -->
+      <div class="content-section">
+        <span class="section-sub-tag">Decision Framework</span>
+        <h2>Technical Decision Factors</h2>
+        <div class="factors-table-wrap">
+          <table class="factors-table">
+            <thead>
+              <tr>
+                <th>Criteria</th>
+                <th>Consideration</th>
+                <th>Engineering Reality</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Scrubbing Capacity</strong></td>
+                <td>Global Tbps capacity vs Regional PoP</td>
+                <td>Volumetric reflection attacks routinely top 1.5 Tbps. Local appliance mitigation collapses without upstream cloud absorption.</td>
+              </tr>
+              <tr>
+                <td><strong>Return Traffic Path</strong></td>
+                <td>GRE Tunnel vs Cross-Connect vs Direct L2</td>
+                <td>GRE tunnels introduce MTU fragmentation (clamping required to 1476/1454). Dedicated cross-connects eliminate MTU issues.</td>
+              </tr>
+              <tr>
+                <td><strong>BGP FlowSpec Support</strong></td>
+                <td>RFC 5575 / RFC 8955 router compatibility</td>
+                <td>Allows surgical filtering of specific UDP ports or packet lengths upstream without blackholing the entire customer IP.</td>
+              </tr>
+              <tr>
+                <td><strong>Application-Layer (L7)</strong></td>
+                <td>HTTPS flood mitigation & Challenge Pages</td>
+                <td>Requires TLS certificate termination at the scrubbing edge to inspect HTTP request headers and cookies.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Partner Integration -->
+      <div class="content-section">
+        <div class="infrahub-role-card">
+          <span class="pill-badge badge-teal">Specialist Ecosystem</span>
+          <h2>Ecosystem Providers: FastNetMon & StormWall</h2>
+          <p>
+            We partner with industry-leading mitigation and telemetry providers to deliver custom architectures tailored to your autonomous system:
+          </p>
+          <div class="role-points-grid">
+            <div class="role-point">
+              <h4>FastNetMon Advanced</h4>
+              <p>Turnkey detection engine that monitors multi-100G networks with granular threshold alerts and automated mitigation scripts.</p>
+            </div>
+            <div class="role-point">
+              <h4>StormWall Protection</h4>
+              <p>Enterprise cloud scrubbing network spanning European, North American, and Asian mitigation centers with SLA-backed guarantees.</p>
+            </div>
+            <div class="role-point">
+              <h4>Hybrid Architecture Sourcing</h4>
+              <p>Combine local FastNetMon flow detection with automated on-demand diversion to eliminate expensive continuous scrubbing fees.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="service-footer-cta text-center">
+        <h2>Protect Your Network Autonomous System</h2>
+        <p>Talk to our network security architects to review your telemetry and mitigation options.</p>
+        <a href="/lets-talk?service=ddos-protection" class="btn btn-accent btn-lg">Request Security Architecture Review</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .service-container { max-width: 1040px; }
+  .service-header { text-align: center; max-width: 820px; margin: 0 auto 64px; }
+  .header-badge-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
+  .service-hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .content-section { margin-bottom: 72px; }
+  .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
+  .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
+
+  .architecture-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .architecture-grid { grid-template-columns: repeat(3, 1fr); } }
+  .arch-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+  .arch-pill { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-teal); margin-bottom: 10px; }
+  .arch-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+  .arch-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px; }
+  .arch-points { list-style: disc; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); }
+
+  .factors-table-wrap { overflow-x: auto; background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); }
+  .factors-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
+  .factors-table th, .factors-table td { padding: 16px 20px; border-bottom: 1px solid var(--border-color); }
+  .factors-table th { background-color: var(--bg-secondary); font-family: var(--font-heading); font-weight: 700; color: var(--text-primary); }
+  .factors-table tr:last-child td { border-bottom: none; }
+
+  .infrahub-role-card { background-color: var(--bg-dark); color: #ffffff; border-radius: var(--radius-xl); padding: 48px; }
+  .infrahub-role-card h2 { color: #ffffff; margin: 12px 0 16px; }
+  .infrahub-role-card > p { color: var(--text-on-dark-muted); font-size: 1.05rem; margin-bottom: 32px; }
+  .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
+  .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
+  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
+
+  .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

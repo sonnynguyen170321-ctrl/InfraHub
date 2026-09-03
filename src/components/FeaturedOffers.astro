@@ -1,0 +1,261 @@
+---
+// src/components/FeaturedOffers.astro
+const offers = [
+  {
+    slug: "100g-transit-frankfurt",
+    title: "100G IP Transit — Frankfurt",
+    category: "Connectivity",
+    location: "Frankfurt, Germany (Equinix / Interxion)",
+    partner: "Tier-1 Carrier Network",
+    price: "From €1,450/mo",
+    specs: [
+      "100 Gbps Port / 20G CDR Commit",
+      "Burstable 95th Percentile Billing",
+      "Full BGP Routing Table Included",
+      "Direct Cross-Connect Ready"
+    ],
+    status: "Active Promotion"
+  },
+  {
+    slug: "dell-poweredge-r650-refurbished",
+    title: "Dell PowerEdge R650 Enterprise",
+    category: "Hardware",
+    location: "EU Stock / Immediate Dispatch",
+    partner: "Approved Hardware Partner",
+    price: "€3,890 / unit",
+    specs: [
+      "2× Intel Xeon Gold 6330 (56 Cores)",
+      "512 GB DDR4 ECC Registered RAM",
+      "4× 1.92TB Enterprise NVMe SSDs",
+      "Dual 10/25GbE SFP28 NICs + iDRAC9"
+    ],
+    status: "In Stock"
+  },
+  {
+    slug: "fastnetmon-ddos-detection-100g",
+    title: "100 Gbps DDoS Detection & BGP",
+    category: "Security",
+    location: "Global Software / Virtual Appliance",
+    partner: "FastNetMon",
+    price: "From $350/mo",
+    specs: [
+      "FastNetMon Advanced License",
+      "Real-Time NetFlow / sFlow / IPFIX",
+      "Automated FlowSpec & RTBH Triggers",
+      "Under 2-Second Attack Reaction"
+    ],
+    status: "Official Partner Offer"
+  },
+  {
+    slug: "singapore-bare-metal-epyc",
+    title: "AMD EPYC Bare Metal — Singapore",
+    category: "Infrastructure",
+    location: "Singapore (Tier III Facility)",
+    partner: "Zenlayer",
+    price: "From $680/mo",
+    specs: [
+      "AMD EPYC 7763 64-Core Processor",
+      "256 GB ECC RAM, 2× 1.92TB NVMe",
+      "Unmetered 1 Gbps Global Blend",
+      "Sub-30ms Latency across Southeast Asia"
+    ],
+    status: "Limited Capacity"
+  }
+];
+---
+
+<section class="section section-subtle" id="featured-offers">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="pill-badge badge-blue section-tag">Live Sourcing Opportunities</span>
+      <h2>Featured Offers</h2>
+      <p>Current infrastructure, connectivity, security, and hardware opportunities available through our ecosystem.</p>
+    </div>
+
+    <div class="offers-grid">
+      {offers.map(offer => (
+        <article class="offer-card">
+          <div class="offer-card-top">
+            <div class="offer-badges">
+              <span class="pill-badge badge-blue">{offer.category}</span>
+              <span class="offer-status">{offer.status}</span>
+            </div>
+            <h3 class="offer-title">
+              <a href={`/offers/${offer.slug}`}>{offer.title}</a>
+            </h3>
+            <div class="offer-location">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>{offer.location}</span>
+            </div>
+          </div>
+
+          <ul class="offer-specs">
+            {offer.specs.map(spec => (
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>{spec}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="offer-card-bottom">
+            <div class="offer-price-wrap">
+              <span class="price-label">Commercial Pricing</span>
+              <span class="price-value">{offer.price}</span>
+            </div>
+            <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-sm">
+              <span>Request Offer</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="offers-footer text-center">
+      <a href="/offers" class="btn btn-secondary">
+        <span>View All Active Offers (12)</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+      <span class="offers-note">Offers are updated weekly based on partner allocations and market stock.</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .offers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  @media (min-width: 640px) {
+    .offers-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .offers-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .offer-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    transition: var(--transition);
+  }
+  .offer-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .offer-badges {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .offer-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-teal);
+  }
+
+  .offer-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .offer-title a:hover {
+    color: var(--accent-blue);
+  }
+
+  .offer-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .offer-specs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  .offer-specs li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+  }
+  .offer-specs svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .offer-card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .price-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+  .price-value {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .btn-sm {
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 0.88rem;
+  }
+
+  .offers-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .offers-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>

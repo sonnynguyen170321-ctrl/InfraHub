@@ -1,0 +1,213 @@
+---
+// src/pages/partners/[slug].astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const partners = await getCollection('partners');
+  return partners.map(partner => ({
+    params: { slug: partner.slug },
+    props: { partner }
+  }));
+}
+
+const { partner } = Astro.props;
+const { Content } = await partner.render();
+---
+
+<Layout 
+  title={`${partner.data.name} + InfraHub — Strategic Sourcing Partnership`}
+  description={partner.data.tagline}
+  canonicalPath={`/partners/${partner.slug}`}
+>
+  <div class="section section-hero network-overlay">
+    <div class="container partner-detail-container">
+      <div class="partner-detail-header">
+        <div class="partner-header-badge">
+          <span class="pill-badge badge-blue">{partner.data.category}</span>
+          <span class="pill-badge badge-teal">Verified Ecosystem Partner</span>
+        </div>
+        <h1 class="partner-hero-title">{partner.data.name} + InfraHub</h1>
+        <p class="partner-hero-tagline">{partner.data.tagline}</p>
+      </div>
+
+      <div class="partner-main-grid">
+        <div class="partner-prose-content">
+          <div class="capabilities-box">
+            <h3>Verified Technical Capabilities</h3>
+            <ul class="caps-list">
+              {partner.data.capabilities.map(cap => (
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{cap}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="markdown-body">
+            <Content />
+          </div>
+        </div>
+
+        <aside class="partner-sidebar">
+          <div class="partner-action-card">
+            <h3>Inquire About {partner.data.name}</h3>
+            <p>
+              Connect directly with our architects to evaluate whether {partner.data.name} fits your network constraints and commercial budget.
+            </p>
+            <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-block btn-lg">
+              <span>Talk to Partner Specialist</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            
+            <div class="partner-sourcing-assurances">
+              <p>✓ Direct partner contract & SLA</p>
+              <p>✓ Zero broker fees through InfraHub</p>
+              <p>✓ Engineering-led qualification</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .partner-detail-container {
+    max-width: 1040px;
+  }
+
+  .partner-detail-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 54px;
+  }
+
+  .partner-header-badge {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .partner-hero-title {
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+
+  .partner-hero-tagline {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .partner-main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  @media (min-width: 992px) {
+    .partner-main-grid {
+      grid-template-columns: 1fr 340px;
+    }
+  }
+
+  .capabilities-box {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+  .capabilities-box h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .caps-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .caps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .caps-list svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .markdown-body {
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .markdown-body h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 32px 0 14px;
+  }
+  .markdown-body h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 24px 0 10px;
+  }
+  .markdown-body p {
+    margin-bottom: 16px;
+  }
+  .markdown-body ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* Sidebar */
+  .partner-sidebar {
+    position: sticky;
+    top: calc(var(--header-height) + 24px);
+  }
+
+  .partner-action-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
+  }
+  .partner-action-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .partner-action-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .partner-sourcing-assurances {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+</style>

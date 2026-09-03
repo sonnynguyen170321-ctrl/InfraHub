@@ -1,0 +1,77 @@
+---
+// src/pages/industries/isps-network-operators.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Infrastructure Sourcing for ISPs & Network Operators — InfraHub"
+  description="Sourcing IP transit, BGP routing telemetry, FastNetMon DDoS protection, IPv4 leasing, and 24/7 outsourced NOC incident response for telecom and network operators."
+  canonicalPath="/industries/isps-network-operators"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container industry-container">
+      <div class="industry-header">
+        <span class="pill-badge badge-blue">Industry Sourcing Framework</span>
+        <h1>ISPs & Network Operators</h1>
+        <p class="lead">
+          Operate a resilient Autonomous System (ASN) with optimized upstream transit economics, sub-second DDoS flow telemetry, clean IPv4 blocks, and 24/7 outsourced NOC support.
+        </p>
+      </div>
+
+      <div class="industry-stack-grid">
+        <div class="stack-card">
+          <span class="stack-pill">Core Sourcing</span>
+          <h3>IP Transit & Peering Diversity</h3>
+          <p>We benchmark wholesale committed data rates (CDR) on 10G to 400G ports across European and global MMRs, verifying upstream AS-path diversity and BGP community controls.</p>
+          <a href="/ip-transit" class="stack-link">Explore IP Transit →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Telemetry & Defense</span>
+          <h3>DDoS Detection & Automation</h3>
+          <p>Deploy out-of-band flow analysis (FastNetMon Advanced) to automate FlowSpec filtering and BGP RTBH triggers without adding packet inspection latency.</p>
+          <a href="/ddos-protection" class="stack-link">Explore DDoS Solutions →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">IP Resources</span>
+          <h3>IPv4 Address Allocation & Leasing</h3>
+          <p>Access clean, pre-checked /24 to /20 IPv4 allocations for carrier-grade NAT (CGNAT) or direct subscriber assignment with verified RPKI records.</p>
+          <a href="/lets-talk?service=ipv4" class="stack-link">Request IPv4 Allocation →</a>
+        </div>
+
+        <div class="stack-card">
+          <span class="stack-pill">Operational Scale</span>
+          <h3>24/7 NOC Outsourcing</h3>
+          <p>Protect senior engineers from alert fatigue by offloading continuous Tier 1–2 circuit monitoring, ticket handling, and runbook triage.</p>
+          <a href="/managed-noc" class="stack-link">Explore 24/7 NOC →</a>
+        </div>
+      </div>
+
+      <div class="industry-cta-box text-center">
+        <h2>Discuss Carrier & ISP Requirements</h2>
+        <p>Talk to our network architecture team about benchmarking your transit and routing stack.</p>
+        <a href="/lets-talk?industry=isp" class="btn btn-accent btn-lg">Request ISP Architecture Consultation</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .industry-container { max-width: 1040px; }
+  .industry-header { text-align: center; max-width: 800px; margin: 0 auto 54px; }
+  .industry-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; margin: 16px 0; }
+  .industry-header .lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
+
+  .industry-stack-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 60px; }
+  @media (min-width: 640px) { .industry-stack-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .stack-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
+  .stack-pill { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 12px; }
+  .stack-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .stack-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
+  .stack-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
+  .stack-link:hover { text-decoration: underline; }
+
+  .industry-cta-box { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

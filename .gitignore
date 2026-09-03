@@ -5,6 +5,11 @@ screenshots/
 # Vercel
 .vercel
 
+# Build & dependencies
+node_modules/
+dist/
+.astro/
+
 # OS / editor cruft
 Thumbs.db
 .DS_Store

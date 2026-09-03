@@ -1,0 +1,162 @@
+---
+// src/pages/partners/index.astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPartners = await getCollection('partners');
+---
+
+<Layout 
+  title="Our Partner Ecosystem — Specialized Infrastructure Providers"
+  description="Explore InfraHub's vetted partner ecosystem spanning Tier-1 network transit, bare-metal compute, DDoS mitigation, and enterprise virtualization."
+  canonicalPath="/partners"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="pill-badge badge-blue section-tag">Independent Ecosystem</span>
+        <h1>Specialists in Their Field.<br />Connected Through InfraHub.</h1>
+        <p>
+          We do not resell generic commodity clouds. We build technical partnerships with specialized operators who lead their respective infrastructure disciplines.
+        </p>
+      </div>
+
+      <div class="partners-directory-grid">
+        {allPartners.map(partner => (
+          <article class="partner-dir-card">
+            <div class="partner-dir-header">
+              <span class="pill-badge badge-teal">{partner.data.category}</span>
+              {partner.data.strategic && <span class="strategic-pill">Strategic Partner</span>}
+            </div>
+            <h2 class="partner-dir-name">{partner.data.name}</h2>
+            <p class="partner-dir-tagline">{partner.data.tagline}</p>
+            
+            <ul class="partner-dir-caps">
+              {partner.data.capabilities.map(cap => (
+                <li>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{cap}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="partner-dir-footer">
+              <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm">
+                <span>Partnership Profile</span>
+              </a>
+              <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-sm">
+                <span>Talk to Partner Architect</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="partners-sourcing-banner text-center">
+        <h2>Become an InfraHub Sourcing Partner</h2>
+        <p>Do you operate specialized enterprise infrastructure, transit backbones, or security appliances?</p>
+        <a href="mailto:partners@infrahub.tech" class="btn btn-primary">Inquire About Partner Onboarding</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .partners-directory-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin: 48px 0 72px;
+  }
+  @media (min-width: 640px) {
+    .partners-directory-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .partner-dir-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: var(--transition);
+  }
+  .partner-dir-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .partner-dir-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .strategic-pill {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .partner-dir-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .partner-dir-tagline {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .partner-dir-caps {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+  .partner-dir-caps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+  .partner-dir-caps svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .partner-dir-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .partners-sourcing-banner {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 54px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+</style>

@@ -1,0 +1,278 @@
+---
+// src/pages/offers/[slug].astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const offers = await getCollection('offers');
+  return offers.map(offer => ({
+    params: { slug: offer.slug },
+    props: { offer }
+  }));
+}
+
+const { offer } = Astro.props;
+const { Content } = await offer.render();
+---
+
+<Layout 
+  title={`${offer.data.title} — Offer Details`}
+  description={offer.data.shortDescription}
+  canonicalPath={`/offers/${offer.slug}`}
+>
+  <div class="section section-hero network-overlay">
+    <div class="container offer-detail-container">
+      <div class="offer-detail-main">
+        <div class="offer-detail-header">
+          <div class="offer-tags">
+            <span class="pill-badge badge-blue">{offer.data.category}</span>
+            <span class="pill-badge badge-teal">{offer.data.status}</span>
+          </div>
+          <h1 class="offer-main-title">{offer.data.title}</h1>
+          <div class="offer-meta-strip">
+            <div class="meta-item">
+              <span class="meta-label">Location</span>
+              <span class="meta-val">{offer.data.location}</span>
+            </div>
+            {offer.data.partner && (
+              <div class="meta-item">
+                <span class="meta-label">Partner Delivery</span>
+                <span class="meta-val">{offer.data.partner}</span>
+              </div>
+            )}
+            <div class="meta-item">
+              <span class="meta-label">Pricing</span>
+              <span class="meta-val price-accent">{offer.data.verifiedPrice}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="offer-body-content">
+          <h3>Core Technical Specifications</h3>
+          <ul class="specs-checklist">
+            {offer.data.specifications.map(spec => (
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>{spec}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="markdown-prose">
+            <Content />
+          </div>
+
+          <div class="what-happens-next">
+            <h3>What happens after requesting this offer?</h3>
+            <p>
+              When you submit an inquiry for this offer, our team confirms live stock and allocation availability with {offer.data.partner || "the delivering partner"}. You receive a detailed technical sheet and commercial quote within 1 business day.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Sticky Request Card -->
+      <aside class="offer-sidebar">
+        <div class="request-card">
+          <span class="request-price-label">Commercial Pricing</span>
+          <div class="request-price">{offer.data.verifiedPrice}</div>
+          <p class="request-terms">Subject to contractual term and port availability.</p>
+
+          <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-block btn-lg">
+            <span>Request This Offer</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+
+          <div class="request-assurances">
+            <div class="assurance-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Zero markups through InfraHub</span>
+            </div>
+            <div class="assurance-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Direct partner contract & SLA</span>
+            </div>
+            <div class="assurance-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Dedicated architect support</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .offer-detail-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  @media (min-width: 992px) {
+    .offer-detail-container {
+      grid-template-columns: 1fr 360px;
+    }
+  }
+
+  .offer-tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .offer-main-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .offer-meta-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 18px 24px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 40px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .meta-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .meta-val {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+  }
+  .price-accent {
+    color: var(--accent-blue);
+  }
+
+  .specs-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0 32px;
+  }
+  .specs-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+  .specs-checklist svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .markdown-prose {
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+  }
+  .markdown-prose h2, .markdown-prose h3 {
+    margin: 24px 0 12px;
+    color: var(--text-primary);
+  }
+  .markdown-prose p {
+    margin-bottom: 16px;
+  }
+
+  .what-happens-next {
+    padding: 24px;
+    background-color: var(--accent-teal-light);
+    border: 1px solid rgba(13, 148, 136, 0.25);
+    border-radius: var(--radius-md);
+  }
+  .what-happens-next h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f766e;
+    margin-bottom: 8px;
+  }
+  .what-happens-next p {
+    font-size: 0.92rem;
+    color: #115e59;
+    line-height: 1.5;
+  }
+
+  /* Sticky Sidebar */
+  .offer-sidebar {
+    position: sticky;
+    top: calc(var(--header-height) + 24px);
+  }
+
+  .request-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .request-price-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .request-price {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 6px 0 10px;
+  }
+  .request-terms {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+
+  .request-assurances {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+  }
+  .assurance-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+</style>

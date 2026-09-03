@@ -1,0 +1,150 @@
+---
+// src/pages/cloud-connectivity.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Dedicated Cloud Connectivity & Direct Interconnect — InfraHub"
+  description="Connect on-premise infrastructure directly to AWS Direct Connect, Azure ExpressRoute, and Google Cloud. Eliminate cloud egress penalties with private Layer 2 fabrics."
+  canonicalPath="/cloud-connectivity"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container service-container">
+      <div class="service-header">
+        <div class="header-badge-row">
+          <span class="pill-badge badge-blue">Hybrid Architecture</span>
+          <span class="pill-badge badge-teal">Partner Delivered</span>
+        </div>
+        <h1 class="service-title">Direct Cloud Interconnect</h1>
+        <p class="service-lead">
+          Bypass the public internet and connect on-premise colocation or bare-metal clusters directly to AWS, Microsoft Azure, and Google Cloud with private Layer 2 VLANs, deterministic latency, and 60%+ cloud egress fee savings.
+        </p>
+        <div class="service-hero-actions">
+          <a href="/lets-talk?service=cloud-connectivity" class="btn btn-accent btn-lg">Request Cloud Interconnect</a>
+          <a href="#cloud-economics" class="btn btn-secondary btn-lg">Review Egress Economics</a>
+        </div>
+      </div>
+
+      <!-- Problem Solved -->
+      <div class="content-section" id="cloud-economics">
+        <span class="section-sub-tag">Egress Economics</span>
+        <h2>Why Cloud On-Ramps Pay for Themselves</h2>
+        <p>
+          Hyperscalers charge punitive egress rates ($0.08–$0.12/GB) for data moving out of the cloud over the public internet. Utilizing a private on-ramp reduces egress rates to $0.02/GB or lower while delivering:
+        </p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h4>60%–80% Egress Cost Reduction</h4>
+            <p>Significant cost reduction on heavy database synchronization, analytics pipelines, and backup streams moving out of AWS/Azure.</p>
+          </div>
+          <div class="problem-card">
+            <h4>Predictable Network Latency</h4>
+            <p>Direct fiber cross-connect into the hyperscaler availability zone eliminates public internet hops and route flappings.</p>
+          </div>
+          <div class="problem-card">
+            <h4>Zero Attack Surface Exposure</h4>
+            <p>Private RFC 1918 IP addresses over encrypted Layer 2 802.1Q VLAN tags without opening public internet endpoints.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cloud On-Ramp Integrations -->
+      <div class="content-section">
+        <span class="section-sub-tag">Supported Hyperscalers</span>
+        <h2>Supported Cloud Fabrics</h2>
+        <div class="cloud-grid">
+          <div class="cloud-item">
+            <span class="cloud-tag">AWS</span>
+            <h3>AWS Direct Connect</h3>
+            <p>Dedicated (1G/10G/100G) and hosted connections (50M to 10G) connecting directly to your Amazon VPCs and transit gateways.</p>
+          </div>
+          <div class="cloud-item">
+            <span class="cloud-tag">Azure</span>
+            <h3>Azure ExpressRoute</h3>
+            <p>Private peering to Azure Virtual Networks and Microsoft 365 services with redundant Layer 3 BGP peering.</p>
+          </div>
+          <div class="cloud-item">
+            <span class="cloud-tag">Google Cloud</span>
+            <h3>Google Cloud Interconnect</h3>
+            <p>Dedicated and partner interconnect delivering direct private SLA-backed connectivity to Google Cloud VPC networks.</p>
+          </div>
+          <div class="cloud-item">
+            <span class="cloud-tag">Oracle</span>
+            <h3>OCI FastConnect</h3>
+            <p>High-throughput, consistent network performance connecting directly to Oracle Cloud Infrastructure database clusters.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How InfraHub Helps -->
+      <div class="content-section">
+        <div class="infrahub-role-card">
+          <span class="pill-badge badge-teal">Interconnection Fabrics</span>
+          <h2>How InfraHub Solves Multi-Cloud Connectivity</h2>
+          <p>
+            Rather than establishing separate physical cross-connects to every cloud provider, we connect you to Software-Defined Interconnection (SDI) fabrics (including Zenlayer and specialist carrier fabrics) allowing you to:
+          </p>
+          <div class="role-points-grid">
+            <div class="role-point">
+              <h4>Single Physical Port</h4>
+              <p>Spin up multiple virtual circuits (VLANs) to AWS, Azure, and Google Cloud over a single redundant datacenter cross-connect.</p>
+            </div>
+            <div class="role-point">
+              <h4>Dynamic Bandwidth Sizing</h4>
+              <p>Scale virtual circuit throughput from 100 Mbps to 10 Gbps as your migration or replication demands evolve.</p>
+            </div>
+            <div class="role-point">
+              <h4>Direct Contracting</h4>
+              <p>Contract directly with verified interconnection partners under standardized carrier SLAs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="service-footer-cta text-center">
+        <h2>Reduce Your Cloud Egress Costs</h2>
+        <p>Talk to our hybrid cloud architects to calculate your on-ramp ROI.</p>
+        <a href="/lets-talk?service=cloud-connectivity" class="btn btn-accent btn-lg">Request Cloud Interconnect Audit</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .service-container { max-width: 1040px; }
+  .service-header { text-align: center; max-width: 820px; margin: 0 auto 64px; }
+  .header-badge-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
+  .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
+  .service-hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .content-section { margin-bottom: 72px; }
+  .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
+  .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
+  .content-section > p { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.65; max-width: 780px; margin-bottom: 28px; }
+
+  .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
+  .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
+  .problem-card h4 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
+  .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+  .cloud-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  @media (min-width: 640px) { .cloud-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .cloud-grid { grid-template-columns: repeat(4, 1fr); } }
+  .cloud-item { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); }
+  .cloud-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 8px; }
+  .cloud-item h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .cloud-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; }
+
+  .infrahub-role-card { background-color: var(--bg-dark); color: #ffffff; border-radius: var(--radius-xl); padding: 48px; }
+  .infrahub-role-card h2 { color: #ffffff; margin: 12px 0 16px; }
+  .infrahub-role-card > p { color: var(--text-on-dark-muted); font-size: 1.05rem; margin-bottom: 32px; }
+  .role-points-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+  @media (min-width: 768px) { .role-points-grid { grid-template-columns: repeat(3, 1fr); } }
+  .role-point { background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-dark); border-radius: var(--radius-md); padding: 24px; }
+  .role-point h4 { color: #ffffff; font-size: 1.1rem; margin-bottom: 8px; }
+  .role-point p { color: var(--text-on-dark-muted); font-size: 0.88rem; line-height: 1.5; }
+
+  .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+</style>

@@ -1,0 +1,80 @@
+---
+// src/pages/terms.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Terms of Service — InfraHub"
+  description="Terms and conditions governing the use of the InfraHub infrastructure sourcing platform."
+  canonicalPath="/terms"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container legal-container">
+      <h1 class="legal-title">Terms of Service</h1>
+      <p class="legal-date">Last Updated: August 2026</p>
+
+      <div class="legal-content">
+        <h2>1. Commercial Role & Scope</h2>
+        <p>
+          InfraHub operates as an independent technical sourcing and advisory service. We connect prospective infrastructure buyers with specialized third-party providers across network transit, cloud, bare-metal hosting, cybersecurity, and datacenter colocation.
+        </p>
+
+        <h2>2. Third-Party Contracting & SLAs</h2>
+        <p>
+          Unless explicitly agreed in a separate written agreement for direct hardware sales, InfraHub is not the underlying carrier, host, or operator of the services delivered by our partners. All technical SLAs, uptime commitments, and contractual terms are governed by the respective partner's Master Services Agreement (MSA) executed directly between you and the provider.
+        </p>
+
+        <h2>3. Accuracy of Sourcing Information</h2>
+        <p>
+          While InfraHub makes every effort to verify partner capacities, route latencies, and commercial pricing, market stock and port availability change dynamically. Published offers and quotes are subject to final provider technical verification and contract execution.
+        </p>
+
+        <h2>4. Intellectual Property</h2>
+        <p>
+          All trademarks, service marks, and company names referenced on infrahub.tech are the property of their respective owners. Their display does not imply proprietary ownership by InfraHub.
+        </p>
+
+        <h2>5. Limitation of Liability</h2>
+        <p>
+          In no event shall InfraHub be liable for any indirect, incidental, consequential, or punitive damages resulting from provider downtime, carrier fiber cuts, hardware supply delays, or third-party SLA failures.
+        </p>
+
+        <h2>6. Governing Law</h2>
+        <p>
+          These terms and any disputes arising from your use of this site shall be governed by and construed in accordance with applicable corporate laws.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .legal-container {
+    max-width: 800px;
+  }
+  .legal-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .legal-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .legal-content {
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .legal-content h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 32px 0 14px;
+  }
+  .legal-content p {
+    margin-bottom: 16px;
+  }
+</style>

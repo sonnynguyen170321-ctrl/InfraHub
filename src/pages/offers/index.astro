@@ -1,0 +1,198 @@
+---
+// src/pages/offers/index.astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allOffers = await getCollection('offers');
+const activeOffers = allOffers.filter(o => o.data.status === 'active');
+---
+
+<Layout 
+  title="Featured Offers — Live Infrastructure & Connectivity Deals"
+  description="Explore current commercial offers on dedicated servers, IP transit, hardware, and DDoS protection available through InfraHub's specialist network."
+  canonicalPath="/offers"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="pill-badge badge-blue section-tag">Commercial Catalog</span>
+        <h1>Featured Infrastructure Offers</h1>
+        <p>Verified hardware stock, promotional transit capacity, and security appliance licenses available directly through our partner ecosystem.</p>
+      </div>
+
+      <div class="offers-index-grid">
+        {activeOffers.map(offer => (
+          <article class="offer-card">
+            <div class="offer-card-top">
+              <div class="offer-badges">
+                <span class="pill-badge badge-blue">{offer.data.category}</span>
+                <span class="offer-status">{offer.data.status}</span>
+              </div>
+              <h2 class="offer-title">
+                <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
+              </h2>
+              <div class="offer-location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span>{offer.data.location}</span>
+              </div>
+              <p class="offer-short-desc">{offer.data.shortDescription}</p>
+            </div>
+
+            <ul class="offer-specs">
+              {offer.data.specifications.map(spec => (
+                <li>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{spec}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="offer-card-bottom">
+              <div class="offer-price-wrap">
+                <span class="price-label">Verified Commercial Pricing</span>
+                <span class="price-value">{offer.data.verifiedPrice}</span>
+              </div>
+              <div class="offer-actions-dual">
+                <a href={`/offers/${offer.slug}`} class="btn btn-secondary btn-sm">
+                  <span>Details</span>
+                </a>
+                <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-sm">
+                  <span>Request Offer</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .offers-index-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 36px;
+  }
+  @media (min-width: 640px) {
+    .offers-index-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .offers-index-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .offer-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px;
+    transition: var(--transition);
+  }
+  .offer-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .offer-badges {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .offer-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-teal);
+    text-transform: capitalize;
+  }
+
+  .offer-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .offer-title a:hover {
+    color: var(--accent-blue);
+  }
+
+  .offer-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .offer-short-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+
+  .offer-specs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  .offer-specs li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+  }
+  .offer-specs svg {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .offer-card-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .price-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+  .price-value {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .offer-actions-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+// src/pages/industries/index.astro
+import Layout from '../../layouts/Layout.astro';
+import IndustriesGrid from '../../components/IndustriesGrid.astro';
+---
+
+<Layout 
+  title="Industries We Serve — Infrastructure Sourcing Frameworks"
+  description="Explore infrastructure sourcing frameworks for ISPs, hosting companies, SaaS technology providers, and enterprise infrastructure teams."
+  canonicalPath="/industries"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="pill-badge badge-blue section-tag">Audience Specialization</span>
+        <h1>Tailored Infrastructure Sourcing by Industry</h1>
+        <p>
+          We do not treat an ISP running an autonomous system the same as an enterprise migrating off VMware. Review our tailored evaluation frameworks by technical buyer profile.
+        </p>
+      </div>
+
+      <IndustriesGrid />
+
+      <div class="industry-consultation text-center">
+        <h2>Don't See Your Industry Listed?</h2>
+        <p>Our architects evaluate bespoke requirements across gaming, high-frequency trading, and AI research platforms.</p>
+        <a href="/lets-talk" class="btn btn-accent btn-lg">Discuss Your Infrastructure Workload</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .industry-consultation {
+    margin-top: 80px;
+    padding: 60px 32px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+</style>

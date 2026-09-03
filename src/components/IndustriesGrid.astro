@@ -1,0 +1,152 @@
+---
+// src/components/IndustriesGrid.astro
+const industries = [
+  {
+    id: "isps-network-operators",
+    title: "ISPs & Network Operators",
+    desc: "Autonomous system protection, upstream IP transit blending, automated FlowSpec/RTBH, IPv4 leasing, and 24/7 outsourced NOC incident operations.",
+    url: "/industries/isps-network-operators",
+    focus: "IP Transit · DDoS Telemetry · BGP Routing · 24/7 NOC"
+  },
+  {
+    id: "hosting-cloud-providers",
+    title: "Hosting & Cloud Providers",
+    desc: "Wholesale bare-metal fleets, high-density colocation space, optical wavelengths, enterprise server chassis sourcing, and carrier-neutral cross connects.",
+    url: "/industries/hosting-cloud-providers",
+    focus: "Dedicated Bare Metal · Refurbished Servers · Colocation · IPv4"
+  },
+  {
+    id: "saas-technology",
+    title: "SaaS & Technology Companies",
+    desc: "Hyperscaler exit strategies, hybrid private cloud deployments, low-latency CDN acceleration, multi-region Kubernetes nodes, and DR redundancy.",
+    url: "/industries/saas-technology",
+    focus: "Private Cloud · Kubernetes · Low-Latency CDN · Multi-Cloud Direct Connect"
+  },
+  {
+    id: "enterprise",
+    title: "Enterprise Infrastructure",
+    desc: "VMware licensing alternatives, compliant sovereign data residency, mission-critical backup replication, and bespoke network engineering workshops.",
+    url: "/industries/enterprise",
+    focus: "VMware Exit · Enterprise Hardware · Cybersecurity · Sovereign Cloud"
+  }
+];
+---
+
+<section class="section section-subtle" id="industries">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="pill-badge badge-teal section-tag">Audience Alignment</span>
+      <h2>Who We Work With</h2>
+      <p>Tailored infrastructure evaluation frameworks built for specialized technical buyers and network engineering teams.</p>
+    </div>
+
+    <div class="industries-grid">
+      {industries.map(ind => (
+        <a href={ind.url} class="industry-card">
+          <div class="industry-card-bg"></div>
+          <div class="industry-card-content">
+            <span class="industry-focus">{ind.focus}</span>
+            <h3 class="industry-title">{ind.title}</h3>
+            <p class="industry-desc">{ind.desc}</p>
+            <div class="industry-cta">
+              <span>Review Industry Framework</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .industries-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 640px) {
+    .industries-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .industry-card {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 280px;
+    padding: 32px;
+    transition: var(--transition);
+  }
+  .industry-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--accent-blue);
+  }
+
+  .industry-card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(11, 17, 32, 0.95) 80%);
+    z-index: 1;
+  }
+
+  .industry-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .industry-focus {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-teal);
+    margin-bottom: 8px;
+  }
+
+  .industry-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .industry-desc {
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .industry-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-blue-light);
+    transition: var(--transition-fast);
+  }
+  .industry-card:hover .industry-cta {
+    color: #ffffff;
+    transform: translateX(4px);
+  }
+</style>

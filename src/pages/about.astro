@@ -1,0 +1,183 @@
+---
+// src/pages/about.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="About InfraHub — Infrastructure Sourcing & Advisory"
+  description="Learn about InfraHub's commercial model, engineering background, and mission to connect businesses with specialist infrastructure providers."
+  canonicalPath="/about"
+>
+  <div class="section section-hero network-overlay">
+    <div class="container about-container">
+      <div class="section-header text-center">
+        <span class="pill-badge badge-blue section-tag">Our Identity</span>
+        <h1>Infrastructure is complicated.<br />Finding the right partner shouldn't be.</h1>
+        <p>
+          InfraHub was built to solve a fundamental disconnect in the enterprise hosting and telecom market: the gap between complex technical requirements and specialized global providers.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-badge">01</div>
+          <h3>What InfraHub Is</h3>
+          <p>
+            We are an independent infrastructure sourcing and technical advisory partner. We evaluate your network architectures, compute demands, and security requirements to connect you directly with specialized global providers, hardware vendors, and network carriers.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-badge">02</div>
+          <h3>What InfraHub Is Not</h3>
+          <p>
+            We do not claim to own a proprietary global fiber backbone or 50 datacenters. There are already world-class engineering organizations that build fiber, operate scrubbing centers, and maintain Tier-IV facilities. We understand their technology and help you select the right one.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-badge">03</div>
+          <h3>Why It Costs You Nothing</h3>
+          <p>
+            InfraHub is compensated by participating network carriers and infrastructure operators when a qualified introduction results in an agreement. We do not add consulting surcharges or markup partner rates — you contract directly with the provider.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-principles">
+        <h2>Our Three Commercial Disciplines</h2>
+        <div class="principles-grid">
+          <div class="principle-item">
+            <span class="principle-tag">Mode A</span>
+            <h4>Hardware Sourcing</h4>
+            <p>Direct sourcing of new and certified refurbished enterprise servers, switching equipment, and optical transceivers with full warranty backing.</p>
+          </div>
+          <div class="principle-item">
+            <span class="principle-tag">Mode B</span>
+            <h4>Partner-Delivered Services</h4>
+            <p>InfraHub qualifies and introduces; the specialized partner contracts, implements, and provides round-the-clock operational SLAs.</p>
+          </div>
+          <div class="principle-item">
+            <span class="principle-tag">Mode C</span>
+            <h4>Technical Advisory</h4>
+            <p>Independent architecture guidance on BGP multi-homing, VMware migrations, DDoS defenses, and cross-datacenter disaster recovery.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-cta text-center">
+        <h2>Have a requirement to discuss?</h2>
+        <p>Talk with an infrastructure sourcing architect today.</p>
+        <a href="/lets-talk" class="btn btn-accent btn-lg">Let's Talk Infrastructure</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .about-container {
+    max-width: 1040px;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin: 50px 0 70px;
+  }
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .about-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 36px 28px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about-card-badge {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .about-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .about-card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Principles */
+  .about-principles {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    margin-bottom: 70px;
+  }
+  .about-principles h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 36px;
+  }
+
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 768px) {
+    .principles-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .principle-item {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+  .principle-tag {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-teal);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .principle-item h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .principle-item p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .about-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+</style>

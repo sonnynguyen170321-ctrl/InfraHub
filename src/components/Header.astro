@@ -1,0 +1,508 @@
+---
+// src/components/Header.astro
+---
+
+<header class="site-header" id="site-header">
+  <div class="header-container">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-logo" aria-label="InfraHub Homepage">
+      <span class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="28" height="28" rx="6" fill="#0F172A" />
+          <path d="M7 14H11M17 14H21M14 7V11M14 17V21" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" />
+          <circle cx="14" cy="14" r="3" fill="#0D9488" />
+        </svg>
+      </span>
+      <span class="brand-text">Infra<span class="brand-accent">Hub</span></span>
+    </a>
+
+    <!-- Desktop Nav with MegaMenu -->
+    <nav class="desktop-nav" aria-label="Primary Navigation">
+      <ul class="nav-list">
+        <!-- Solutions Mega Menu Trigger -->
+        <li class="nav-item has-megamenu">
+          <button class="nav-link menu-trigger" aria-expanded="false" aria-controls="solutions-megamenu">
+            <span>Solutions</span>
+            <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div class="megamenu-panel" id="solutions-megamenu" role="region" aria-label="Solutions Menu">
+            <div class="megamenu-grid">
+              <!-- Col 1: Infrastructure -->
+              <div class="megamenu-col">
+                <a href="/solutions/infrastructure" class="megamenu-heading">Infrastructure</a>
+                <ul class="megamenu-links">
+                  <li><a href="/dedicated-servers">Dedicated Servers</a></li>
+                  <li><a href="/custom-iaas">Custom IaaS</a></li>
+                  <li><a href="/gpu-ai-infrastructure">GPU & AI Infrastructure</a></li>
+                  <li><a href="/colocation">Colocation</a></li>
+                  <li><a href="/enterprise-hardware">Enterprise Hardware</a></li>
+                </ul>
+              </div>
+
+              <!-- Col 2: Cloud & Virtualization -->
+              <div class="megamenu-col">
+                <a href="/solutions/cloud-virtualization" class="megamenu-heading">Cloud & Virtualization</a>
+                <ul class="megamenu-links">
+                  <li><a href="/private-cloud">Private Cloud</a></li>
+                  <li><a href="/vmware-alternatives">VMware Alternatives</a></li>
+                  <li><a href="/solutions/cloud-virtualization#public-cloud">Public Cloud</a></li>
+                  <li><a href="/solutions/cloud-virtualization#kubernetes">Kubernetes & Containers</a></li>
+                  <li><a href="/solutions/cloud-virtualization#backup-dr">Backup & DR</a></li>
+                </ul>
+              </div>
+
+              <!-- Col 3: Network & Connectivity -->
+              <div class="megamenu-col">
+                <a href="/solutions/network-connectivity" class="megamenu-heading">Network & Connectivity</a>
+                <ul class="megamenu-links">
+                  <li><a href="/ip-transit">IP Transit</a></li>
+                  <li><a href="/layer-2-connectivity">Layer 2 Connectivity</a></li>
+                  <li><a href="/wavelengths">Wavelengths</a></li>
+                  <li><a href="/cloud-connectivity">Cloud Connectivity</a></li>
+                  <li><a href="/ipv4">IPv4 Solutions</a></li>
+                </ul>
+              </div>
+
+              <!-- Col 4: Security -->
+              <div class="megamenu-col">
+                <a href="/solutions/security" class="megamenu-heading">Security</a>
+                <ul class="megamenu-links">
+                  <li><a href="/ddos-protection">DDoS Protection</a></li>
+                  <li><a href="/ddos-detection-automation">DDoS Detection & Automation</a></li>
+                  <li><a href="/bgp-routing-intelligence">BGP & Routing Intel</a></li>
+                  <li><a href="/cybersecurity">Cybersecurity</a></li>
+                </ul>
+              </div>
+
+              <!-- Col 5: Managed Services -->
+              <div class="megamenu-col highlight-col">
+                <a href="/solutions/managed-services" class="megamenu-heading">Managed Services</a>
+                <ul class="megamenu-links">
+                  <li><a href="/managed-noc">24/7 NOC</a></li>
+                  <li><a href="/ai-network-operations">AI Network Operations</a></li>
+                  <li><a href="/solutions/managed-services#network-engineering">Network Engineering</a></li>
+                  <li><a href="/solutions/managed-services#automation">Network Automation</a></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="megamenu-bottom">
+              <span class="bottom-tagline">Looking for a tailored architecture?</span>
+              <a href="/how-we-work" class="bottom-link">Learn how InfraHub qualifies specialists →</a>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item"><a href="/offers" class="nav-link">Featured Offers</a></li>
+        <li class="nav-item"><a href="/partners" class="nav-link">Partners</a></li>
+        <li class="nav-item"><a href="/industries" class="nav-link">Industries</a></li>
+        <li class="nav-item"><a href="/insights" class="nav-link">Insights</a></li>
+        
+        <!-- About Dropdown -->
+        <li class="nav-item has-dropdown">
+          <button class="nav-link dropdown-trigger" aria-expanded="false">
+            <span>About</span>
+            <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="dropdown-menu">
+            <a href="/about" class="dropdown-item">About InfraHub</a>
+            <a href="/how-we-work" class="dropdown-item">How We Work</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <a href="/lets-talk" class="btn btn-accent btn-nav-cta">
+        <span>Let's Talk</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <div class="drawer-inner">
+      <div class="drawer-accordion">
+        <!-- Accordion 1: Solutions -->
+        <div class="accordion-group">
+          <button class="accordion-header" aria-expanded="false">
+            <span>Solutions</span>
+            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <a href="/solutions/infrastructure" class="drawer-sublink"><strong>Infrastructure</strong> (Servers, IaaS, Colocation)</a>
+            <a href="/solutions/cloud-virtualization" class="drawer-sublink"><strong>Cloud & Virtualization</strong> (Private Cloud, VMware Alt)</a>
+            <a href="/solutions/network-connectivity" class="drawer-sublink"><strong>Network & Connectivity</strong> (IP Transit, Wavelengths)</a>
+            <a href="/solutions/security" class="drawer-sublink"><strong>Security</strong> (DDoS, BGP, Cyber)</a>
+            <a href="/solutions/managed-services" class="drawer-sublink"><strong>Managed Services</strong> (24/7 NOC, AI NetOps)</a>
+          </div>
+        </div>
+
+        <a href="/offers" class="drawer-link">Featured Offers</a>
+        <a href="/partners" class="drawer-link">Partners</a>
+        <a href="/industries" class="drawer-link">Industries</a>
+        <a href="/insights" class="drawer-link">Insights</a>
+
+        <!-- Accordion 2: About -->
+        <div class="accordion-group">
+          <button class="accordion-header" aria-expanded="false">
+            <span>About</span>
+            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="accordion-content">
+            <a href="/about" class="drawer-sublink">About InfraHub</a>
+            <a href="/how-we-work" class="drawer-sublink">How We Work</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <a href="/lets-talk" class="btn btn-accent btn-block">Let's Talk Infrastructure</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: var(--header-height);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+  }
+
+  .header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Logo */
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .brand-accent {
+    color: var(--accent-blue);
+  }
+
+  /* Navigation */
+  .desktop-nav {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .desktop-nav {
+      display: block;
+    }
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 14px;
+    font-family: var(--font-heading);
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+  }
+
+  .nav-link:hover,
+  .nav-item:hover > .nav-link {
+    color: var(--text-primary);
+    background-color: var(--bg-tertiary);
+  }
+
+  .chevron-icon {
+    transition: transform 0.2s ease;
+  }
+  .nav-item:hover .chevron-icon {
+    transform: rotate(180deg);
+  }
+
+  /* MegaMenu Panel */
+  .megamenu-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -150px;
+    width: 980px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    padding: 28px 32px 18px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .nav-item.has-megamenu:hover .megamenu-panel,
+  .nav-item.has-megamenu:focus-within .megamenu-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .megamenu-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .megamenu-col .megamenu-heading {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--accent-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .megamenu-col .megamenu-heading:hover {
+    color: var(--accent-blue);
+  }
+
+  .megamenu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .megamenu-links a {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: block;
+    line-height: 1.35;
+    transition: var(--transition-fast);
+  }
+  .megamenu-links a:hover {
+    color: var(--accent-blue);
+    transform: translateX(2px);
+  }
+
+  .megamenu-bottom {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+  .bottom-tagline {
+    color: var(--text-muted);
+  }
+  .bottom-link {
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+  .bottom-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Simple Dropdown */
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: var(--transition-fast);
+  }
+  .nav-item.has-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown-item {
+    display: block;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .dropdown-item:hover {
+    color: var(--accent-blue);
+    background-color: var(--bg-tertiary);
+  }
+
+  /* Actions */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+  }
+  @media (min-width: 1024px) {
+    .mobile-toggle {
+      display: none;
+    }
+  }
+
+  .hamburger-bar {
+    width: 22px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: var(--transition-fast);
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    overflow-y: auto;
+    padding: 24px;
+    border-top: 1px solid var(--border-color);
+  }
+  .mobile-drawer.is-open {
+    display: block;
+  }
+
+  .drawer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .drawer-link {
+    display: block;
+    padding: 12px 0;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .accordion-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .accordion-content {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 0 12px 14px;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .accordion-content.is-expanded {
+    display: flex;
+  }
+
+  .drawer-sublink {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+</style>
+
+<script is:inline>
+  // Mobile drawer and accordion interactivity
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('mobile-toggle');
+    const drawer = document.getElementById('mobile-drawer');
+    
+    if (toggle && drawer) {
+      toggle.addEventListener('click', () => {
+        const isOpen = drawer.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const expanded = header.getAttribute('aria-expanded') === 'true';
+        header.setAttribute('aria-expanded', String(!expanded));
+        if (content) {
+          content.classList.toggle('is-expanded');
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,148 @@
+---
+// src/pages/insights/[slug].astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const insights = await getCollection('insights');
+  return insights.map(insight => ({
+    params: { slug: insight.slug },
+    props: { insight }
+  }));
+}
+
+const { insight } = Astro.props;
+const { Content } = await insight.render();
+---
+
+<Layout 
+  title={`${insight.data.title} — InfraHub Insights`}
+  description={insight.data.summary}
+  canonicalPath={`/insights/${insight.slug}`}
+  ogType="article"
+>
+  <article class="section section-hero network-overlay">
+    <div class="container article-container">
+      <div class="article-header">
+        <div class="article-meta-top">
+          <span class="pill-badge badge-teal">{insight.data.category}</span>
+          <span class="article-read-time">{insight.data.readTime}</span>
+        </div>
+        <h1 class="article-headline">{insight.data.title}</h1>
+        <p class="article-sub">{insight.data.summary}</p>
+        <div class="article-author-strip">
+          <span>By {insight.data.author}</span>
+          <span>·</span>
+          <span>Published {insight.data.publishDate.toISOString().slice(0, 10)}</span>
+        </div>
+      </div>
+
+      <div class="article-content-body">
+        <Content />
+      </div>
+
+      <div class="article-footer-cta">
+        <h3>Have a related infrastructure question?</h3>
+        <p>Talk to our network and cloud architects to evaluate your specific workload constraints.</p>
+        <a href="/lets-talk" class="btn btn-accent btn-lg">Start a Technical Conversation</a>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .article-container {
+    max-width: 840px;
+  }
+
+  .article-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .article-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .article-read-time {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .article-headline {
+    font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .article-sub {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .article-author-strip {
+    display: flex;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .article-content-body {
+    line-height: 1.8;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+  }
+
+  .article-content-body h2 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 40px 0 16px;
+  }
+
+  .article-content-body h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 28px 0 12px;
+  }
+
+  .article-content-body p {
+    margin-bottom: 20px;
+  }
+
+  .article-content-body ul, .article-content-body ol {
+    padding-left: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .article-footer-cta {
+    margin-top: 64px;
+    padding: 48px 36px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .article-footer-cta h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .article-footer-cta p {
+    color: var(--text-secondary);
+    max-width: 540px;
+  }
+</style>
