@@ -2,25 +2,25 @@
 // src/components/FinalCTA.astro
 ---
 
-<section class="final-cta-section" id="final-cta">
-  <div class="container cta-container">
-    <div class="cta-card">
-      <div class="cta-content">
-        <span class="pill-badge badge-teal">Direct Sourcing Conversation</span>
-        <h2 class="cta-headline">Tell us what you're trying to build.</h2>
-        <p class="cta-sub">
-          You don't need to know which provider, ASN, or exact chassis model you need. Start with the requirement, and our team will help evaluate the optimal architecture and match suitable specialists.
+<section class="section-conversion-band" id="contact">
+  <div class="container">
+    <div class="conversion-card">
+      <div class="conversion-content">
+        <span class="conversion-kicker">QUALIFICATION & SOURCING</span>
+        <h2 class="conversion-headline">Tell us what you're trying to build.</h2>
+        <p class="conversion-copy">
+          You don't need to know which provider or product you need. Start with the requirement and InfraHub can help identify the right place to begin.
         </p>
-        <div class="cta-actions">
-          <a href="/lets-talk" class="btn btn-accent btn-xl">
+        <div class="conversion-actions">
+          <a href="/lets-talk" class="btn btn-accent btn-lg">
             <span>Let's Talk Infrastructure</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </a>
-          <a href="/how-we-work" class="btn btn-on-dark-outline btn-xl">
-            <span>How We Work & Transparency</span>
+          <a href="/how-we-work" class="btn btn-outline-light btn-lg">
+            <span>How We Work</span>
           </a>
         </div>
       </div>
@@ -29,34 +29,29 @@
 </section>
 
 <style>
-  .final-cta-section {
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-dark) 100%);
-    padding: 60px 0 0;
+  .section-conversion-band {
+    background-color: var(--bg-dark);
+    padding: 80px 0 60px;
   }
 
-  .cta-container {
-    position: relative;
-    z-index: 2;
-  }
-
-  .cta-card {
-    background: radial-gradient(ellipse at 80% 0%, rgba(37, 99, 235, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 20% 100%, rgba(13, 148, 136, 0.3) 0%, transparent 60%),
-                #0b1120;
+  .conversion-card {
+    background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.25) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(13, 148, 136, 0.2) 0%, transparent 60%),
+                #0f172a;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius-xl);
-    padding: 72px 48px;
+    padding: 72px 32px;
     text-align: center;
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   }
-  @media (max-width: 768px) {
-    .cta-card {
-      padding: 48px 24px;
+  @media (min-width: 768px) {
+    .conversion-card {
+      padding: 80px 56px;
     }
   }
 
-  .cta-content {
-    max-width: 760px;
+  .conversion-content {
+    max-width: 740px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -64,30 +59,54 @@
     gap: 20px;
   }
 
-  .cta-headline {
-    font-size: clamp(2rem, 3.8vw, 3rem);
+  .conversion-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    letter-spacing: 0.12em;
+  }
+
+  .conversion-headline {
+    font-size: clamp(2.2rem, 4.2vw, 3.4rem);
     font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
     color: #ffffff;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
   }
 
-  .cta-sub {
-    font-size: 1.15rem;
+  .conversion-copy {
+    font-size: clamp(1.05rem, 1.25vw, 1.2rem);
     color: #cbd5e1;
-    line-height: 1.65;
+    line-height: 1.6;
+    max-width: 640px;
   }
 
-  .cta-actions {
+  .conversion-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin-top: 14px;
+    margin-top: 12px;
   }
-  .btn-xl {
-    padding: 16px 32px;
-    font-size: 1.05rem;
+
+  .btn-outline-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 13px 26px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+  }
+  .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #ffffff;
+    color: #ffffff;
   }
 </style>

@@ -1,0 +1,356 @@
+---
+// src/components/AudienceAndEditorial.astro
+const industries = [
+  {
+    name: "ISPs & Network Operators",
+    summary: "Upstream IP transit, optical wavelengths, BGP routing optimization, and automated DDoS flow mitigation.",
+    url: "/industries/isps-network-operators"
+  },
+  {
+    name: "Hosting & Cloud Providers",
+    summary: "Wholesale bare-metal compute fleets, rack allocations in Tier-3+ facilities, and IPv4 block leasing.",
+    url: "/industries/hosting-cloud-providers"
+  },
+  {
+    name: "SaaS & Technology",
+    summary: "Egress traffic cost suppression, low-latency regional edge peering, and sovereign private cloud architectures.",
+    url: "/industries/saas-technology"
+  },
+  {
+    name: "Enterprise",
+    summary: "VMware licensing alternatives, multi-cloud direct connects, certified refurbished hardware, and 24/7 managed NOC.",
+    url: "/industries/enterprise"
+  }
+];
+
+const secondaryInsights = [
+  {
+    title: "Evaluating IP Transit: 95th Percentile vs Fixed Commit",
+    category: "Networks",
+    readTime: "7 min read",
+    url: "/insights/evaluating-ip-transit"
+  },
+  {
+    title: "VMware Exit Strategies: Practical Bare Metal & KVM Migration Paths",
+    category: "Cloud",
+    readTime: "8 min read",
+    url: "/insights/vmware-alternatives-migration"
+  }
+];
+---
+
+<section class="section section-audience-editorial" id="who-we-help">
+  <div class="container">
+    <div class="split-editorial-layout">
+      <!-- Left Column: Who We Work With (Industries) -->
+      <div class="audience-column">
+        <div class="column-header">
+          <span class="mono-kicker">WHO WE WORK WITH</span>
+          <h2 class="column-title">Infrastructure built for technical buyers.</h2>
+          <p class="column-desc">We tailor sourcing, routing, and hardware evaluation to the exact operational realities of four core sectors.</p>
+        </div>
+
+        <nav class="industries-nav-list" aria-label="Target Industries">
+          {industries.map((ind, idx) => (
+            <a href={ind.url} class="industry-nav-item">
+              <div class="ind-index">{String(idx + 1).padStart(2, '0')}</div>
+              <div class="ind-text-wrap">
+                <span class="ind-name">{ind.name}</span>
+                <span class="ind-summary">{ind.summary}</span>
+              </div>
+              <svg class="ind-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- Right Column: Infrastructure in Practice (Featured Technical Insight) -->
+      <div class="editorial-column">
+        <div class="column-header">
+          <span class="mono-kicker">INFRASTRUCTURE IN PRACTICE</span>
+          <h2 class="column-title">Engineering Analysis</h2>
+        </div>
+
+        <!-- Major Featured Analysis Card -->
+        <article class="featured-analysis-card">
+          <a href="/insights/physical-path-diversity" class="analysis-visual-link">
+            <img 
+              src="/images/physical-route-diversity.jpg" 
+              alt="Physical optical fiber route diversity diagram across bridge choke point" 
+              class="analysis-img"
+              loading="lazy"
+              width="800"
+              height="450"
+            />
+            <div class="analysis-badge-overlay">
+              <span class="pill-badge badge-teal">Optical Networks</span>
+              <span class="read-time">9 min read</span>
+            </div>
+          </a>
+
+          <div class="analysis-body">
+            <h3 class="analysis-title">
+              <a href="/insights/physical-path-diversity">Why two "diverse" network circuits may still share the same physical path.</a>
+            </h3>
+            <p class="analysis-excerpt">
+              Logical route diversity does not guarantee physical diversity. How shared bridge crossings, rail right-of-ways, and common carrier conduits create invisible single points of failure in enterprise backbones.
+            </p>
+            <div class="analysis-footer">
+              <a href="/insights/physical-path-diversity" class="analysis-cta">
+                <span>Read the Analysis</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Secondary Supporting Headlines -->
+        <div class="secondary-insights-list">
+          <span class="secondary-kicker">ADDITIONAL ANALYSES</span>
+          {secondaryInsights.map(item => (
+            <a href={item.url} class="secondary-insight-item">
+              <span class="sec-cat">{item.category} // {item.readTime}</span>
+              <span class="sec-title">{item.title}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-audience-editorial {
+    background-color: #ffffff;
+    padding: 88px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .split-editorial-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  @media (min-width: 1024px) {
+    .split-editorial-layout {
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 64px;
+      align-items: flex-start;
+    }
+  }
+
+  .column-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .mono-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent-blue);
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .column-title {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+  }
+  .column-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Industries Nav List */
+  .industries-nav-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .industry-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition-fast);
+  }
+  .industry-nav-item:last-child {
+    border-bottom: none;
+  }
+  .industry-nav-item:hover {
+    background-color: var(--bg-secondary);
+  }
+
+  .ind-index {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+  .ind-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-grow: 1;
+  }
+  .ind-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+  .ind-summary {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+  .ind-chevron {
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+  }
+  .industry-nav-item:hover .ind-chevron {
+    color: var(--accent-blue);
+    transform: translateX(3px);
+  }
+
+  /* Editorial Column */
+  .featured-analysis-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+    transition: var(--transition-fast);
+  }
+  .featured-analysis-card:hover {
+    border-color: var(--accent-blue);
+    box-shadow: var(--shadow-md);
+  }
+
+  .analysis-visual-link {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    background-color: #0b1120;
+    overflow: hidden;
+  }
+  .analysis-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .featured-analysis-card:hover .analysis-img {
+    transform: scale(1.02);
+  }
+  .analysis-badge-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .read-time {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    background: rgba(15, 23, 42, 0.85);
+    color: #ffffff;
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .analysis-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .analysis-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--text-primary);
+  }
+  .analysis-title a:hover {
+    color: var(--accent-blue);
+  }
+  .analysis-excerpt {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .analysis-footer {
+    padding-top: 8px;
+  }
+  .analysis-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+  .analysis-cta:hover {
+    color: var(--accent-blue-hover);
+  }
+
+  /* Secondary Insights */
+  .secondary-insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 20px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+  .secondary-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+  .secondary-insight-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e2e8f0;
+    transition: var(--transition-fast);
+  }
+  .secondary-insight-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .secondary-insight-item:hover .sec-title {
+    color: var(--accent-blue);
+  }
+  .sec-cat {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+  .sec-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    transition: color 0.15s ease;
+  }
+</style>

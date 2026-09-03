@@ -1,0 +1,309 @@
+---
+// src/components/DeliveryModel.astro
+const steps = [
+  {
+    num: "01",
+    title: "Understand",
+    detail: "We evaluate your exact technical parameters: committed bandwidth, routing diversity, chassis specifications, geographic latency, and regulatory constraints."
+  },
+  {
+    num: "02",
+    title: "Evaluate & Match",
+    detail: "We benchmark options across our verified partner network to identify which specialist excels in that exact discipline and location."
+  },
+  {
+    num: "03",
+    title: "Introduce",
+    detail: "We introduce you directly to the engineering and commercial leadership of the selected provider. No sales friction or intermediary markups."
+  },
+  {
+    num: "04",
+    title: "Deliver",
+    detail: "The specialist implements and delivers the infrastructure under direct contract with you. InfraHub remains your strategic sounding board."
+  }
+];
+
+const pillars = [
+  {
+    name: "Choice",
+    lead: "Never captive to one carrier's footprint or product catalogue."
+  },
+  {
+    name: "Specialization",
+    lead: "Matched with teams that lead specifically in your required discipline."
+  },
+  {
+    name: "Experience",
+    lead: "Engineering-grounded assessment of BGP, optical KMZ paths, and transit."
+  },
+  {
+    name: "Access",
+    lead: "Direct wholesale pricing and senior engineering channels from day one."
+  }
+];
+---
+
+<section class="section section-delivery" id="how-it-works">
+  <div class="delivery-bg" aria-hidden="true">
+    <div class="delivery-grid-overlay"></div>
+  </div>
+
+  <div class="container delivery-container">
+    <!-- Header -->
+    <div class="delivery-header">
+      <span class="delivery-mono-tag">OPERATING MODEL & DIFFERENTIATION</span>
+      <h2 class="delivery-title">One requirement.<br class="hide-mobile" /> A network of specialists.</h2>
+      <p class="delivery-subhead">
+        InfraHub provides market intelligence and technical qualification. Partner-delivered services are contracted with and delivered directly by the verified specialist.
+      </p>
+    </div>
+
+    <!-- The 4-Step Process Timeline -->
+    <div class="lifecycle-timeline">
+      {steps.map((s, idx) => (
+        <div class="timeline-step">
+          <div class="step-top-line">
+            <span class="step-number">{s.num}</span>
+            {idx < 3 && <span class="step-divider" aria-hidden="true"></span>}
+          </div>
+          <h3 class="step-name">{s.title}</h3>
+          <p class="step-detail">{s.detail}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- The 4 Core Pillars (Why It Works) -->
+    <div class="pillars-band">
+      <div class="pillars-label">
+        <span class="pillars-kicker">WHY THIS MODEL WORKS</span>
+        <span class="pillars-note">Designed around how technical buyers actually make infrastructure decisions.</span>
+      </div>
+
+      <div class="pillars-grid">
+        {pillars.map(p => (
+          <div class="pillar-item">
+            <h4 class="pillar-name">{p.name}</h4>
+            <p class="pillar-lead">{p.lead}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Action Link -->
+    <div class="delivery-footer">
+      <a href="/how-we-work" class="delivery-link">
+        <span>Read full details on our commercial transparency and referral disclosures</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-delivery {
+    position: relative;
+    background-color: #080d1a;
+    color: #ffffff;
+    padding: 96px 0;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .delivery-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .delivery-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .delivery-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  /* Header */
+  .delivery-header {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .delivery-mono-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    color: var(--accent-teal);
+    font-weight: 700;
+  }
+  .delivery-title {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+  }
+  .delivery-subhead {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+
+  /* 4-Step Lifecycle Timeline */
+  .lifecycle-timeline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 640px) {
+    .lifecycle-timeline {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .lifecycle-timeline {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+  }
+
+  .timeline-step {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .step-top-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .step-number {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #60a5fa;
+  }
+
+  .step-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .step-detail {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.55;
+  }
+
+  /* Pillars Band */
+  .pillars-band {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+  @media (min-width: 1024px) {
+    .pillars-band {
+      grid-template-columns: 260px 1fr;
+      align-items: center;
+      gap: 48px;
+    }
+  }
+
+  .pillars-label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 20px;
+  }
+  @media (min-width: 1024px) {
+    .pillars-label {
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0;
+      padding-right: 24px;
+    }
+  }
+
+  .pillars-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-teal);
+    letter-spacing: 0.1em;
+  }
+  .pillars-note {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.45;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 640px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1200px) {
+    .pillars-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .pillar-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .pillar-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    letter-spacing: -0.01em;
+  }
+  .pillar-lead {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.45;
+  }
+
+  /* Footer */
+  .delivery-footer {
+    padding-top: 12px;
+  }
+  .delivery-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #93c5fd;
+    font-weight: 500;
+    transition: color 0.15s ease;
+  }
+  .delivery-link:hover {
+    color: #ffffff;
+  }
+</style>

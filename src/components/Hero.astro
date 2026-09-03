@@ -2,131 +2,83 @@
 // src/components/Hero.astro
 ---
 
-<section class="section section-hero network-overlay">
+<section class="hero-section" id="hero">
+  <div class="hero-backdrop" aria-hidden="true">
+    <img 
+      src="/images/hero-datacenter.jpg" 
+      alt="" 
+      class="hero-bg-img"
+      loading="eager"
+      fetchpriority="high"
+      width="1920"
+      height="1080"
+    />
+    <div class="hero-scrim"></div>
+    <div class="hero-grid-lines"></div>
+  </div>
+
   <div class="container hero-container">
     <div class="hero-content">
-      <div class="hero-badge-wrap">
-        <span class="pill-badge badge-blue">
-          <span class="pulse-dot"></span>
-          Infrastructure Sourcing & Advisory
-        </span>
+      <div class="hero-meta-label">
+        <span class="meta-tag">INFRASTRUCTURE SOURCING & ADVISORY</span>
+        <span class="meta-sep">//</span>
+        <span class="meta-status">INDEPENDENT ECOSYSTEM</span>
       </div>
 
       <h1 class="hero-title">
         The right infrastructure.<br />
-        <span class="gradient-text">The right partner.</span>
+        <span class="hero-title-accent">The right partner.</span>
       </h1>
 
-      <p class="hero-subhead">
-        InfraHub helps businesses navigate infrastructure, cloud, connectivity, security, and managed operations by evaluating suitable technologies and connecting you with specialist providers.
+      <p class="hero-description">
+        InfraHub helps businesses evaluate infrastructure requirements and connect with specialist providers across networking, cloud, security, hardware and managed operations.
       </p>
 
       <div class="hero-actions">
-        <a href="#solutions-section" class="btn btn-primary btn-lg">
+        <a href="#solutions-ecosystem" class="btn btn-accent btn-lg">
           <span>Explore Solutions</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="6 9 12 15 18 9"></polyline>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
           </svg>
         </a>
-        <a href="/lets-talk" class="btn btn-secondary btn-lg">
+        <a href="/lets-talk" class="btn btn-outline-light btn-lg">
           <span>Let's Talk</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
       </div>
-
-      <div class="hero-highlights">
-        <div class="highlight-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>Unbiased Provider Selection</span>
-        </div>
-        <div class="highlight-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>Direct Contracting with Specialists</span>
-        </div>
-        <div class="highlight-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>Zero Markups on Advisory</span>
-        </div>
-      </div>
     </div>
 
-    <!-- Visual Infrastructure Card -->
-    <div class="hero-visual" aria-hidden="true">
-      <div class="visual-card">
-        <!-- SVG Technical Topology Canvas -->
-        <svg class="topology-svg" viewBox="0 0 540 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Background Grid & Glow -->
-          <rect width="540" height="380" rx="14" fill="#0B1120" />
-          <circle cx="270" cy="190" r="140" fill="url(#core-glow)" opacity="0.25" />
-          
-          <!-- Route lines -->
-          <path d="M70 190 H470" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 4" />
-          <path d="M270 50 V330" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" stroke-dasharray="4 4" />
-          
-          <path d="M120 290 Q 200 130 270 190 T 420 100" stroke="#2563EB" stroke-width="2.5" fill="none" />
-          <path d="M100 120 Q 240 260 370 200 T 450 280" stroke="#0D9488" stroke-width="2" stroke-dasharray="6 6" fill="none" />
-
-          <!-- Network Core Nodes -->
-          <g transform="translate(270, 190)">
-            <circle r="36" fill="#0F172A" stroke="#2563EB" stroke-width="2" />
-            <circle r="18" fill="rgba(37, 99, 235, 0.2)" />
-            <circle r="6" fill="#2563EB" />
-            <text y="50" text-anchor="middle" fill="#94A3B8" font-family="Outfit" font-size="11" font-weight="600">INFRAHUB ADVISORY</text>
-          </g>
-
-          <!-- Node 1: Transit -->
-          <g transform="translate(120, 120)">
-            <circle r="22" fill="#0F172A" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
-            <circle r="4" fill="#0D9488" />
-            <text y="34" text-anchor="middle" fill="#E2E8F0" font-family="Outfit" font-size="10" font-weight="500">Tier-1 Transit</text>
-          </g>
-
-          <!-- Node 2: Bare Metal -->
-          <g transform="translate(420, 100)">
-            <circle r="22" fill="#0F172A" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
-            <circle r="4" fill="#2563EB" />
-            <text y="34" text-anchor="middle" fill="#E2E8F0" font-family="Outfit" font-size="10" font-weight="500">Bare Metal & AI</text>
-          </g>
-
-          <!-- Node 3: DDoS & Sec -->
-          <g transform="translate(120, 290)">
-            <circle r="22" fill="#0F172A" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
-            <circle r="4" fill="#0D9488" />
-            <text y="34" text-anchor="middle" fill="#E2E8F0" font-family="Outfit" font-size="10" font-weight="500">DDoS Detection</text>
-          </g>
-
-          <!-- Node 4: 24/7 NOC -->
-          <g transform="translate(420, 280)">
-            <circle r="22" fill="#0F172A" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
-            <circle r="4" fill="#2563EB" />
-            <text y="34" text-anchor="middle" fill="#E2E8F0" font-family="Outfit" font-size="10" font-weight="500">24/7 NOC</text>
-          </g>
-
-          <defs>
-            <radialGradient id="core-glow" cx="0.5" cy="0.5" r="0.5">
-              <stop offset="0%" stop-color="#2563EB" />
-              <stop offset="100%" stop-color="#0B1120" stop-opacity="0" />
-            </radialGradient>
-          </defs>
-        </svg>
-
-        <!-- Floating Metric Badges -->
-        <div class="floating-badge badge-top">
-          <span class="badge-dot"></span>
-          <span>Ecosystem: 15+ Specialized Partners</span>
+    <!-- Technical Editorial Telemetry Rail -->
+    <div class="hero-telemetry" aria-hidden="true">
+      <div class="telemetry-box">
+        <div class="telemetry-header">
+          <span class="telemetry-dot"></span>
+          <span class="telemetry-title">SOURCING MATRIX</span>
         </div>
-        <div class="floating-badge badge-bottom">
-          <span class="badge-icon">⚡</span>
-          <span>Transparent Commercial Model</span>
+        <div class="telemetry-rows">
+          <div class="telemetry-row">
+            <span class="t-key">MODEL</span>
+            <span class="t-val">Direct & Partner Delivered</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="t-key">CONNECTIVITY</span>
+            <span class="t-val">10G – 400G Lit Optical / IP Transit</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="t-key">COMPUTE</span>
+            <span class="t-val">Bare Metal / Private Cloud / AI</span>
+          </div>
+          <div class="telemetry-row">
+            <span class="t-key">SECURITY</span>
+            <span class="t-val">BGP FlowSpec / Scrubbing Centers</span>
+          </div>
+        </div>
+        <div class="telemetry-footer">
+          <span>CARRIER-NEUTRAL // INDEPENDENT EVALUATION</span>
         </div>
       </div>
     </div>
@@ -134,7 +86,51 @@
 </section>
 
 <style>
+  .hero-section {
+    position: relative;
+    min-height: 86vh;
+    display: flex;
+    align-items: center;
+    background-color: #070b14;
+    color: #ffffff;
+    overflow: hidden;
+    padding: 100px 0 80px;
+  }
+
+  /* Large Authentic Photography Backdrop */
+  .hero-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: brightness(0.65) contrast(1.1);
+    transform: scale(1.02);
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 40%, rgba(7, 11, 20, 0.4) 0%, rgba(7, 11, 20, 0.92) 80%),
+                linear-gradient(180deg, rgba(7, 11, 20, 0.6) 0%, rgba(7, 11, 20, 0.95) 100%);
+  }
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(circle at 35% 50%, black 20%, transparent 75%);
+  }
+
   .hero-container {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1fr;
     gap: 48px;
@@ -142,116 +138,153 @@
   }
   @media (min-width: 1024px) {
     .hero-container {
-      grid-template-columns: 1.15fr 1fr;
+      grid-template-columns: 1.25fr 0.75fr;
       gap: 64px;
     }
   }
 
-  .hero-badge-wrap {
-    margin-bottom: 20px;
+  .hero-content {
+    max-width: 720px;
   }
-  .pulse-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--accent-blue);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent-blue);
+
+  .hero-meta-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--accent-teal);
+    margin-bottom: 24px;
+    background: rgba(13, 148, 136, 0.1);
+    border: 1px solid rgba(13, 148, 136, 0.3);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+  }
+  .meta-sep {
+    color: rgba(255, 255, 255, 0.3);
+  }
+  .meta-status {
+    color: rgba(255, 255, 255, 0.7);
   }
 
   .hero-title {
-    font-size: clamp(2.4rem, 4.2vw, 3.75rem);
+    font-size: clamp(2.5rem, 5.2vw, 4.4rem);
     font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 20px;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    color: #ffffff;
+    margin-bottom: 24px;
   }
-  .gradient-text {
-    background: linear-gradient(135deg, var(--accent-blue) 0%, #1e40af 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .hero-title-accent {
+    color: #93c5fd;
+    display: inline-block;
   }
 
-  .hero-subhead {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-    margin-bottom: 36px;
-    max-width: 580px;
+  .hero-description {
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin-bottom: 40px;
+    max-width: 600px;
+    font-weight: 400;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    margin-bottom: 36px;
-  }
-  .btn-lg {
-    padding: 14px 28px;
-    font-size: 1rem;
-  }
-
-  .hero-highlights {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border-color);
-  }
-  .highlight-item {
-    display: flex;
+    gap: 16px;
     align-items: center;
-    gap: 8px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-secondary);
   }
 
-  /* Visual */
-  .hero-visual {
-    position: relative;
-  }
-  .visual-card {
-    position: relative;
-    border-radius: var(--radius-xl);
-    overflow: visible;
-    box-shadow: var(--shadow-xl);
-    border: 1px solid var(--border-color);
-  }
-  .topology-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: var(--radius-xl);
-  }
-
-  .floating-badge {
-    position: absolute;
+  .btn-outline-light {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 14px;
-    background-color: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-heading);
-    font-size: 0.8rem;
+    padding: 13px 26px;
+    border-radius: var(--radius-md);
     font-weight: 600;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
   }
-  .badge-top {
-    top: 16px;
-    left: 16px;
+  .btn-outline-light:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #ffffff;
+    color: #ffffff;
   }
-  .badge-bottom {
-    bottom: 16px;
-    right: 16px;
+
+  /* Telemetry Box */
+  .hero-telemetry {
+    display: none;
   }
-  .badge-dot {
-    width: 8px;
-    height: 8px;
+  @media (min-width: 1024px) {
+    .hero-telemetry {
+      display: block;
+    }
+  }
+
+  .telemetry-box {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .telemetry-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 16px;
+  }
+  .telemetry-dot {
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background-color: var(--accent-teal);
+    box-shadow: 0 0 8px var(--accent-teal);
+  }
+
+  .telemetry-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .telemetry-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .t-key {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: #64748b;
+    letter-spacing: 0.08em;
+  }
+  .t-val {
+    font-size: 0.88rem;
+    color: #f1f5f9;
+    font-weight: 500;
+  }
+
+  .telemetry-footer {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #64748b;
+    letter-spacing: 0.05em;
   }
 </style>
