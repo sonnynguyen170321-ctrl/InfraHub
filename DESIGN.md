@@ -24,13 +24,13 @@ The typographical identity pairs editorial warmth with technical precision:
 | Role | Typeface | Weights | Purpose & Characteristics |
 |:---|:---|:---|:---|
 | **Headings & Display** | `Outfit` | 700, 800 | Geometric neo-grotesque with clean apertures; authoritative, structured, and confident across major display bands (`h1`–`h3`). |
-| **Editorial & Body** | `Instrument Sans` | 400, 500, 600 | Contemporary humanist grotesque designed for editorial depth, warm cadence, and sustained technical legibility without generic template fingerprints. |
+| **Editorial & Body** | `IBM Plex Sans` | 400, 500, 600 | Engineered technical grotesque designed for clarity, authentic computing character, and sustained editorial legibility without AI-cliché or generic template fingerprints. |
 | **Technical Parameters** | `JetBrains Mono` | 500, 600, 700 | Monospaced figures for autonomous system numbers (ASNs), committed data rates (CDRs), BGP communities, and port interfaces. |
 
 ### Typographic Measures & Pacing
-- **Primary Body Reading Measure:** Max 68 characters (`max-width: 68ch`) to preserve optimal ocular tracking.
-- **Editorial Leads & Subheads:** Max 58 characters (`max-width: 58ch`).
-- **Heading Line Heights:** Relaxed leading on multi-line titles (`line-height: 1.25` to `1.42`) to prevent cramped card titles.
+- **Primary Body Reading Measure:** Max 52 characters (`max-width: 52ch`) to ensure optimal ocular tracking and prevent line fatigue.
+- **Editorial Leads & Subheads:** Max 48 characters (`max-width: 48ch`).
+- **Heading Line Heights:** Relaxed leading on multi-line titles (`line-height: 1.25` to `1.45`) to prevent cramped card titles.
 
 ---
 

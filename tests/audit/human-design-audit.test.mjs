@@ -52,10 +52,10 @@ if (fs.existsSync(globalCssFile)) {
   }
 
   // Check for overused AI fonts
-  if (css.includes("'Inter'") || css.includes("'Plus Jakarta Sans'")) {
-    errors.push(`Found overused AI template font in ${globalCssFile}. Use bespoke engineering typeface (e.g. Instrument Sans).`);
+  if (css.includes("'Inter'") || css.includes("'Plus Jakarta Sans'") || css.includes("'Instrument Sans'")) {
+    errors.push(`Found overused font in ${globalCssFile}. Use authentic engineering typography (IBM Plex Sans).`);
   } else {
-    console.log('✓ Verified bespoke non-overused typography family (Instrument Sans)');
+    console.log('✓ Verified authentic engineering typography family (IBM Plex Sans)');
   }
 
   // Check that headings have relaxed line-height (no tight line height on cards)
