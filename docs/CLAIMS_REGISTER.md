@@ -73,6 +73,29 @@ The risk here is implying InfraHub owns infrastructure it introduces (directive 
 | C-32 | "3.2 Tbps NVLink interconnect", "80GB HBM3" | `pages/gpu-ai-infrastructure.astro` | VERIFY | Vendor hardware specification. Checkable against NVIDIA documentation. |
 | C-33 | "our network of verified carriers, colocation operators, and bare-metal providers" | `pages/how-we-work.astro` | VERIFY | "Network of" reads as ecosystem, which is correct. The load-bearing word is **verified** — verified by whom, against what? |
 
+## 4b. Promises InfraHub makes about itself
+
+Surfaced by the refined `retired-claim` rule in `tests/audit/content-truth-audit.mjs`, which
+now matches on the *subject* of a claim rather than its vocabulary.
+
+| ID | Claim | Location | State | Note |
+|---|---|---|---|---|
+| C-40 | "Zero Fee Guarantee: InfraHub is compensated by our participating partners. Sourcing through InfraHub ne..." | `pages/lets-talk.astro` | **OWNER INPUT** | A named commercial guarantee on the primary conversion page. Consistent with the partner-compensated model in directive §3B, but it is a promise about fees and needs the owner to confirm it holds in every case. |
+| C-41 | "Guaranteed European legal jurisdiction under GDPR and NIS2 with zero extraterritorial US CLOUD Act exposure." | `pages/private-cloud.astro` | **OWNER INPUT** | A legal guarantee about a partner-delivered service. "Zero exposure" to the CLOUD Act is a strong assertion that depends on the provider, the entity structure and the data path — not something InfraHub can guarantee on a partner's behalf without confirmation. |
+
+### Ruled out as false positives
+
+Checked and deliberately NOT flagged, recorded so a future reader does not re-raise them:
+
+- `cybersecurity.astro` — "Gap assessments for ISO 27001, SOC 2 Type II, and European NIS2
+  readiness" offers assessment work toward those standards. It does not claim InfraHub holds
+  them.
+- `ip-transit.astro` — "You require guaranteed upstream path diversity" describes a customer's
+  requirement, not an InfraHub promise.
+- `wavelengths.astro` — "Beyond Billing Guarantees" is the subject of a heading.
+- `ddos-protection.astro`, `enterprise-hardware.astro`, `industries/enterprise.astro` —
+  descriptive uses referring to partner SLAs and hardware condition.
+
 ## 5. Claims explicitly checked and NOT found
 
 Recorded because the collaboration directive §8 lists them as known problems in the legacy

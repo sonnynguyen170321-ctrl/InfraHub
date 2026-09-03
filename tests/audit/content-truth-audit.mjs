@@ -219,11 +219,39 @@ for (const file of publishable) {
 // The legacy site carried unsupported statistics. Agent 1 dropped them rather than migrating
 // them; this keeps them from coming back in a later content pass.
 
+// These patterns aim at the SUBJECT of the claim, not the vocabulary.
+//
+// The first version flagged any occurrence of "guarantee" or "ISO 27001" and produced mostly
+// noise: "you require guaranteed upstream path diversity" is a description of a customer's
+// requirement, "Beyond Billing Guarantees" is the topic of a heading, and "gap assessments for
+// ISO 27001" offers readiness work rather than claiming certification. None of those is a
+// claim InfraHub is making about itself.
+//
+// An audit that cries wolf on six lines to catch two gets ignored, and then it catches
+// nothing. So these match only where InfraHub is the one promising.
 const RETIRED_CLAIMS = [
-  { pattern: /\b\d{3,}\+\s*(customers|clients|projects|deployments)\b/i, why: 'unsupported customer count' },
-  { pattern: /\b99\.9{2,}\s*%/, why: 'uptime/SLA claim' },
-  { pattern: /\bISO\s?27001\b|\bSOC\s?2\b|\bPCI[- ]DSS\b/i, why: 'compliance certification claim' },
-  { pattern: /\bguarantee[sd]?\b/i, why: 'guarantee language' }
+  {
+    pattern: /\b\d{3,}\+\s*(customers|clients|projects|deployments)\b/i,
+    why: 'unsupported customer count'
+  },
+  {
+    pattern: /\b99\.9{2,}\s*%/,
+    why: 'uptime/SLA claim'
+  },
+  {
+    // Possession, not subject matter: "we are ISO 27001 certified" rather than
+    // "gap assessments for ISO 27001".
+    pattern:
+      /\b(?:ISO\s?27001|SOC\s?2(?:\s?Type\s?I{1,2})?|PCI[- ]DSS)[- ]?certified\b|\b(?:we|InfraHub|our)\b[^.<]{0,50}\b(?:are|is|hold|holds|maintain|maintains)\b[^.<]{0,30}\b(?:ISO\s?27001|SOC\s?2|PCI[- ]DSS)\b/i,
+    why: 'compliance certification claim about InfraHub'
+  },
+  {
+    // A promise InfraHub makes: a named guarantee ("Zero Fee Guarantee"), a first-person
+    // guarantee, or a sentence opening with "Guaranteed X".
+    pattern:
+      /\b(?:[A-Z][\w-]+\s+){1,3}Guarantee\b|\b(?:we|InfraHub)\b[^.<]{0,60}\bguarantees?\b|(?:^|[>.]\s*)Guaranteed\s+[A-Za-z]/,
+    why: 'guarantee promised by InfraHub'
+  }
 ];
 
 for (const file of publishable) {
