@@ -14,6 +14,7 @@ specifications:
 status: "active"
 featured: true
 publishedDate: 2026-07-10
+expiryDate: 2026-12-31
 campaignTag: "r650-hardware"
 ---
 

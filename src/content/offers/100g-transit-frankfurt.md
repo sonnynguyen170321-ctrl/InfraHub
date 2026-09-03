@@ -13,6 +13,7 @@ specifications:
 status: "active"
 featured: true
 publishedDate: 2026-07-01
+expiryDate: 2026-12-31
 campaignTag: "frankfurt-100g"
 ---
 

@@ -5,6 +5,7 @@ location: "Equinix AM3 to Interxion AMS1 (Amsterdam)"
 status: "active"
 verifiedPrice: "€950 / mo"
 publishedDate: 2026-08-20
+expiryDate: 2026-12-31
 specifications:
   - "100 Gbps dedicated lit optical wavelength"
   - "Sub-0.4ms round-trip latency"

@@ -5,6 +5,7 @@ location: "EU Warehouse (Immediate Dispatch)"
 status: "active"
 verifiedPrice: "€4,250 / unit"
 publishedDate: 2026-08-20
+expiryDate: 2026-12-31
 specifications:
   - "2x Intel Xeon Gold 6330 (56 Cores / 112 Threads)"
   - "256GB DDR4 ECC Registered RAM"

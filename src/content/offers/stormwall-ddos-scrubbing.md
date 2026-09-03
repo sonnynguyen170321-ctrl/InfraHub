@@ -6,6 +6,7 @@ partner: "StormWall"
 status: "active"
 verifiedPrice: "From €650/mo"
 publishedDate: 2026-08-20
+expiryDate: 2026-12-31
 specifications:
   - "Always-on or On-demand BGP diversion"
   - "Multi-Tbps global scrubbing capacity"

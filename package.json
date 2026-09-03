@@ -9,7 +9,7 @@
     "preview": "node node_modules/astro/astro.js preview",
     "astro": "node node_modules/astro/astro.js",
     "check": "node node_modules/@astrojs/check/dist/cli.js",
-    "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs",
+    "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs",
     "test:a11y": "node tests/audit/accessibility-audit.mjs",
     "test:content": "node tests/audit/content-truth-audit.mjs",
     "test:audit": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs"

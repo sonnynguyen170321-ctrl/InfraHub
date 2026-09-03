@@ -6,6 +6,7 @@ partner: "IPXO"
 status: "active"
 verifiedPrice: "$280 / mo"
 publishedDate: 2026-08-20
+expiryDate: 2026-12-31
 specifications:
   - "256 Clean Public IPv4 Addresses"
   - "Instant Letter of Authorization (LOA) generation"
