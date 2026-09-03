@@ -1,37 +1,39 @@
 ---
 name: "StormWall"
-logo: "/images/partners/stormwall.svg"
+officialWebsite: "https://stormwall.network/"
+sourceUrls:
+  - "https://stormwall.network/"
 category: "Security"
-tagline: "Global DDoS Mitigation, Cloud Scrubbing & Edge Protection"
+tagline: "Cloud DDoS Protection, WAF & Bot Mitigation"
 capabilities:
-  - "Always-on and on-demand BGP diversion"
-  - "Multi-terabit global scrubbing network across EU and US"
-  - "Layer 3/4 network and Layer 7 HTTPS flood defense"
-  - "SLA-backed sub-3-second time to mitigate"
+  - "DDoS protection for web applications"
+  - "Network DDoS protection using BGP-based traffic diversion"
+  - "DDoS protection for TCP and UDP services"
+  - "Cloud-based WAF and antibot protection for web applications"
 strategic: false
-verified: true
-shortRole: "Multi-Tbps DDoS Scrubbing & Mitigation"
+verified: false
+shortRole: "DDoS, WAF & Application Protection"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "sourced"
+logoStatus: "missing"
 logoApproved: false
-capabilityClaimsStatus: "approved"
+capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
 relationshipConfirmed: true
 publicNameApproved: true
 homepageMarqueeEnabled: true
-homepagePriority: 4
+homepagePriority: 3
 partnerPageEnabled: true
 logoScale: 1
 ---
 
 ## StormWall + InfraHub
 
-StormWall provides specialized cloud-based DDoS scrubbing networks engineered to absorb the world's largest volumetric reflection floods and complex Layer 7 application attacks.
+StormWall provides cloud-based protection against DDoS attacks and web-layer threats. Its portfolio includes protection for networks, servers, and web applications, together with WAF and antibot services.
 
-### Who is it for?
-Financial institutions, large e-commerce platforms, SaaS infrastructure providers, and telecom carriers who cannot tolerate downtime from volumetric or state-exhaustion DDoS attacks.
+### Where it can fit
+StormWall can be relevant to network operators, hosting and cloud providers, SaaS platforms, ecommerce businesses, and other organizations that need external DDoS mitigation or web-application protection.
 
-### Why InfraHub works with StormWall
-We work with StormWall to deliver tailored mitigation packages with burst protection and transparent carrier routing, avoiding the inflated per-gigabyte inspection fees of legacy providers.
+### How InfraHub can help
+InfraHub can help buyers assess the protection model, routing method, application requirements, traffic profile, geography, and handoff options before introducing an appropriate security provider.
