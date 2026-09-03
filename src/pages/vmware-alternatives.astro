@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout 
   title="VMware Alternatives & Hypervisor Migration | InfraHub"
-  description="Evaluate enterprise VMware alternatives including Vates (XCP-ng / Xen Orchestra) and Proxmox. Escape Broadcom per-core licensing with proven warm migration tooling."
+  description="Evaluate enterprise VMware alternatives including Vates XCP-ng and Xen Orchestra, Proxmox VE, and other KVM or Xen-based approaches."
   canonicalPath="/vmware-alternatives"
 >
   <div class="section section-hero network-overlay">
@@ -17,36 +17,46 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h1 class="service-title">Enterprise VMware Alternatives</h1>
         <p class="service-lead">
-          Escape punitive Broadcom per-core subscription hikes. We help enterprise IT leaders evaluate, architect, and migrate production virtual machines to proven open-source platforms like Vates XCP-ng and Proxmox VE.
+          VMware licensing, platform strategy, and operating-model changes have led many infrastructure teams to reassess their virtualization stack. InfraHub helps compare migration paths, operational trade-offs, support models, storage design, backup, and hardware requirements before selecting an alternative.
         </p>
         <div class="service-hero-actions">
-          <a href="/partners/vates" class="btn btn-accent btn-lg">Explore Vates Partnership</a>
+          <a href="/partners/vates" class="btn btn-accent btn-lg">Explore Vates</a>
           <a href="/lets-talk?service=vmware-alternatives" class="btn btn-secondary btn-lg">Request Migration Assessment</a>
         </div>
       </div>
 
       <div class="content-section">
         <span class="section-sub-tag">Hypervisor Comparison</span>
-        <h2>Top Production VMware Alternatives</h2>
+        <h2>Virtualization Approaches to Evaluate</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h3>Vates (XCP-ng & Xen Orchestra)</h3>
-            <p>Direct drop-in replacement for ESXi/vCenter with native warm migration from VMware, delta backup, high availability, and 24/7 enterprise SLAs.</p>
+            <h3>Vates VMS</h3>
+            <p>Vates combines the open-source XCP-ng virtualization platform with Xen Orchestra for browser-based administration, VM-level backup, replication, metrics, and automation, backed by commercial Vates support and migration services.</p>
           </div>
           <div class="problem-card">
-            <h3>Proxmox VE (KVM + Ceph)</h3>
-            <p>Popular Debian-based virtualization environment with built-in backup server integration and high-performance Ceph storage clustering.</p>
+            <h3>Proxmox VE</h3>
+            <p>A Debian-based virtualization environment built around KVM and containers, commonly evaluated for integrated clustering, storage, backup, and virtualization management.</p>
           </div>
           <div class="problem-card">
             <h3>Enterprise Linux KVM</h3>
-            <p>Kernel-level hypervisor architecture ideal for container orchestration, OpenStack clouds, and hyperscale environments.</p>
+            <p>A KVM-based approach can fit teams that prefer Linux-native virtualization building blocks and are prepared to assemble management, storage, backup, and automation around their operating model.</p>
           </div>
         </div>
       </div>
 
+      <div class="content-section partner-context-section">
+        <span class="section-sub-tag">Partner Context</span>
+        <h2>Vates: XCP-ng & Xen Orchestra</h2>
+        <p>
+          Vates describes XCP-ng as its Xen-based open-source virtualization platform and Xen Orchestra as the web-based management, administration, and native VM-backup layer for XCP-ng. Vates also offers commercial support, consulting, and migration services around the stack.
+        </p>
+        <a href="/partners/vates" class="partner-context-link">View Vates partner profile →</a>
+      </div>
+
       <div class="service-footer-cta">
-        <h2>Plan Your VMware Exit Strategy</h2>
-        <a href="/lets-talk?service=vmware-alternatives" class="btn btn-accent btn-lg">Schedule a Migration Consultation</a>
+        <h2>Plan the Migration Around the Workload</h2>
+        <p>Start with cluster scale, storage, networking, backup, HA/DR, support expectations, and the downtime or migration constraints that matter to your applications.</p>
+        <a href="/lets-talk?service=vmware-alternatives" class="btn btn-accent btn-lg">Discuss Your Virtualization Strategy</a>
       </div>
     </div>
   </div>
@@ -58,14 +68,19 @@ import Layout from '../layouts/Layout.astro';
   .header-badge-row { display: flex; justify-content: flex-start; gap: 8px; margin-bottom: 16px; }
   .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
   .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
-  .service-hero-actions { display: flex; justify-content: center; gap: 14px; }
+  .service-hero-actions { display: flex; justify-content: flex-start; gap: 14px; flex-wrap: wrap; }
   .content-section { margin-bottom: 72px; }
   .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
   .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
+  .content-section > p { font-size: 1rem; color: var(--text-secondary); line-height: 1.65; max-width: 780px; }
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
   .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+  .partner-context-section { border-top: 1px solid var(--border-color); padding-top: 40px; }
+  .partner-context-link { display: inline-flex; margin-top: 18px; font-size: 0.92rem; font-weight: 700; color: var(--accent-blue); }
+  .partner-context-link:hover { text-decoration: underline; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; border-top: 1px solid var(--border-color); }
+  .service-footer-cta p { color: var(--text-secondary); }
 </style>
