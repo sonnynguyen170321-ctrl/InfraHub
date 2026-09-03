@@ -22,7 +22,10 @@
 | C-02 | Supplier is a "Tier-1 Carrier Network" | same | **OWNER INPUT** | A category, not a named provider. If the carrier cannot be named publicly, that is itself a publishing decision. |
 | C-03 | "Sub-1ms Cross-Connect into Frankfurt MMRs" | same | VERIFY | Latency claim tied to specific facilities. |
 | C-04 | "100 Gbps Port with 20G Committed Data Rate" | same | VERIFY | Commercial term; confirm it matches a real available product. |
+| C-05 | FastNetMon offer pricing (`From $350/mo`) and allocation status | `content/offers/fastnetmon-ddos-detection-100g.md` | **OWNER INPUT** | Not a claim sourced from FastNetMon's public site. Keep capability wording separate from InfraHub commercial terms. |
 | C-06 | Other active offers | `content/offers/` | VERIFY | Price, stock/allocation, provider attribution, and validity must remain current. |
+| C-07 | StormWall offer pricing (`From €650/mo`) and specific commercial package terms | `content/offers/stormwall-ddos-scrubbing.md` | **OWNER INPUT** | StormWall publishes public service details, but this exact InfraHub package/pricing requires internal commercial confirmation. |
+| C-08 | IPXO offer pricing (`$280/mo` for /24) | `content/offers/ipv4-24-subnet-lease.md` | **OWNER INPUT** | IPXO's public pricing is dynamic and currently differs from this figure; treat this as an InfraHub-specific offer only if owner-confirmed. |
 
 ---
 
@@ -60,9 +63,20 @@ The current partner profiles intentionally use non-volatile product descriptions
 | C-24 | IPXO | IPv4 leasing; monetization; IP management/governance; KYC/RPKI/abuse/LIR-related services | `https://www.ipxo.com/` | **SOURCED** |
 | C-25 | Vates | XCP-ng; Xen Orchestra; VM management/backup/replication/automation; commercial Vates VMS support | `https://vates.tech/` | **SOURCED** |
 | C-26 | ITcare | Network architecture/engineering; 24/7 NOC; DevOps/network automation; HORA AI-assisted NetOps | `https://itcare.net/` | **SOURCED** |
-| C-27 | Airframe | AI/software deployment mapping; spend and renewal visibility; build-vs-buy/workflow guidance; transition planning and sourced research | `https://www.airframe.ai/` | **SOURCED** |
+| C-27 | Airframe | technology market intelligence; vendor diligence; build-vs-buy assessment; pricing/implementation evidence and decision support | `https://www.airframe.ai/` | **SOURCED** |
 
 Claims deliberately removed from partner profiles because they were stale, unsupported, overly specific, or unnecessary include examples such as "sub-2-second" FastNetMon detection, Gcore's old `160+` footprint wording, Zenlayer's old `110+ PoP` and latency statements, StormWall multi-terabit/sub-3-second claims, ITcare sub-five-minute response language, and broad "leading"/"world's largest" positioning.
+
+### Partner-linked service pages reconciled
+
+The partner source-of-truth sweep also covers service pages that mention these brands, not just `/partners/*`:
+
+- `ddos-detection-automation.astro`: removed the universal FastNetMon "sub-2-second" reaction claim and aligned the page to near-real-time telemetry analysis, FlowSpec, RTBH, and external scrubbing diversion.
+- `ddos-protection.astro`: removed fabricated/overprecise reaction-time and latency ranges; FastNetMon and StormWall are now described according to their distinct published roles.
+- `managed-noc.astro`: removed stale Supertrace/vExpertAI references, invented staffing economics, unsupported response SLAs, and the `90%+` alert-noise claim. ITcare is now the named managed-operations partner, aligned to its public network engineering, 24/7 NOC, automation, and HORA scope.
+- `ai-network-operations.astro`: reframed from autonomous-operation promises to AI-assisted workflows and ITcare HORA context.
+- `vmware-alternatives.astro`: removed "drop-in replacement" and blanket warm-migration/SLA claims; Vates is described around XCP-ng, Xen Orchestra, backup/replication, support, and migration services.
+- `fastnetmon-ddos-detection-100g.md`: removed the unsupported "Sub-2-Second Detection and Mitigation Reaction Time" specification. Commercial price remains an InfraHub/owner verification item (C-05), separate from FastNetMon's public capability claims.
 
 ---
 
@@ -73,7 +87,6 @@ The risk here is implying InfraHub owns infrastructure it introduces.
 | ID | Claim | Location | State | Note |
 |---|---|---|---|---|
 | C-30 | "global multi-Tbps scrubbing centers" | `pages/solutions/security.astro` | VERIFY | No provider named; can read as InfraHub's own capacity. |
-| C-31 | "Volumetric reflection attacks routinely top 1.5 Tbps" | `pages/ddos-protection.astro` | VERIFY | Industry statement about the threat landscape; needs a citable source. |
 | C-32 | "3.2 Tbps NVLink interconnect", "80GB HBM3" | `pages/gpu-ai-infrastructure.astro` | VERIFY | Vendor hardware specification; should be tied to an exact GPU generation/source. |
 | C-33 | "our network of verified carriers, colocation operators, and bare-metal providers" | `pages/how-we-work.astro` | VERIFY | "Network of" is fine; "verified" needs an operational definition. |
 
@@ -100,7 +113,7 @@ The risk here is implying InfraHub owns infrastructure it introduces.
 
 ## Open owner questions, consolidated
 
-1. **Offer truth:** confirm pricing, supplier attribution, validity, stock/allocation, and commercial terms for active offers.
+1. **Offer truth:** confirm pricing, supplier attribution, validity, stock/allocation, and commercial terms for active offers, including the FastNetMon, StormWall, and IPXO branded offers above.
 2. **Partner logos:** provide or approve official logo assets for the eight canonical partners. FastNetMon and Gcore publish official brand/media kits; IPXO also publishes brand assets. Until imported and approved, the site intentionally uses text-only partner marks.
 3. **Strategic designations:** none of the eight partners is currently labeled strategic. Add such a designation only if the owner explicitly wants and can support it.
 4. **"Verified" terminology:** define what InfraHub verifies operationally before using the word as a broad trust claim.

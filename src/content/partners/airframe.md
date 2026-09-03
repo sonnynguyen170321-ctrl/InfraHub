@@ -3,16 +3,17 @@ name: "Airframe"
 officialWebsite: "https://www.airframe.ai/"
 sourceUrls:
   - "https://www.airframe.ai/"
+  - "https://www.airframe.ai/product"
 category: "AI & Transformation"
-tagline: "AI Transformation Workspace for Software, Spend & Workflow Decisions"
+tagline: "Technology Market Intelligence, Vendor Diligence & Build-vs-Buy Decisions"
 capabilities:
-  - "Mapping AI tools, software deployments, and organizational context in one workspace"
-  - "AI and software spend visibility, renewal exposure, and portfolio analysis"
-  - "Build-versus-buy and workflow recommendations informed by deployment patterns"
-  - "Transition planning, research, and sourced answers available through the Airframe workspace"
+  - "Market mapping, company research, shortlists, and capability comparison for technology decisions"
+  - "Vendor diligence against buyer requirements, implementation evidence, pricing intelligence, and practitioner feedback"
+  - "Build-versus-buy assessment for software and AI requirements"
+  - "Decision recommendations that distinguish available evidence, remaining uncertainty, and next steps"
 strategic: false
 verified: false
-shortRole: "AI Transformation & Software Portfolio Intelligence"
+shortRole: "Technology Decision Intelligence & Vendor Diligence"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
 logoStatus: "missing"
@@ -30,10 +31,10 @@ logoScale: 1
 
 ## Airframe + InfraHub
 
-Airframe is an AI-transformation workspace focused on understanding software and AI deployments, spend, organizational context, workflow decisions, and technology-transition planning.
+Airframe helps technology leaders make evidence-based decisions about what to buy, what to skip, and what to build. Its published workflow combines market intelligence, vendor diligence, requirements-based comparison, pricing and implementation research, and build-versus-buy assessment.
 
 ### Where it can fit
-Airframe can be relevant when an enterprise requirement extends beyond infrastructure into AI-tool adoption, software-portfolio rationalization, build-versus-buy decisions, or the operating model around an AI transformation.
+Airframe can be relevant when an enterprise requirement extends beyond infrastructure sourcing into software or AI vendor selection, market mapping, build-versus-buy analysis, or due diligence on a technology shortlist.
 
 ### How InfraHub can help
-InfraHub can help distinguish the infrastructure decision from the broader transformation decision. Where Airframe is relevant, InfraHub can coordinate an introduction while keeping infrastructure sourcing, platform selection, and partner-delivered services clearly separated.
+InfraHub can keep the infrastructure decision and the wider technology decision clearly separated. Where Airframe is relevant, InfraHub can coordinate an introduction while continuing to qualify the underlying infrastructure, cloud, connectivity, security, or managed-service requirement.

@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="AI Network Operations (AIOps) & Incident Automation | InfraHub"
-  description="Autonomous alert clustering, root-cause correlation across syslog events, and automated incident runbooks for complex telecom and enterprise networks."
+  title="AI-Assisted Network Operations & Automation | InfraHub"
+  description="Evaluate AI-assisted network operations, source-of-truth-driven automation, incident context, and operational workflows with specialist network partners."
   canonicalPath="/ai-network-operations"
 >
   <div class="section section-hero network-overlay">
@@ -15,37 +15,48 @@ import Layout from '../layouts/Layout.astro';
           <span class="pill-badge badge-blue">AIOps & Automation</span>
           <span class="pill-badge badge-teal">Partner Delivered</span>
         </div>
-        <h1 class="service-title">AI-Driven Network Operations</h1>
+        <h1 class="service-title">AI-Assisted Network Operations</h1>
         <p class="service-lead">
-          Transform raw network noise into actionable incident remediation. We help infrastructure operators deploy machine-learning models that cluster related alerts, identify underlying root causes, and execute autonomous runbooks.
+          Use network context, automation, and AI-assisted workflows to help engineers investigate incidents, reduce repetitive handling, and connect operational actions to a reliable source of truth. InfraHub helps define where this approach fits before introducing an appropriate specialist.
         </p>
         <div class="service-hero-actions">
           <a href="/lets-talk?service=ai-netops" class="btn btn-accent btn-lg">Request AIOps Evaluation</a>
+          <a href="/partners/itcare" class="btn btn-secondary btn-lg">Explore ITcare</a>
         </div>
       </div>
 
       <div class="content-section">
-        <span class="section-sub-tag">Operational Impact</span>
-        <h2>Key Benefits of AI Network Operations</h2>
+        <span class="section-sub-tag">Operational Workflows</span>
+        <h2>Where AI-Assisted Operations Can Fit</h2>
         <div class="problem-grid">
           <div class="problem-card">
-            <h3>90%+ Alert Noise Suppression</h3>
-            <p>Group cascading downstream alerts resulting from a single optical fiber cut or core switch power cycle into one correlated master incident.</p>
+            <h3>Incident Context</h3>
+            <p>Bring monitoring, topology, configuration, ticket, and source-of-truth information together so engineers spend less time reconstructing the state of the network during an incident.</p>
           </div>
           <div class="problem-card">
-            <h3>Autonomous Runbook Execution</h3>
-            <p>Execute pre-approved remediation workflows (restarting hung daemons, rerouting secondary BGP routes) within seconds of anomaly detection.</p>
+            <h3>Repeatable Automation</h3>
+            <p>Automate well-understood operational tasks through controlled workflows rather than treating every recurring check or change as a manual one-off.</p>
           </div>
           <div class="problem-card">
-            <h3>Predictive Degradation Alerts</h3>
-            <p>Identify subtle optical power drops (dBm loss) and CRC error rate increases before physical links drop customer packets.</p>
+            <h3>Investigation Support</h3>
+            <p>Use AI-assisted tooling to help summarize events, surface relevant operational context, and support engineer decision-making without pretending that every incident should be fully autonomous.</p>
           </div>
         </div>
       </div>
 
+      <div class="content-section partner-context-section">
+        <span class="section-sub-tag">Partner Context</span>
+        <h2>ITcare HORA</h2>
+        <p>
+          ITcare publishes AI NetOps through its HORA platform alongside network architecture, 24/7 NOC, DevOps, and automation services. That makes it relevant when AI-assisted operations need to sit inside a broader production-network operating model rather than as a standalone dashboard.
+        </p>
+        <a href="/partners/itcare" class="partner-context-link">View ITcare partner profile →</a>
+      </div>
+
       <div class="service-footer-cta">
-        <h2>Modernize Your Network Operations</h2>
-        <a href="/lets-talk?service=ai-netops" class="btn btn-accent btn-lg">Consult an AIOps Architect</a>
+        <h2>Define the Operational Problem First</h2>
+        <p>Start with your monitoring stack, incident workflow, source of truth, and the repetitive work you want to reduce.</p>
+        <a href="/lets-talk?service=ai-netops" class="btn btn-accent btn-lg">Discuss AI-Assisted Operations</a>
       </div>
     </div>
   </div>
@@ -57,14 +68,19 @@ import Layout from '../layouts/Layout.astro';
   .header-badge-row { display: flex; justify-content: flex-start; gap: 8px; margin-bottom: 16px; }
   .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
   .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
-  .service-hero-actions { display: flex; justify-content: center; gap: 14px; }
+  .service-hero-actions { display: flex; justify-content: flex-start; gap: 14px; flex-wrap: wrap; }
   .content-section { margin-bottom: 72px; }
   .section-sub-tag { display: block; font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent-blue); margin-bottom: 8px; }
   .content-section h2 { font-size: 1.85rem; font-weight: 700; margin-bottom: 18px; }
+  .content-section > p { font-size: 1rem; color: var(--text-secondary); line-height: 1.65; max-width: 780px; }
   .problem-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 768px) { .problem-grid { grid-template-columns: repeat(3, 1fr); } }
   .problem-card { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; }
   .problem-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-primary); }
   .problem-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+  .partner-context-section { border-top: 1px solid var(--border-color); padding-top: 40px; }
+  .partner-context-link { display: inline-flex; margin-top: 18px; font-size: 0.92rem; font-weight: 700; color: var(--accent-blue); }
+  .partner-context-link:hover { text-decoration: underline; }
   .service-footer-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; border-top: 1px solid var(--border-color); }
+  .service-footer-cta p { color: var(--text-secondary); }
 </style>
