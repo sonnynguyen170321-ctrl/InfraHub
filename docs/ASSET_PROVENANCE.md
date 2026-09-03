@@ -1,13 +1,13 @@
 # InfraHub Asset Provenance Register
 
-This document tracks the origin, legal classification, ownership status, and approval state of all graphic and photographic assets in the InfraHub repository.
+This document tracks the origin, legal classification, ownership status, and approval state of graphic and photographic assets in the InfraHub repository.
 
-**Classification Taxonomy:**
+**Classification taxonomy:**
 - `OFFICIAL_OWNER_SUPPLIED`: Provided directly by the InfraHub owner.
-- `OFFICIAL_PARTNER_BRAND_KIT`: Downloaded directly from the partner's public press/brand kit.
+- `OFFICIAL_PARTNER_BRAND_KIT`: Downloaded directly from a partner's public brand or media kit.
 - `OFFICIAL_PARTNER_WEBSITE`: Sourced directly from the partner's primary corporate website.
-- `UNVERIFIED`: Asset present in workspace but lacking verified source documentation.
-- `SYNTHETIC_OR_REDRAWN`: Synthetic or approximated recreation (FORBIDDEN from public trademark usage).
+- `UNVERIFIED`: Asset present in the workspace but lacking verified source documentation.
+- `SYNTHETIC_OR_REDRAWN`: Synthetic or approximated recreation. Forbidden from public trademark usage.
 - `LICENSED_STOCK`: Commercially licensed documentary photography.
 
 ---
@@ -25,24 +25,28 @@ This document tracks the origin, legal classification, ownership status, and app
 
 ## 2. Third-Party Partner Trademarks
 
-> **Policy:** Any asset classified as `SYNTHETIC_OR_REDRAWN` or `UNVERIFIED` must NOT be published as an official trademark. Where official brand assets are pending owner or partner confirmation, the application fails closed to a restrained text-only partner mark (`partner-text-mark`).
+> **Policy:** InfraHub must never recreate or approximate a partner trademark. Until an official asset is imported and its use is approved, the production UI uses a restrained text-only partner mark.
 
-| Partner Entity | Asset Path | Classification | Official Brand Source? | Usage Approval | Production Status | Action Required |
-|:---|:---|:---|:---:|:---:|:---:|:---|
-| **FastNetMon** | `/images/partners/fastnetmon.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official vector brandkit from FastNetMon Ltd |
-| **Gcore** | `/images/partners/gcore.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official vector presskit from Gcore S.A. |
-| **IPXO** | `/images/partners/ipxo.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official brand assets from IPXO LLC |
-| **ITcare** | `/images/partners/itcare.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official asset from ITcare Sp. z o.o. |
-| **StormWall** | `/images/partners/stormwall.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official SVG from StormWall PRO s.r.o. |
-| **Supertrace** | `/images/partners/supertrace.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official asset from Supertrace B.V. |
-| **Vates** | `/images/partners/vates.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official press logo from Vates SAS (XCP-ng/Xen Orchestra) |
-| **Zenlayer** | `/images/partners/zenlayer.svg` | `SYNTHETIC_OR_REDRAWN` | No | Pending Owner/Partner | Replaced by text mark | Obtain official vector logo from Zenlayer Inc. |
+The previously generated synthetic partner SVGs were removed from `public/images/partners/` during the canonical partner-domain correction. No third-party logo is currently rendered as an official logo unless a future record has both `logoStatus: approved` and `logoApproved: true`.
+
+| Partner | Canonical Domain | Official Asset Source | Asset Imported? | Usage Approval | Production Treatment |
+|:---|:---|:---|:---:|:---:|:---|
+| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/fastnetmon-brand-kit/ | No | Pending | Text-only mark |
+| **Gcore** | https://gcore.com/ | https://gcore.com/media-kit | No | Pending | Text-only mark |
+| **StormWall** | https://stormwall.network/ | Official corporate website / partner materials | No | Pending | Text-only mark |
+| **Zenlayer** | https://www.zenlayer.com/ | Official corporate website / partner materials | No | Pending | Text-only mark |
+| **IPXO** | https://www.ipxo.com/ | https://www.ipxo.com/press-releases/ | No | Pending | Text-only mark |
+| **Vates** | https://vates.tech/ | Official corporate website / partner materials | No | Pending | Text-only mark |
+| **ITcare** | https://itcare.net/ | Official corporate website / partner materials | No | Pending | Text-only mark |
+| **Airframe** | https://www.airframe.ai/ | Official corporate website / partner materials | No | Pending | Text-only mark |
+
+`Supertrace` is not part of the owner-confirmed canonical partner list and its old synthetic asset has been removed.
 
 ---
 
 ## 3. Documentary & Infrastructure Photography
 
-> **Policy:** Photography is strictly illustrative of infrastructure domains (optical networking, compute clusters, facility architecture, network operations). Images must never be captioned or presented in a way that implies InfraHub owns third-party facilities or equipment.
+> **Policy:** Photography is illustrative of infrastructure domains such as optical networking, compute clusters, facility architecture, and network operations. Images must never be captioned or presented in a way that implies InfraHub owns third-party facilities or equipment.
 
 | Asset Path | Subject Domain | Source / Technique | Rights Status | Production Status | Representation Guardrail |
 |:---|:---|:---|:---:|:---:|:---|
@@ -57,5 +61,6 @@ This document tracks the origin, legal classification, ownership status, and app
 
 ## 4. Governance & Review Schedule
 
-- **Owner Verification Required:** Review partner asset requests in `docs/FINAL_OWNER_INPUT_REGISTER.md`.
-- **Pre-Release Gate:** `tests/audit/content-truth-audit.mjs` and `tests/audit/partner-trust-ribbon.test.mjs` must enforce that no unapproved or synthetic partner trademark renders in production.
+- **Canonical partner domains:** maintained in the partner content records and enforced by `tests/audit/partner-trust-ribbon.test.mjs`.
+- **Logo gate:** an official logo may render only when the asset is sourced from an official partner property and explicitly approved for production use.
+- **Pre-release gate:** `tests/audit/content-truth-audit.mjs` and `tests/audit/partner-trust-ribbon.test.mjs` must pass before release.
