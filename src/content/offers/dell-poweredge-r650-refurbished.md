@@ -3,7 +3,7 @@ title: "Dell PowerEdge R650 Enterprise Server"
 shortDescription: "Refurbished high-density 1U dual-socket enterprise server configured for virtualization and bare-metal workloads."
 category: "hardware"
 location: "EU Stock / 48-Hour Dispatch"
-partner: "Approved Hardware Partner"
+partner: "ITcare"
 verifiedPrice: "€3,890 / unit"
 specifications:
   - "2× Intel Xeon Gold 6330 (56 Total Cores / 112 Threads)"

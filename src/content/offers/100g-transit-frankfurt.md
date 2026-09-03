@@ -3,7 +3,7 @@ title: "100G IP Transit — Frankfurt"
 shortDescription: "Carrier-neutral high-bandwidth IP Transit with flexible commit and burstable 95th percentile billing in Frankfurt."
 category: "connectivity"
 location: "Frankfurt, Germany (Equinix / Interxion)"
-partner: "Tier-1 Carrier Network"
+partner: "Gcore"
 verifiedPrice: "From €1,450/mo"
 specifications:
   - "100 Gbps Port with 20G Committed Data Rate (CDR)"

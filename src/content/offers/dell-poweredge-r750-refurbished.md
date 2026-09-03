@@ -1,7 +1,8 @@
 ---
 title: "Dell PowerEdge R750 2U (Certified Refurbished)"
 category: "hardware"
-location: "EU Warehouse (Immediate Dispatch)"
+location: "Frankfurt / EU Delivery"
+partner: "ITcare"
 status: "active"
 verifiedPrice: "€4,250 / unit"
 publishedDate: 2026-08-20
