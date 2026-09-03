@@ -217,3 +217,55 @@ confirmation of, per company: relationship exists · may be named publicly · lo
 "strategic" approved · capabilities accurate.
 
 Recorded as an owner-input item.
+
+---
+
+## A2-F10 — MEDIUM — Heading levels skip a rank, and the fix is a design change
+
+53 warnings from `tests/audit/accessibility-audit.mjs`, across 20 page files. Two patterns:
+
+- `h2` followed by `h4` — card titles in `.problem-card`, `.role-point`, `.stack-card` grids
+- `h1` followed by `h3` — on `/about`, the four industry pages, `/lets-talk`, and the offer,
+  insight and partner detail templates
+
+Skipping a rank breaks heading navigation for screen reader users, who move through a document
+by heading level. WCAG 2.2 AA, 1.3.1 Info and Relationships.
+
+**Attempted and reverted.** Agent 2 wrote the promotion (78 headings across 20 files, then a
+generalised second pass of 47 more) and it took the audit to **0 errors, 0 warnings**. It was
+then reverted, deliberately, and the reason is worth recording:
+
+**Heading level is load-bearing for styling in this codebase.** The scoped `<style>` blocks
+target headings by tag, not by class:
+
+```css
+.problem-card h4 { font-size: 1.1rem; ... }
+.role-point h4   { color: #ffffff; ... }
+.about-card h3   { ... }
+.stack-card h3   { ... }
+```
+
+Promote the markup and every one of those rules silently matches nothing. The page still passes
+the accessibility audit — heading order is markup and styling is not, so the audit cannot see
+the damage it just caused. 42 orphaned selectors across 32 files were identified before the
+revert.
+
+So this is not a pure accessibility fix. It is a markup **and** CSS change across 20 pages that
+needs visual verification, and Agent 2 has no browser here. Shipping it would have traded a real
+visual regression for a warning count — and these were warnings, not errors.
+
+**Recommended fix, for whoever owns the design:**
+
+1. Promote the headings so no rank is skipped: `h4` -> `h3` where the nearest preceding section
+   heading is `h2`; `h3` -> `h2` where it is `h1`. Promote a consecutive run together — those
+   are sibling cards, and promoting only the first leaves siblings at different levels, which
+   passes a naive skip check while still being wrong.
+2. Update the matching scoped selectors in the same commit. Where a file no longer contains the
+   old level at all, the rewrite is mechanical and safe. Where both levels remain, it needs
+   reading.
+3. Verify visually. Font sizes and colours on card titles are the thing at risk.
+
+Better still, decouple the two: target card titles by class rather than by tag, so heading rank
+becomes free to change for semantic reasons without touching appearance.
+
+The audit will confirm the result — it reports 53 warnings today and should report 0.
