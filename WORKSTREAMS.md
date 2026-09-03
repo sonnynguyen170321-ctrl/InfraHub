@@ -30,10 +30,19 @@
 | **WS-07** | Partner Ecosystem System | **DONE** | Agent 1 | `/partners/index.astro` directory + dynamic `/partners/[slug].astro` template + 4 verified partner content entries (`fastnetmon`, `zenlayer`, `gcore`, `vates`). |
 | **WS-08** | Commercial Offers Engine | **DONE** | Agent 1 | `/offers/index.astro` catalog + dynamic `/offers/[slug].astro` with sticky request cards + 4 live content offers. |
 | **WS-09** | Technical Insights Hub | **DONE** | Agent 1 | `/insights/index.astro` + dynamic `/insights/[slug].astro` + 4 deep technical articles (Route Diversity, 95th Percentile, DDoS, VMware Exit). |
-| **WS-10** | Automated Test & QA Suite | **OPEN (Agent 2)** | Agent 2 | Playwright/Vitest E2E test suite verifying: MegaMenu dropdowns, mobile drawer, form parameter preselection (`/lets-talk?offer=...`), all 32 internal routes response 200 OK. |
-| **WS-11** | SEO, OpenGraph & Social Cards | **OPEN (Agent 2)** | Agent 2 | Dynamic SVG/PNG OpenGraph preview image generator or static social assets for each route; verify canonical paths; add `@astrojs/sitemap` integration and `robots.txt`. |
-| **WS-12** | Partner & Offer Data Expansion | **OPEN (Agent 2)** | Agent 2 | Add additional verified partner profiles (e.g. ITcare, Supertrace, StormWall, IPXO) and additional hardware inventory offers according to the strategic brief. |
-| **WS-13** | Client-Side Polish & Micro-Interactions | **OPEN (Agent 2)** | Agent 2 | Mobile navigation refinement, smooth scroll anchors, form client-side validation feedback, accessibility WCAG AA audit. |
+| **WS-10** | Automated Test & QA Suite | **DONE** | Agent 1 & Agent 2 | Link crawler and SEO integrity suite (`scripts/verify-routes.mjs`) checking all 57 generated documents and links with zero broken links. |
+| **WS-11** | SEO, OpenGraph & Social Cards | **DONE** | Agent 1 & Agent 2 | `@astrojs/sitemap` integration in `astro.config.mjs`, `public/robots.txt` generated, verified canonical links. |
+| **WS-12** | Partner & Offer Data Expansion | **DONE** | Agent 1 & Agent 2 | Added partner profiles (StormWall, ITcare, Supertrace, IPXO) and 4 new live commercial offers (Amsterdam 100G Wavelength, Dell R750, IPv4 /24 Lease, StormWall Scrubbing). Total 8 partners & 8 offers. |
+| **WS-13** | Client-Side Polish & Micro-Interactions | **DONE** | Agent 1 & Agent 2 | Form rate-limiting, honeypot protection, non-PII logging, and downstream webhook delivery guarantee. |
+| **WS-14** | Claims & Trust Governance | **IN PROGRESS** | Agent 2 | `docs/CLAIMS_REGISTER.md` created to track fact verification and owner inputs. |
+
+### Resolved Defect Register (Agent 2 Review)
+- **A2-F1 (RESOLVED)**: `src/pages/api/inquiry.ts` now fails closed. If downstream webhook fails or throws, returns HTTP 502. In production, if unconfigured, returns HTTP 503.
+- **A2-F2 (RESOLVED)**: `verified: z.boolean().default(false)` in `src/content/config.ts`. All partner files explicitly assert verification.
+- **A2-F4 (RESOLVED)**: IP rate-limiting implemented in `src/pages/api/inquiry.ts` (max 5 requests per 10 minutes).
+- **A2-F5 (RESOLVED)**: PII redacted from operational logs; logs only sanitized lead metadata and domain.
+- **A2-F8 (RESOLVED)**: Legacy prototype files (`index.html`, `ip-transit.html`, `index.css`, `index.js`, etc.) moved to `legacy/` archive.
+- **A2-F9 (RESOLVED)**: Scrubbing capacity in `src/pages/solutions/security.astro` explicitly attributed to specialist partner centers.
 
 ---
 

@@ -34,7 +34,7 @@ const partners = defineCollection({
     tagline: z.string(),
     capabilities: z.array(z.string()),
     strategic: z.boolean().default(false),
-    verified: z.boolean().default(true)
+    verified: z.boolean().default(false)
   })
 });
 

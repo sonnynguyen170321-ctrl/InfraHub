@@ -3,6 +3,28 @@ import { z } from 'zod';
 
 export const prerender = false;
 
+// In-memory sliding rate limiter (per-worker instance)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const MAX_REQUESTS_PER_WINDOW = 5;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return true;
+  }
+
+  record.count++;
+  return false;
+}
+
 const InquiryPayloadSchema = z.object({
   lookingFor: z.enum([
     'hardware',
@@ -31,20 +53,32 @@ const InquiryPayloadSchema = z.object({
   website_trap_field: z.string().optional()
 });
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
+    // 1. IP Rate Limiting check
+    const clientIp = clientAddress || request.headers.get('x-forwarded-for') || 'unknown-client';
+    if (isRateLimited(clientIp)) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        message: 'Too many requests from this IP. Please wait a few minutes or email inquiries@infrahub.tech directly.' 
+      }), {
+        status: 429,
+        headers: { 'Content-Type': 'application/json', 'Retry-After': '600' }
+      });
+    }
+
     const rawBody = await request.json();
 
-    // 1. Honeypot check
+    // 2. Honeypot check
     if (rawBody.website_trap_field) {
-      // Silently accept bots without processing
-      return new Response(JSON.stringify({ success: true, leadId: "INQ-BOT-TRAPPED" }), {
+      // Silently discard bot requests without downstream dispatch
+      return new Response(JSON.stringify({ success: true, leadId: "INQ-VERIFIED" }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // 2. Validate payload schema
+    // 3. Validate payload schema
     const validation = InquiryPayloadSchema.safeParse(rawBody);
     if (!validation.success) {
       const issue = validation.error.issues[0]?.message || 'Invalid form payload.';
@@ -56,12 +90,12 @@ export const POST: APIRoute = async ({ request }) => {
 
     const data = validation.data;
 
-    // 3. Generate structured Lead ID
+    // 4. Generate structured Lead ID
     const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     const randomSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
     const leadId = `INQ-${dateStr}-${randomSuffix}`;
 
-    // 4. Construct Lead Record
+    // 5. Construct Lead Record
     const leadRecord = {
       leadId,
       receivedAt: new Date().toISOString(),
@@ -85,24 +119,55 @@ export const POST: APIRoute = async ({ request }) => {
       }
     };
 
-    // 5. Downstream Dispatching (Webhook / Logger)
-    console.log(`[INQUIRY_RECEIVED] Lead ID: ${leadId}`, JSON.stringify(leadRecord, null, 2));
+    // 6. Log non-PII operational telemetry
+    const emailDomain = data.workEmail.includes('@') ? data.workEmail.split('@')[1] : 'unknown';
+    console.log(`[INQUIRY_RECEIVED] Lead: ${leadId} | Domain: ${emailDomain} | Service: ${data.lookingFor} | Timeline: ${data.timeline}`);
 
-    // Optional webhook dispatch if configured
+    // 7. Downstream Delivery Guarantee (A2-F1)
     const webhookUrl = process.env.LEAD_WEBHOOK_URL;
+    const isProduction = import.meta.env.PROD || process.env.NODE_ENV === 'production';
+
     if (webhookUrl) {
       try {
-        await fetch(webhookUrl, {
+        const webhookRes = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(leadRecord)
         });
+
+        if (!webhookRes.ok) {
+          console.error(`[LEAD_WEBHOOK_ERROR] Webhook responded with status ${webhookRes.status} for lead ${leadId}`);
+          return new Response(JSON.stringify({ 
+            success: false, 
+            message: 'Unable to deliver requirement to downstream dispatch. Please email inquiries@infrahub.tech directly.' 
+          }), {
+            status: 502,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
       } catch (webhookErr) {
-        console.error(`[LEAD_WEBHOOK_ERROR] Failed forwarding lead ${leadId}`, webhookErr);
+        console.error(`[LEAD_WEBHOOK_ERROR] Network throw forwarding lead ${leadId}`, webhookErr);
+        return new Response(JSON.stringify({ 
+          success: false, 
+          message: 'Unable to reach downstream qualification system. Please contact inquiries@infrahub.tech directly.' 
+        }), {
+          status: 502,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
+    } else if (isProduction) {
+      // In production, an unconfigured webhook must not pretend success
+      console.warn(`[CONFIG_WARNING] LEAD_WEBHOOK_URL unset in production environment for lead ${leadId}`);
+      return new Response(JSON.stringify({ 
+        success: false, 
+        message: 'Lead dispatch system is currently in maintenance mode. Please email inquiries@infrahub.tech directly.' 
+      }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
 
-    // 6. Return Success Response
+    // 8. Return Verified Success Response
     return new Response(JSON.stringify({ 
       success: true, 
       leadId,
