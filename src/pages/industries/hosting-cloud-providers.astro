@@ -11,7 +11,7 @@ import Layout from '../../layouts/Layout.astro';
   <div class="section section-hero network-overlay">
     <div class="container industry-container">
       <div class="industry-header">
-        <span class="pill-badge badge-blue">Industry Sourcing Framework</span>
+        <span class="industry-kicker">INDUSTRY SOURCING FRAMEWORK</span>
         <h1>Hosting & Cloud Providers</h1>
         <p class="lead">
           Scale your hosting or cloud platform profitably. Sourcing wholesale bare-metal compute, enterprise server hardware, high-density colocation space, and carrier-neutral cross connects.
@@ -48,7 +48,7 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
-      <div class="industry-cta-box text-center">
+      <div class="industry-cta-box">
         <h2>Source Infrastructure for Your Hosting Platform</h2>
         <a href="/lets-talk?industry=hosting" class="btn btn-accent btn-lg">Request Wholesale Sourcing Review</a>
       </div>
@@ -58,7 +58,8 @@ import Layout from '../../layouts/Layout.astro';
 
 <style>
   .industry-container { max-width: 1040px; }
-  .industry-header { text-align: center; max-width: 800px; margin: 0 auto 54px; }
+  .industry-header { text-align: left; max-width: 860px; margin: 0 0 54px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color); }
+  .industry-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-blue); text-transform: uppercase; display: block; margin-bottom: 8px; }
   .industry-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; margin: 16px 0; }
   .industry-header .lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
   .industry-stack-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 60px; }
@@ -69,5 +70,5 @@ import Layout from '../../layouts/Layout.astro';
   .stack-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
   .stack-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
   .stack-link:hover { text-decoration: underline; }
-  .industry-cta-box { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .industry-cta-box { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 44px 36px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; }
 </style>

@@ -19,11 +19,11 @@ const activeOffers = allOffers.filter(o => {
 >
   <div class="section section-hero network-overlay">
     <div class="container">
-      <div class="section-header text-center">
-        <span class="pill-badge badge-blue section-tag">Commercial Catalog</span>
-        <h1>Featured Infrastructure Offers</h1>
-        <p>Verified hardware stock, promotional transit capacity, and security appliance licenses available directly through our partner ecosystem.</p>
-      </div>
+      <header class="catalog-header">
+        <span class="catalog-kicker">COMMERCIAL CATALOG // CONFIRMED ALLOCATIONS</span>
+        <h1 class="catalog-title">Featured Infrastructure Offers</h1>
+        <p class="catalog-lead">Verified hardware stock, promotional transit capacity, and security appliance licenses available directly through our partner ecosystem.</p>
+      </header>
 
       <div class="offers-index-grid">
         {activeOffers.map(offer => (

@@ -10,8 +10,8 @@ import Layout from '../../layouts/Layout.astro';
 >
   <div class="section section-hero network-overlay">
     <div class="container hub-container">
-      <div class="hub-header text-center">
-        <span class="pill-badge badge-blue">Solution Hub</span>
+      <div class="hub-header">
+        <span class="hub-kicker">SOLUTION ARCHITECTURE // DISCIPLINE</span>
         <h1>Cloud & Virtualization</h1>
         <p class="hub-lead">
           Private cloud environments, open-source hypervisors, container platforms, and disaster recovery architectures designed to deliver sovereignty and margin control.
@@ -48,7 +48,7 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
-      <div class="hub-cta text-center">
+      <div class="hub-cta">
         <h2>Evaluate Your Virtualization Migration</h2>
         <a href="/lets-talk?service=cloud" class="btn btn-accent btn-lg">Consult a Cloud Architect</a>
       </div>
@@ -59,6 +59,7 @@ import Layout from '../../layouts/Layout.astro';
 <style>
   .hub-container { max-width: 1040px; }
   .hub-header { max-width: 820px; margin: 0 auto 54px; }
+  .hub-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-blue); text-transform: uppercase; display: block; margin-bottom: 8px; }
   .hub-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; margin: 16px 0; }
   .hub-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
   .services-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 64px; }
@@ -69,5 +70,5 @@ import Layout from '../../layouts/Layout.astro';
   .service-discovery-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
   .disc-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
   .disc-link:hover { text-decoration: underline; }
-  .hub-cta { padding: 40px 0; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .hub-cta { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 44px 36px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; margin-top: 48px; }
 </style>

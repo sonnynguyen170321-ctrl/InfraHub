@@ -1,5 +1,5 @@
 ---
-// src/pages/about.astro
+// src/pages/about.astro — Editorial Architecture & Operating Model
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -8,176 +8,308 @@ import Layout from '../layouts/Layout.astro';
   description="Learn about InfraHub's commercial model, engineering background, and mission to connect businesses with specialist infrastructure providers."
   canonicalPath="/about"
 >
-  <div class="section section-hero network-overlay">
+  <div class="about-page-wrapper">
     <div class="container about-container">
-      <div class="section-header text-center">
-        <span class="pill-badge badge-blue section-tag">Our Identity</span>
-        <h1>Infrastructure is complicated.<br />Finding the right partner shouldn't be.</h1>
-        <p>
-          InfraHub was built to solve a fundamental disconnect in the enterprise hosting and telecom market: the gap between complex technical requirements and specialized global providers.
+      
+      <!-- Editorial Header -->
+      <header class="about-header">
+        <span class="about-kicker">COMPANY & OPERATING MODEL</span>
+        <h1 class="about-title">Better infrastructure decisions begin with understanding the requirement.</h1>
+        <p class="about-lead">
+          InfraHub was built to solve a fundamental disconnect in enterprise infrastructure: the gap between complex technical parameters and specialized global providers. We serve as the knowledgeable front door to an independent specialist ecosystem.
         </p>
-      </div>
+      </header>
 
-      <div class="about-grid">
-        <div class="about-card">
-          <div class="about-card-badge">01</div>
-          <h2>What InfraHub Is</h2>
-          <p>
-            We are an independent infrastructure sourcing and technical advisory partner. We evaluate your network architectures, compute demands, and security requirements to connect you directly with specialized global providers, hardware vendors, and network carriers.
-          </p>
-        </div>
-
-        <div class="about-card">
-          <div class="about-card-badge">02</div>
-          <h2>What InfraHub Is Not</h2>
-          <p>
-            We do not claim to own a proprietary global fiber backbone or 50 datacenters. There are already world-class engineering organizations that build fiber, operate scrubbing centers, and maintain Tier-IV facilities. We understand their technology and help you select the right one.
-          </p>
-        </div>
-
-        <div class="about-card">
-          <div class="about-card-badge">03</div>
-          <h2>Why It Costs You Nothing</h2>
-          <p>
-            InfraHub is compensated by participating network carriers and infrastructure operators when a qualified introduction results in an agreement. We do not add consulting surcharges or markup partner rates — you contract directly with the provider.
-          </p>
-        </div>
-      </div>
-
-      <div class="about-principles">
-        <h2>Our Three Commercial Disciplines</h2>
-        <div class="principles-grid">
-          <div class="principle-item">
-            <span class="principle-tag">Mode A</span>
-            <h3>Hardware Sourcing</h3>
-            <p>Direct sourcing of new and certified refurbished enterprise servers, switching equipment, and optical transceivers with full warranty backing.</p>
+      <!-- 3 Core Foundations (Architectural Broadsheet) -->
+      <section class="about-section">
+        <div class="foundations-grid">
+          <div class="foundation-col">
+            <span class="col-num">01</span>
+            <h2 class="col-title">What InfraHub Is</h2>
+            <p class="col-desc">
+              We are an independent infrastructure sourcing and technical advisory desk. We evaluate workloads, latency constraints, transit commits, and hardware specifications to connect buyers directly with verified independent specialists across networking, cloud, security, and bare metal.
+            </p>
           </div>
-          <div class="principle-item">
-            <span class="principle-tag">Mode B</span>
-            <h3>Partner-Delivered Services</h3>
-            <p>InfraHub qualifies and introduces; the specialized partner contracts, implements, and provides round-the-clock operational SLAs.</p>
+
+          <div class="foundation-col">
+            <span class="col-num">02</span>
+            <h2 class="col-title">What InfraHub Is Not</h2>
+            <p class="col-desc">
+              We do not pretend to own a proprietary global fiber network or 50 global datacenters. World-class engineering organizations already build transoceanic cables, operate Tbps-scale scrubbing centers, and run Tier-3+ facilities. We understand their technology and help you benchmark the right one.
+            </p>
           </div>
-          <div class="principle-item">
-            <span class="principle-tag">Mode C</span>
-            <h3>Technical Advisory</h3>
-            <p>Independent architecture guidance on BGP multi-homing, VMware migrations, DDoS defenses, and cross-datacenter disaster recovery.</p>
+
+          <div class="foundation-col">
+            <span class="col-num">03</span>
+            <h2 class="col-title">How the Commercials Work</h2>
+            <p class="col-desc">
+              InfraHub is compensated by participating network carriers and platform operators when a qualified introduction results in an agreement. Sourcing through InfraHub never adds fees or markups to your provider invoices — you contract directly with the verified specialist.
+            </p>
           </div>
         </div>
+      </section>
+
+      <!-- The Three Operating Modes (Directive §3) -->
+      <section class="about-section">
+        <div class="disciplines-header">
+          <span class="section-kicker">OPERATING ARCHITECTURE</span>
+          <h2 class="section-headline">Three Distinct Commercial Modes</h2>
+          <p class="section-subhead">We maintain strict transparency across how infrastructure is delivered and contracted.</p>
+        </div>
+
+        <div class="disciplines-grid">
+          <div class="discipline-row">
+            <div class="discipline-left">
+              <span class="mode-tag">MODE 01</span>
+              <h3 class="mode-title">Direct Hardware</h3>
+            </div>
+            <div class="discipline-center">
+              <p>InfraHub sources and supplies enterprise server hardware, optical transceivers, and switching equipment directly where true, backed by certified warranties and direct dispatch.</p>
+            </div>
+            <div class="discipline-right">
+              <span class="mode-scope">Dell / HPE / Cisco / Lit Optics</span>
+            </div>
+          </div>
+
+          <div class="discipline-row">
+            <div class="discipline-left">
+              <span class="mode-tag">MODE 02</span>
+              <h3 class="mode-title">Partner-Delivered Services</h3>
+            </div>
+            <div class="discipline-center">
+              <p>InfraHub qualifies, benchmarks, and introduces. The selected specialist contracts, delivers, and operates the infrastructure under direct carrier-grade SLAs.</p>
+            </div>
+            <div class="discipline-right">
+              <span class="mode-scope">IP Transit / Wavelengths / DDoS / Cloud</span>
+            </div>
+          </div>
+
+          <div class="discipline-row">
+            <div class="discipline-left">
+              <span class="mode-tag">MODE 03</span>
+              <h3 class="mode-title">Advisory & Evaluation</h3>
+            </div>
+            <div class="discipline-center">
+              <p>Independent architecture guidance, BGP multi-homing evaluations, VMware exit benchmarking, datacenter diversity audits, and wholesale price comparisons.</p>
+            </div>
+            <div class="discipline-right">
+              <span class="mode-scope">Sourcing / Benchmarking / Architecture</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer CTA -->
+      <div class="about-footer-cta">
+        <h2 class="cta-headline">Tell us what you're trying to build.</h2>
+        <p class="cta-desc">Start with your technical parameters and operational constraints. InfraHub will help identify the right path forward.</p>
+        <div class="cta-actions">
+          <a href="/lets-talk" class="btn btn-accent btn-lg">Discuss Your Requirement</a>
+          <a href="/how-we-work" class="btn btn-secondary btn-lg">How We Work</a>
+        </div>
       </div>
 
-      <div class="about-cta text-center">
-        <h2>Have a requirement to discuss?</h2>
-        <p>Talk with an infrastructure sourcing architect today.</p>
-        <a href="/lets-talk" class="btn btn-accent btn-lg">Let's Talk Infrastructure</a>
-      </div>
     </div>
   </div>
 </Layout>
 
 <style>
-  .about-container {
-    max-width: 1040px;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 28px;
-    margin: 50px 0 70px;
-  }
-  @media (min-width: 768px) {
-    .about-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .about-card {
+  .about-page-wrapper {
     background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: 36px 28px;
-    box-shadow: var(--shadow-sm);
-    position: relative;
+    padding: 64px 0 96px;
+  }
+  .about-container {
+    max-width: 1080px;
     display: flex;
     flex-direction: column;
+    gap: 72px;
   }
 
-  .about-card-badge {
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--accent-blue);
-    margin-bottom: 16px;
+  /* Editorial Header */
+  .about-header {
+    max-width: 860px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
   }
-
-  .about-card h2 {
-    font-size: 1.3rem;
+  .about-kicker {
+    font-size: 0.74rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    letter-spacing: 0.12em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+  .about-title {
+    font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+  .about-lead {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
   }
 
-  .about-card p {
-    font-size: 0.95rem;
+  /* Sections */
+  .about-section {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* 3 Foundations (Broadsheet dividing layout) */
+  .foundations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 768px) {
+    .foundations-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+    }
+  }
+  .foundation-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 24px;
+  }
+  .col-num {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+  .col-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .col-desc {
+    font-size: 0.92rem;
     color: var(--text-secondary);
     line-height: 1.6;
   }
 
-  /* Principles */
-  .about-principles {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: 48px;
-    margin-bottom: 70px;
-  }
-  .about-principles h2 {
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 36px;
-  }
-
-  .principles-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  @media (min-width: 768px) {
-    .principles-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .principle-item {
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-  }
-  .principle-tag {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--accent-teal);
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
-  }
-  .principle-item h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-  .principle-item p {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .about-cta {
+  /* Disciplines */
+  .disciplines-header {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 8px;
+  }
+  .section-kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .section-headline {
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+  }
+  .section-subhead {
+    font-size: 1.02rem;
+    color: var(--text-secondary);
+  }
+
+  .disciplines-grid {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .discipline-row {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 16px;
+    padding: 28px 32px;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .discipline-row:last-child {
+    border-bottom: none;
+  }
+  @media (min-width: 900px) {
+    .discipline-row {
+      grid-template-columns: 220px 1.4fr 1fr;
+      align-items: center;
+      gap: 32px;
+    }
+  }
+  .discipline-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mode-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+  .mode-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  .discipline-center p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .discipline-right {
+    display: flex;
+    justify-content: flex-start;
+  }
+  @media (min-width: 900px) {
+    .discipline-right {
+      justify-content: flex-end;
+    }
+  }
+  .mode-scope {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background-color: var(--bg-secondary);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Footer CTA */
+  .about-footer-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+  }
+  .cta-headline {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-primary);
+  }
+  .cta-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: 8px;
   }
 </style>

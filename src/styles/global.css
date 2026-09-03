@@ -40,17 +40,17 @@
   --header-height: 80px;
   
   /* Effects */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-pill: 9999px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.05);
-  --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.08);
-  --shadow-xl: 0 20px 50px rgba(15, 23, 42, 0.12);
-  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-fast: all 0.15s ease;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-pill: 4px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.06);
+  --shadow-xl: 0 20px 40px rgba(15, 23, 42, 0.08);
+  --transition: all 0.2s ease;
+  --transition-fast: all 0.12s ease;
 }
 
 *, *::before, *::after {
@@ -219,36 +219,36 @@ img {
   background-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Badge / Pills */
+/* Badge / Tags */
 .pill-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 12px;
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  font-weight: 600;
+  padding: 3px 8px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  border-radius: var(--radius-pill);
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-sm);
 }
 
 .badge-blue {
   background-color: var(--accent-blue-light);
   color: var(--accent-blue);
-  border: 1px solid rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(37, 99, 235, 0.15);
 }
 
 .badge-teal {
   background-color: var(--accent-teal-light);
   color: var(--accent-teal);
-  border: 1px solid rgba(13, 148, 136, 0.2);
+  border: 1px solid rgba(13, 148, 136, 0.15);
 }
 
 .badge-dark {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Section Rhythm Layouts */
@@ -306,18 +306,44 @@ img {
   margin: 0 auto;
 }
 
-/* Network grid overlay background */
+/* Clean architectural technical line overlays */
 .network-overlay {
-  background-image: 
-    radial-gradient(rgba(37, 99, 235, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-  background-size: 24px 24px, 100% 100%;
+  background-color: var(--bg-primary);
 }
 
 .network-overlay-dark {
+  background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(rgba(37, 99, 235, 0.18) 1px, transparent 1px),
-    radial-gradient(ellipse at 80% 20%, rgba(13, 148, 136, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(37, 99, 235, 0.15) 0%, transparent 50%);
-  background-size: 32px 32px, 100% 100%, 100% 100%;
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Experience Notes (Directive §18) */
+.experience-note {
+  background-color: var(--bg-secondary);
+  border-left: 3px solid var(--accent-blue);
+  padding: 24px 28px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 32px 0;
+}
+.experience-note-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+.experience-note-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.experience-note-body {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }

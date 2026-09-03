@@ -14,11 +14,11 @@ allInsights.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.get
 >
   <div class="section section-hero network-overlay">
     <div class="container">
-      <div class="section-header text-center">
-        <span class="pill-badge badge-blue section-tag">Engineering Knowledge</span>
-        <h1>Technical Insights for Infrastructure Buyers</h1>
-        <p>Rigorous, vendor-neutral analysis written for network engineers, systems architects, and infrastructure directors.</p>
-      </div>
+      <header class="catalog-header">
+        <span class="catalog-kicker">ENGINEERING INTELLIGENCE & ANALYSIS</span>
+        <h1 class="catalog-title">Technical Insights for Infrastructure Buyers</h1>
+        <p class="catalog-lead">Rigorous, vendor-neutral analysis written for network engineers, systems architects, and infrastructure directors.</p>
+      </header>
 
       <div class="insights-archive-grid">
         {allInsights.map(insight => (

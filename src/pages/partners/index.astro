@@ -13,13 +13,13 @@ const allPartners = await getCollection('partners');
 >
   <div class="section section-hero network-overlay">
     <div class="container">
-      <div class="section-header text-center">
-        <span class="pill-badge badge-blue section-tag">Independent Ecosystem</span>
-        <h1>Specialists in Their Field.<br />Connected Through InfraHub.</h1>
-        <p>
+      <header class="catalog-header">
+        <span class="catalog-kicker">INDEPENDENT SPECIALIST ECOSYSTEM</span>
+        <h1 class="catalog-title">Specialists in Their Field.<br />Connected Through InfraHub.</h1>
+        <p class="catalog-lead">
           We do not resell generic commodity clouds. We build technical partnerships with specialized operators who lead their respective infrastructure disciplines.
         </p>
-      </div>
+      </header>
 
       <div class="partners-directory-grid">
         {allPartners.map(partner => (
