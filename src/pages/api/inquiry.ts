@@ -9,9 +9,10 @@ const MAX_RATE_LIMIT_KEYS = 5000;
 const MAX_BODY_BYTES = 16 * 1024;
 const WEBHOOK_TIMEOUT_MS = 8000;
 
-// Best-effort per-instance protection. This is intentionally bounded so an attacker cannot
-// grow process memory without limit. Platform-level/distributed rate limiting remains the
-// correct control if this endpoint needs stronger abuse protection.
+// Best-effort, per-instance protection only. Each serverless instance keeps its own map, so
+// the effective limit is (instances x MAX_REQUESTS_PER_WINDOW) and a restart clears it. The map
+// is bounded so it cannot grow without limit. Platform-level or distributed rate limiting
+// remains the correct control if this endpoint needs real abuse protection.
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
 function pruneRateLimitMap(now: number) {
@@ -91,6 +92,10 @@ const InquiryPayloadSchema = z.object({
   offerSlug: optionalShortString(160),
   utmSource: optionalShortString(200),
   utmCampaign: optionalShortString(200),
+  utmMedium: optionalShortString(200),
+  utmTerm: optionalShortString(200),
+  utmContent: optionalShortString(200),
+  industryParam: optionalShortString(120),
   website_trap_field: optionalShortString(200)
 });
 
@@ -107,6 +112,14 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         },
         429,
         { 'Retry-After': '600' }
+      );
+    }
+
+    const contentType = (request.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.includes('application/json')) {
+      return jsonResponse(
+        { success: false, message: 'Unsupported content type. Send application/json.' },
+        415
       );
     }
 
@@ -176,7 +189,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         partnerParam: data.partnerParam,
         offerSlug: data.offerSlug,
         utmSource: data.utmSource,
-        utmCampaign: data.utmCampaign
+        utmCampaign: data.utmCampaign,
+        utmMedium: data.utmMedium,
+        utmTerm: data.utmTerm,
+        utmContent: data.utmContent,
+        industryParam: data.industryParam
       }
     };
 

@@ -55,7 +55,7 @@ import Layout from '../layouts/Layout.astro';
       <!-- Right Column: Qualification Form -->
       <div class="talk-form-card">
         <form id="inquiry-form" class="qualification-form" novalidate>
-          <div id="form-error-alert" class="form-alert alert-error" style="display: none;" role="alert"></div>
+          <div id="form-error-alert" class="form-alert alert-error" role="alert" tabindex="-1" hidden></div>
           
           <!-- Hidden Context Inputs -->
           <input type="hidden" name="sourcePage" id="context-source-page" value="/lets-talk" />
@@ -64,6 +64,10 @@ import Layout from '../layouts/Layout.astro';
           <input type="hidden" name="offerSlug" id="context-offer" value="" />
           <input type="hidden" name="utmSource" id="context-utm-source" value="" />
           <input type="hidden" name="utmCampaign" id="context-utm-campaign" value="" />
+          <input type="hidden" name="industryParam" id="context-industry" value="" />
+          <input type="hidden" name="utmMedium" id="context-utm-medium" value="" />
+          <input type="hidden" name="utmTerm" id="context-utm-term" value="" />
+          <input type="hidden" name="utmContent" id="context-utm-content" value="" />
 
           <!-- Context Pill (if arriving from an offer/partner) -->
           <div id="context-badge-wrap" class="context-badge-wrap" style="display: none;">
@@ -75,17 +79,19 @@ import Layout from '../layouts/Layout.astro';
             <span class="fieldset-legend">1. Technical Discipline</span>
             <div class="form-group">
               <label for="lookingFor" class="form-label">Primary Infrastructure Scope <span class="required">*</span></label>
-              <select name="lookingFor" id="lookingFor" class="form-select" required>
+              <select name="lookingFor" id="lookingFor" class="form-select" required aria-describedby="lookingFor-error">
                 <option value="" disabled selected>Select an infrastructure discipline...</option>
                 <option value="connectivity">Connectivity, IP Transit &amp; Wavelengths</option>
                 <option value="hardware">Hardware &amp; Enterprise Servers (New / Refurbished)</option>
                 <option value="dedicated-infrastructure">Dedicated Infrastructure &amp; Bare Metal Clusters</option>
                 <option value="cloud">Cloud &amp; Virtualization (Private Cloud / VMware Alternatives)</option>
                 <option value="ddos-security">DDoS Mitigation &amp; FlowSpec Automation</option>
+                <option value="cybersecurity">Cybersecurity &amp; Perimeter Defence</option>
                 <option value="managed-services">Managed NOC &amp; Network Operations Desk</option>
                 <option value="ipv4">IPv4 Sourcing &amp; Subnet Leasing</option>
                 <option value="other">Other Infrastructure Requirement</option>
               </select>
+              <p class="field-error" id="lookingFor-error" hidden></p>
             </div>
           </div>
 
@@ -112,12 +118,14 @@ import Layout from '../layouts/Layout.astro';
                 rows="4" 
                 placeholder="Detail port capacity (e.g. 10G/100G), commit (e.g. 20G CDR), ASN (e.g. AS12345), server specs, or specific hypervisor dependencies..."
                 required
+                aria-describedby="requirementsDescription-error"
               ></textarea>
+              <p class="field-error" id="requirementsDescription-error" hidden></p>
             </div>
 
             <div class="form-group">
               <label for="timeline" class="form-label">Anticipated Timeline <span class="required">*</span></label>
-              <select name="timeline" id="timeline" class="form-select" required>
+              <select name="timeline" id="timeline" class="form-select" required aria-describedby="timeline-error">
                 <option value="" disabled selected>Select implementation timeline...</option>
                 <option value="immediate">Immediate (Next 7–14 days)</option>
                 <option value="under-30-days">Under 30 days</option>
@@ -125,6 +133,7 @@ import Layout from '../layouts/Layout.astro';
                 <option value="3-plus-months">3+ months</option>
                 <option value="researching">Evaluating market options</option>
               </select>
+              <p class="field-error" id="timeline-error" hidden></p>
             </div>
           </div>
 
@@ -134,18 +143,21 @@ import Layout from '../layouts/Layout.astro';
             <div class="form-row">
               <div class="form-group">
                 <label for="contactName" class="form-label">Your Name <span class="required">*</span></label>
-                <input type="text" name="contactName" id="contactName" class="form-input" placeholder="First and last name" required />
+                <input type="text" name="contactName" id="contactName" class="form-input" placeholder="First and last name" required aria-describedby="contactName-error" />
+                <p class="field-error" id="contactName-error" hidden></p>
               </div>
               <div class="form-group">
                 <label for="companyName" class="form-label">Organization <span class="required">*</span></label>
-                <input type="text" name="companyName" id="companyName" class="form-input" placeholder="Company or ASN name" required />
+                <input type="text" name="companyName" id="companyName" class="form-input" placeholder="Company or ASN name" required aria-describedby="companyName-error" />
+                <p class="field-error" id="companyName-error" hidden></p>
               </div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="workEmail" class="form-label">Work Email <span class="required">*</span></label>
-                <input type="email" name="workEmail" id="workEmail" class="form-input" placeholder="name@company.com" required />
+                <input type="email" name="workEmail" id="workEmail" class="form-input" placeholder="name@company.com" required aria-describedby="workEmail-error" />
+                <p class="field-error" id="workEmail-error" hidden></p>
               </div>
               <div class="form-group">
                 <label for="phone" class="form-label">Direct Phone (Optional)</label>
@@ -171,7 +183,7 @@ import Layout from '../layouts/Layout.astro';
         </form>
 
         <!-- Success Confirmation State -->
-        <div id="form-success-card" class="form-success-card" style="display: none;">
+        <div id="form-success-card" class="form-success-card" role="status" aria-live="polite" tabindex="-1" hidden>
           <div class="success-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5">
               <polyline points="20 6 9 17 4 12"></polyline>
@@ -192,6 +204,25 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+  /* Visibility is toggled with the hidden attribute; keep display rules from overriding it. */
+  .form-alert[hidden],
+  .form-success-card[hidden] {
+    display: none !important;
+  }
+
+  .field-error {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: #b91c1c;
+  }
+
+  .form-input[aria-invalid="true"],
+  .form-select[aria-invalid="true"],
+  .form-textarea[aria-invalid="true"] {
+    border-color: #b91c1c;
+  }
+
   .talk-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -424,92 +455,194 @@ import Layout from '../layouts/Layout.astro';
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    // Parse URL Search Parameters for Context Passing
-    const params = new URLSearchParams(window.location.search);
-    const service = params.get('service');
-    const partner = params.get('partner');
-    const offer = params.get('offer');
-    const industry = params.get('industry');
-    const utmSource = params.get('utm_source');
-    const utmCampaign = params.get('utm_campaign');
-
-    const badgeWrap = document.getElementById('context-badge-wrap');
-    const badgeText = document.getElementById('context-badge-text');
-
-    if (offer) {
-      document.getElementById('context-offer').value = offer;
-      badgeWrap.style.display = 'block';
-      badgeText.textContent = `Inquiring about offer: ${offer}`;
-    } else if (partner) {
-      document.getElementById('context-partner').value = partner;
-      badgeWrap.style.display = 'block';
-      badgeText.textContent = `Inquiring about partner: ${partner}`;
-    } else if (service) {
-      document.getElementById('context-service').value = service;
-      badgeWrap.style.display = 'block';
-      badgeText.textContent = `Inquiring about solution: ${service}`;
-    } else if (industry) {
-      badgeWrap.style.display = 'block';
-      badgeText.textContent = `Inquiring for industry: ${industry}`;
-    }
-
-    if (utmSource) document.getElementById('context-utm-source').value = utmSource;
-    if (utmCampaign) document.getElementById('context-utm-campaign').value = utmCampaign;
-
-    // Form Submission Handler
     const form = document.getElementById('inquiry-form');
+    if (!form) return;
+
     const submitBtn = document.getElementById('submit-btn');
     const errorAlert = document.getElementById('form-error-alert');
     const successCard = document.getElementById('form-success-card');
     const leadIdDisplay = document.getElementById('lead-id-display');
 
-    if (form) {
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        errorAlert.style.display = 'none';
+    // ── Context and attribution carried in the URL ────────────────────────────
+    const params = new URLSearchParams(window.location.search);
+    const setHidden = (id, value) => {
+      const el = document.getElementById(id);
+      if (el && value) el.value = value;
+    };
 
-        const honeypot = document.getElementById('website_trap_field').value;
-        if (honeypot) return; // Bot trapped
+    const service = params.get('service');
+    const partner = params.get('partner');
+    const offer = params.get('offer');
+    const industry = params.get('industry');
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+    setHidden('context-service', service);
+    setHidden('context-partner', partner);
+    setHidden('context-offer', offer);
+    setHidden('context-industry', industry);
+    setHidden('context-utm-source', params.get('utm_source'));
+    setHidden('context-utm-campaign', params.get('utm_campaign'));
+    setHidden('context-utm-medium', params.get('utm_medium'));
+    setHidden('context-utm-term', params.get('utm_term'));
+    setHidden('context-utm-content', params.get('utm_content'));
 
-        // Basic Client Validation
-        if (!data.lookingFor || !data.requirementsDescription || !data.timeline || !data.contactName || !data.companyName || !data.workEmail) {
-          errorAlert.textContent = 'Please complete all required fields marked with an asterisk (*).';
-          errorAlert.style.display = 'block';
+    const badgeWrap = document.getElementById('context-badge-wrap');
+    const badgeText = document.getElementById('context-badge-text');
+    let context = null;
+    if (offer) context = 'Inquiring about offer: ' + offer;
+    else if (partner) context = 'Inquiring about partner: ' + partner;
+    else if (service) context = 'Inquiring about solution: ' + service;
+    else if (industry) context = 'Inquiring for industry: ' + industry;
+    if (context && badgeWrap && badgeText) {
+      badgeText.textContent = context;
+      badgeWrap.style.display = 'block';
+    }
+
+    // ── Validation ────────────────────────────────────────────────────────────
+    // The form is novalidate, so the browser reports nothing on its own. Every rule the
+    // server enforces is reported here: per field, announced, and focusable.
+    const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    const rules = [
+      { id: 'lookingFor', message: 'Select the primary infrastructure scope.' },
+      {
+        id: 'requirementsDescription',
+        message: 'Describe the requirement in at least 10 characters.',
+        test: (v) => v.trim().length >= 10
+      },
+      { id: 'timeline', message: 'Select an anticipated timeline.' },
+      {
+        id: 'contactName',
+        message: 'Enter your name (at least 2 characters).',
+        test: (v) => v.trim().length >= 2
+      },
+      {
+        id: 'companyName',
+        message: 'Enter your organization (at least 2 characters).',
+        test: (v) => v.trim().length >= 2
+      },
+      {
+        id: 'workEmail',
+        message: 'Enter a valid work email address.',
+        test: (v) => EMAIL_PATTERN.test(v.trim())
+      }
+    ];
+
+    const errorNode = (id) => document.getElementById(id + '-error');
+
+    function clearFieldError(rule) {
+      const field = document.getElementById(rule.id);
+      const node = errorNode(rule.id);
+      if (field) field.removeAttribute('aria-invalid');
+      if (node) {
+        node.textContent = '';
+        node.hidden = true;
+      }
+    }
+
+    function showFieldError(rule) {
+      const field = document.getElementById(rule.id);
+      const node = errorNode(rule.id);
+      if (field) field.setAttribute('aria-invalid', 'true');
+      if (node) {
+        node.textContent = rule.message;
+        node.hidden = false;
+      }
+    }
+
+    function isValid(rule) {
+      const field = document.getElementById(rule.id);
+      if (!field) return true;
+      const value = field.value || '';
+      if (value.trim() === '') return false;
+      return rule.test ? rule.test(value) : true;
+    }
+
+    // Clear a message as soon as the field it belongs to becomes valid, so it does not
+    // linger while the person is still fixing it.
+    for (const rule of rules) {
+      const field = document.getElementById(rule.id);
+      if (!field) continue;
+      field.addEventListener('change', () => {
+        if (isValid(rule)) clearFieldError(rule);
+      });
+      field.addEventListener('blur', () => {
+        if (isValid(rule)) clearFieldError(rule);
+        else showFieldError(rule);
+      });
+    }
+
+    function showSummary(message) {
+      errorAlert.textContent = message;
+      errorAlert.hidden = false;
+      errorAlert.focus();
+    }
+
+    function setSubmitting(isSubmitting) {
+      submitBtn.disabled = isSubmitting;
+      submitBtn.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+      submitBtn.textContent = isSubmitting ? 'Sending requirement…' : 'Submit Technical Requirement';
+    }
+
+    let submitting = false;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+
+      errorAlert.hidden = true;
+
+      const honeypot = document.getElementById('website_trap_field');
+      if (honeypot && honeypot.value) return;
+
+      const invalid = [];
+      for (const rule of rules) {
+        if (isValid(rule)) clearFieldError(rule);
+        else {
+          showFieldError(rule);
+          invalid.push(rule);
+        }
+      }
+
+      if (invalid.length > 0) {
+        showSummary(
+          invalid.length === 1
+            ? 'One field needs attention: ' + invalid[0].message
+            : invalid.length + ' fields need attention. See the message under each field.'
+        );
+        const firstField = document.getElementById(invalid[0].id);
+        if (firstField) firstField.focus();
+        return;
+      }
+
+      submitting = true;
+      setSubmitting(true);
+
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        const res = await fetch('/api/inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json().catch(() => ({}));
+
+        if (res.ok && result.success) {
+          form.hidden = true;
+          if (leadIdDisplay) leadIdDisplay.textContent = '#' + (result.leadId || 'INQ-RECEIVED');
+          successCard.hidden = false;
+          successCard.focus();
           return;
         }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending requirement…';
-
-        try {
-          const res = await fetch('/api/inquiry', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-
-          const result = await res.json();
-
-          if (res.ok && result.success) {
-            form.style.display = 'none';
-            leadIdDisplay.textContent = `#${result.leadId || 'INQ-' + Date.now().toString().slice(-6)}`;
-            successCard.style.display = 'flex';
-          } else {
-            errorAlert.textContent = result.message || 'Unable to submit your requirement. Please contact inquiries@infrahub.tech directly.';
-            errorAlert.style.display = 'block';
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Technical Requirement';
-          }
-        } catch (err) {
-          errorAlert.textContent = 'Network error communicating with the qualification engine. Please email inquiries@infrahub.tech directly.';
-          errorAlert.style.display = 'block';
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Submit Technical Requirement';
-        }
-      });
-    }
+        showSummary(result.message || 'Unable to submit your requirement. Please email inquiries@infrahub.tech directly.');
+      } catch (err) {
+        showSummary('Could not reach the inquiry service. Please email inquiries@infrahub.tech directly.');
+      } finally {
+        submitting = false;
+        setSubmitting(false);
+      }
+    });
   });
 </script>
