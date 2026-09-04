@@ -16,7 +16,7 @@ export default defineConfig({
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
 
   use: {
-    baseURL: 'http://localhost:4331',
+    baseURL: 'http://localhost:4399',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure'
   },
@@ -36,7 +36,8 @@ export default defineConfig({
 
   webServer: {
     command: 'node scripts/static-server.mjs',
-    url: 'http://localhost:4331/',
+    env: { PORT: '4399' },
+    url: 'http://localhost:4399/',
     reuseExistingServer: false,
     timeout: 60_000
   }
