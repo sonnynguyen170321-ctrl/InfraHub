@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Let's Talk Infrastructure  -  Technical Sourcing & Qualification"
-  description="Discuss your infrastructure, connectivity, cloud, security, or hardware requirements with our technical sourcing architects."
+  title="Let's Talk Infrastructure — Technical Sourcing & Qualification"
+  description="Discuss infrastructure, connectivity, cloud, security, hardware, or managed-service requirements with InfraHub."
   canonicalPath="/lets-talk"
 >
   <div class="section section-hero network-overlay">
@@ -25,21 +25,21 @@ import Layout from '../layouts/Layout.astro';
               <span class="step-badge">1</span>
               <div>
                 <strong>Advisor Review</strong>
-                <p>An infrastructure advisor reviews your parameters and technical constraints within one business day.</p>
+                <p>InfraHub reviews the requirement, technical constraints, location, and timing to identify what needs to be clarified next.</p>
               </div>
             </li>
             <li>
               <span class="step-badge">2</span>
               <div>
                 <strong>Ecosystem Matching</strong>
-                <p>We identify verified specialist providers matching your exact location and technical footprint.</p>
+                <p>We evaluate relevant specialist providers and approaches against the requirement and available information.</p>
               </div>
             </li>
             <li>
               <span class="step-badge">3</span>
               <div>
                 <strong>Direct Introduction</strong>
-                <p>We introduce your engineering team directly to provider leadership for direct contracting.</p>
+                <p>Where a partner-delivered service fits, InfraHub coordinates an introduction so commercial and delivery terms can be confirmed directly with the selected provider.</p>
               </div>
             </li>
           </ul>
@@ -47,7 +47,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div class="commercial-callout">
           <p>
-            <strong>Commercial Transparency:</strong> Sourcing through InfraHub never adds fees or markups to provider invoices. InfraHub is compensated directly by participating partners upon contracted delivery.
+            <strong>Commercial transparency:</strong> InfraHub will clarify its role in the engagement before introduction. Provider-specific pricing, contracting, delivery, and service commitments are confirmed with the selected provider.
           </p>
         </div>
       </div>
@@ -77,8 +77,8 @@ import Layout from '../layouts/Layout.astro';
               <label for="lookingFor" class="form-label">Primary Infrastructure Scope <span class="required">*</span></label>
               <select name="lookingFor" id="lookingFor" class="form-select" required>
                 <option value="" disabled selected>Select an infrastructure discipline...</option>
-                <option value="connectivity">Connectivity &amp; IP Transit (10G–400G / Wavelengths)</option>
-                <option value="hardware">Hardware &amp; Enterprise Servers (Refurbished / Certified)</option>
+                <option value="connectivity">Connectivity, IP Transit &amp; Wavelengths</option>
+                <option value="hardware">Hardware &amp; Enterprise Servers (New / Refurbished)</option>
                 <option value="dedicated-infrastructure">Dedicated Infrastructure &amp; Bare Metal Clusters</option>
                 <option value="cloud">Cloud &amp; Virtualization (Private Cloud / VMware Alternatives)</option>
                 <option value="ddos-security">DDoS Mitigation &amp; FlowSpec Automation</option>
@@ -166,7 +166,7 @@ import Layout from '../layouts/Layout.astro';
           </button>
 
           <p class="form-privacy-note">
-            Your details are only shared with specialist providers directly relevant to your scope.
+            InfraHub uses your details to qualify the inquiry and may share them with relevant providers as described in the Privacy Policy.
           </p>
         </form>
 
@@ -182,7 +182,7 @@ import Layout from '../layouts/Layout.astro';
             Inquiry reference: <strong id="lead-id-display">#LEAD-0000</strong>
           </p>
           <p class="success-desc">
-            An infrastructure advisor is reviewing your parameters and will follow up within one business day with independent provider options or clarifying technical questions.
+            InfraHub has received your requirement. The next step may be a clarification, a relevant provider introduction, or a discussion of suitable sourcing options.
           </p>
           <a href="/" class="btn btn-secondary">Return to Homepage</a>
         </div>
@@ -482,7 +482,7 @@ import Layout from '../layouts/Layout.astro';
         }
 
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Processing Requirement...</span>';
+        submitBtn.textContent = 'Sending requirement…';
 
         try {
           const res = await fetch('/api/inquiry', {
@@ -501,13 +501,13 @@ import Layout from '../layouts/Layout.astro';
             errorAlert.textContent = result.message || 'Unable to submit your requirement. Please contact inquiries@infrahub.tech directly.';
             errorAlert.style.display = 'block';
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<span>Send Technical Requirement</span>';
+            submitBtn.textContent = 'Submit Technical Requirement';
           }
         } catch (err) {
           errorAlert.textContent = 'Network error communicating with the qualification engine. Please email inquiries@infrahub.tech directly.';
           errorAlert.style.display = 'block';
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<span>Send Technical Requirement</span>';
+          submitBtn.textContent = 'Submit Technical Requirement';
         }
       });
     }
