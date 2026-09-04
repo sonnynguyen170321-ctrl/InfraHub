@@ -106,6 +106,13 @@ for (const file of offerFiles) {
   const where = rel(file);
 
   if (status === 'active') {
+    if (data.publicApproved !== true) {
+      error(
+        where,
+        'offer-active-unapproved',
+        'status "active" requires publicApproved: true; otherwise the record must remain review/draft'
+      );
+    }
     if (!data.expiryDate) {
       error(
         where,
@@ -124,6 +131,22 @@ for (const file of offerFiles) {
         );
       }
     }
+  }
+
+  if (data.publicApproved === true && data.priceStatus === 'unverified') {
+    error(
+      where,
+      'offer-public-unverified-price',
+      'publicApproved: true cannot be combined with priceStatus: unverified'
+    );
+  }
+
+  if (data.publicApproved === true && ['confirmed_allocation', 'partner_quote'].includes(String(data.priceStatus)) && !data.priceSourceRef) {
+    error(
+      where,
+      'offer-price-source-missing',
+      'public commercial pricing requires priceSourceRef when priceStatus asserts a confirmed allocation or partner quote'
+    );
   }
 
   // A price is a commercial claim. It has to be attributable to somebody.
