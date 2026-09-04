@@ -56,7 +56,7 @@ const secondaryOffers = primaryOffer
         {primaryOffer && (
           <article class="featured-primary-card">
             <div class="primary-card-top">
-              <span class="primary-kicker">{primaryOffer.data.category.toUpperCase()} ALLOCATION</span>
+              <span class="primary-kicker">{primaryOffer.data.category}</span>
               <h3 class="primary-title">
                 <a href={`/offers/${primaryOffer.slug}`}>{primaryOffer.data.title}</a>
               </h3>
@@ -226,14 +226,12 @@ const secondaryOffers = primaryOffer
 
   /* Primary Featured Opportunity */
   .featured-primary-card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 42px 38px;
+    padding: 0 0 34px;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
   }
   .primary-card-top {
     display: flex;
@@ -299,14 +297,12 @@ const secondaryOffers = primaryOffer
     gap: 24px;
   }
   .secondary-offer-row {
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 30px 32px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
     justify-content: space-between;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border-color);
   }
   .secondary-meta {
     display: flex;

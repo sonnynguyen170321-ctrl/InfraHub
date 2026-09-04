@@ -256,8 +256,9 @@
     const heroBg = document.querySelector('.hero-bg-img') as HTMLElement;
     const heroContainer = document.querySelector('.hero-container') as HTMLElement;
     const heroSection = document.getElementById('hero');
+    const heroScrim = document.querySelector('.hero-scrim') as HTMLElement;
 
-    if (!heroBg || !heroContainer || !heroSection) return;
+    if (!heroBg || !heroContainer || !heroSection || !heroScrim) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let ticking = false;
@@ -274,6 +275,8 @@
             // Headline rises slightly (20-30px) and fades smoothly
             heroContainer.style.transform = `translateY(-${(progress * 28).toFixed(1)}px)`;
             heroContainer.style.opacity = `${(1 - progress * 0.6).toFixed(2)}`;
+            // The photograph recedes rather than simply scrolling away.
+            heroScrim.style.opacity = `${(1 + progress * 0.45).toFixed(2)}`;
           }
           ticking = false;
         });

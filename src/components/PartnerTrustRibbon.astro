@@ -125,6 +125,14 @@ const approvedPartners = allPartners
     align-items: flex-start;
   }
 
+  @media (min-width: 980px) {
+    .ribbon-inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 40px;
+    }
+  }
+
   @media (min-width: 900px) {
     .ribbon-inner {
       flex-direction: row;
@@ -141,6 +149,15 @@ const approvedPartners = allPartners
     padding-bottom: 16px;
     border-bottom: 1px solid var(--border-color);
     width: 100%;
+  }
+
+  @media (min-width: 980px) {
+    .ribbon-fixed-zone {
+      width: auto;
+      padding: 0 40px 0 0;
+      border-bottom: none;
+      border-right: 1px solid var(--border-color);
+    }
   }
 
   @media (min-width: 900px) {
