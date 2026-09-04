@@ -27,168 +27,168 @@ const partnerSignatures: Record<string, {
   commercialCaution: string;
 }> = {
   fastnetmon: {
-    architectureTitle: "Detection & Mitigation Automation Flow",
-    architectureSubtitle: "How FastNetMon integrates with network edge routers and scrubbing centers",
+    architectureTitle: "Detection & Mitigation Control Flow",
+    architectureSubtitle: "Where FastNetMon can sit between network telemetry, routing policy, and external mitigation",
     steps: [
-      { num: "01", title: "Flow Telemetry Ingestion", desc: "Collects continuous sFlow, NetFlow (v5/v9), IPFIX, or port-mirror packet streams from edge routers." },
-      { num: "02", title: "Statistical Threshold Analysis", desc: "Detects packet/byte spikes, SYN floods, and UDP amplifications against host-level traffic baselines." },
-      { num: "03", title: "Automated Policy Trigger", desc: "Executes automated actions within seconds: announces BGP FlowSpec rules, sends RTBH, or calls webhook scripts." },
-      { num: "04", title: "Traffic Diversion & Scrubbing", desc: "Reroutes affected /32 or /24 prefixes to external scrubbing infrastructure (e.g. StormWall) until attack terminates." }
+      { num: "01", title: "Traffic Telemetry", desc: "Processes supported network telemetry and traffic sources so operators can observe potential DDoS events." },
+      { num: "02", title: "Detection", desc: "Analyzes traffic patterns to identify attacks and the affected destinations." },
+      { num: "03", title: "Routing Response", desc: "Can automate policy-driven actions such as BGP FlowSpec or remote-triggered blackholing (RTBH)." },
+      { num: "04", title: "External Mitigation", desc: "Can support diversion workflows toward external scrubbing services when the network design requires them." }
     ],
     decisionQuestions: [
-      "Do your edge routers support BGP FlowSpec and dynamic prefix announcements?",
-      "What is your transit provider's policy on remote-triggered blackholing (RTBH)?",
-      "Do you want inline filtering or purely out-of-band telemetry analysis?"
+      "Which telemetry sources are available at the network edge?",
+      "Which FlowSpec or RTBH actions are supported by your routers and upstream providers?",
+      "Who should own mitigation policy and escalation during an attack?"
     ],
-    whenFits: "ISPs, hosting providers, and Autonomous Systems (ASNs) that operate their own edge routers and want automated DDoS detection without routing all baseline traffic through a costly third-party proxy.",
-    whenAlternative: "When you do not operate BGP routing or lack in-house network engineering capability to manage BGP filters, an always-on reverse-proxy scrubbing service is simpler.",
-    commercialCaution: "Verify your upstream transit providers' FlowSpec community compatibility before relying on upstream line-rate filtering."
+    whenFits: "Network operators that want a detection and control layer while retaining responsibility for routing and mitigation policy.",
+    whenAlternative: "A fully managed protection service may fit better when the buyer does not want to operate the detection and routing-control layer.",
+    commercialCaution: "Confirm router support, upstream routing policy, licensing scope, and any external scrubbing handoff before relying on an automated response design."
   },
   gcore: {
-    architectureTitle: "Global Edge & Sovereign Compute Architecture",
-    architectureSubtitle: "Compute, GPU acceleration, and low-latency network infrastructure",
+    architectureTitle: "Cloud, Edge & Security Service Map",
+    architectureSubtitle: "How Gcore's compute, AI, delivery, networking, and security services can relate to one requirement",
     steps: [
-      { num: "01", title: "Bare-Metal & Virtualization", desc: "High-density enterprise servers and private cloud hypervisors located across sovereign European and international facilities." },
-      { num: "02", title: "GPU & AI Infrastructure", desc: "Dedicated clusters equipped with NVIDIA H100 and L40S accelerators paired with high-bandwidth InfiniBand networking." },
-      { num: "03", title: "Global Anycast Delivery", desc: "Edge CDN, Anycast DNS, and real-time media streaming integrated directly into regional peering exchanges." },
-      { num: "04", title: "Perimeter DDoS Protection", desc: "Always-on network layer-3/4 and application layer-7 attack mitigation built into global network edge." }
+      { num: "01", title: "Compute & Bare Metal", desc: "Evaluate virtual machines, bare metal, storage, containers, databases, and cloud networking against the workload." },
+      { num: "02", title: "AI Infrastructure", desc: "Consider GPU and AI services where accelerator access, inference, or private AI infrastructure is part of the requirement." },
+      { num: "03", title: "Edge Delivery", desc: "CDN, DNS, streaming, and edge-delivery services may matter when content or application distribution is part of the design." },
+      { num: "04", title: "Security", desc: "DDoS protection, WAF, and bot-management services can be evaluated alongside the infrastructure and delivery path." }
     ],
     decisionQuestions: [
-      "Are your workloads sensitive to European data residency under GDPR and NIS2 regulations?",
-      "Do your AI workloads require dedicated bare-metal GPUs or elastic cloud instances?",
-      "What is your target ingress/egress ratio across edge distribution locations?"
+      "Which regions and workload types actually need Gcore services?",
+      "Is the requirement compute-led, delivery-led, security-led, or a combination?",
+      "What network, egress, data-location, and operational constraints should be compared?"
     ],
-    whenFits: "Enterprises and tech companies that need high-performance bare metal, European data sovereignty, and edge computing without hyperscaler egress penalties.",
-    whenAlternative: "If your architecture is completely locked into proprietary AWS or Azure proprietary managed services (e.g. DynamoDB, CloudFront functions), migration may require application re-engineering.",
-    commercialCaution: "Benchmark bandwidth commitments against burst rates to ensure predictable operational expenditure."
+    whenFits: "Requirements that combine cloud or bare-metal infrastructure with distributed delivery, AI services, or network and application security.",
+    whenAlternative: "A narrower regional provider or a hyperscaler-specific managed service may fit better when the workload is tightly coupled to one platform or geography.",
+    commercialCaution: "Compare region availability, service-specific pricing, traffic charges, support scope, and contract terms for the exact configuration."
   },
   stormwall: {
-    architectureTitle: "Multilayer DDoS Scrubbing Architecture",
-    architectureSubtitle: "BGP network-layer diversion and application perimeter filtering",
+    architectureTitle: "Managed DDoS & Application Protection",
+    architectureSubtitle: "Where network diversion, TCP/UDP protection, WAF, and antibot services can sit in the protection path",
     steps: [
-      { num: "01", title: "BGP Route Announcement", desc: "Traffic is routed to StormWall's global scrubbing centers via BGP announcement during active attacks or on permanent basis." },
-      { num: "02", title: "Deep Packet Inspection (DPI)", desc: "Proprietary traffic filtering analyzes packet signatures, TCP window states, and HTTP application behavior." },
-      { num: "03", title: "Surgical Mitigation", desc: "Volumetric UDP/ICMP floods and malicious Layer-7 HTTP requests are absorbed; legitimate packets are preserved." },
-      { num: "04", title: "Clean Traffic Return", desc: "Cleaned traffic is returned to client infrastructure via dedicated GRE tunnels, Layer-2 cross-connects, or reverse proxy." }
+      { num: "01", title: "Protection Scope", desc: "Define whether the requirement is network-layer, TCP/UDP service, web-application, or combined protection." },
+      { num: "02", title: "Traffic Onboarding", desc: "Establish how protected traffic reaches the service, including routing or application-layer integration where applicable." },
+      { num: "03", title: "Filtering", desc: "The protection service filters malicious traffic according to the selected network or application protection model." },
+      { num: "04", title: "Service Delivery", desc: "Confirm how legitimate traffic returns to the protected service and how monitoring, escalation, and support are handled." }
     ],
     decisionQuestions: [
-      "Do you require always-on protection or on-demand BGP diversion triggered only during incidents?",
-      "What is the maximum clean bandwidth capacity required between scrubbing centers and your datacenter?",
-      "Do you need L7 SSL certificate termination at the scrubbing edge or pure packet-layer tunnel transport?"
+      "Is the requirement always-on protection, on-demand mitigation, or application-layer protection?",
+      "Which protocols, applications, and traffic volumes must be protected?",
+      "What return path, operational handoff, and escalation model does the design require?"
     ],
-    whenFits: "Networks, online gaming platforms, and financial services vulnerable to complex multi-vector volumetric and application-layer DDoS attacks.",
-    whenAlternative: "If attacks are strictly low-volume Layer-7 credential stuffing, a lightweight CDN WAF layer without dedicated GRE infrastructure may suffice.",
-    commercialCaution: "Confirm whether clean traffic return via GRE tunnels introduces MTU fragmentation or requires MSS clamping on your border routers."
+    whenFits: "Organizations that need an external managed DDoS or web-application protection service rather than operating the entire mitigation stack themselves.",
+    whenAlternative: "A detection-and-control platform may fit better when the network operator wants to retain its own routing policy and use third-party mitigation only when required.",
+    commercialCaution: "Confirm onboarding method, protected capacity, support scope, service commitments, and any clean-traffic return requirements before contracting."
   },
   zenlayer: {
-    architectureTitle: "Hyper-Connected Edge Infrastructure Topology",
-    architectureSubtitle: "Edge compute and low-latency connectivity across emerging markets",
+    architectureTitle: "Distributed Compute & Connectivity",
+    architectureSubtitle: "How bare metal, cloud networking, IP transit, acceleration, and edge services can be combined",
     steps: [
-      { num: "01", title: "Edge Bare Metal", desc: "Turnkey bare-metal servers provisioned directly at primary edge hubs across Southeast Asia, India, and Latin America." },
-      { num: "02", title: "Private Cloud WAN", desc: "Software-defined private network interconnecting edge nodes with major public cloud availability zones." },
-      { num: "03", title: "Global IP Acceleration", desc: "Optimized route selection bypassing congested public internet transits and unstable cross-border routes." },
-      { num: "04", title: "Carrier Colocation", desc: "Footprint deployment in carrier-dense colocation facilities with rapid cross-connect provisioning." }
+      { num: "01", title: "Compute Placement", desc: "Evaluate bare-metal or elastic compute against workload location, hardware, and operational requirements." },
+      { num: "02", title: "Private Connectivity", desc: "Cloud networking and private-connectivity services can link workloads, cloud environments, and distributed locations." },
+      { num: "03", title: "Internet & Acceleration", desc: "IP transit, acceleration, and CDN services may be relevant where internet reach and application delivery are part of the requirement." },
+      { num: "04", title: "Edge Infrastructure", desc: "Edge colocation and distributed infrastructure options can be evaluated where physical presence or regional placement matters." }
     ],
     decisionQuestions: [
-      "Are your end-users concentrated in emerging regions with historically poor transit connectivity?",
-      "Do you need instant bare-metal provisioning or custom hardware builds in edge metros?",
-      "What are your target latency SLAs between edge compute nodes and central database clusters?"
+      "Which metros and user regions actually drive the requirement?",
+      "Does the workload need bare metal, elastic compute, private connectivity, or several of these together?",
+      "Which latency, traffic, routing, and contract constraints should be tested against available locations?"
     ],
-    whenFits: "Gaming companies, cross-border e-commerce, and real-time streaming platforms scaling in regions where Tier-1 transit is fragmented.",
-    whenAlternative: "For workloads serving purely North American or Western European domestic traffic, local metro providers may offer lower transit costs.",
-    commercialCaution: "Review minimum port commitment durations across different geographic markets."
+    whenFits: "Multi-region requirements where compute placement and connectivity need to be considered together.",
+    whenAlternative: "A local provider may be simpler when the workload is concentrated in one market and does not need a distributed infrastructure footprint.",
+    commercialCaution: "Confirm location-specific availability, port and traffic terms, minimum commitments, and deployment lead times for the selected services."
   },
   ipxo: {
-    architectureTitle: "IPv4 Allocation & Address Governance Flow",
-    architectureSubtitle: "Subnet sourcing, RPKI validation, and address reputation management",
+    architectureTitle: "IPv4 Sourcing & Governance Flow",
+    architectureSubtitle: "From address requirements through authorization, routing preparation, reputation, and abuse management",
     steps: [
-      { num: "01", title: "Subnet Sourcing & Leasing", desc: "Access clean /24 to /16 IPv4 address pools across RIPE NCC, ARIN, APNIC, and LACNIC registries." },
-      { num: "02", title: "RPKI & LOA Generation", desc: "Instant generation of Route Origin Authorizations (ROA) and Letters of Authorization (LOA) for your ASN." },
-      { num: "03", title: "BGP Announcement", desc: "Announce leased subnets through your existing upstream transit providers without capital outlay." },
-      { num: "04", title: "Abuse & Reputation Monitoring", desc: "Continuous automated scanning across global blocklists, spam databases, and routing leak monitors." }
+      { num: "01", title: "Requirements & Search", desc: "Define prefix size, region, lease duration, and intended use before evaluating available IPv4 resources." },
+      { num: "02", title: "Authorization & Governance", desc: "Review the applicable authorization, KYC, RPKI, and governance steps for the selected resource." },
+      { num: "03", title: "Routing Preparation", desc: "Confirm LOA, ROA, upstream acceptance, and routing requirements before announcing a leased prefix." },
+      { num: "04", title: "Reputation & Abuse", desc: "Monitor reputation and abuse history throughout the life of the resource rather than treating availability alone as sufficient." }
     ],
     decisionQuestions: [
-      "What subnet size (/24, /23, /22) matches your 12-month address growth requirement?",
-      "Which Regional Internet Registry (RIR) must the subnets be registered under for geolocation accuracy?",
-      "Do your upstream transit carriers accept third-party RPKI ROAs and Letters of Authorization promptly?"
+      "What prefix size and region are actually required?",
+      "Who controls the LOA, ROA, and routing workflow for the selected resource?",
+      "What reputation, abuse-history, and upstream-acceptance checks are required before use?"
     ],
-    whenFits: "Growing hosting companies, ISPs, VPN platforms, and enterprise networks that need IPv4 address blocks immediately without paying $50+ per IP to purchase outright.",
-    whenAlternative: "If your application and end-user base can operate natively over IPv6 with dual-stack proxies, avoiding IPv4 leasing altogether is commercially superior.",
-    commercialCaution: "Always audit the historical reputation and blocklist status of any allocated subnet before announcing it to your upstream carriers."
+    whenFits: "Organizations that need additional IPv4 resources or want to manage and monetize unused address space without treating address availability as the only decision factor.",
+    whenAlternative: "IPv6-first or dual-stack architecture may reduce the amount of IPv4 space required where the application and user base support it.",
+    commercialCaution: "Check lease terms, authorization, reputation, abuse handling, geolocation expectations, and routing acceptance for the actual prefix."
   },
   vates: {
-    architectureTitle: "Open-Source Virtualization & Management Stack",
-    architectureSubtitle: "Enterprise hypervisor, orchestration, and backup architecture",
+    architectureTitle: "XCP-ng & Xen Orchestra Stack",
+    architectureSubtitle: "How the hypervisor, management, backup, replication, and support layers fit together",
     steps: [
-      { num: "01", title: "XCP-ng Hypervisor", desc: "Turnkey enterprise Type-1 hypervisor built on Xen Project, providing direct bare-metal hardware control." },
-      { num: "02", title: "Xen Orchestra Appliance", desc: "Agentless web management platform controlling multiple host pools, storage repositories, and network bonds." },
-      { num: "03", title: "Continuous Backup & Replication", desc: "Agentless delta backups, automated VM health checks, and cross-datacenter disaster recovery replication." },
-      { num: "04", title: "VMware Migration Engine", desc: "Direct ESXi / vCenter migration tools converting proprietary VMDK workloads directly to native XCP-ng storage." }
+      { num: "01", title: "XCP-ng", desc: "Provides the open-source virtualization platform based on the Xen Project hypervisor." },
+      { num: "02", title: "Xen Orchestra", desc: "Adds browser and API-based management across XCP-ng environments." },
+      { num: "03", title: "Backup & Replication", desc: "Evaluate the backup, replication, metrics, and automation capabilities required by the operating model." },
+      { num: "04", title: "Support & Operations", desc: "Define the commercial support, migration planning, hardware, storage, and operational requirements around the virtualization stack." }
     ],
     decisionQuestions: [
-      "Are Broadcom/VMware per-core subscription price increases threatening your infrastructure margins?",
-      "Do you require certified enterprise support with strict SLA turnaround times?",
-      "What storage architecture (Ceph, iSCSI SAN, NFS, local ZFS) underpins your existing hypervisor pool?"
+      "Which VMware or virtualization features are actually in use today?",
+      "What storage, networking, HA, backup, and recovery requirements must the target platform satisfy?",
+      "What migration testing and operational training will be required?"
     ],
-    whenFits: "Datacenters, MSPs, and enterprises seeking a proven open-source virtualization platform with commercial enterprise backing and zero per-core licensing penalties.",
-    whenAlternative: "If your operational teams only have Linux KVM expertise and no Xen experience, Proxmox VE may offer a shorter learning curve.",
-    commercialCaution: "Map your SAN storage multipath configurations and vLAN tagging schemes before initiating bulk ESXi workload conversions."
+    whenFits: "Enterprises, hosting providers, and cloud operators evaluating an open-source virtualization stack with commercial support options.",
+    whenAlternative: "A KVM-based platform or another virtualization approach may fit better when existing skills, tooling, or workload dependencies point elsewhere.",
+    commercialCaution: "Map feature dependencies, storage and network design, support scope, and migration testing before committing to a platform change."
   },
   itcare: {
-    architectureTitle: "24/7 Managed NOC & NetOps Pipeline",
-    architectureSubtitle: "Proactive network monitoring, automated triage, and senior engineer escalation",
+    architectureTitle: "Managed Network Operations Workflow",
+    architectureSubtitle: "How monitoring, triage, engineering, automation, and carrier coordination can fit together",
     steps: [
-      { num: "01", title: "Continuous Telemetry", desc: "Monitors router interfaces, BGP peering sessions, optical light levels, and device health 24 hours a day." },
-      { num: "02", title: "HORA AI Incident Triage", desc: "Correlates flapping interfaces and cascading BGP alerts to suppress alert storms and identify root causes." },
-      { num: "03", title: "Senior Engineer Response", desc: "Direct escalation to qualified network architects capable of configuring BGP policies and mitigating transit outages." },
-      { num: "04", title: "Carrier Ticket Management", desc: "Coordinates directly with underlying transit carriers and fiber operators until link restoration is confirmed." }
+      { num: "01", title: "Monitoring", desc: "Define the devices, links, services, and alert sources covered by the managed operating model." },
+      { num: "02", title: "Triage", desc: "Establish how incidents are classified, correlated, and escalated across the agreed service scope." },
+      { num: "03", title: "Engineering & Automation", desc: "Use network engineering, DevOps, and automation where the operating model calls for configuration or workflow changes." },
+      { num: "04", title: "Escalation & Coordination", desc: "Define handoff boundaries between the managed team, internal engineers, carriers, and other infrastructure providers." }
     ],
     decisionQuestions: [
-      "Does your internal engineering team suffer from after-hours on-call alert fatigue?",
-      "Do you need full 24/7 Tier-3 NOC coverage or specialized night/weekend overflow support?",
-      "What is your target Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR)?"
+      "Which hours, devices, services, and incident classes need external operational coverage?",
+      "Which actions may be automated and which require engineer approval?",
+      "What escalation path and authority boundaries should apply during a network incident?"
     ],
-    whenFits: "Mid-market enterprises, infrastructure operators, and SaaS platforms that run critical multi-homed networks but cannot justify full in-house 24/7 NOC staffing.",
-    whenAlternative: "If your infrastructure is purely serverless code on AWS Lambda with no physical networking or BGP routing, specialized NetOps NOCs are unnecessary.",
-    commercialCaution: "Define clear runbooks and authority boundaries for automated versus engineer-approved routing changes."
+    whenFits: "Infrastructure operators that want to augment internal network engineering with managed NOC, automation, or operational support.",
+    whenAlternative: "A fully internal operations model may be preferable when the organization already has sufficient round-the-clock coverage and specialist skills.",
+    commercialCaution: "Define runbooks, access controls, escalation targets, maintenance responsibilities, and change authority before handoff."
   },
   airframe: {
-    architectureTitle: "Technology Market Intelligence & Diligence",
-    architectureSubtitle: "Empirical research, practitioner evidence, and build-vs-buy decisions",
+    architectureTitle: "Technology Evaluation & Diligence Flow",
+    architectureSubtitle: "From requirements and market mapping through evidence, comparison, and build-versus-buy decisions",
     steps: [
-      { num: "01", title: "Requirement Qualification", desc: "Frames architectural objectives, performance constraints, and budget realities before reviewing vendor marketing." },
-      { num: "02", title: "Market Landscape Mapping", desc: "Maps all active market providers, pricing structures, and technical capability boundaries across the sector." },
-      { num: "03", title: "Practitioner Due Diligence", desc: "Interviews engineering leaders who have actually deployed, operated, or rejected the tools in production." },
-      { num: "04", title: "Decision Defense & Terms", desc: "Delivers an actionable build-vs-buy recommendation, pricing benchmarks, and negotiation positions." }
+      { num: "01", title: "Requirement Framing", desc: "Clarify the objectives, constraints, and decision criteria before comparing vendors or build options." },
+      { num: "02", title: "Market Mapping", desc: "Research relevant companies, products, pricing structures, and capability differences for the defined requirement." },
+      { num: "03", title: "Evidence & Diligence", desc: "Compare vendor claims with available implementation evidence, pricing intelligence, and practitioner feedback." },
+      { num: "04", title: "Decision Support", desc: "Distinguish what is supported by evidence, what remains uncertain, and what should be validated before a build-versus-buy decision." }
     ],
     decisionQuestions: [
-      "Are you evaluating a costly multi-year software or AI vendor commitment with unclear ROI?",
-      "Do you need unbiased intelligence outside of vendor sales decks and analyst paywalls?",
-      "Is the decision whether to purchase commercial SaaS or engineer an internal solution?"
+      "Is the team evaluating a material software or AI platform commitment?",
+      "Which evidence is needed beyond vendor marketing to defend the decision?",
+      "Is the real choice between buying a product, building internally, or narrowing the requirement first?"
     ],
-    whenFits: "CTOs, VP Engineering leaders, and procurement teams making major architectural software or AI platform decisions that cannot afford expensive implementation failures.",
-    whenAlternative: "If the product is an established commodity commodity (e.g. standard email hosting), formal vendor diligence may be disproportionate.",
-    commercialCaution: "Bring decisions to diligence early in the procurement cycle before vendor sales teams anchor price expectations."
+    whenFits: "Technology teams that need structured market intelligence or vendor diligence before a consequential software or AI decision.",
+    whenAlternative: "For a routine commodity purchase with clear requirements and low switching cost, formal diligence may be disproportionate.",
+    commercialCaution: "Start diligence early enough that evidence can shape the shortlist before commercial negotiations narrow the options."
   }
 };
 
 const signature = partnerSignatures[partner.slug] || {
-  architectureTitle: "Technical Architecture & Operational Workflow",
-  architectureSubtitle: `How ${partner.data.name} integrates with enterprise infrastructure`,
+  architectureTitle: "Technical Fit & Operating Model",
+  architectureSubtitle: `How to evaluate ${partner.data.name} against the requirement`,
   steps: [
-    { num: "01", title: "Architecture Review", desc: "Qualify technical specifications and operational requirements." },
-    { num: "02", title: "Provider Matching", desc: "Evaluate capability fit against real workloads and SLAs." },
-    { num: "03", title: "Direct Contracting", desc: "Execute transparent commercial terms with provider." },
-    { num: "04", title: "Operational Execution", desc: "Deploy infrastructure with verified technical support." }
+    { num: "01", title: "Requirement", desc: "Clarify the technical and operational requirement before comparing providers." },
+    { num: "02", title: "Capability Fit", desc: "Compare the provider's published capabilities with the actual workload and constraints." },
+    { num: "03", title: "Commercial Terms", desc: "Confirm provider-specific pricing, support, service commitments, and contract terms." },
+    { num: "04", title: "Delivery", desc: "Define implementation, handoff, and ongoing operational responsibilities before contracting." }
   ],
   decisionQuestions: [
-    "What are your core technical constraints and latency tolerances?",
-    "Do you require commercial SLAs backed by financial credits?",
-    "How does this integration fit into your long-term infrastructure roadmap?"
+    "What technical constraints must the provider satisfy?",
+    "Which support, service, and commercial terms materially affect the decision?",
+    "What responsibilities remain with your team after implementation?"
   ],
-  whenFits: "Enterprises seeking verified technical capabilities with transparent commercial terms.",
-  whenAlternative: "When internal infrastructure resources already fulfill the operational requirement.",
-  commercialCaution: "Review contract terms and commitment durations prior to execution."
+  whenFits: "Requirements that align with the provider's published capability scope and operating model.",
+  whenAlternative: "Another approach may fit better when the workload, geography, operating model, or commercial constraints point elsewhere.",
+  commercialCaution: "Confirm provider-specific commercial and service terms before contracting."
 };
 ---
 
@@ -335,9 +335,9 @@ const signature = partnerSignatures[partner.slug] || {
 
             <!-- Verified Capabilities Block -->
             <div class="verified-caps-block">
-              <h3 class="caps-block-title">Verified Capability Scope</h3>
+              <h3 class="caps-block-title">Published capability scope</h3>
               <p class="caps-block-note">
-                Descriptions are aligned to {partner.data.name}'s published technical specifications and operational roles:
+                Descriptions below are aligned to {partner.data.name}'s current public materials:
               </p>
               <ul class="caps-detail-list">
                 {partner.data.capabilities.map(cap => (
@@ -356,7 +356,7 @@ const signature = partnerSignatures[partner.slug] || {
               <span class="consult-kicker">QUALIFIED INTRODUCTION</span>
               <h3 class="consult-title">Evaluate {partner.data.name}</h3>
               <p class="consult-desc">
-                Discuss your engineering constraints with our advisory desk. We benchmark provider pricing, physical route availability, and technical SLAs with zero broker markup.
+                Discuss the requirement with InfraHub. We help clarify technical constraints, compare relevant options, and coordinate an introduction. Provider-specific pricing, availability, and service commitments are confirmed before contracting.
               </p>
               <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-block btn-lg">
                 <span>Discuss Your Requirement</span>
@@ -369,11 +369,11 @@ const signature = partnerSignatures[partner.slug] || {
                 </div>
                 <div class="assurance-item">
                   <span class="assure-icon">&check;</span>
-                  <span>Zero broker fee or retail markup</span>
+                  <span>Provider-specific commercial terms</span>
                 </div>
                 <div class="assurance-item">
                   <span class="assure-icon">&check;</span>
-                  <span>Direct provider Master Services Agreement (MSA)</span>
+                  <span>Direct introduction to the selected specialist</span>
                 </div>
               </div>
             </div>
