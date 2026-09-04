@@ -53,8 +53,10 @@ const server = http.createServer((req, res) => {
   }
 });
 
-await new Promise(resolve => server.listen(4321, resolve));
-console.log('Local static audit server listening on http://localhost:4321');
+await new Promise(resolve => server.listen(0, resolve));
+const port = server.address().port;
+const BASE_URL = `http://localhost:${port}`;
+console.log(`Local static audit server listening on ${BASE_URL}`);
 
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
@@ -71,7 +73,7 @@ const auditResults = {
 try {
   // 1. Audit Homepage Header Logo & Alignment
   console.log('\n--- 1. Auditing Header Brand Logo Alignment ---');
-  await page.goto('http://localhost:4321/', { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
 
   const headerBox = await page.locator('.site-header').boundingBox();
   const logoBox = await page.locator('.site-header .brand-logo').boundingBox();
@@ -144,7 +146,7 @@ try {
 
   // 3. Audit /partners page
   console.log('\n--- 3. Auditing /partners Ledger Page ---');
-  await page.goto('http://localhost:4321/partners', { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/partners`, { waitUntil: 'networkidle' });
 
   const ledgerPartners = await page.$$eval('.ledger-row-item', cards => {
     return cards.map(card => {
@@ -179,7 +181,7 @@ try {
   const partnerSlugs = ['fastnetmon', 'gcore', 'stormwall', 'zenlayer', 'ipxo', 'vates', 'itcare', 'airframe'];
   console.log('\n--- 4. Auditing Partner Profile Pages ---');
   for (const slug of partnerSlugs) {
-    await page.goto(`http://localhost:4321/partners/${slug}/`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/partners/${slug}/`, { waitUntil: 'networkidle' });
     
     const profileData = await page.evaluate(() => {
       const h1 = document.querySelector('.profile-title');
@@ -208,7 +210,7 @@ try {
 
   // 5. Global invisible/unappearable text scan across pages
   console.log('\n--- 5. Scanning for Low Contrast / Invisible Text ---');
-  const pagesToScan = ['http://localhost:4321/', 'http://localhost:4321/partners', 'http://localhost:4321/offers', 'http://localhost:4321/how-we-work', 'http://localhost:4321/lets-talk'];
+  const pagesToScan = [`${BASE_URL}/`, `${BASE_URL}/partners`, `${BASE_URL}/offers`, `${BASE_URL}/how-we-work`, `${BASE_URL}/lets-talk`];
   
   for (const pageUrl of pagesToScan) {
     await page.goto(pageUrl, { waitUntil: 'networkidle' });
