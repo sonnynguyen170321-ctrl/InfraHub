@@ -66,18 +66,25 @@ test.describe('mobile drawer', () => {
   });
 });
 
+const ROUTES_UNDER_TEST = ['/', '/partners', '/offers', '/lets-talk', '/wavelengths', '/about'];
+
 test.describe('responsive layout', () => {
-  const widths = [320, 375, 390, 430, 768, 1024];
+  const widths = [320, 375, 390, 430, 768, 1024, 1100, 1280, 1366, 1440, 1920];
 
   for (const width of widths) {
     test(`no horizontal overflow at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto('/');
 
-      const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth
-      );
-      expect(overflow, `page scrolls horizontally at ${width}px`).toBeLessThanOrEqual(1);
+      // Sweep the pages that carry the widest content — the mega menu, the partner grid,
+      // the offers board, the form, and the route schematic — not only the homepage.
+      for (const route of ROUTES_UNDER_TEST) {
+        await page.goto(route);
+
+        const overflow = await page.evaluate(
+          () => document.documentElement.scrollWidth - document.documentElement.clientWidth
+        );
+        expect(overflow, `${route} scrolls horizontally at ${width}px`).toBeLessThanOrEqual(1);
+      }
     });
   }
 });

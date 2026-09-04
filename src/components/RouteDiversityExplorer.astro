@@ -54,11 +54,11 @@ const { isTeaser = false } = Astro.props;
           </div>
 
           <div class="status-readout">
-            <span class="status-tag" id="statusTag">ILLUSTRATIVE LOGICAL VIEW</span>
+            <span class="status-tag" id="statusTag">Illustrative: logical view</span>
           </div>
         </div>
 
-        <!-- Architectural Schematic Canvas (Crisp 2D Vector + 3D Enhancement) -->
+        <!-- Schematic canvas: inline SVG only. The diagram is illustrative and does not model real routes. -->
         <div class="schematic-viewport" id="schematicViewport">
           
           <!-- State 1: Logical Topology SVG -->
@@ -145,7 +145,7 @@ const { isTeaser = false } = Astro.props;
 
               <!-- Pinch Point Marker -->
               <circle cx="130" cy="85" r="32" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-dasharray="4 3" />
-              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">ILLUSTRATIVE SHARED PHYSICAL DEPENDENCY</text>
+              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">Illustrative shared physical dependency</text>
             </g>
 
             <!-- Destination Feeders -->
@@ -157,11 +157,11 @@ const { isTeaser = false } = Astro.props;
         <!-- Metric & Status Footer -->
         <div class="stage-footer-status">
           <div class="status-metric-item">
-            <span class="metric-label">PROVIDER RELATIONSHIP:</span>
+            <span class="metric-label">Provider relationship</span>
             <span class="metric-val text-success">Two separate providers (illustrative)</span>
           </div>
           <div class="status-metric-item">
-            <span class="metric-label">PHYSICAL PATH:</span>
+            <span class="metric-label">Physical path</span>
             <span class="metric-val" id="metricPhysical">Not established from contracts alone</span>
           </div>
         </div>
@@ -170,7 +170,7 @@ const { isTeaser = false } = Astro.props;
 
       <!-- Right: Technical Narrative & Field Audit Methodology -->
       <div class="stage-narrative-card">
-        <span class="narrative-kicker">ENGINEERING ANALYSIS</span>
+        <span class="narrative-kicker">Engineering analysis</span>
         <h3 class="narrative-title">Provider diversity is not automatically route diversity.</h3>
         
         <div class="narrative-body measure-technical">
@@ -241,7 +241,6 @@ const { isTeaser = false } = Astro.props;
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--accent-blue);
-    text-transform: uppercase;
   }
 
   .explorer-title {
@@ -416,7 +415,6 @@ const { isTeaser = false } = Astro.props;
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--accent-blue);
-    text-transform: uppercase;
   }
 
   .narrative-title {
@@ -514,7 +512,7 @@ const { isTeaser = false } = Astro.props;
       svgPhysical.style.display = 'none';
       svgPhysical.setAttribute('aria-hidden', 'true');
 
-      if (statusTag) statusTag.textContent = 'ILLUSTRATIVE LOGICAL VIEW';
+      if (statusTag) statusTag.textContent = 'Illustrative: logical view';
       if (statusTag) statusTag.style.color = 'var(--accent-blue)';
       if (metricPhysical) metricPhysical.textContent = 'Not established from contracts alone';
       if (metricPhysical) metricPhysical.className = 'metric-val text-success';
@@ -531,7 +529,7 @@ const { isTeaser = false } = Astro.props;
       svgPhysical.style.display = 'block';
       svgPhysical.setAttribute('aria-hidden', 'false');
 
-      if (statusTag) statusTag.textContent = 'ILLUSTRATIVE SHARED-PATH RISK';
+      if (statusTag) statusTag.textContent = 'Illustrative: shared-path risk';
       if (statusTag) statusTag.style.color = 'var(--accent-amber)';
       if (metricPhysical) metricPhysical.textContent = 'Example: shared physical dependency';
       if (metricPhysical) metricPhysical.className = 'metric-val';
