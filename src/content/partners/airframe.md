@@ -29,6 +29,33 @@ homepageMarqueeEnabled: true
 homepagePriority: 8
 partnerPageEnabled: true
 logoScale: 1
+decisionLayer:
+  architectureTitle: "Technology Evaluation & Diligence Flow"
+  architectureSubtitle: "From requirements and market mapping through evidence, comparison, and build-versus-buy decisions"
+  steps:
+    - num: "01"
+      title: "Requirement Framing"
+      desc: "Clarify the objectives, constraints, and decision criteria before comparing vendors or build options."
+    - num: "02"
+      title: "Market Mapping"
+      desc: "Research relevant companies, products, pricing structures, and capability differences for the defined requirement."
+    - num: "03"
+      title: "Evidence & Diligence"
+      desc: "Compare vendor claims with available implementation evidence, pricing intelligence, and practitioner feedback."
+    - num: "04"
+      title: "Decision Support"
+      desc: "Distinguish what is supported by evidence, what remains uncertain, and what should be validated before a build-versus-buy decision."
+  decisionQuestions:
+    - "Is the team evaluating a material software or AI platform commitment?"
+    - "Which evidence is needed beyond vendor marketing to defend the decision?"
+    - "Is the real choice between buying a product, building internally, or narrowing the requirement first?"
+  whenFits: "Technology teams that need structured market intelligence or vendor diligence before a consequential software or AI decision."
+  whenAlternative: "For a routine commodity purchase with clear requirements and low switching cost, formal diligence may be disproportionate."
+  commercialCaution: "Start diligence early enough that evidence can shape the shortlist before commercial negotiations narrow the options."
+  sourceRefs:
+    - "https://www.airframe.ai/"
+    - "https://www.airframe.ai/product"
+    - "https://www.airframe.ai/assets/airframe-lockup.png"
 ---
 
 ## Airframe + InfraHub

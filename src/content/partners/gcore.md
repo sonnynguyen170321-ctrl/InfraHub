@@ -28,6 +28,32 @@ homepageMarqueeEnabled: true
 homepagePriority: 2
 partnerPageEnabled: true
 logoScale: 1
+decisionLayer:
+  architectureTitle: "Cloud, Edge & Security Service Map"
+  architectureSubtitle: "How Gcore's compute, AI, delivery, networking, and security services can relate to one requirement"
+  steps:
+    - num: "01"
+      title: "Compute & Bare Metal"
+      desc: "Evaluate virtual machines, bare metal, storage, containers, databases, and cloud networking against the workload."
+    - num: "02"
+      title: "AI Infrastructure"
+      desc: "Consider GPU and AI services where accelerator access, inference, or private AI infrastructure is part of the requirement."
+    - num: "03"
+      title: "Edge Delivery"
+      desc: "CDN, DNS, streaming, and edge-delivery services may matter when content or application distribution is part of the design."
+    - num: "04"
+      title: "Security"
+      desc: "DDoS protection, WAF, and bot-management services can be evaluated alongside the infrastructure and delivery path."
+  decisionQuestions:
+    - "Which regions and workload types actually need Gcore services?"
+    - "Is the requirement compute-led, delivery-led, security-led, or a combination?"
+    - "What network, egress, data-location, and operational constraints should be compared?"
+  whenFits: "Requirements that combine cloud or bare-metal infrastructure with distributed delivery, AI services, or network and application security."
+  whenAlternative: "A narrower regional provider or a hyperscaler-specific managed service may fit better when the workload is tightly coupled to one platform or geography."
+  commercialCaution: "Compare region availability, service-specific pricing, traffic charges, support scope, and contract terms for the exact configuration."
+  sourceRefs:
+    - "https://gcore.com/"
+    - "https://gcore.com/media-kit"
 ---
 
 ## Gcore + InfraHub

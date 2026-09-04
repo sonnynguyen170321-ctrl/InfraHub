@@ -27,6 +27,31 @@ homepageMarqueeEnabled: true
 homepagePriority: 7
 partnerPageEnabled: true
 logoScale: 1
+decisionLayer:
+  architectureTitle: "Managed Network Operations Workflow"
+  architectureSubtitle: "How monitoring, triage, engineering, automation, and carrier coordination can fit together"
+  steps:
+    - num: "01"
+      title: "Monitoring"
+      desc: "Define the devices, links, services, and alert sources covered by the managed operating model."
+    - num: "02"
+      title: "Triage"
+      desc: "Establish how incidents are classified, correlated, and escalated across the agreed service scope."
+    - num: "03"
+      title: "Engineering & Automation"
+      desc: "Use network engineering, DevOps, and automation where the operating model calls for configuration or workflow changes."
+    - num: "04"
+      title: "Escalation & Coordination"
+      desc: "Define handoff boundaries between the managed team, internal engineers, carriers, and other infrastructure providers."
+  decisionQuestions:
+    - "Which hours, devices, services, and incident classes need external operational coverage?"
+    - "Which actions may be automated and which require engineer approval?"
+    - "What escalation path and authority boundaries should apply during a network incident?"
+  whenFits: "Infrastructure operators that want to augment internal network engineering with managed NOC, automation, or operational support."
+  whenAlternative: "A fully internal operations model may be preferable when the organization already has sufficient round-the-clock coverage and specialist skills."
+  commercialCaution: "Define runbooks, access controls, escalation targets, maintenance responsibilities, and change authority before handoff."
+  sourceRefs:
+    - "https://itcare.net/"
 ---
 
 ## ITcare + InfraHub

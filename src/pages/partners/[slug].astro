@@ -2,6 +2,7 @@
 // src/pages/partners/[slug].astro — Partner Architecture Framework & Decision Layer (Parts XVII & XVIII)
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { fallbackDecisionLayer } from '../../lib/partner-decision-layer';
 
 export async function getStaticPaths() {
   const partners = await getCollection('partners');
@@ -16,180 +17,10 @@ export async function getStaticPaths() {
 const { partner } = Astro.props;
 const { Content } = await partner.render();
 
-// Bespoke Signature Technical Blocks & Buyer Decision Guidance (Parts XVII & XVIII)
-const partnerSignatures: Record<string, {
-  architectureTitle: string;
-  architectureSubtitle: string;
-  steps: { num: string; title: string; desc: string }[];
-  decisionQuestions: string[];
-  whenFits: string;
-  whenAlternative: string;
-  commercialCaution: string;
-}> = {
-  fastnetmon: {
-    architectureTitle: "Detection & Mitigation Control Flow",
-    architectureSubtitle: "Where FastNetMon can sit between network telemetry, routing policy, and external mitigation",
-    steps: [
-      { num: "01", title: "Traffic Telemetry", desc: "Processes supported network telemetry and traffic sources so operators can observe potential DDoS events." },
-      { num: "02", title: "Detection", desc: "Analyzes traffic patterns to identify attacks and the affected destinations." },
-      { num: "03", title: "Routing Response", desc: "Can automate policy-driven actions such as BGP FlowSpec or remote-triggered blackholing (RTBH)." },
-      { num: "04", title: "External Mitigation", desc: "Can support diversion workflows toward external scrubbing services when the network design requires them." }
-    ],
-    decisionQuestions: [
-      "Which telemetry sources are available at the network edge?",
-      "Which FlowSpec or RTBH actions are supported by your routers and upstream providers?",
-      "Who should own mitigation policy and escalation during an attack?"
-    ],
-    whenFits: "Network operators that want a detection and control layer while retaining responsibility for routing and mitigation policy.",
-    whenAlternative: "A fully managed protection service may fit better when the buyer does not want to operate the detection and routing-control layer.",
-    commercialCaution: "Confirm router support, upstream routing policy, licensing scope, and any external scrubbing handoff before relying on an automated response design."
-  },
-  gcore: {
-    architectureTitle: "Cloud, Edge & Security Service Map",
-    architectureSubtitle: "How Gcore's compute, AI, delivery, networking, and security services can relate to one requirement",
-    steps: [
-      { num: "01", title: "Compute & Bare Metal", desc: "Evaluate virtual machines, bare metal, storage, containers, databases, and cloud networking against the workload." },
-      { num: "02", title: "AI Infrastructure", desc: "Consider GPU and AI services where accelerator access, inference, or private AI infrastructure is part of the requirement." },
-      { num: "03", title: "Edge Delivery", desc: "CDN, DNS, streaming, and edge-delivery services may matter when content or application distribution is part of the design." },
-      { num: "04", title: "Security", desc: "DDoS protection, WAF, and bot-management services can be evaluated alongside the infrastructure and delivery path." }
-    ],
-    decisionQuestions: [
-      "Which regions and workload types actually need Gcore services?",
-      "Is the requirement compute-led, delivery-led, security-led, or a combination?",
-      "What network, egress, data-location, and operational constraints should be compared?"
-    ],
-    whenFits: "Requirements that combine cloud or bare-metal infrastructure with distributed delivery, AI services, or network and application security.",
-    whenAlternative: "A narrower regional provider or a hyperscaler-specific managed service may fit better when the workload is tightly coupled to one platform or geography.",
-    commercialCaution: "Compare region availability, service-specific pricing, traffic charges, support scope, and contract terms for the exact configuration."
-  },
-  stormwall: {
-    architectureTitle: "Managed DDoS & Application Protection",
-    architectureSubtitle: "Where network diversion, TCP/UDP protection, WAF, and antibot services can sit in the protection path",
-    steps: [
-      { num: "01", title: "Protection Scope", desc: "Define whether the requirement is network-layer, TCP/UDP service, web-application, or combined protection." },
-      { num: "02", title: "Traffic Onboarding", desc: "Establish how protected traffic reaches the service, including routing or application-layer integration where applicable." },
-      { num: "03", title: "Filtering", desc: "The protection service filters malicious traffic according to the selected network or application protection model." },
-      { num: "04", title: "Service Delivery", desc: "Confirm how legitimate traffic returns to the protected service and how monitoring, escalation, and support are handled." }
-    ],
-    decisionQuestions: [
-      "Is the requirement always-on protection, on-demand mitigation, or application-layer protection?",
-      "Which protocols, applications, and traffic volumes must be protected?",
-      "What return path, operational handoff, and escalation model does the design require?"
-    ],
-    whenFits: "Organizations that need an external managed DDoS or web-application protection service rather than operating the entire mitigation stack themselves.",
-    whenAlternative: "A detection-and-control platform may fit better when the network operator wants to retain its own routing policy and use third-party mitigation only when required.",
-    commercialCaution: "Confirm onboarding method, protected capacity, support scope, service commitments, and any clean-traffic return requirements before contracting."
-  },
-  zenlayer: {
-    architectureTitle: "Distributed Compute & Connectivity",
-    architectureSubtitle: "How bare metal, cloud networking, IP transit, acceleration, and edge services can be combined",
-    steps: [
-      { num: "01", title: "Compute Placement", desc: "Evaluate bare-metal or elastic compute against workload location, hardware, and operational requirements." },
-      { num: "02", title: "Private Connectivity", desc: "Cloud networking and private-connectivity services can link workloads, cloud environments, and distributed locations." },
-      { num: "03", title: "Internet & Acceleration", desc: "IP transit, acceleration, and CDN services may be relevant where internet reach and application delivery are part of the requirement." },
-      { num: "04", title: "Edge Infrastructure", desc: "Edge colocation and distributed infrastructure options can be evaluated where physical presence or regional placement matters." }
-    ],
-    decisionQuestions: [
-      "Which metros and user regions actually drive the requirement?",
-      "Does the workload need bare metal, elastic compute, private connectivity, or several of these together?",
-      "Which latency, traffic, routing, and contract constraints should be tested against available locations?"
-    ],
-    whenFits: "Multi-region requirements where compute placement and connectivity need to be considered together.",
-    whenAlternative: "A local provider may be simpler when the workload is concentrated in one market and does not need a distributed infrastructure footprint.",
-    commercialCaution: "Confirm location-specific availability, port and traffic terms, minimum commitments, and deployment lead times for the selected services."
-  },
-  ipxo: {
-    architectureTitle: "IPv4 Sourcing & Governance Flow",
-    architectureSubtitle: "From address requirements through authorization, routing preparation, reputation, and abuse management",
-    steps: [
-      { num: "01", title: "Requirements & Search", desc: "Define prefix size, region, lease duration, and intended use before evaluating available IPv4 resources." },
-      { num: "02", title: "Authorization & Governance", desc: "Review the applicable authorization, KYC, RPKI, and governance steps for the selected resource." },
-      { num: "03", title: "Routing Preparation", desc: "Confirm LOA, ROA, upstream acceptance, and routing requirements before announcing a leased prefix." },
-      { num: "04", title: "Reputation & Abuse", desc: "Monitor reputation and abuse history throughout the life of the resource rather than treating availability alone as sufficient." }
-    ],
-    decisionQuestions: [
-      "What prefix size and region are actually required?",
-      "Who controls the LOA, ROA, and routing workflow for the selected resource?",
-      "What reputation, abuse-history, and upstream-acceptance checks are required before use?"
-    ],
-    whenFits: "Organizations that need additional IPv4 resources or want to manage and monetize unused address space without treating address availability as the only decision factor.",
-    whenAlternative: "IPv6-first or dual-stack architecture may reduce the amount of IPv4 space required where the application and user base support it.",
-    commercialCaution: "Check lease terms, authorization, reputation, abuse handling, geolocation expectations, and routing acceptance for the actual prefix."
-  },
-  vates: {
-    architectureTitle: "XCP-ng & Xen Orchestra Stack",
-    architectureSubtitle: "How the hypervisor, management, backup, replication, and support layers fit together",
-    steps: [
-      { num: "01", title: "XCP-ng", desc: "Provides the open-source virtualization platform based on the Xen Project hypervisor." },
-      { num: "02", title: "Xen Orchestra", desc: "Adds browser and API-based management across XCP-ng environments." },
-      { num: "03", title: "Backup & Replication", desc: "Evaluate the backup, replication, metrics, and automation capabilities required by the operating model." },
-      { num: "04", title: "Support & Operations", desc: "Define the commercial support, migration planning, hardware, storage, and operational requirements around the virtualization stack." }
-    ],
-    decisionQuestions: [
-      "Which VMware or virtualization features are actually in use today?",
-      "What storage, networking, HA, backup, and recovery requirements must the target platform satisfy?",
-      "What migration testing and operational training will be required?"
-    ],
-    whenFits: "Enterprises, hosting providers, and cloud operators evaluating an open-source virtualization stack with commercial support options.",
-    whenAlternative: "A KVM-based platform or another virtualization approach may fit better when existing skills, tooling, or workload dependencies point elsewhere.",
-    commercialCaution: "Map feature dependencies, storage and network design, support scope, and migration testing before committing to a platform change."
-  },
-  itcare: {
-    architectureTitle: "Managed Network Operations Workflow",
-    architectureSubtitle: "How monitoring, triage, engineering, automation, and carrier coordination can fit together",
-    steps: [
-      { num: "01", title: "Monitoring", desc: "Define the devices, links, services, and alert sources covered by the managed operating model." },
-      { num: "02", title: "Triage", desc: "Establish how incidents are classified, correlated, and escalated across the agreed service scope." },
-      { num: "03", title: "Engineering & Automation", desc: "Use network engineering, DevOps, and automation where the operating model calls for configuration or workflow changes." },
-      { num: "04", title: "Escalation & Coordination", desc: "Define handoff boundaries between the managed team, internal engineers, carriers, and other infrastructure providers." }
-    ],
-    decisionQuestions: [
-      "Which hours, devices, services, and incident classes need external operational coverage?",
-      "Which actions may be automated and which require engineer approval?",
-      "What escalation path and authority boundaries should apply during a network incident?"
-    ],
-    whenFits: "Infrastructure operators that want to augment internal network engineering with managed NOC, automation, or operational support.",
-    whenAlternative: "A fully internal operations model may be preferable when the organization already has sufficient round-the-clock coverage and specialist skills.",
-    commercialCaution: "Define runbooks, access controls, escalation targets, maintenance responsibilities, and change authority before handoff."
-  },
-  airframe: {
-    architectureTitle: "Technology Evaluation & Diligence Flow",
-    architectureSubtitle: "From requirements and market mapping through evidence, comparison, and build-versus-buy decisions",
-    steps: [
-      { num: "01", title: "Requirement Framing", desc: "Clarify the objectives, constraints, and decision criteria before comparing vendors or build options." },
-      { num: "02", title: "Market Mapping", desc: "Research relevant companies, products, pricing structures, and capability differences for the defined requirement." },
-      { num: "03", title: "Evidence & Diligence", desc: "Compare vendor claims with available implementation evidence, pricing intelligence, and practitioner feedback." },
-      { num: "04", title: "Decision Support", desc: "Distinguish what is supported by evidence, what remains uncertain, and what should be validated before a build-versus-buy decision." }
-    ],
-    decisionQuestions: [
-      "Is the team evaluating a material software or AI platform commitment?",
-      "Which evidence is needed beyond vendor marketing to defend the decision?",
-      "Is the real choice between buying a product, building internally, or narrowing the requirement first?"
-    ],
-    whenFits: "Technology teams that need structured market intelligence or vendor diligence before a consequential software or AI decision.",
-    whenAlternative: "For a routine commodity purchase with clear requirements and low switching cost, formal diligence may be disproportionate.",
-    commercialCaution: "Start diligence early enough that evidence can shape the shortlist before commercial negotiations narrow the options."
-  }
-};
-
-const signature = partnerSignatures[partner.slug] || {
-  architectureTitle: "Technical Fit & Operating Model",
-  architectureSubtitle: `How to evaluate ${partner.data.name} against the requirement`,
-  steps: [
-    { num: "01", title: "Requirement", desc: "Clarify the technical and operational requirement before comparing providers." },
-    { num: "02", title: "Capability Fit", desc: "Compare the provider's published capabilities with the actual workload and constraints." },
-    { num: "03", title: "Commercial Terms", desc: "Confirm provider-specific pricing, support, service commitments, and contract terms." },
-    { num: "04", title: "Delivery", desc: "Define implementation, handoff, and ongoing operational responsibilities before contracting." }
-  ],
-  decisionQuestions: [
-    "What technical constraints must the provider satisfy?",
-    "Which support, service, and commercial terms materially affect the decision?",
-    "What responsibilities remain with your team after implementation?"
-  ],
-  whenFits: "Requirements that align with the provider's published capability scope and operating model.",
-  whenAlternative: "Another approach may fit better when the workload, geography, operating model, or commercial constraints point elsewhere.",
-  commercialCaution: "Confirm provider-specific commercial and service terms before contracting."
-};
+// The decision layer is content, not template. A record that has not been populated falls
+// back to provider-neutral guidance rather than to partner-specific claims.
+const signature = partner.data.decisionLayer ?? fallbackDecisionLayer(partner.data.name);
+const sourceRefs = signature.sourceRefs ?? [];
 ---
 
 <Layout 
@@ -252,7 +83,7 @@ const signature = partnerSignatures[partner.slug] || {
         <div class="sig-header">
           <div class="sig-kicker-row">
             <span class="routing-junction" aria-hidden="true"></span>
-            <span class="sig-kicker">TECHNICAL ARCHITECTURE // SIGNATURE INTEGRATION</span>
+            <span class="sig-kicker">Technical architecture</span>
           </div>
           <h2 class="sig-title">{signature.architectureTitle}</h2>
           <p class="sig-subtitle measure-technical">{signature.architectureSubtitle}</p>
@@ -272,7 +103,7 @@ const signature = partnerSignatures[partner.slug] || {
       <!-- The Buyer-Decision Layer (Part XVIII: Questions We Ask First, When Fits, Commercial Caution) -->
       <section class="buyer-decision-layer">
         <div class="decision-header">
-          <span class="decision-kicker">INFRASTRUCTURE FIELD GUIDE // BUYER DECISION CRITERIA</span>
+          <span class="decision-kicker">Buyer decision criteria</span>
           <h2 class="decision-title">What Changes the Answer</h2>
           <p class="decision-subhead measure-lead">
             We evaluate specialist providers based on operational constraints rather than marketing catalogs. Consider these criteria before contracting.
@@ -299,11 +130,11 @@ const signature = partnerSignatures[partner.slug] || {
             <div class="col-indicator-bar" style="background: var(--accent-cyan);"></div>
             <h3 class="decision-col-title">Workload Suitability</h3>
             <div class="fit-block">
-              <span class="fit-tag tag-fits">WHEN THIS FITS:</span>
+              <span class="fit-tag tag-fits">When this fits</span>
               <p class="fit-text">{signature.whenFits}</p>
             </div>
             <div class="fit-block" style="margin-top: 14px;">
-              <span class="fit-tag tag-alt">WHEN AN ALTERNATIVE FITS:</span>
+              <span class="fit-tag tag-alt">When an alternative fits</span>
               <p class="fit-text">{signature.whenAlternative}</p>
             </div>
           </div>
@@ -313,14 +144,26 @@ const signature = partnerSignatures[partner.slug] || {
             <div class="col-indicator-bar" style="background: var(--accent-amber);"></div>
             <h3 class="decision-col-title">What Buyers Often Miss</h3>
             <div class="caution-box">
-              <span class="caution-kicker">COMMERCIAL &amp; SOURCING FACTOR</span>
+              <span class="caution-kicker">Commercial and sourcing factor</span>
               <p class="caution-text">{signature.commercialCaution}</p>
             </div>
             <p class="advisory-reassurance">
-              InfraHub reviews these constraints during technical qualification before provider introduction.
+              InfraHub can work through these constraints with you before an introduction is made.
             </p>
           </div>
         </div>
+
+        {sourceRefs.length > 0 && (
+          <p class="decision-sources">
+            <span class="decision-sources-label">Sources</span>
+            {sourceRefs.map((ref, i) => (
+              <>
+                {i > 0 && <span aria-hidden="true"> · </span>}
+                <a href={ref} rel="noopener nofollow" target="_blank">{new URL(ref).hostname.replace(/^www./, "")}</a>
+              </>
+            ))}
+          </p>
+        )}
       </section>
 
       <!-- Editorial Narrative Prose & Sourced Capabilities -->
@@ -732,6 +575,28 @@ const signature = partnerSignatures[partner.slug] || {
     color: var(--text-secondary);
     line-height: 1.45;
     margin: 0;
+  }
+
+  .decision-sources {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .decision-sources-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .decision-sources a {
+    color: var(--text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .advisory-reassurance {

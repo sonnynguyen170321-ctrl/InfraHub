@@ -27,6 +27,31 @@ homepageMarqueeEnabled: true
 homepagePriority: 3
 partnerPageEnabled: true
 logoScale: 1
+decisionLayer:
+  architectureTitle: "Managed DDoS & Application Protection"
+  architectureSubtitle: "Where network diversion, TCP/UDP protection, WAF, and antibot services can sit in the protection path"
+  steps:
+    - num: "01"
+      title: "Protection Scope"
+      desc: "Define whether the requirement is network-layer, TCP/UDP service, web-application, or combined protection."
+    - num: "02"
+      title: "Traffic Onboarding"
+      desc: "Establish how protected traffic reaches the service, including routing or application-layer integration where applicable."
+    - num: "03"
+      title: "Filtering"
+      desc: "The protection service filters malicious traffic according to the selected network or application protection model."
+    - num: "04"
+      title: "Service Delivery"
+      desc: "Confirm how legitimate traffic returns to the protected service and how monitoring, escalation, and support are handled."
+  decisionQuestions:
+    - "Is the requirement always-on protection, on-demand mitigation, or application-layer protection?"
+    - "Which protocols, applications, and traffic volumes must be protected?"
+    - "What return path, operational handoff, and escalation model does the design require?"
+  whenFits: "Organizations that need an external managed DDoS or web-application protection service rather than operating the entire mitigation stack themselves."
+  whenAlternative: "A detection-and-control platform may fit better when the network operator wants to retain its own routing policy and use third-party mitigation only when required."
+  commercialCaution: "Confirm onboarding method, protected capacity, support scope, service commitments, and any clean-traffic return requirements before contracting."
+  sourceRefs:
+    - "https://stormwall.network/"
 ---
 
 ## StormWall + InfraHub
