@@ -103,13 +103,13 @@
         
         <!-- About Dropdown -->
         <li class="nav-item has-dropdown">
-          <button class="nav-link dropdown-trigger" aria-expanded="false">
+          <button class="nav-link dropdown-trigger" aria-expanded="false" aria-controls="about-dropdown">
             <span>About</span>
             <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" id="about-dropdown">
             <a href="/about" class="dropdown-item">About InfraHub</a>
             <a href="/how-we-work" class="dropdown-item">How We Work</a>
           </div>
@@ -192,9 +192,7 @@
     right: 0;
     z-index: 1000;
     height: var(--header-height);
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background-color: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
     transition: var(--transition);
   }
@@ -372,7 +370,8 @@
     transform: translateY(6px);
     transition: var(--transition-fast);
   }
-  .nav-item.has-dropdown:hover .dropdown-menu {
+  .nav-item.has-dropdown:hover .dropdown-menu,
+  .nav-item.has-dropdown:focus-within .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
@@ -480,28 +479,66 @@
 </style>
 
 <script is:inline>
-  // Mobile drawer and accordion interactivity
   document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('mobile-toggle');
     const drawer = document.getElementById('mobile-drawer');
-    
+
+    const setDrawerState = (open) => {
+      if (!toggle || !drawer) return;
+      drawer.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      drawer.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
     if (toggle && drawer) {
       toggle.addEventListener('click', () => {
-        const isOpen = drawer.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded', String(isOpen));
+        setDrawerState(!drawer.classList.contains('is-open'));
+      });
+
+      drawer.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setDrawerState(false));
       });
     }
 
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
-    accordionHeaders.forEach(header => {
+    document.querySelectorAll('.accordion-header').forEach((header) => {
       header.addEventListener('click', () => {
         const content = header.nextElementSibling;
         const expanded = header.getAttribute('aria-expanded') === 'true';
         header.setAttribute('aria-expanded', String(!expanded));
-        if (content) {
-          content.classList.toggle('is-expanded');
-        }
+        content?.classList.toggle('is-expanded', !expanded);
       });
+    });
+
+    const desktopMenus = document.querySelectorAll('.nav-item.has-megamenu, .nav-item.has-dropdown');
+    desktopMenus.forEach((item) => {
+      const trigger = item.querySelector('.menu-trigger, .dropdown-trigger');
+      if (!trigger) return;
+
+      const setExpanded = (expanded) => {
+        trigger.setAttribute('aria-expanded', String(expanded));
+      };
+
+      item.addEventListener('mouseenter', () => setExpanded(true));
+      item.addEventListener('mouseleave', () => setExpanded(false));
+      item.addEventListener('focusin', () => setExpanded(true));
+      item.addEventListener('focusout', (event) => {
+        if (!item.contains(event.relatedTarget)) setExpanded(false);
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+
+      setDrawerState(false);
+
+      const expandedDesktopTrigger = document.querySelector(
+        '.menu-trigger[aria-expanded="true"], .dropdown-trigger[aria-expanded="true"]'
+      );
+      if (expandedDesktopTrigger) {
+        expandedDesktopTrigger.setAttribute('aria-expanded', 'false');
+        expandedDesktopTrigger.blur();
+      }
     });
   });
 </script>
