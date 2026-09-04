@@ -6,16 +6,16 @@ const solutionFamilies = [
     index: "01",
     name: "Infrastructure & Compute",
     discipline: "Hardware & Facilities",
-    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade hardware sourcing without hyperscaler lock-in.",
+    summary: "Dedicated compute, colocation, GPU infrastructure, and enterprise hardware sourcing matched to workload, facility, and commercial requirements.",
     image: "/images/hero-datacenter.jpg",
     imageAlt: "Enterprise datacenter server racks with precision cooling",
     ctaLink: "/solutions/infrastructure",
     services: [
       { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom NVMe storage and ECC RAM" },
       { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare-metal clusters and dedicated private hypervisors" },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "High-density NVIDIA H100 and L40S accelerators for AI training" },
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "GPU infrastructure for training, inference, and accelerator-heavy workloads" },
       { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Enterprise routing, switching, server, and optical hardware sourcing" },
-      { name: "Colocation", url: "/colocation", desc: "Fractional racks, private cages, and wholesale suites in primary MMRs" }
+      { name: "Colocation", url: "/colocation", desc: "Rack, cage, power, and interconnection options matched to facility requirements" }
     ]
   },
   {
@@ -23,14 +23,14 @@ const solutionFamilies = [
     index: "02",
     name: "Cloud & Virtualization",
     discipline: "Hypervisors & Sovereignty",
-    summary: "European private cloud deployments, VMware licensing alternatives, managed containers, and off-site disaster recovery architectures.",
+    summary: "Private cloud, public-cloud integration, VMware alternatives, container platforms, backup, and hybrid infrastructure architectures.",
     image: "/images/cloud-compute.jpg",
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
       { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable operational economics" },
       { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates migration architectures" },
-      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Direct enterprise interconnects to AWS, Azure, and GCP" },
+      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Private connectivity and cloud on-ramps to major public cloud platforms" },
       { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and automated failover architectures" }
     ]
   },
@@ -39,7 +39,7 @@ const solutionFamilies = [
     index: "03",
     name: "Network & Connectivity",
     discipline: "Optical & Transit Routing",
-    summary: "High-bandwidth upstream IP transit, dedicated metro wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
+    summary: "Upstream IP transit, dedicated wavelengths, Layer 2 Ethernet, cloud connectivity, IPv4 sourcing, and edge-network options.",
     image: "/images/network-fiber.jpg",
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
     ctaLink: "/solutions/network-connectivity",
@@ -48,7 +48,7 @@ const solutionFamilies = [
       { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths across major metros" },
       { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro DCI interconnects" },
       { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Private direct-connect bypass to cloud access points" },
-      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "RIPE and ARIN IPv4 subnet leasing and transfer governance" }
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "IPv4 leasing, sourcing, reputation, authorization, and routing considerations" }
     ]
   },
   {
@@ -63,7 +63,7 @@ const solutionFamilies = [
     services: [
       { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing through specialized scrubbing networks" },
       { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon near-real-time FlowSpec and automated diversion triggers" },
-      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Path telemetry and automated routing optimization" },
+      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "BGP visibility, route analysis, and operational routing decision support" },
       { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter defense and managed security capabilities" }
     ]
   },
@@ -74,13 +74,13 @@ const solutionFamilies = [
     discipline: "NOC & Engineering Sourcing",
     summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure operations support.",
     image: "/images/managed-noc.jpg",
-    imageAlt: "24/7 carrier Network Operations Center control room",
+    imageAlt: "Network operations control room with infrastructure monitoring displays",
     ctaLink: "/solutions/managed-services",
     services: [
       { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and rapid incident escalation workflows" },
       { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated incident dispatch" },
-      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP route engineering, hardware provisioning, and physical patching" },
-      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Ansible, Terraform, and NetBox workflow pipelines" }
+      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP, peering, routing, and network architecture support" },
+      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Infrastructure-as-code and repeatable network automation workflows" }
     ]
   }
 ];
