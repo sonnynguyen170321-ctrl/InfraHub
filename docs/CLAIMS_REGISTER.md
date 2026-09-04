@@ -35,14 +35,14 @@ The owner confirmed the following eight organizations as the correct InfraHub pa
 
 | ID | Partner | Canonical domain | Relationship / public naming | Logo status |
 |---|---|---|---|---|
-| C-10 | FastNetMon | `https://fastnetmon.com/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-11 | Gcore | `https://gcore.com/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-12 | StormWall | `https://stormwall.network/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-13 | Zenlayer | `https://www.zenlayer.com/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-14 | IPXO | `https://www.ipxo.com/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-15 | Vates | `https://vates.tech/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-16 | ITcare | `https://itcare.net/` | **APPROVED** | Official logo asset not yet imported/approved |
-| C-17 | Airframe | `https://www.airframe.ai/` | **APPROVED** | Official logo asset not yet imported/approved |
+| C-10 | FastNetMon | `https://fastnetmon.com/` | **APPROVED** | `/images/partners/fastnetmon.png` (Official Brand Kit) — **APPROVED** |
+| C-11 | Gcore | `https://gcore.com/` | **APPROVED** | `/images/partners/gcore.svg` (Official Media Kit) — **APPROVED** |
+| C-12 | StormWall | `https://stormwall.network/` | **APPROVED** | `/images/partners/stormwall.svg` (Official Corporate Vector) — **APPROVED** |
+| C-13 | Zenlayer | `https://www.zenlayer.com/` | **APPROVED** | `/images/partners/zenlayer.svg` (Official Corporate Vector) — **APPROVED** |
+| C-14 | IPXO | `https://www.ipxo.com/` | **APPROVED** | `/images/partners/ipxo.svg` (Official GitHub Branding Repo) — **APPROVED** |
+| C-15 | Vates | `https://vates.tech/` | **APPROVED** | `/images/partners/vates.png` (Official Brand Kit) — **APPROVED** |
+| C-16 | ITcare | `https://itcare.net/` | **APPROVED** | `/images/partners/itcare.svg` (Official Corporate Vector) — **APPROVED** |
+| C-17 | Airframe | `https://www.airframe.ai/` | **APPROVED** | `/images/partners/airframe.png` (Official Corporate Asset) — **APPROVED** |
 
 `Supertrace` is not part of the canonical partner list and has been removed from the partner collection.
 

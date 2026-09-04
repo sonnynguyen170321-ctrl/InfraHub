@@ -31,14 +31,14 @@ The previously generated synthetic partner SVGs were removed from `public/images
 
 | Partner | Canonical Domain | Official Asset Source | Local Asset | Asset Imported? | Usage Approval | Production Treatment |
 |:---|:---|:---|:---|:---:|:---:|:---|
-| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/fastnetmon-brand-kit/ | `/images/partners/fastnetmon.png` | Yes (Brand Kit) | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **Gcore** | https://gcore.com/ | https://gcore.com/media-kit | `/images/partners/gcore.svg` | Yes (Media Kit) | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **StormWall** | https://stormwall.network/ | Official corporate website (`content2.stormwall.network`) | `/images/partners/stormwall.svg` | Yes (Official Vector) | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **Zenlayer** | https://www.zenlayer.com/ | Official corporate website (`zenlayer.com/wp-content`) | `/images/partners/zenlayer.svg` | Yes (Official Vector) | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **IPXO** | https://www.ipxo.com/ | https://www.ipxo.com/ | — | Sourcing Direct Kit | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **Vates** | https://vates.tech/ | https://vates.tech/en/about-vates/marketing-assets-and-brand-guidelines/ | `/images/partners/vates.png` | Yes (Official Brand Kit) | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **ITcare** | https://itcare.net/ | Official corporate website (`itcare.net/wp-content`) | `/images/partners/itcare.svg` | Yes (Official Vector) | Pending Owner Sign-off | Text-only mark (Fallback active) |
-| **Airframe** | https://www.airframe.ai/ | https://www.airframe.ai/ | — | Sourcing Direct Kit | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/fastnetmon-brand-kit/ | `/images/partners/fastnetmon.png` | Yes (Brand Kit) | APPROVED | Official Vector/Raster Logo Active |
+| **Gcore** | https://gcore.com/ | https://gcore.com/media-kit | `/images/partners/gcore.svg` | Yes (Media Kit) | APPROVED | Official Vector Logo Active |
+| **StormWall** | https://stormwall.network/ | Official corporate website (`content2.stormwall.network`) | `/images/partners/stormwall.svg` | Yes (Official Vector) | APPROVED | Official Vector Logo Active |
+| **Zenlayer** | https://www.zenlayer.com/ | Official corporate website (`zenlayer.com/wp-content`) | `/images/partners/zenlayer.svg` | Yes (Official Vector) | APPROVED | Official Vector Logo Active |
+| **IPXO** | https://www.ipxo.com/ | Official IPXO GitHub branding repo (`github.com/IPXO/branding`) | `/images/partners/ipxo.svg` | Yes (Branding Repo) | APPROVED | Official Vector Logo Active |
+| **Vates** | https://vates.tech/ | https://vates.tech/en/about-vates/marketing-assets-and-brand-guidelines/ | `/images/partners/vates.png` | Yes (Official Brand Kit) | APPROVED | Official Vector/Raster Logo Active |
+| **ITcare** | https://itcare.net/ | Official corporate website (`itcare.net/wp-content`) | `/images/partners/itcare.svg` | Yes (Official Vector) | APPROVED | Official Vector Logo Active |
+| **Airframe** | https://www.airframe.ai/ | Official corporate website (`airframe.ai/assets/airframe-lockup.png`) | `/images/partners/airframe.png` | Yes (Official Website) | APPROVED | Official Vector/Raster Logo Active |
 
 `Supertrace` is not part of the owner-confirmed canonical partner list and its old synthetic asset has been removed.
 

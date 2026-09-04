@@ -53,7 +53,7 @@ const categories = [
 
       <!-- Partners Directory Grid -->
       <div class="partners-directory-grid" id="partners-grid">
-        {publishedPartners.map(partner => (
+        {publishedPartners.map((partner, idx) => (
           <article class="partner-dir-card" data-category={partner.data.category}>
             <div class="partner-dir-top">
               <div class="partner-brand-area">
@@ -62,7 +62,7 @@ const categories = [
                     src={partner.data.logo} 
                     alt={`${partner.data.name} logo`} 
                     class="partner-card-logo"
-                    loading="lazy"
+                    loading={idx === 0 ? "eager" : "lazy"}
                     width="120"
                     height="28"
                   />

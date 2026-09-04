@@ -1,9 +1,11 @@
 ---
 name: "Airframe"
+logo: "/images/partners/airframe.png"
 officialWebsite: "https://www.airframe.ai/"
 sourceUrls:
   - "https://www.airframe.ai/"
   - "https://www.airframe.ai/product"
+  - "https://www.airframe.ai/assets/airframe-lockup.png"
 category: "AI & Transformation"
 tagline: "Technology Market Intelligence, Vendor Diligence & Build-vs-Buy Decisions"
 capabilities:
@@ -16,8 +18,8 @@ verified: true
 shortRole: "Technology Decision Intelligence & Vendor Diligence"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

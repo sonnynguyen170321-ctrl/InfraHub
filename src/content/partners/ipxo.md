@@ -1,8 +1,10 @@
 ---
 name: "IPXO"
+logo: "/images/partners/ipxo.svg"
 officialWebsite: "https://www.ipxo.com/"
 sourceUrls:
   - "https://www.ipxo.com/"
+  - "https://github.com/IPXO/branding"
 category: "Network & Connectivity"
 tagline: "IPv4 Leasing, Monetization & IP Management"
 capabilities:
@@ -15,8 +17,8 @@ verified: true
 shortRole: "IPv4 Leasing & Address Management Platform"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"
