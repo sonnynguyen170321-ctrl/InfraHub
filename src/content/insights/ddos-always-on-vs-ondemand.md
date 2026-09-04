@@ -3,27 +3,68 @@ title: "Always-On vs On-Demand DDoS Protection: Architecture Comparison"
 category: "Security"
 readTime: "8 min read"
 publishDate: 2026-08-10
-author: "InfraHub Security Architecture Team"
-summary: "Comparing the trade-offs of continuous BGP diversion GRE tunnels against on-demand RTBH/FlowSpec activation during high-volume volumetric attacks."
+author: "InfraHub"
+summary: "A practical comparison of always-on protection and telemetry-triggered diversion, including routing, latency, operational control, and failure-mode trade-offs."
 featured: false
 ---
 
-## The Core Trade-Off: Latency vs Protection Speed
+## Start With the Traffic Path
 
-When engineering DDoS protection for an Autonomous System (ASN), network architects face a fundamental choice between **Always-On Cloud Scrubbing** and **On-Demand BGP Diversion**.
+The useful distinction between always-on and on-demand DDoS protection is not simply “more protection” versus “less protection.” It is **where traffic normally flows, what has to change during an attack, and who owns the mitigation decision**.
 
-### 1. Always-On BGP Diversion
+Provider implementations differ, so the exact routing method, detection model, return path, support process, and commercial structure should be confirmed for the service being considered.
 
-Under this model, your public IP prefixes are permanently announced from a global scrubbing center network. Clean traffic is routed back to your origin routers via GRE tunnels or private cross-connects.
+### Always-On Protection
 
-- **Advantage:** Zero delay in mitigating volumetric attacks. Malicious packets are filtered out immediately.
-- **Disadvantage:** Adds permanent latency (typically 5ms to 25ms depending on scrubbing PoP proximity) and introduces potential MTU fragmentation over GRE tunnels.
-- **Best For:** Financial trading platforms, gaming servers, and VoIP providers where even a 30-second disruption breaks user sessions.
+In a common always-on design, protected traffic is continuously steered through the mitigation provider or its application edge. The provider filters malicious traffic before legitimate traffic reaches the origin.
 
-### 2. On-Demand Mitigation (Telemetry-Triggered)
+**Where it can fit**
 
-Under peace-time conditions, traffic flows directly to your origin edge routers without passing through a third-party scrubbing network. When out-of-band flow telemetry (such as FastNetMon) detects an attack threshold breach, BGP routes are dynamically announced to the scrubbing provider.
+- Services with very little tolerance for a diversion or routing change after an attack begins.
+- Environments that prefer the mitigation provider to remain continuously in the traffic path.
+- Application-protection designs where proxying or edge security is already part of normal delivery.
 
-- **Advantage:** Lowest possible latency and pristine route quality during peace time. Eliminates high continuous scrubbing port charges.
-- **Disadvantage:** BGP convergence delay. It takes between 30 and 120 seconds for upstream global carriers to propagate the new BGP route to the scrubbing center.
-- **Best For:** Enterprise SaaS, hosting platforms, and corporate networks where 60 seconds of degraded latency is acceptable in exchange for lower operational costs.
+**What to check**
+
+- How traffic is attracted and returned.
+- Whether the design changes routing, MTU, source visibility, TLS termination, or application behavior.
+- The clean-traffic capacity and connectivity between the protection service and the origin.
+- What happens if the mitigation path itself becomes unavailable.
+
+Always-on does not automatically mean “zero latency impact” or “instant mitigation.” The effect depends on topology, provider presence, routing, and the protection layer involved.
+
+### On-Demand Diversion
+
+In an on-demand design, traffic normally follows the customer's usual network path. Detection systems or operators trigger a routing or service change when mitigation is required.
+
+A network-layer implementation may use BGP announcements, communities, FlowSpec, RTBH, or diversion toward a scrubbing provider. The exact mechanism depends on the network and provider.
+
+**Where it can fit**
+
+- Operators that want the normal traffic path to remain direct when no mitigation event is active.
+- Networks that already operate routing policy and telemetry.
+- Designs where the buyer wants separate detection/control and mitigation layers.
+
+**What to check**
+
+- How an attack is detected.
+- Who is authorized to trigger diversion.
+- How quickly the relevant routing change is expected to propagate in the actual network.
+- What prefixes can be diverted and how route ownership is validated.
+- How traffic returns from the mitigation service.
+- How the design is tested before a real incident.
+
+There is no universal convergence time. Propagation depends on the routing design, provider, peers, prefix policy, and the mechanism used.
+
+## The Better Question
+
+Instead of asking which model is “best,” establish:
+
+1. **Normal traffic path** — where does legitimate traffic flow before an incident?
+2. **Detection ownership** — customer, specialist platform, protection provider, or a combination?
+3. **Mitigation control** — who can change routing or filtering policy?
+4. **Failure tolerance** — how much disruption can the application tolerate during activation?
+5. **Operational capability** — does the buyer want to operate BGP and mitigation policy internally?
+6. **Commercial model** — what is charged continuously and what changes during an attack?
+
+The answer can also be hybrid: local telemetry and routing controls can coexist with an external mitigation provider. The architecture should follow the traffic, operational responsibilities, and failure modes rather than a label.
