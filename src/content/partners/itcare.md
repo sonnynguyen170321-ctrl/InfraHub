@@ -1,5 +1,6 @@
 ---
 name: "ITcare"
+logo: "/images/partners/itcare.svg"
 officialWebsite: "https://itcare.net/"
 sourceUrls:
   - "https://itcare.net/"
@@ -15,8 +16,8 @@ verified: true
 shortRole: "Network Engineering, NOC & Automation"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

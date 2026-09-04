@@ -1,5 +1,6 @@
 ---
 name: "Zenlayer"
+logo: "/images/partners/zenlayer.svg"
 officialWebsite: "https://www.zenlayer.com/"
 sourceUrls:
   - "https://www.zenlayer.com/"
@@ -16,8 +17,8 @@ verified: true
 shortRole: "Distributed Cloud, Compute & Connectivity"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

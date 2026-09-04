@@ -1,5 +1,6 @@
 ---
 name: "Gcore"
+logo: "/images/partners/gcore.svg"
 officialWebsite: "https://gcore.com/"
 sourceUrls:
   - "https://gcore.com/"
@@ -16,8 +17,8 @@ verified: true
 shortRole: "Cloud, Edge, AI & Security Platform"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

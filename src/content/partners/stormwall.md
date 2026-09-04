@@ -1,5 +1,6 @@
 ---
 name: "StormWall"
+logo: "/images/partners/stormwall.svg"
 officialWebsite: "https://stormwall.network/"
 sourceUrls:
   - "https://stormwall.network/"
@@ -15,8 +16,8 @@ verified: true
 shortRole: "DDoS, WAF & Application Protection"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

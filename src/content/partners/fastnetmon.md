@@ -1,5 +1,6 @@
 ---
 name: "FastNetMon"
+logo: "/images/partners/fastnetmon.png"
 officialWebsite: "https://fastnetmon.com/"
 sourceUrls:
   - "https://fastnetmon.com/"
@@ -16,8 +17,8 @@ verified: true
 shortRole: "DDoS Detection & Mitigation Control Plane"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

@@ -1,5 +1,6 @@
 ---
 name: "Vates"
+logo: "/images/partners/vates.png"
 officialWebsite: "https://vates.tech/"
 sourceUrls:
   - "https://vates.tech/en/virtualization-management-stack/"
@@ -16,8 +17,8 @@ verified: true
 shortRole: "Open-Source Virtualization & Management Stack"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
-logoStatus: "missing"
-logoApproved: false
+logoStatus: "approved"
+logoApproved: true
 capabilityClaimsStatus: "sourced"
 strategicStatus: "none"
 homepageStatus: "approved"

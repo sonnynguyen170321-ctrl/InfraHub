@@ -38,7 +38,7 @@ const approvedPartners = allPartners
                     alt={`${partner.data.name} logo`} 
                     class="partner-logo-img"
                     style={partner.data.logoScale && partner.data.logoScale !== 1 ? `transform: scale(${partner.data.logoScale});` : undefined}
-                    loading="eager"
+                    loading="lazy"
                     width="140"
                     height="32"
                   />
