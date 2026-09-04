@@ -448,6 +448,9 @@ import Layout from '../layouts/Layout.astro';
       document.getElementById('context-service').value = service;
       badgeWrap.style.display = 'block';
       badgeText.textContent = `Inquiring about solution: ${service}`;
+    } else if (industry) {
+      badgeWrap.style.display = 'block';
+      badgeText.textContent = `Inquiring for industry: ${industry}`;
     }
 
     if (utmSource) document.getElementById('context-utm-source').value = utmSource;

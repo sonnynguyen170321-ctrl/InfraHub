@@ -2,7 +2,6 @@
 // Automated human design forensics audit enforcing anti-slop and taste guardrails
 
 import fs from 'fs';
-import path from 'path';
 
 console.log('Running Human Design Forensics & Taste Audit...\n');
 

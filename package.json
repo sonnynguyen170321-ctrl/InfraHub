@@ -8,7 +8,7 @@
     "build": "node --max-old-space-size=4096 node_modules/astro/astro.js build",
     "preview": "node node_modules/astro/astro.js preview",
     "astro": "node node_modules/astro/astro.js",
-    "check": "node node_modules/@astrojs/check/dist/cli.js",
+    "check": "node node_modules/@astrojs/check/bin/astro-check.js",
     "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs",
     "test:a11y": "node tests/audit/accessibility-audit.mjs",
     "test:content": "node tests/audit/content-truth-audit.mjs",

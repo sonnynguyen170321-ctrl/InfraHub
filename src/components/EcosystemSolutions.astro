@@ -619,7 +619,7 @@ const solutionFamilies = [
     const visuals = container.querySelectorAll('.visual-frame');
     const panels = container.querySelectorAll('.services-panel');
 
-    tabs.forEach(tab => {
+    tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
         const target = tab.getAttribute('data-target');
 
@@ -650,6 +650,28 @@ const solutionFamilies = [
             p.removeAttribute('hidden');
           }
         });
+      });
+
+      // Keyboard arrow navigation for tablist
+      tab.addEventListener('keydown', (e) => {
+        const event = e as KeyboardEvent;
+        let newIndex: number | null = null;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+          newIndex = (index + 1) % tabs.length;
+        } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+          newIndex = (index - 1 + tabs.length) % tabs.length;
+        } else if (event.key === 'Home') {
+          newIndex = 0;
+        } else if (event.key === 'End') {
+          newIndex = tabs.length - 1;
+        }
+
+        if (newIndex !== null) {
+          event.preventDefault();
+          const nextTab = tabs[newIndex] as HTMLElement;
+          nextTab.focus();
+          nextTab.click();
+        }
       });
     });
   }

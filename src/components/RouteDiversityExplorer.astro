@@ -532,6 +532,22 @@ const { isTeaser = false } = Astro.props;
       if (metricPhysical) metricPhysical.textContent = 'AUDITED REALITY // 0 METERS (Shared Duct)';
       if (metricPhysical) metricPhysical.className = 'metric-val';
     });
+
+    btnLogical.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        btnPhysical.focus();
+        btnPhysical.click();
+      }
+    });
+
+    btnPhysical.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        btnLogical.focus();
+        btnLogical.click();
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
