@@ -1,5 +1,7 @@
 ---
 // src/components/Footer.astro
+import BrandLogo from './BrandLogo.astro';
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -10,14 +12,7 @@ const currentYear = new Date().getFullYear();
       <!-- Brand & Concise Positioning -->
       <div class="footer-brand-col">
         <a href="/" class="footer-logo">
-          <span class="logo-mark">
-            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="28" height="28" rx="6" fill="#1E293B" />
-              <path d="M7 14H11M17 14H21M14 7V11M14 17V21" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" />
-              <circle cx="14" cy="14" r="3" fill="#0284C7" />
-            </svg>
-          </span>
-          <span class="brand-name">Infra<span class="brand-highlight">Hub</span></span>
+          <BrandLogo size={24} tone="light" />
         </a>
         <p class="footer-desc">
           The right infrastructure. The right partner. We evaluate technical requirements and connect engineering teams with specialist operators.
@@ -70,7 +65,7 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom Copyright -->
     <div class="footer-bottom">
       <p class="copyright">
-        &copy; {currentYear} InfraHub. All rights reserved. Independent infrastructure sourcing and partner network.
+        &copy; {currentYear} InfraHub. All rights reserved.
       </p>
     </div>
   </div>
@@ -116,16 +111,6 @@ const currentYear = new Date().getFullYear();
     text-decoration: none;
   }
 
-  .brand-name {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-  }
-  .brand-highlight {
-    color: var(--accent-blue);
-  }
 
   .footer-desc {
     font-size: 0.9rem;

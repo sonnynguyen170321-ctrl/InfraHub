@@ -2,6 +2,7 @@
 // src/pages/offers/index.astro
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { publicPriceLabel } from '../../lib/offer-pricing';
 
 const now = new Date();
 const allOffers = await getCollection('offers');
@@ -75,7 +76,7 @@ const activeOffers = allOffers
               <div class="board-col-commercial">
                 <div class="price-block">
                   <span class="price-term">Commercial Rate</span>
-                  <span class="price-amount">{offer.data.displayPrice || offer.data.verifiedPrice || 'Partner Quote'}</span>
+                  <span class="price-amount">{publicPriceLabel(offer.data)}</span>
                 </div>
                 <div class="board-actions">
                   <a href={`/offers/${offer.slug}`} class="btn btn-secondary btn-sm">

@@ -1,19 +1,13 @@
 ---
 // src/components/Header.astro
+import BrandLogo from './BrandLogo.astro';
 ---
 
 <header class="site-header" id="site-header">
   <div class="header-container">
     <!-- Brand Logo -->
     <a href="/" class="brand-logo" aria-label="InfraHub Homepage">
-      <span class="logo-mark">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="28" height="28" rx="6" fill="#0F172A" />
-          <path d="M7 14H11M17 14H21M14 7V11M14 17V21" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" />
-          <circle cx="14" cy="14" r="3" fill="#0D9488" />
-        </svg>
-      </span>
-      <span class="brand-text">Infra<span class="brand-accent">Hub</span></span>
+      <BrandLogo size={28} />
     </a>
 
     <!-- Desktop Nav with MegaMenu -->
@@ -207,20 +201,6 @@
     justify-content: space-between;
   }
 
-  /* Logo */
-  .brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-heading);
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  .brand-accent {
-    color: var(--accent-blue);
-  }
-
   /* Navigation */
   .desktop-nav {
     display: none;
@@ -241,7 +221,41 @@
   .nav-item {
     position: relative;
   }
-
+  /* Logo */
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text-primary);
+    text-decoration: none;
+    vertical-align: middle;
+  }
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .logo-mark svg {
+    display: block;
+  }
+  .brand-text {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .brand-accent {
+    color: var(--accent-blue);
+  }
   .nav-link {
     display: inline-flex;
     align-items: center;
@@ -393,6 +407,17 @@
     align-items: center;
     gap: 14px;
   }
+
+  .btn-nav-cta {
+    padding: 9px 18px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
 
   .mobile-toggle {
     display: flex;

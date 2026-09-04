@@ -1,6 +1,7 @@
 ---
 // src/components/FeaturedOffers.astro
 import { getCollection } from 'astro:content';
+import { publicPriceLabel } from '../lib/offer-pricing';
 
 const now = new Date();
 const allOffers = await getCollection('offers');
@@ -63,7 +64,7 @@ const secondaryOffers = primaryOffer
 
             <div class="primary-card-bottom">
               <div class="primary-price">
-                <span class="price-figure">{primaryOffer.data.displayPrice || primaryOffer.data.verifiedPrice || 'Request current pricing'}</span>
+                <span class="price-figure">{publicPriceLabel(primaryOffer.data)}</span>
               </div>
               <a href={`/lets-talk?offer=${primaryOffer.slug}`} class="btn btn-accent btn-sm">
                 <span>Request Pricing</span>
@@ -88,7 +89,7 @@ const secondaryOffers = primaryOffer
               </div>
 
               <div class="secondary-action-group">
-                <span class="secondary-price">{offer.data.displayPrice || offer.data.verifiedPrice || 'Request current pricing'}</span>
+                <span class="secondary-price">{publicPriceLabel(offer.data)}</span>
                 <a href={`/offers/${offer.slug}`} class="secondary-link">
                   <span>View Offer</span>
                   <span class="link-arrow" aria-hidden="true">&rarr;</span>

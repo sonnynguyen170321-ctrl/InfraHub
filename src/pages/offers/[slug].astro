@@ -2,6 +2,7 @@
 // src/pages/offers/[slug].astro
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { publicPriceLabel } from '../../lib/offer-pricing';
 
 export async function getStaticPaths() {
   const now = new Date();
@@ -29,6 +30,15 @@ const offerUrl = `${SITE}/offers/${offer.slug}`;
 // on the collection's own category keeps the markup describing what the thing actually is
 // rather than forcing everything into one shape.
 const isHardware = offer.data.category === 'hardware';
+
+// Never render a record's price string directly. publicPriceLabel returns the exact price
+// only when the record carries owner approval, a confirmed price status, a display value and
+// a source reference; otherwise it returns the request label.
+const priceLabel = publicPriceLabel(offer.data);
+
+// Partner-delivered services are contracted by the provider; directly sourced hardware is
+// confirmed per quotation. The two are different transactions, so they say different things.
+const isPartnerDelivered = Boolean(offer.data.partner) && !isHardware;
 
 // Public offer pages deliberately keep structured data conservative.
 // InfraHub may source hardware directly, while partner-delivered services are contracted by
@@ -95,7 +105,7 @@ const structuredData = {
             )}
             <div class="meta-item">
               <span class="meta-label">Pricing</span>
-              <span class="meta-val price-accent">{offer.data.verifiedPrice}</span>
+              <span class="meta-val price-accent">{priceLabel}</span>
             </div>
           </div>
         </div>
@@ -120,8 +130,18 @@ const structuredData = {
           <div class="what-happens-next">
             <h2>What happens after requesting this offer?</h2>
             <p>
-              When you submit an inquiry for this offer, our team confirms live stock and allocation availability with {offer.data.partner || "the delivering partner"}. You receive a detailed technical sheet and commercial quote within 1 business day.
+              InfraHub reviews the request and confirms current availability, technical conditions, and commercial terms with the relevant supplier or provider where applicable.
             </p>
+            {isPartnerDelivered && (
+              <p>
+                The selected provider confirms the applicable contract, service commitments, implementation and delivery terms.
+              </p>
+            )}
+            {isHardware && (
+              <p>
+                For directly sourced hardware, supply, warranty, testing and delivery terms are confirmed per quotation with the sourcing supplier.
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -130,8 +150,8 @@ const structuredData = {
       <aside class="offer-sidebar">
         <div class="request-card">
           <span class="request-price-label">Commercial Pricing</span>
-          <div class="request-price">{offer.data.verifiedPrice}</div>
-          <p class="request-terms">Subject to contractual term and port availability.</p>
+          <div class="request-price">{priceLabel}</div>
+          <p class="request-terms">Availability, technical conditions and commercial terms are confirmed per request.</p>
 
           <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-block btn-lg">
             <span>Request This Offer</span>
@@ -141,26 +161,9 @@ const structuredData = {
             </svg>
           </a>
 
-          <div class="request-assurances">
-            <div class="assurance-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Zero markups through InfraHub</span>
-            </div>
-            <div class="assurance-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Direct partner contract & SLA</span>
-            </div>
-            <div class="assurance-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Dedicated architect support</span>
-            </div>
-          </div>
+          <p class="request-note">
+            InfraHub confirms current availability and commercial terms with the relevant supplier or provider before anything is committed.
+          </p>
         </div>
       </aside>
     </div>
@@ -312,20 +315,12 @@ const structuredData = {
     line-height: 1.4;
   }
 
-  .request-assurances {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .request-note {
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
-  }
-  .assurance-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     font-size: 0.85rem;
-    font-weight: 500;
+    line-height: 1.5;
     color: var(--text-secondary);
   }
 </style>

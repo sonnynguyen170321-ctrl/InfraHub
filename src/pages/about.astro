@@ -1,6 +1,32 @@
 ---
 // src/pages/about.astro
 import Layout from '../layouts/Layout.astro';
+
+// The commercial roles are data rather than three repeated card blocks: the page reads as an
+// ordered account of how a transaction actually happens, not as a feature grid.
+const roles = [
+  {
+    index: '01',
+    type: 'Sourcing & procurement',
+    title: 'Hardware sourcing',
+    desc: 'Sourcing enterprise server hardware, optical transceivers, switches, and related infrastructure through specialist suppliers. Warranty, stock, testing, and delivery terms are confirmed for each quotation rather than assumed across suppliers.',
+    scope: 'Servers / Switches / Optics / Memory allocations'
+  },
+  {
+    index: '02',
+    type: 'Specialist introduction',
+    title: 'Partner-delivered services',
+    desc: 'InfraHub reviews the requirement and coordinates an introduction to the selected provider. The provider contracts and operates the service under its own agreement and service commitments.',
+    scope: 'IP transit / Wavelengths / DDoS scrubbing / Managed NOC'
+  },
+  {
+    index: '03',
+    type: 'Architecture & evaluation',
+    title: 'Advisory & evaluation',
+    desc: 'InfraHub helps compare technical and commercial options: multi-carrier BGP evaluations, physical path diversity reviews, and hypervisor migration cost comparisons.',
+    scope: 'Route diversity / BGP strategy / VMware alternatives'
+  }
+];
 ---
 
 <Layout 
@@ -16,7 +42,7 @@ import Layout from '../layouts/Layout.astro';
         <span class="about-kicker">Company &amp; Commercial Model</span>
         <h1 class="about-title">Better infrastructure decisions begin with understanding the requirement.</h1>
         <p class="about-lead">
-          InfraHub operates as an independent infrastructure sourcing and technical advisory desk. We help engineering and commercial teams evaluate technical constraints, compare architectural options, and connect directly with specialist providers across networking, compute, cloud, security, and hardware.
+          InfraHub provides infrastructure sourcing and technical advisory. We help engineering and commercial teams clarify technical constraints, compare architectural options, and reach specialist providers across networking, compute, cloud, security, and hardware.
         </p>
       </header>
 
@@ -29,17 +55,17 @@ import Layout from '../layouts/Layout.astro';
               The modern infrastructure market is fragmented. No single carrier, cloud hyperscaler, or hardware distributor leads across every metro, route, and workload.
             </p>
             <p class="narrative-prose">
-              Rather than reselling commodity cloud or operating as a rigid reseller, InfraHub acts as an experienced sourcing guide. We clarify technical parameters—such as committed data rates, latency thresholds, physical conduit diversity, and hypervisor dependencies—before matching you with the specialist operator best equipped for that exact scope.
+              InfraHub clarifies technical parameters—such as committed data rates, latency thresholds, physical conduit diversity, and hypervisor dependencies—before identifying providers suited to that scope.
             </p>
           </div>
 
           <div class="commercial-disclosure-box">
-            <h3 class="disclosure-title">Commercial Transparency</h3>
+            <h3 class="disclosure-title">Commercial role</h3>
             <p class="disclosure-text">
-              InfraHub is compensated by participating network carriers, hardware distributors, and platform operators when a qualified introduction results in an executed agreement.
+              InfraHub's commercial role can vary by engagement and is clarified before an introduction or transaction proceeds.
             </p>
             <p class="disclosure-text">
-              Sourcing through InfraHub never adds fees or intermediary markups to your provider invoices. You contract directly with the selected specialist under their standard master service terms.
+              Provider-specific pricing, contracting and service commitments are confirmed with the selected provider.
             </p>
           </div>
         </div>
@@ -48,48 +74,26 @@ import Layout from '../layouts/Layout.astro';
       <!-- Three Commercial Delivery Roles -->
       <section class="roles-section">
         <div class="roles-header">
-          <h2 class="roles-title">Three Commercial Delivery Roles</h2>
+          <h2 class="roles-title">How a requirement is delivered</h2>
           <p class="roles-subhead">
-            Infrastructure requirements differ in delivery mechanics. We maintain strict clarity regarding InfraHub's role in every transaction.
+            Infrastructure requirements differ in delivery mechanics. InfraHub states its role in each one before anything proceeds.
           </p>
         </div>
 
-        <div class="roles-flow">
-          <div class="role-card">
-            <div class="role-meta">
-              <span class="role-index">01</span>
-              <span class="role-type">Sourcing &amp; Procurement</span>
-            </div>
-            <h3 class="role-title">Hardware Sourcing</h3>
-            <p class="role-desc">
-              Sourcing enterprise server hardware, optical transceivers, switches, and related infrastructure through specialist suppliers. Warranty, stock, testing, and delivery terms are confirmed for each quotation rather than assumed across suppliers.
-            </p>
-            <span class="role-scope">Servers / Switches / Optics / Memory Allocations</span>
-          </div>
-
-          <div class="role-card">
-            <div class="role-meta">
-              <span class="role-index">02</span>
-              <span class="role-type">Direct Specialist Introduction</span>
-            </div>
-            <h3 class="role-title">Partner-Delivered Services</h3>
-            <p class="role-desc">
-              InfraHub evaluates requirements and introduces your engineering team directly to specialized network carriers, scrubbing providers, and colocation operators. The partner contracts and operates the service under their own SLAs.
-            </p>
-            <span class="role-scope">IP Transit / Lit Waves / DDoS Scrubbing / Managed NOC</span>
-          </div>
-
-          <div class="role-card">
-            <div class="role-meta">
-              <span class="role-index">03</span>
-              <span class="role-type">Architecture &amp; Benchmarking</span>
-            </div>
-            <h3 class="role-title">Advisory &amp; Evaluation</h3>
-            <p class="role-desc">
-              Vendor-neutral technical guidance: multi-carrier BGP evaluations, physical conduit diversity reviews, VMware migration cost benchmarking, and commercial contract reviews to ensure technical and commercial alignment.
-            </p>
-            <span class="role-scope">Route Diversity / BGP Strategy / VMware Alternatives</span>
-          </div>
+        <div class="roles-rows">
+          {roles.map(role => (
+            <article class="role-row">
+              <div class="role-row-meta">
+                <span class="role-index">{role.index}</span>
+                <span class="role-type">{role.type}</span>
+              </div>
+              <div class="role-row-body">
+                <h3 class="role-title">{role.title}</h3>
+                <p class="role-desc">{role.desc}</p>
+              </div>
+              <p class="role-scope">{role.scope}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -249,39 +253,32 @@ import Layout from '../layouts/Layout.astro';
     max-width: 58ch;
   }
 
-  .roles-flow {
+  .roles-rows {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .role-row {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 10px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border-color);
   }
 
   @media (min-width: 860px) {
-    .roles-flow {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+    .role-row {
+      grid-template-columns: 200px minmax(0, 1fr) 220px;
+      gap: 40px;
+      align-items: baseline;
     }
   }
 
-  .role-card {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 32px 28px;
+  .role-row-meta {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    transition: border-color 160ms ease, transform 160ms ease;
-  }
-
-  .role-card:hover {
-    border-color: var(--accent-blue);
-    transform: translateY(-2px);
-  }
-
-  .role-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
   }
 
   .role-index {
@@ -292,34 +289,36 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .role-type {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: #64748b;
-    letter-spacing: 0.01em;
+  }
+
+  .role-row-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .role-title {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.3;
   }
 
   .role-desc {
-    font-size: 0.92rem;
-    line-height: 1.65;
+    font-size: 0.95rem;
+    line-height: 1.7;
     color: var(--text-secondary);
-    flex-grow: 1;
+    max-width: 62ch;
   }
 
   .role-scope {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: #475569;
-    padding-top: 14px;
-    border-top: 1px solid var(--border-color);
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   /* Closing CTA Band */
