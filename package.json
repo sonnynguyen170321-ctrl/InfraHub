@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^22.13.8"
+    "@types/node": "^22.13.8",
+    "playwright": "^1.62.1"
   },
   "engines": {
     "node": "22.x"

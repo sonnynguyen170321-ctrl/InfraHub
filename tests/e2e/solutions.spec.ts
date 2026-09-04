@@ -61,3 +61,57 @@ test.describe('solution discovery tabs', () => {
     await expect(tabs.first()).toBeFocused();
   });
 });
+
+test.describe('discovery scene progression', () => {
+  test('scrolling through the pinned scene changes the discipline', async ({ page }) => {
+    await page.goto('/');
+
+    const bands = await page.evaluate(() => {
+      const scene = document.getElementById('discoveryScene');
+      const sticky = scene?.querySelector('.discovery-sticky') as HTMLElement | null;
+      if (!scene || !sticky) return null;
+      const travel = scene.offsetHeight - sticky.offsetHeight;
+      return { top: scene.getBoundingClientRect().top + window.scrollY, travel };
+    });
+
+    expect(bands, 'the discovery scene should exist').not.toBeNull();
+    expect(bands!.travel, 'the scene should be taller than its sticky child').toBeGreaterThan(200);
+
+    const seen: string[] = [];
+    for (const fraction of [0.05, 0.45, 0.95]) {
+      await page.evaluate(
+        ({ top, travel, fraction }) => window.scrollTo(0, Math.round(top + travel * fraction)),
+        { ...bands!, fraction }
+      );
+      await page.waitForTimeout(200);
+      seen.push(
+        (await page.locator('.discipline-tab-btn.active').getAttribute('data-target')) || ''
+      );
+    }
+
+    expect(new Set(seen).size, `scrolling should change discipline, saw ${seen.join(' -> ')}`).toBeGreaterThan(2);
+    await expect(page.locator('#solutionDiscovery .services-panel:not([hidden])')).toHaveCount(1);
+  });
+
+  test('the routing line shows only the active discipline branches', async ({ page }) => {
+    await page.goto('/');
+
+    const activeSets = page.locator('.route-set.active');
+    await expect(activeSets).toHaveCount(1);
+    await expect(activeSets).toHaveAttribute('data-route-set', 'infrastructure');
+
+    await page.locator('.discipline-tab-btn').nth(2).click();
+    await expect(page.locator('.route-set.active')).toHaveAttribute('data-route-set', 'network');
+  });
+
+  test('the scene does not pin under reduced motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+
+    const position = await page
+      .locator('.discovery-sticky')
+      .evaluate((el) => getComputedStyle(el).position);
+
+    expect(position).toBe('static');
+  });
+});

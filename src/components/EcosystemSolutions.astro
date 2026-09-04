@@ -84,6 +84,39 @@ const solutionFamilies = [
     ]
   }
 ];
+// The routing line branches by discipline. Each label is a real route the panel offers,
+// so the line describes the choice being made rather than decorating the column.
+const routeBranches: Record<string, string[]> = {
+  infrastructure: ['Compute', 'Hardware', 'Colocation'],
+  cloud: ['Private cloud', 'Virtualization', 'Hybrid', 'Backup'],
+  network: ['Transit', 'Wavelengths', 'Layer 2', 'Cloud on-ramp', 'IPv4'],
+  security: ['Detection', 'Mitigation', 'Diversion'],
+  managed: ['Monitor', 'Triage', 'Engineer', 'Escalate']
+};
+
+// Geometry for the branch fan: a trunk down the left, one elbow per branch.
+const BRANCH_TOP = 14;
+const BRANCH_GAP = 26;
+const TRUNK_X = 10;
+const ELBOW_X = 30;
+const LABEL_X = 40;
+
+const branchSets = solutionFamilies.map((family) => {
+  const labels = routeBranches[family.id] ?? [];
+  const rows = labels.map((label, i) => {
+    const y = BRANCH_TOP + i * BRANCH_GAP;
+    return {
+      label,
+      y,
+      d: `M ${TRUNK_X} ${y - BRANCH_GAP / 2} V ${y} H ${ELBOW_X}`,
+      isRisk: family.id === 'security' && label === 'Mitigation'
+    };
+  });
+  const height = BRANCH_TOP + Math.max(labels.length - 1, 0) * BRANCH_GAP + 18;
+  return { id: family.id, rows, height };
+});
+
+const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 ---
 
 <section class="section section-solutions" id="solutions-ecosystem" aria-label="Solutions by Discipline">
@@ -101,7 +134,11 @@ const solutionFamilies = [
       </p>
     </div>
 
-    <!-- Desktop 3-Column Architectural Discovery (Part XXVI: Left/Center/Right) -->
+    <!-- The discovery scene pins on desktop: the viewport holds still while the discipline
+         changes with scroll. Below the pin breakpoint, and under reduced motion, the same
+         markup is an ordinary block and the tabs work by click alone. -->
+    <div class="discovery-scene" id="discoveryScene" data-scene-steps={solutionFamilies.length}>
+      <div class="discovery-sticky">
     <div class="discovery-triad-desktop" id="solutionDiscovery">
       
       <!-- Left Column: Typographic Discipline Index -->
@@ -122,6 +159,29 @@ const solutionFamilies = [
             <span class="tab-name">{family.name}</span>
           </button>
         ))}
+
+        <!-- The line divides into the routes this discipline actually offers. -->
+        <div class="discipline-route" aria-hidden="true">
+          <svg
+            class="route-svg"
+            viewBox={`0 0 240 ${branchViewHeight}`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMinYMin meet"
+          >
+            {branchSets.map((set, idx) => (
+              <g class={`route-set ${idx === 0 ? 'active' : ''}`} data-route-set={set.id}>
+                <path class="route-trunk" d={`M ${TRUNK_X} 0 V ${set.height - 18}`} />
+                {set.rows.map((row) => (
+                  <>
+                    <path class={`route-branch ${row.isRisk ? 'is-risk' : ''}`} d={row.d} />
+                    <text class="route-label" x={LABEL_X} y={row.y + 3}>{row.label}</text>
+                  </>
+                ))}
+              </g>
+            ))}
+          </svg>
+        </div>
       </nav>
 
       <!-- Center Column: Authentic Documentary Visual -->
@@ -176,14 +236,17 @@ const solutionFamilies = [
             </div>
 
             <div class="panel-footer">
-              <a href={family.ctaLink} class="btn btn-secondary btn-sm">
-                <span>Explore {family.name} Overview &rarr;</span>
+              <a href={family.ctaLink} class="panel-overview-link">
+                <span>{family.name} overview</span>
+                <span class="route-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
         ))}
       </div>
 
+    </div>
+      </div>
     </div>
 
     <!-- Mobile Architectural Accordion (No horizontal mini tabs) -->
@@ -273,8 +336,83 @@ const solutionFamilies = [
   }
 
   /* Desktop 3-Column Triad */
+  .discovery-scene {
+    position: relative;
+  }
+
+  .discovery-sticky {
+    position: relative;
+  }
+
+  /* The pin only exists where there is room for it: a pinned scene on a short or narrow
+     viewport traps the reader in a scene they cannot see all of. */
+  @media (min-width: 1180px) and (min-height: 700px) {
+    .discovery-scene {
+      /* One viewport of pinned scene plus roughly one viewport of travel per extra
+         discipline, so each one holds long enough to read. */
+      min-height: 260vh;
+    }
+
+    .discovery-sticky {
+      position: sticky;
+      top: calc(var(--header-height) + 24px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .discovery-scene {
+      min-height: 0;
+    }
+
+    .discovery-sticky {
+      position: static;
+    }
+  }
+
   .discovery-triad-desktop {
     display: none;
+  }
+
+  .discipline-route {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .route-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .route-set {
+    opacity: 0;
+    transition: opacity var(--motion-ui) var(--ease-out);
+  }
+
+  .route-set.active {
+    opacity: 1;
+  }
+
+  .route-trunk {
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .route-branch {
+    stroke: var(--accent-blue);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+
+  .route-branch.is-risk {
+    stroke: var(--accent-amber, #d97706);
+  }
+
+  .route-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    fill: var(--text-secondary);
   }
 
   @media (min-width: 980px) {
@@ -356,7 +494,7 @@ const solutionFamilies = [
   .triad-col-visual {
     position: relative;
     height: 100%;
-    min-height: 460px;
+    min-height: 560px;
     display: flex;
     flex-direction: column;
   }
@@ -364,6 +502,7 @@ const solutionFamilies = [
   .visual-frame {
     position: absolute;
     inset: 0;
+    justify-content: center;
     opacity: 0;
     clip-path: inset(0 100% 0 0);
     transform: scale(0.985);
@@ -391,7 +530,7 @@ const solutionFamilies = [
 
   .visual-img {
     width: 100%;
-    height: 380px;
+    height: clamp(380px, 52vh, 560px);
     object-fit: cover;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
@@ -472,19 +611,27 @@ const solutionFamilies = [
   .service-route-link {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 13px 16px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
+    align-items: baseline;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-color);
     text-decoration: none;
-    transition: background-color 140ms var(--ease-out), border-color 140ms var(--ease-out), transform 140ms var(--ease-out);
+    transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out);
   }
 
-  .service-route-link:hover {
-    background-color: #ffffff;
+  .service-route-link:hover,
+  .service-route-link:focus-visible {
     border-color: var(--accent-blue);
-    transform: translateX(2px);
+  }
+
+  .service-route-link:hover .route-name,
+  .service-route-link:focus-visible .route-name {
+    color: var(--accent-blue);
+  }
+
+  .service-route-link:hover .route-arrow,
+  .service-route-link:focus-visible .route-arrow {
+    transform: translateX(4px);
   }
 
   .route-info {
@@ -507,13 +654,32 @@ const solutionFamilies = [
 
   .route-arrow {
     font-size: 0.95rem;
+    transition: transform var(--motion-ui) var(--ease-out);
     color: var(--accent-blue);
     margin-left: 12px;
     flex-shrink: 0;
   }
 
   .panel-footer {
-    margin-top: 4px;
+    margin-top: 20px;
+  }
+
+  .panel-overview-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-blue);
+    padding-bottom: 2px;
+    transition: color var(--motion-ui) var(--ease-out);
+  }
+
+  .panel-overview-link:hover,
+  .panel-overview-link:focus-visible {
+    color: var(--accent-blue);
   }
 
   /* Mobile Architectural Accordion */
@@ -614,51 +780,108 @@ const solutionFamilies = [
 </style>
 
 <script>
-  // Solution Discovery Interactive Tab Switching
+  // Solution discovery: one scene, two ways in.
+  //
+  // Clicking a discipline is the primary control and works everywhere, with or without
+  // JavaScript-driven scrolling. On a desktop viewport with room for it, the scene also pins
+  // and the discipline follows scroll position, so the reader moves through the disciplines by
+  // reading rather than by clicking. Both paths call the same activate(), so the two can never
+  // disagree about which discipline is showing.
   function setupSolutionDiscovery() {
     const container = document.getElementById('solutionDiscovery');
+    const scene = document.getElementById('discoveryScene');
     if (!container) return;
 
-    const tabs = container.querySelectorAll('.discipline-tab-btn');
-    const visuals = container.querySelectorAll('.visual-frame');
-    const panels = container.querySelectorAll('.services-panel');
+    const tabs = Array.from(container.querySelectorAll<HTMLElement>('.discipline-tab-btn'));
+    const visuals = Array.from(container.querySelectorAll<HTMLElement>('.visual-frame'));
+    const panels = Array.from(container.querySelectorAll<HTMLElement>('.services-panel'));
+    const routeSets = Array.from(container.querySelectorAll<SVGGElement>('.route-set'));
+    if (tabs.length === 0) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pinQuery = window.matchMedia('(min-width: 1180px) and (min-height: 700px)');
+    const isPinned = () => pinQuery.matches && !reducedMotion.matches;
+
+    let activeIndex = 0;
+
+    function activate(index: number) {
+      if (index === activeIndex) return;
+      activeIndex = index;
+
+      const target = tabs[index].getAttribute('data-target');
+
+      tabs.forEach((tab, i) => {
+        const isActive = i === index;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      visuals.forEach((visual) => {
+        const isActive = visual.id === `visual-${target}`;
+        visual.classList.toggle('active', isActive);
+        visual.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.id === `panel-${target}`;
+        panel.classList.toggle('active', isActive);
+        if (isActive) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+
+      routeSets.forEach((set) => {
+        set.classList.toggle('active', set.getAttribute('data-route-set') === target);
+      });
+    }
+
+    // ── Scroll progression ────────────────────────────────────────────────
+    // The scene is taller than the viewport; the sticky child holds still through the
+    // difference. Progress through that difference selects the discipline.
+    let ticking = false;
+
+    function progressToIndex() {
+      if (!scene) return 0;
+      const sticky = scene.querySelector<HTMLElement>('.discovery-sticky');
+      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
+      if (travel <= 0) return activeIndex;
+
+      const scrolled = window.scrollY - (scene.getBoundingClientRect().top + window.scrollY);
+      const progress = Math.min(Math.max(scrolled / travel, 0), 0.9999);
+      return Math.floor(progress * tabs.length);
+    }
+
+    function onScroll() {
+      if (ticking || !isPinned()) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        activate(progressToIndex());
+        ticking = false;
+      });
+    }
+
+    // Clicking scrolls to the position that represents that discipline, so the scene state and
+    // the scroll position stay in agreement rather than fighting on the next wheel event.
+    function scrollToIndex(index: number) {
+      if (!scene || !isPinned()) return;
+      const sticky = scene.querySelector<HTMLElement>('.discovery-sticky');
+      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
+      if (travel <= 0) return;
+
+      const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
+      const band = travel / tabs.length;
+      window.scrollTo({
+        top: Math.round(sceneTop + band * index + band * 0.5),
+        behavior: reducedMotion.matches ? 'auto' : 'smooth'
+      });
+    }
 
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-target');
-
-        // Update tabs
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-
-        // Update visuals
-        visuals.forEach(v => {
-          v.classList.remove('active');
-          v.setAttribute('aria-hidden', 'true');
-          if (v.id === `visual-${target}`) {
-            v.classList.add('active');
-            v.setAttribute('aria-hidden', 'false');
-          }
-        });
-
-        // Update panels
-        panels.forEach(p => {
-          p.classList.remove('active');
-          p.setAttribute('hidden', '');
-          if (p.id === `panel-${target}`) {
-            p.classList.add('active');
-            p.removeAttribute('hidden');
-          }
-        });
+        activate(index);
+        scrollToIndex(index);
       });
 
-      // Keyboard arrow navigation for tablist
-      tab.addEventListener('keydown', (e) => {
-        const event = e as KeyboardEvent;
+      tab.addEventListener('keydown', (event) => {
         let newIndex: number | null = null;
         if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
           newIndex = (index + 1) % tabs.length;
@@ -672,15 +895,23 @@ const solutionFamilies = [
 
         if (newIndex !== null) {
           event.preventDefault();
-          const nextTab = tabs[newIndex] as HTMLElement;
-          nextTab.focus();
-          nextTab.click();
+          tabs[newIndex].focus();
+          tabs[newIndex].click();
         }
       });
     });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // A resize changes the scene's travel distance, so the mapping has to be recomputed
+    // rather than left stale.
+    window.addEventListener('resize', onScroll, { passive: true });
+    pinQuery.addEventListener('change', onScroll);
+    reducedMotion.addEventListener('change', onScroll);
+
+    onScroll();
   }
 
-  // Initialize on load and on client-side navigation
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupSolutionDiscovery);
   } else {
