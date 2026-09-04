@@ -8,7 +8,7 @@
     "build": "node --max-old-space-size=4096 node_modules/astro/astro.js build",
     "preview": "node node_modules/astro/astro.js preview",
     "astro": "node node_modules/astro/astro.js",
-    "check": "node node_modules/@astrojs/check/bin/astro-check.js",
+    "check": "node node_modules/astro/astro.js sync && node node_modules/@astrojs/check/bin/astro-check.js",
     "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs && node tests/audit/user-audit.mjs && node tests/audit/partner-assets.test.mjs",
     "test:a11y": "node tests/audit/accessibility-audit.mjs",
     "test:content": "node tests/audit/content-truth-audit.mjs",
@@ -16,7 +16,8 @@
     "test:perf": "node tests/audit/performance-audit.mjs",
     "test:e2e": "node node_modules/@playwright/test/cli.js test",
     "test:e2e:ui": "node node_modules/@playwright/test/cli.js test --ui",
-    "verify": "npm run check && npm run build && npm test && npm run test:e2e"
+    "verify": "npm run check && npm run build && npm test && npm run test:e2e",
+    "sync": "node node_modules/astro/astro.js sync"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
