@@ -4,11 +4,19 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
+  const now = new Date();
   const offers = await getCollection('offers');
-  return offers.map(offer => ({
-    params: { slug: offer.slug },
-    props: { offer }
-  }));
+  return offers
+    .filter(offer => {
+      if (!offer.data.publicApproved) return false;
+      if (offer.data.status !== 'active') return false;
+      if (offer.data.expiryDate && now > offer.data.expiryDate) return false;
+      return true;
+    })
+    .map(offer => ({
+      params: { slug: offer.slug },
+      props: { offer }
+    }));
 }
 
 const { offer } = Astro.props;
@@ -22,40 +30,17 @@ const offerUrl = `${SITE}/offers/${offer.slug}`;
 // rather than forcing everything into one shape.
 const isHardware = offer.data.category === 'hardware';
 
-// PRICE IS DELIBERATELY NOT EMITTED.
-//
-// Three separate reasons, any one of which is sufficient:
-//
-//   1. `verifiedPrice` is prose, not a number  -  "From €1,450/mo" is a lower bound and a
-//      billing period, not a price. Encoding it as schema.org `price` would be factually
-//      wrong even if the figure were confirmed.
-//   2. None of these figures is verified. docs/CLAIMS_REGISTER.md carries them as C-01 and
-//      C-06, state OWNER INPUT.
-//   3. Structured data is a machine-readable assertion that search engines may surface as a
-//      price. Publishing an unconfirmed figure in that form amplifies it rather than
-//      qualifying it.
-//
-// `availability` is omitted for the same class of reason: the project has no verified
-// inventory, and claiming stock is exactly what directive §22 forbids.
-//
-// When the owner confirms pricing, add `priceSpecification` here  -  the shape is small and the
-// data it needs is already on the offer.
-const offerNode = {
-  '@type': 'Offer',
-  url: offerUrl,
-  category: offer.data.category,
-  ...(offer.data.expiryDate && { validThrough: offer.data.expiryDate.toISOString().slice(0, 10) }),
-  seller: { '@type': 'Organization', name: 'InfraHub', url: SITE }
-};
-
+// Public offer pages deliberately keep structured data conservative.
+// InfraHub may source hardware directly, while partner-delivered services are contracted by
+// the selected provider. The content model does not yet encode enough verified contractual
+// detail to assert a universal seller/provider relationship in schema.org markup.
 const primaryNode = isHardware
   ? {
       '@type': 'Product',
       '@id': `${offerUrl}#product`,
       name: offer.data.title,
       description: offer.data.shortDescription,
-      category: offer.data.category,
-      offers: offerNode
+      category: offer.data.category
     }
   : {
       '@type': 'Service',
@@ -63,9 +48,7 @@ const primaryNode = isHardware
       name: offer.data.title,
       description: offer.data.shortDescription,
       serviceType: offer.data.category,
-      areaServed: offer.data.location,
-      provider: { '@type': 'Organization', name: 'InfraHub', url: SITE },
-      offers: offerNode
+      areaServed: offer.data.location
     };
 
 const structuredData = {
@@ -86,7 +69,7 @@ const structuredData = {
 ---
 
 <Layout 
-  title={`${offer.data.title}  -  Offer Details`}
+  title={`${offer.data.title} — Offer Details`}
   description={offer.data.shortDescription}
   canonicalPath={`/offers/${offer.slug}`}
 >
