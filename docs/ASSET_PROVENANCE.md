@@ -29,16 +29,16 @@ This document tracks the origin, legal classification, ownership status, and app
 
 The previously generated synthetic partner SVGs were removed from `public/images/partners/` during the canonical partner-domain correction. No third-party logo is currently rendered as an official logo unless a future record has both `logoStatus: approved` and `logoApproved: true`.
 
-| Partner | Canonical Domain | Official Asset Source | Asset Imported? | Usage Approval | Production Treatment |
-|:---|:---|:---|:---:|:---:|:---|
-| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/fastnetmon-brand-kit/ | No | Pending | Text-only mark |
-| **Gcore** | https://gcore.com/ | https://gcore.com/media-kit | No | Pending | Text-only mark |
-| **StormWall** | https://stormwall.network/ | Official corporate website / partner materials | No | Pending | Text-only mark |
-| **Zenlayer** | https://www.zenlayer.com/ | Official corporate website / partner materials | No | Pending | Text-only mark |
-| **IPXO** | https://www.ipxo.com/ | https://www.ipxo.com/press-releases/ | No | Pending | Text-only mark |
-| **Vates** | https://vates.tech/ | Official corporate website / partner materials | No | Pending | Text-only mark |
-| **ITcare** | https://itcare.net/ | Official corporate website / partner materials | No | Pending | Text-only mark |
-| **Airframe** | https://www.airframe.ai/ | Official corporate website / partner materials | No | Pending | Text-only mark |
+| Partner | Canonical Domain | Official Asset Source | Local Asset | Asset Imported? | Usage Approval | Production Treatment |
+|:---|:---|:---|:---|:---:|:---:|:---|
+| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/fastnetmon-brand-kit/ | `/images/partners/fastnetmon.png` | Yes (Brand Kit) | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **Gcore** | https://gcore.com/ | https://gcore.com/media-kit | `/images/partners/gcore.svg` | Yes (Media Kit) | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **StormWall** | https://stormwall.network/ | Official corporate website (`content2.stormwall.network`) | `/images/partners/stormwall.svg` | Yes (Official Vector) | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **Zenlayer** | https://www.zenlayer.com/ | Official corporate website (`zenlayer.com/wp-content`) | `/images/partners/zenlayer.svg` | Yes (Official Vector) | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **IPXO** | https://www.ipxo.com/ | https://www.ipxo.com/ | — | Sourcing Direct Kit | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **Vates** | https://vates.tech/ | https://vates.tech/en/about-vates/marketing-assets-and-brand-guidelines/ | `/images/partners/vates.png` | Yes (Official Brand Kit) | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **ITcare** | https://itcare.net/ | Official corporate website (`itcare.net/wp-content`) | `/images/partners/itcare.svg` | Yes (Official Vector) | Pending Owner Sign-off | Text-only mark (Fallback active) |
+| **Airframe** | https://www.airframe.ai/ | https://www.airframe.ai/ | — | Sourcing Direct Kit | Pending Owner Sign-off | Text-only mark (Fallback active) |
 
 `Supertrace` is not part of the owner-confirmed canonical partner list and its old synthetic asset has been removed.
 
