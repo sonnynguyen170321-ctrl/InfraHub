@@ -69,10 +69,23 @@
   --shadow-lg: 0 8px 20px rgba(9, 17, 24, 0.05);
   --shadow-xl: 0 16px 32px rgba(9, 17, 24, 0.06);
 
-  /* Emil Kowalski Motion Easing Tokens (Part XXIII) */
+  /* Emil Kowalski Motion Easing & Duration Tokens (Directive 25) */
+  --motion-fast: 140ms;
+  --motion-ui: 200ms;
+  --motion-content: 420ms;
+  --motion-image: 650ms;
+  --motion-scene: 850ms;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  --transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 160ms var(--ease-out), opacity 160ms var(--ease-out);
+  --transition: background-color var(--motion-ui) var(--ease-out), color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out), transform var(--motion-ui) var(--ease-out), opacity var(--motion-ui) var(--ease-out);
+
+  /* The Infrastructure Route Line Art-Direction System (Directive 2 & 3) */
+  --route-line-weight: 1.5px;
+  --route-line-neutral: #D2D7D3;
+  --route-line-neutral-dark: rgba(210, 215, 211, 0.25);
+  --route-line-active: #2854C7;
+  --route-line-secondary: #087D79;
+  --route-line-risk: #B86B2B;
   --transition-fast: background-color 120ms var(--ease-out), color 120ms var(--ease-out), border-color 120ms var(--ease-out), transform 120ms var(--ease-out), opacity 120ms var(--ease-out);
 }
 

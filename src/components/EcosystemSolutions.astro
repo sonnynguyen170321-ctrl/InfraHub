@@ -352,7 +352,7 @@ const solutionFamilies = [
     font-weight: 700;
   }
 
-  /* Column 2: Center Visual */
+  /* Column 2: Center Visual (Directive 8: Controlled horizontal clip reveal) */
   .triad-col-visual {
     position: relative;
     height: 100%;
@@ -362,19 +362,31 @@ const solutionFamilies = [
   }
 
   .visual-frame {
-    display: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: scale(0.985);
+    transition: clip-path 480ms var(--ease-out), opacity 350ms var(--ease-out), transform 480ms var(--ease-out);
+    pointer-events: none;
+    display: flex;
     flex-direction: column;
-    height: 100%;
   }
 
   .visual-frame.active {
-    display: flex;
-    animation: fadeIn 200ms var(--ease-out);
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+    pointer-events: auto;
+    z-index: 2;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .visual-frame {
+      clip-path: none !important;
+      transform: none !important;
+      transition: opacity 120ms ease !important;
+    }
   }
 
   .visual-img {
@@ -423,7 +435,12 @@ const solutionFamilies = [
 
   .services-panel.active {
     display: flex;
-    animation: fadeIn 200ms var(--ease-out);
+    animation: panelReveal var(--motion-content) var(--ease-out);
+  }
+
+  @keyframes panelReveal {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .panel-header {

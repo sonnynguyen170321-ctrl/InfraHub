@@ -24,13 +24,22 @@ const industries = [
 ];
 ---
 
-<section class="section section-audience-editorial" id="who-we-help">
+<section class="section section-audience-editorial" id="who-we-help" aria-label="Industries and Editorial Practice">
+  <!-- Route Line Entry Connector from Offers (Directive 20) -->
+  <div class="practice-route-entry" aria-hidden="true">
+    <div class="route-line-stem"></div>
+  </div>
+
   <div class="container">
     <div class="split-editorial-layout">
       
       <!-- Left Column: Who We Work With (Industries) -->
       <div class="audience-column">
         <div class="column-header">
+          <div class="kicker-row">
+            <span class="routing-junction" aria-hidden="true"></span>
+            <span class="editorial-kicker">Sectors in practice</span>
+          </div>
           <h2 class="column-title">Infrastructure built for technical buyers.</h2>
           <p class="column-desc">
             We tailor sourcing, routing, and hardware evaluation to the exact operational realities of four core sectors.
@@ -104,13 +113,68 @@ const industries = [
 
     </div>
   </div>
+
+  <!-- Route Line Exit Connector to Final Conversation (Directive 22) -->
+  <div class="practice-route-exit" aria-hidden="true">
+    <div class="exit-stem"></div>
+    <div class="exit-junction"></div>
+  </div>
 </section>
 
 <style>
   .section-audience-editorial {
+    position: relative;
     background-color: #ffffff;
-    padding: 104px 0;
+    padding: 104px 0 116px;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Route Connectors */
+  .practice-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 28px;
+    z-index: 2;
+  }
+  .practice-route-entry .route-line-stem {
+    width: 1.5px;
+    height: 100%;
+    background-color: var(--accent-blue);
+  }
+
+  .practice-route-exit {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  .practice-route-exit .exit-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--border-color));
+  }
+  .practice-route-exit .exit-junction {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+  }
+
+  .editorial-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
   }
 
   .split-editorial-layout {

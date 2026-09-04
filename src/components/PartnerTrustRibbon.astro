@@ -15,10 +15,14 @@ const approvedPartners = allPartners
 ---
 
 <section class="partner-trust-ribbon" aria-label="Partner Ecosystem">
+  <!-- Subtle Route Line Entry Connector from Hero -->
+  <div class="ribbon-route-entry" aria-hidden="true">
+    <div class="route-entry-line"></div>
+  </div>
+
   <div class="ribbon-inner">
     <div class="ribbon-fixed-zone">
       <span class="ribbon-kicker">Our partner ecosystem</span>
-      <span class="ribbon-subtitle">Specialist infrastructure, network, security &amp; technology partners</span>
     </div>
 
     <div class="ribbon-track-wrapper">
@@ -93,6 +97,24 @@ const approvedPartners = allPartners
     z-index: 10;
   }
 
+  /* Infrastructure Route Line Entry (Directive 2, 7) */
+  .ribbon-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+  }
+  .route-entry-line {
+    width: 1.5px;
+    height: 100%;
+    background-color: var(--accent-blue);
+  }
+
   .ribbon-inner {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -123,10 +145,10 @@ const approvedPartners = allPartners
 
   @media (min-width: 900px) {
     .ribbon-fixed-zone {
-      width: 270px;
-      min-width: 250px;
+      width: 220px;
+      min-width: 200px;
       padding-bottom: 0;
-      padding-right: 36px;
+      padding-right: 32px;
       border-bottom: none;
       border-right: 1px solid var(--border-color);
     }
@@ -139,12 +161,6 @@ const approvedPartners = allPartners
     color: var(--text-primary);
     letter-spacing: -0.01em;
     line-height: 1.35;
-  }
-
-  .ribbon-subtitle {
-    font-size: 0.85rem;
-    color: #475569;
-    line-height: 1.5;
   }
 
   .partner-text-mark {
@@ -212,7 +228,7 @@ const approvedPartners = allPartners
     list-style: none;
     margin: 0;
     padding-left: 0;
-    animation: marqueeSlide 50s linear infinite;
+    animation: marqueeSlide 62s linear infinite;
     will-change: transform;
   }
 

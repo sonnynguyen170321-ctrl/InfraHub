@@ -19,7 +19,7 @@ test.describe('partner profiles', () => {
       const response = await page.goto(`/partners/${slug}`);
       expect(response?.status()).toBe(200);
 
-      await expect(page.locator('h1')).toBeVisible();
+      await expect(page.locator('main h1')).toBeVisible();
       await expect(page.locator('.signature-architecture-section')).toBeVisible();
       await expect(page.locator('.buyer-decision-layer')).toBeVisible();
 

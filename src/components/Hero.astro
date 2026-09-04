@@ -18,9 +18,9 @@
 
   <div class="container hero-container">
     <div class="hero-content">
-      <h1 class="hero-title">
-        The right infrastructure.<br />
-        <span class="hero-title-accent">The right partner.</span>
+      <h1 class="hero-title" aria-label="The right infrastructure. The right partner.">
+        <span class="hero-mask"><span class="hero-line hero-line-1">The right infrastructure.</span></span>
+        <span class="hero-mask"><span class="hero-line hero-line-2">The right partner.</span></span>
       </h1>
 
       <p class="hero-description">
@@ -37,6 +37,12 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <!-- Central Infrastructure Routing Line Exit (Directive 2, 3, 6) -->
+  <div class="hero-routing-exit" aria-hidden="true">
+    <div class="routing-line-stem"></div>
+    <div class="routing-line-junction"></div>
   </div>
 </section>
 
@@ -66,6 +72,9 @@
     object-fit: cover;
     object-position: center 30%;
     filter: brightness(0.65) contrast(1.1);
+    transform: scale(1);
+    transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1), filter 600ms ease;
+    will-change: transform;
   }
   .hero-scrim {
     position: absolute;
@@ -82,6 +91,7 @@
     position: relative;
     z-index: 2;
     max-width: 1240px;
+    will-change: transform, opacity;
   }
 
   .hero-content {
@@ -91,15 +101,46 @@
     gap: 24px;
   }
 
+  /* Vertical Mask Revealing (Directive 6: Line-by-line independent reveals) */
   .hero-title {
     font-size: clamp(2.6rem, 5.2vw, 4.2rem);
     font-weight: 800;
     line-height: 1.08;
     letter-spacing: -0.035em;
     color: #ffffff;
+    margin: 0;
   }
-  .hero-title-accent {
+
+  .hero-mask {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero-line {
+    display: block;
+    transform: translateY(100%);
+    opacity: 0;
+    animation: heroLineReveal var(--motion-content) var(--ease-out) forwards;
+  }
+
+  .hero-line-1 {
+    animation-delay: 40ms;
+  }
+
+  .hero-line-2 {
     color: #e2e8f0;
+    animation-delay: 180ms;
+  }
+
+  @keyframes heroLineReveal {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
   .hero-description {
@@ -107,6 +148,9 @@
     line-height: 1.65;
     color: #cbd5e1;
     max-width: 700px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroFadeUp var(--motion-content) var(--ease-out) 320ms forwards;
   }
 
   .hero-actions {
@@ -115,6 +159,20 @@
     align-items: center;
     gap: 32px;
     margin-top: 16px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroFadeUp var(--motion-content) var(--ease-out) 460ms forwards;
+  }
+
+  @keyframes heroFadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* Quiet, confident secondary text action */
@@ -141,6 +199,34 @@
     transform: translateX(3px);
   }
 
+  /* Infrastructure Route Line Exit (Directive 6: Routing line emerges from bottom edge) */
+  .hero-routing-exit {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 38px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .routing-line-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(40, 84, 199, 0), var(--accent-blue));
+  }
+
+  .routing-line-junction {
+    width: 5px;
+    height: 5px;
+    background-color: var(--accent-blue);
+    border-radius: 50%;
+    margin-top: -2px;
+  }
+
   @media (max-width: 768px) {
     .hero-section {
       min-height: auto;
@@ -152,4 +238,53 @@
       gap: 18px;
     }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-line,
+    .hero-description,
+    .hero-actions {
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+  }
 </style>
+
+<script>
+  // Hero Scroll Camera Push & Exit Transition (Directive 6)
+  function initHeroScroll() {
+    const heroBg = document.querySelector('.hero-bg-img') as HTMLElement;
+    const heroContainer = document.querySelector('.hero-container') as HTMLElement;
+    const heroSection = document.getElementById('hero');
+
+    if (!heroBg || !heroContainer || !heroSection) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const heroHeight = heroSection.offsetHeight;
+          if (scrollY <= heroHeight) {
+            const progress = Math.min(scrollY / heroHeight, 1);
+            // Camera push 1.00 -> 1.035
+            const scale = 1.0 + progress * 0.035;
+            heroBg.style.transform = `scale(${scale.toFixed(4)})`;
+            // Headline rises slightly (20-30px) and fades smoothly
+            heroContainer.style.transform = `translateY(-${(progress * 28).toFixed(1)}px)`;
+            heroContainer.style.opacity = `${(1 - progress * 0.6).toFixed(2)}`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroScroll);
+  } else {
+    initHeroScroll();
+  }
+</script>

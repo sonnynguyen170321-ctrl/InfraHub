@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '../dist/client');
-const PORT = Number(process.env.PORT || 4321);
+const PORT = Number(process.env.PORT || 4331);
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',

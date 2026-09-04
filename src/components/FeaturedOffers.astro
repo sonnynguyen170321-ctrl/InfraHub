@@ -19,14 +19,23 @@ const secondaryOffers = primaryOffer
   : [];
 ---
 
-<section class="section section-offers" id="featured-offers">
+<section class="section section-offers" id="featured-offers" aria-label="Commercial Opportunities">
+  <!-- Route Line Entry Connector from Route Diversity (Directive 18) -->
+  <div class="offers-route-entry" aria-hidden="true">
+    <div class="route-line-stem"></div>
+  </div>
+
   <div class="container">
     
     <!-- Clean Headline -->
     <div class="offers-header">
-      <h2 class="offers-headline">Featured Offers</h2>
+      <div class="kicker-row">
+        <span class="routing-junction" aria-hidden="true"></span>
+        <span class="offers-kicker">Infrastructure market desk</span>
+      </div>
+      <h2 class="offers-headline">Current infrastructure opportunities</h2>
       <p class="offers-lead">
-        Current infrastructure, connectivity, hardware and security opportunities available through the InfraHub ecosystem.
+        Commercial allocations across connectivity, bare metal, hardware and security available through the InfraHub specialist network.
       </p>
     </div>
 
@@ -110,13 +119,60 @@ const secondaryOffers = primaryOffer
     )}
 
   </div>
+
+  <!-- Route Line Exit Connector to Practice / Editorial (Directive 20) -->
+  <div class="offers-route-exit" aria-hidden="true">
+    <div class="exit-stem"></div>
+    <div class="exit-junction"></div>
+  </div>
 </section>
 
 <style>
   .section-offers {
+    position: relative;
     background-color: #ffffff;
-    padding: 104px 0;
+    padding: 104px 0 112px;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Route Connectors */
+  .offers-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 28px;
+    z-index: 2;
+  }
+  .offers-route-entry .route-line-stem {
+    width: 1.5px;
+    height: 100%;
+    background-color: var(--accent-blue);
+  }
+
+  .offers-route-exit {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  .offers-route-exit .exit-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--border-color));
+  }
+  .offers-route-exit .exit-junction {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
   }
 
   /* Clean Headline */
@@ -124,6 +180,22 @@ const secondaryOffers = primaryOffer
     max-width: 720px;
     margin-bottom: 56px;
   }
+
+  .kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .offers-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+  }
+
   .offers-headline {
     font-size: clamp(2.2rem, 4vw, 3.2rem);
     font-weight: 800;

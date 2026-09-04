@@ -8,6 +8,12 @@ const { isTeaser = false } = Astro.props;
 ---
 
 <section class={`route-diversity-explorer ${isTeaser ? 'is-teaser' : 'is-full'}`} id="route-explorer" aria-label="Physical Route Diversity Explorer">
+  <!-- Route Line Entry Connector from Delivery Model (Directive 17) -->
+  <div class="explorer-route-entry" aria-hidden="true">
+    <div class="entry-fork-line line-a"></div>
+    <div class="entry-fork-line line-b"></div>
+  </div>
+
   <div class="container explorer-container">
     
     <!-- Section Kicker & Header -->
@@ -58,100 +64,109 @@ const { isTeaser = false } = Astro.props;
           </div>
         </div>
 
-        <!-- Schematic canvas: inline SVG only. The diagram is illustrative and does not model real routes. -->
+        <!-- Schematic canvas: Architectural Axonometric 2.5D / SVG (Directive 51: Option B) -->
         <div class="schematic-viewport" id="schematicViewport">
-          
-          <!-- State 1: Logical Topology SVG -->
-          <svg class="schematic-svg state-logical" id="svgLogical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Illustrative logical multihomed network diagram" aria-hidden="false">
-            <!-- Background Grid -->
-            <defs>
-              <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-color)" stroke-width="0.5" stroke-opacity="0.4" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#archGrid)" />
+          <div class="axonometric-stage-3d" id="axonoStage">
+            <!-- State 1: Logical Topology SVG -->
+            <svg class="schematic-svg state-logical" id="svgLogical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Illustrative logical multihomed network diagram" aria-hidden="false">
+              <!-- Background Grid -->
+              <defs>
+                <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-color)" stroke-width="0.5" stroke-opacity="0.4" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#archGrid)" />
 
-            <!-- Origin Node: Enterprise DC -->
-            <g class="node-origin" transform="translate(60, 150)">
-              <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">ENTERPRISE DC</text>
-              <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Border AS65001</text>
-            </g>
-
-            <!-- Destination Node: Primary Core / Cloud -->
-            <g class="node-dest" transform="translate(570, 150)">
-              <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">PUBLIC CLOUD / IX</text>
-              <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Core MMR Exchange</text>
-            </g>
-
-            <!-- Carrier A Logical Path (Cobalt) -->
-            <path d="M 190 165 C 280 80, 480 80, 570 165" stroke="var(--accent-blue)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
-            <g transform="translate(340, 60)">
-              <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-blue)" stroke-width="1.2" />
-              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-blue)">PROVIDER A</text>
-            </g>
-
-            <!-- Carrier B Logical Path (Teal) -->
-            <path d="M 190 195 C 280 280, 480 280, 570 195" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
-            <g transform="translate(340, 290)">
-              <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-cyan)" stroke-width="1.2" />
-              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-cyan)">PROVIDER B</text>
-            </g>
-
-            <!-- Status Annotation -->
-            <text x="380" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--text-muted)">Separate provider identities can still hide shared physical dependencies</text>
-          </svg>
-
-          <!-- State 2: Physical Conduit Reality SVG -->
-          <svg class="schematic-svg state-physical" id="svgPhysical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Illustrative physical conduit convergence diagram" aria-hidden="true" style="display: none;">
-            <rect width="100%" height="100%" fill="url(#archGrid)" />
-
-            <!-- Origin Facility -->
-            <g transform="translate(50, 140)">
-              <rect x="0" y="0" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="60" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">CAMPUS A</text>
-              <text x="60" y="46" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Single Duct Vault</text>
-              <rect x="116" y="36" width="8" height="8" fill="var(--accent-amber)" />
-            </g>
-
-            <!-- Destination Facility -->
-            <g transform="translate(590, 140)">
-              <rect x="0" y="0" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="60" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">FACILITY B</text>
-              <text x="60" y="46" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Metro MMR Suite</text>
-            </g>
-
-            <!-- Separate Feeder Conduits -->
-            <path d="M 170 170 L 250 170" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
-
-            <!-- CRITICAL BOTTLENECK: The Shared Bridge Crossing & Utility Trench -->
-            <g class="pinch-point-zone" transform="translate(250, 100)">
-              <!-- Outer Trench Boundary -->
-              <rect x="0" y="0" width="260" height="160" rx="2" fill="var(--accent-amber-light)" stroke="var(--accent-amber)" stroke-width="1.5" stroke-dasharray="4 2" />
-              
-              <!-- Warning Banner -->
-              <g transform="translate(130, 24)">
-                <rect x="-95" y="-12" width="190" height="22" rx="2" fill="var(--accent-amber)" />
-                <text x="0" y="3" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="0.04em">COMMON TRENCH / BRIDGE CONDUIT</text>
+              <!-- Origin Node: Enterprise DC -->
+              <g class="node-origin" transform="translate(60, 150)">
+                <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+                <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">ENTERPRISE DC</text>
+                <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Border AS65001</text>
               </g>
 
-              <!-- Shared Fiber Bundle Inside Trench -->
-              <line x1="20" y1="70" x2="240" y2="70" stroke="var(--accent-blue)" stroke-width="3" />
-              <text x="30" y="62" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-blue)" font-weight="600">Carrier A Sub-duct</text>
+              <!-- Destination Node: Primary Core / Cloud -->
+              <g class="node-dest" transform="translate(570, 150)">
+                <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+                <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">PUBLIC CLOUD / IX</text>
+                <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Core MMR Exchange</text>
+              </g>
 
-              <line x1="20" y1="100" x2="240" y2="100" stroke="var(--accent-cyan)" stroke-width="3" />
-              <text x="30" y="118" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-cyan)" font-weight="600">Carrier B Sub-duct</text>
+              <!-- Carrier A Logical Path (Cobalt) -->
+              <path d="M 190 165 C 280 80, 480 80, 570 165" stroke="var(--accent-blue)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
+              <g transform="translate(340, 60)">
+                <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-blue)" stroke-width="1.2" />
+                <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-blue)">PROVIDER A</text>
+              </g>
 
-              <!-- Pinch Point Marker -->
-              <circle cx="130" cy="85" r="32" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-dasharray="4 3" />
-              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">Illustrative shared physical dependency</text>
-            </g>
+              <!-- Carrier B Logical Path (Teal) -->
+              <path d="M 190 195 C 280 280, 480 280, 570 195" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
+              <g transform="translate(340, 290)">
+                <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-cyan)" stroke-width="1.2" />
+                <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-cyan)">PROVIDER B</text>
+              </g>
 
-            <!-- Destination Feeders -->
-            <path d="M 510 170 L 590 170" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
-          </svg>
+              <!-- Status Annotation -->
+              <text x="380" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--text-muted)">Separate provider identities can still hide shared physical dependencies</text>
+            </svg>
 
+            <!-- State 2: Physical Conduit Reality (Axonometric Depth Projection) -->
+            <svg class="schematic-svg state-physical" id="svgPhysical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Illustrative physical conduit convergence diagram" aria-hidden="true" style="display: none;">
+              <rect width="100%" height="100%" fill="url(#archGrid)" />
+
+              <!-- Origin Facility (Campus A) with Axonometric Isometric Bevel -->
+              <g transform="translate(45, 120)">
+                <!-- Isometric Extrusion Side & Top -->
+                <polygon points="120,20 140,5 140,85 120,100" fill="#cbd5e1" stroke="var(--text-primary)" stroke-width="1" />
+                <polygon points="0,20 20,5 140,5 120,20" fill="#e2e8f0" stroke="var(--text-primary)" stroke-width="1" />
+                <!-- Front Face -->
+                <rect x="0" y="20" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+                <text x="60" y="52" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">CAMPUS A</text>
+                <text x="60" y="70" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Single Duct Vault</text>
+                <rect x="116" y="56" width="8" height="8" fill="var(--accent-amber)" />
+              </g>
+
+              <!-- Destination Facility (Facility B) with Axonometric Isometric Bevel -->
+              <g transform="translate(585, 120)">
+                <polygon points="120,20 140,5 140,85 120,100" fill="#cbd5e1" stroke="var(--text-primary)" stroke-width="1" />
+                <polygon points="0,20 20,5 140,5 120,20" fill="#e2e8f0" stroke="var(--text-primary)" stroke-width="1" />
+                <rect x="0" y="20" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+                <text x="60" y="52" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">FACILITY B</text>
+                <text x="60" y="70" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Metro MMR Suite</text>
+              </g>
+
+              <!-- Separate Feeder Conduits -->
+              <path d="M 165 178 L 245 178" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
+
+              <!-- CRITICAL BOTTLENECK: The Shared Bridge Crossing & Utility Trench Corridor -->
+              <g class="pinch-point-zone" transform="translate(245, 88)">
+                <!-- Isometric Corridor Trench Base -->
+                <polygon points="270,22 290,6 290,166 270,182" fill="#fde68a" fill-opacity="0.4" stroke="var(--accent-amber)" stroke-width="1" />
+                <polygon points="0,22 20,6 290,6 270,22" fill="#fef3c7" fill-opacity="0.6" stroke="var(--accent-amber)" stroke-width="1" />
+                <!-- Front Trench Boundary -->
+                <rect x="0" y="22" width="270" height="160" rx="2" fill="var(--accent-amber-light)" stroke="var(--accent-amber)" stroke-width="1.5" stroke-dasharray="4 2" />
+                
+                <!-- Warning Header -->
+                <g transform="translate(135, 46)">
+                  <rect x="-105" y="-12" width="210" height="24" rx="2" fill="var(--accent-amber)" />
+                  <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="0.04em">COMMON TRENCH / BRIDGE CONDUIT</text>
+                </g>
+
+                <!-- Sub-duct Lines Inside Trench -->
+                <line x1="20" y1="92" x2="250" y2="92" stroke="var(--accent-blue)" stroke-width="3" />
+                <text x="30" y="84" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-blue)" font-weight="600">Carrier A Sub-duct</text>
+
+                <line x1="20" y1="122" x2="250" y2="122" stroke="var(--accent-cyan)" stroke-width="3" />
+                <text x="30" y="140" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-cyan)" font-weight="600">Carrier B Sub-duct</text>
+
+                <!-- Pinch Point Marker Ring -->
+                <circle cx="135" cy="107" r="34" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-dasharray="4 3" />
+                <text x="135" y="168" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">Shared physical route dependency</text>
+              </g>
+
+              <!-- Destination Feeders -->
+              <path d="M 515 178 L 585 178" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
+            </svg>
+          </div>
         </div>
 
         <!-- Metric & Status Footer -->
@@ -203,14 +218,75 @@ const { isTeaser = false } = Astro.props;
     </div>
 
   </div>
+
+  <!-- Route Line Exit Connector to Featured Offers (Directive 18) -->
+  <div class="explorer-route-exit" aria-hidden="true">
+    <div class="exit-stem"></div>
+    <div class="exit-junction"></div>
+  </div>
 </section>
 
 <style>
   .route-diversity-explorer {
+    position: relative;
     background-color: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-    padding: 72px 0;
+    padding: 84px 0 96px;
+  }
+
+  /* Route Entry & Exit Connectors (Directive 17, 18) */
+  .explorer-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 140px;
+    height: 24px;
+    z-index: 2;
+  }
+
+  .entry-fork-line {
+    width: 1.5px;
+    height: 100%;
+  }
+
+  .entry-fork-line.line-a {
+    background-color: var(--accent-blue);
+    margin-left: 20px;
+  }
+
+  .entry-fork-line.line-b {
+    background-color: var(--accent-cyan);
+    margin-right: 20px;
+  }
+
+  .explorer-route-exit {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .exit-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--border-color));
+  }
+
+  .exit-junction {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
   }
 
   .is-teaser {
@@ -345,16 +421,33 @@ const { isTeaser = false } = Astro.props;
     color: var(--accent-blue);
   }
 
-  /* Viewport */
+  /* 2.5D Axonometric 3D Viewport (Directive 13, 14, 15, 51) */
   .schematic-viewport {
     position: relative;
     width: 100%;
-    min-height: 320px;
+    min-height: 360px;
     background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    perspective: 1100px;
+    perspective-origin: 50% 45%;
+  }
+
+  .axonometric-stage-3d {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    transition: transform 650ms var(--ease-out);
+    will-change: transform;
+  }
+
+  .axonometric-stage-3d.view-physical {
+    transform: rotateX(16deg) rotateY(-4deg) scale(0.97);
   }
 
   .schematic-svg {
@@ -362,6 +455,14 @@ const { isTeaser = false } = Astro.props;
     height: auto;
     max-height: 340px;
     display: block;
+    transition: opacity 300ms var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .axonometric-stage-3d {
+      transform: none !important;
+      transition: none !important;
+    }
   }
 
   /* Footer Status */
@@ -490,56 +591,75 @@ const { isTeaser = false } = Astro.props;
 </style>
 
 <script>
-  // Route Diversity Explorer View Switching
+  // Route Diversity Explorer View Switching with 2.5D Axonometric Motion (Directive 13, 15, 36, 51)
   function setupRouteExplorer() {
     const btnLogical = document.getElementById('btnLogicalView');
     const btnPhysical = document.getElementById('btnPhysicalView');
     const svgLogical = document.getElementById('svgLogical');
     const svgPhysical = document.getElementById('svgPhysical');
+    const axonoStage = document.getElementById('axonoStage');
     const statusTag = document.getElementById('statusTag');
     const metricPhysical = document.getElementById('metricPhysical');
+    const viewport = document.getElementById('schematicViewport');
 
-    if (!btnLogical || !btnPhysical || !svgLogical || !svgPhysical) return;
+    if (!btnLogical || !btnPhysical || !svgLogical || !svgPhysical || !axonoStage) return;
 
-    btnLogical.addEventListener('click', () => {
-      btnLogical.classList.add('active');
-      btnLogical.setAttribute('aria-pressed', 'true');
-      btnPhysical.classList.remove('active');
-      btnPhysical.setAttribute('aria-pressed', 'false');
+    let currentMode: 'logical' | 'physical' = 'logical';
 
-      svgLogical.style.display = 'block';
-      svgLogical.setAttribute('aria-hidden', 'false');
-      svgPhysical.style.display = 'none';
-      svgPhysical.setAttribute('aria-hidden', 'true');
+    function setView(view: 'logical' | 'physical') {
+      if (!btnLogical || !btnPhysical || !svgLogical || !svgPhysical || !axonoStage) return;
+      currentMode = view;
+      if (view === 'logical') {
+        btnLogical.classList.add('active');
+        btnLogical.setAttribute('aria-pressed', 'true');
+        btnPhysical.classList.remove('active');
+        btnPhysical.setAttribute('aria-pressed', 'false');
 
-      if (statusTag) statusTag.textContent = 'Illustrative: logical view';
-      if (statusTag) statusTag.style.color = 'var(--accent-blue)';
-      if (metricPhysical) metricPhysical.textContent = 'Not established from contracts alone';
-      if (metricPhysical) metricPhysical.className = 'metric-val text-success';
-    });
+        axonoStage.classList.remove('view-physical');
+        svgLogical.style.display = 'block';
+        svgLogical.setAttribute('aria-hidden', 'false');
+        svgPhysical.style.display = 'none';
+        svgPhysical.setAttribute('aria-hidden', 'true');
 
-    btnPhysical.addEventListener('click', () => {
-      btnPhysical.classList.add('active');
-      btnPhysical.setAttribute('aria-pressed', 'true');
-      btnLogical.classList.remove('active');
-      btnLogical.setAttribute('aria-pressed', 'false');
+        if (statusTag) {
+          statusTag.textContent = 'Illustrative: logical view';
+          statusTag.style.color = 'var(--accent-blue)';
+        }
+        if (metricPhysical) {
+          metricPhysical.textContent = 'Not established from contracts alone';
+          metricPhysical.className = 'metric-val text-success';
+        }
+      } else {
+        btnPhysical.classList.add('active');
+        btnPhysical.setAttribute('aria-pressed', 'true');
+        btnLogical.classList.remove('active');
+        btnLogical.setAttribute('aria-pressed', 'false');
 
-      svgLogical.style.display = 'none';
-      svgLogical.setAttribute('aria-hidden', 'true');
-      svgPhysical.style.display = 'block';
-      svgPhysical.setAttribute('aria-hidden', 'false');
+        axonoStage.classList.add('view-physical');
+        svgLogical.style.display = 'none';
+        svgLogical.setAttribute('aria-hidden', 'true');
+        svgPhysical.style.display = 'block';
+        svgPhysical.setAttribute('aria-hidden', 'false');
 
-      if (statusTag) statusTag.textContent = 'Illustrative: shared-path risk';
-      if (statusTag) statusTag.style.color = 'var(--accent-amber)';
-      if (metricPhysical) metricPhysical.textContent = 'Example: shared physical dependency';
-      if (metricPhysical) metricPhysical.className = 'metric-val';
-    });
+        if (statusTag) {
+          statusTag.textContent = 'Illustrative: shared-path risk';
+          statusTag.style.color = 'var(--accent-amber)';
+        }
+        if (metricPhysical) {
+          metricPhysical.textContent = 'Example: shared physical dependency';
+          metricPhysical.className = 'metric-val';
+        }
+      }
+    }
+
+    btnLogical.addEventListener('click', () => setView('logical'));
+    btnPhysical.addEventListener('click', () => setView('physical'));
 
     btnLogical.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault();
         btnPhysical.focus();
-        btnPhysical.click();
+        setView('physical');
       }
     });
 
@@ -547,9 +667,34 @@ const { isTeaser = false } = Astro.props;
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault();
         btnLogical.focus();
-        btnLogical.click();
+        setView('logical');
       }
     });
+
+    // Pointer Axonometric Proximity Response (Directive 13 & 36: max 2-4 degrees)
+    if (viewport && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      viewport.addEventListener('mousemove', (e) => {
+        const rect = viewport.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+        
+        const baseRotX = currentMode === 'physical' ? 16 : 0;
+        const baseRotY = currentMode === 'physical' ? -4 : 0;
+
+        const tiltX = baseRotX - ny * 3.0;
+        const tiltY = baseRotY + nx * 3.5;
+
+        axonoStage.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale(${currentMode === 'physical' ? 0.97 : 1})`;
+      }, { passive: true });
+
+      viewport.addEventListener('mouseleave', () => {
+        if (currentMode === 'physical') {
+          axonoStage.style.transform = 'rotateX(16deg) rotateY(-4deg) scale(0.97)';
+        } else {
+          axonoStage.style.transform = 'none';
+        }
+      });
+    }
   }
 
   if (document.readyState === 'loading') {

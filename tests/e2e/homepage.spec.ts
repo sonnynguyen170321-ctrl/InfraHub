@@ -5,7 +5,7 @@ test.describe('homepage', () => {
     await page.goto('/');
 
     await expect(page).toHaveTitle(/InfraHub/);
-    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('main h1')).toBeVisible();
     await expect(page.locator('footer.site-footer')).toBeVisible();
   });
 
@@ -58,7 +58,7 @@ test.describe('404', () => {
     const response = await page.goto('/this-path-does-not-exist');
 
     expect(response?.status()).toBe(404);
-    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('main h1')).toBeVisible();
     await expect(page.locator('main a[href="/solutions/infrastructure"]').first()).toBeVisible();
   });
 });
