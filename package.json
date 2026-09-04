@@ -9,10 +9,10 @@
     "preview": "node node_modules/astro/astro.js preview",
     "astro": "node node_modules/astro/astro.js",
     "check": "node node_modules/@astrojs/check/bin/astro-check.js",
-    "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs",
+    "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs && node tests/audit/user-audit.mjs",
     "test:a11y": "node tests/audit/accessibility-audit.mjs",
     "test:content": "node tests/audit/content-truth-audit.mjs",
-    "test:audit": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs",
+    "test:audit": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs && node tests/audit/user-audit.mjs",
     "test:perf": "node tests/audit/performance-audit.mjs"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/node": "^22.13.8"
   },
   "engines": {

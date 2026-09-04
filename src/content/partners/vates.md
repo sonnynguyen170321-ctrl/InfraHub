@@ -1,6 +1,6 @@
 ---
 name: "Vates"
-logo: "/images/partners/vates.png"
+logo: "/images/partners/vates.svg"
 officialWebsite: "https://vates.tech/"
 sourceUrls:
   - "https://vates.tech/en/virtualization-management-stack/"

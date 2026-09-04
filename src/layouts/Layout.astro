@@ -8,17 +8,27 @@ interface Props {
   description?: string;
   canonicalPath?: string;
   ogType?: string;
+  /** Absolute path to the social image for this page, e.g. /images/og/partner.png */
+  ogImage?: string;
+  /** Description of that image for people who cannot see it. */
+  ogImageAlt?: string;
+  /** Keep the page out of search results. Use for thin, duplicate or gated pages. */
+  noindex?: boolean;
 }
 
 const {
   title,
   description = "InfraHub helps businesses navigate infrastructure, cloud, connectivity, security and managed-service requirements by connecting them with specialist providers.",
   canonicalPath = "",
-  ogType = "website"
+  ogType = "website",
+  ogImage = "/images/og/default.png",
+  ogImageAlt = "InfraHub — infrastructure sourcing and technical advisory",
+  noindex = false
 } = Astro.props;
 
 const canonicalURL = new URL(canonicalPath, "https://infrahub.tech").href;
 const fullTitle = title.includes("InfraHub") ? title : `${title} | InfraHub`;
+const ogImageURL = new URL(ogImage, "https://infrahub.tech").href;
 ---
 
 <!doctype html>
@@ -28,6 +38,7 @@ const fullTitle = title.includes("InfraHub") ? title : `${title} | InfraHub`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#0b1120" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -38,11 +49,15 @@ const fullTitle = title.includes("InfraHub") ? title : `${title} | InfraHub`;
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="InfraHub" />
-    <meta property="og:image" content="https://infrahub.tech/images/hero-datacenter.jpg" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://infrahub.tech/images/hero-datacenter.jpg" />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

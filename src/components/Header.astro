@@ -205,7 +205,7 @@ import BrandLogo from './BrandLogo.astro';
   .desktop-nav {
     display: none;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1180px) {
     .desktop-nav {
       display: block;
     }
@@ -259,8 +259,8 @@ import BrandLogo from './BrandLogo.astro';
   .megamenu-panel {
     position: absolute;
     top: calc(100% + 10px);
-    left: -150px;
-    width: 980px;
+    left: 50%;
+    width: min(980px, calc(100vw - 48px));
     background-color: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -268,7 +268,7 @@ import BrandLogo from './BrandLogo.astro';
     padding: 28px 32px 18px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px);
+    transform: translate(-50%, 8px);
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }
@@ -277,7 +277,7 @@ import BrandLogo from './BrandLogo.astro';
   .nav-item.has-megamenu:focus-within .megamenu-panel {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
     pointer-events: auto;
   }
 
@@ -398,7 +398,7 @@ import BrandLogo from './BrandLogo.astro';
     gap: 5px;
     padding: 8px;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1180px) {
     .mobile-toggle {
       display: none;
     }
@@ -481,21 +481,42 @@ import BrandLogo from './BrandLogo.astro';
     const toggle = document.getElementById('mobile-toggle');
     const drawer = document.getElementById('mobile-drawer');
 
-    const setDrawerState = (open) => {
+    // Focus follows the drawer: opening moves it to the first control inside, closing puts it
+    // back on the toggle. Without this, a keyboard user opens the drawer and their focus is
+    // still behind it, in content that is now aria-hidden.
+    const firstDrawerControl = () =>
+      drawer
+        ? drawer.querySelector('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        : null;
+
+    const isDrawerOpen = () => Boolean(drawer && drawer.classList.contains('is-open'));
+
+    const setDrawerState = (open, options) => {
       if (!toggle || !drawer) return;
+      const wasOpen = isDrawerOpen();
+      const restoreFocus = !options || options.restoreFocus !== false;
+
       drawer.classList.toggle('is-open', open);
       toggle.setAttribute('aria-expanded', String(open));
       drawer.setAttribute('aria-hidden', String(!open));
       document.body.style.overflow = open ? 'hidden' : '';
+
+      if (open) {
+        const target = firstDrawerControl();
+        if (target) target.focus();
+      } else if (wasOpen && restoreFocus) {
+        toggle.focus();
+      }
     };
 
     if (toggle && drawer) {
       toggle.addEventListener('click', () => {
-        setDrawerState(!drawer.classList.contains('is-open'));
+        setDrawerState(!isDrawerOpen());
       });
 
+      // A link navigates away, so returning focus to the toggle would fight the navigation.
       drawer.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => setDrawerState(false));
+        link.addEventListener('click', () => setDrawerState(false, { restoreFocus: false }));
       });
     }
 
@@ -528,14 +549,18 @@ import BrandLogo from './BrandLogo.astro';
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape') return;
 
-      setDrawerState(false);
+      if (isDrawerOpen()) {
+        setDrawerState(false);
+        return;
+      }
 
       const expandedDesktopTrigger = document.querySelector(
         '.menu-trigger[aria-expanded="true"], .dropdown-trigger[aria-expanded="true"]'
       );
       if (expandedDesktopTrigger) {
         expandedDesktopTrigger.setAttribute('aria-expanded', 'false');
-        expandedDesktopTrigger.blur();
+        // Keep focus on the trigger rather than dropping it to the document.
+        expandedDesktopTrigger.focus();
       }
     });
   });
