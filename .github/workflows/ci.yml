@@ -31,6 +31,8 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright browser
+        run: node node_modules/@playwright/test/cli.js install --with-deps chromium
 
       - name: Astro and TypeScript checks
         run: npm run check
@@ -41,8 +43,6 @@ jobs:
       - name: Run repository audits
         run: npm test
 
-      - name: Install Playwright browser
-        run: node node_modules/@playwright/test/cli.js install --with-deps chromium
 
       - name: Run browser end-to-end suite
         run: npm run test:e2e
