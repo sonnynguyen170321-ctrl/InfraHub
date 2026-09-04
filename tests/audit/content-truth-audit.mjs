@@ -26,6 +26,7 @@ import path from 'node:path';
 
 const CONTENT = path.resolve('src/content');
 const PAGES = path.resolve('src/pages');
+const COMPONENTS = path.resolve('src/components');
 
 const findings = [];
 const error = (where, rule, detail) => findings.push({ level: 'ERROR', where, rule, detail });
@@ -284,6 +285,77 @@ for (const file of publishable) {
     if (hit) {
       warn(rel(file), 'retired-claim', `${why}: "${hit[0]}" — must be verified before publication`);
     }
+  }
+}
+
+// ── Banned until approved ───────────────────────────────────────────────────
+//
+// Exact phrases that were removed from the site because no evidence or owner approval
+// supports them. This is a regression alarm, not the truth system: a phrase absent from this
+// list is not thereby approved, and a phrase on it is not thereby forbidden forever — an
+// entry in docs/approved-claims.json lifts it once someone has approved it, with a reason.
+//
+// Matching is on the rendered copy, so component files are included: a promise moved from a
+// page into a component is the same promise.
+
+const APPROVED_CLAIMS_FILE = path.resolve('docs/approved-claims.json');
+
+/** @type {{ phrase: string, approvedBy: string, evidence: string }[]} */
+let approvedClaims = [];
+if (fs.existsSync(APPROVED_CLAIMS_FILE)) {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(APPROVED_CLAIMS_FILE, 'utf8'));
+    approvedClaims = Array.isArray(parsed.approved) ? parsed.approved : [];
+  } catch (err) {
+    error('docs/approved-claims.json', 'unreadable-allowlist', `could not be parsed: ${err.message}`);
+  }
+}
+
+const isApproved = (phrase) =>
+  approvedClaims.some(
+    (entry) =>
+      typeof entry?.phrase === 'string' &&
+      entry.phrase.toLowerCase() === phrase.toLowerCase() &&
+      typeof entry.approvedBy === 'string' &&
+      entry.approvedBy.trim() !== '' &&
+      typeof entry.evidence === 'string' &&
+      entry.evidence.trim() !== ''
+  );
+
+const BANNED_UNTIL_APPROVED = [
+  { phrase: 'zero markups through InfraHub', why: 'commercial promise about every transaction' },
+  { phrase: 'never adds fees', why: 'commercial promise about every transaction' },
+  { phrase: 'verified infrastructure specialists', why: 'implies InfraHub verified the providers' },
+  { phrase: 'commercial quote within 1 business day', why: 'delivery-time promise' },
+  { phrase: 'independent sourcing advisor', why: 'independence claim' },
+  { phrase: 'vendor-neutral', why: 'independence claim' },
+  { phrase: 'independent infrastructure sourcing', why: 'independence claim' },
+  { phrase: 'zero fee', why: 'commercial promise about every transaction' },
+  { phrase: 'official partner', why: 'partner-status claim requiring partner approval' },
+  { phrase: 'live stock and allocation availability', why: 'real-time inventory claim' },
+  { phrase: 'direct partner contract & SLA', why: 'contract and SLA promise' },
+  { phrase: 'dedicated architect support', why: 'staffing promise' }
+];
+
+const claimSurfaces = [...publishable, ...walk(COMPONENTS, '.astro')];
+for (const file of claimSurfaces) {
+  const raw = fs.readFileSync(file, 'utf8');
+  const lines = raw.split(/\r?\n/);
+
+  for (const { phrase, why } of BANNED_UNTIL_APPROVED) {
+    if (isApproved(phrase)) continue;
+
+    lines.forEach((line, index) => {
+      // Developer comments explain history; they are not published copy.
+      if (/^\s*(\/\/|\/\*|\*|<!--)/.test(line)) return;
+      if (!line.toLowerCase().includes(phrase.toLowerCase())) return;
+
+      error(
+        rel(file),
+        'banned-until-approved',
+        `line ${index + 1}: "${phrase}" — ${why}. Remove it, or record an approval in docs/approved-claims.json with approvedBy and evidence.`
+      );
+    });
   }
 }
 

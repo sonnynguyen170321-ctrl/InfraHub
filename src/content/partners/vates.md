@@ -1,6 +1,6 @@
 ---
 name: "Vates"
-logo: "/images/partners/vates.svg"
+logo: "/images/partners/vates.png"
 officialWebsite: "https://vates.tech/"
 sourceUrls:
   - "https://vates.tech/en/virtualization-management-stack/"
@@ -27,7 +27,7 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 6
 partnerPageEnabled: true
-logoScale: 1
+logoScale: 1.3
 decisionLayer:
   architectureTitle: "XCP-ng & Xen Orchestra Stack"
   architectureSubtitle: "How the hypervisor, management, backup, replication, and support layers fit together"

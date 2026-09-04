@@ -25,20 +25,20 @@ This document tracks the origin, legal classification, ownership status, and app
 
 ## 2. Third-Party Partner Trademarks
 
-> **Policy:** InfraHub must never recreate or approximate a partner trademark. Until an official asset is imported and its use is approved, the production UI uses a restrained text-only partner mark.
+> **Policy:** InfraHub must never recreate, recolour, or re-compose a partner trademark. A logo is used only as the partner publishes it, in the variant intended for the background it sits on. Until an official asset is imported and its use is approved, the production UI uses a restrained text-only partner mark.
 
 The previously generated synthetic partner SVGs were removed from `public/images/partners/` during the canonical partner-domain correction. No third-party logo is currently rendered as an official logo unless a future record has both `logoStatus: approved` and `logoApproved: true`.
 
-| Partner | Canonical Domain | Official Asset Source | Local Asset | Asset Imported? | Usage Approval | Production Treatment |
-|:---|:---|:---|:---|:---:|:---:|:---|
-| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/fastnetmon-brand-kit/ | `/images/partners/fastnetmon.png` | Yes (Brand Kit) | APPROVED | Official Vector/Raster Logo Active |
-| **Gcore** | https://gcore.com/ | https://gcore.com/media-kit | `/images/partners/gcore.svg` | Yes (Media Kit) | APPROVED | Official Vector Logo Active |
-| **StormWall** | https://stormwall.network/ | Official corporate website (`content2.stormwall.network`) | `/images/partners/stormwall.svg` | Yes (Official Vector) | APPROVED | Official Vector Logo Active |
-| **Zenlayer** | https://www.zenlayer.com/ | Official corporate website (`zenlayer.com/wp-content`) | `/images/partners/zenlayer.svg` | Yes (Official Vector) | APPROVED | Official Vector Logo Active |
-| **IPXO** | https://www.ipxo.com/ | Official IPXO GitHub branding repo (`github.com/IPXO/branding`) | `/images/partners/ipxo.svg` | Yes (Branding Repo) | APPROVED | Official Vector Logo Active |
-| **Vates** | https://vates.tech/ | https://vates.tech/en/about-vates/marketing-assets-and-brand-guidelines/ | `/images/partners/vates.png` | Yes (Official Brand Kit) | APPROVED | Official Vector/Raster Logo Active |
-| **ITcare** | https://itcare.net/ | Official corporate website (`itcare.net/wp-content`) | `/images/partners/itcare.svg` | Yes (Official Vector) | APPROVED | Official Vector Logo Active |
-| **Airframe** | https://www.airframe.ai/ | Official corporate website (`airframe.ai/assets/airframe-lockup.png`) | `/images/partners/airframe.png` | Yes (Official Website) | APPROVED | Official Vector/Raster Logo Active |
+| Partner | Canonical Domain | Official Asset Source | Local Asset | Variant | Modified? | Verification |
+|:---|:---|:---|:---|:---|:---:|:---|
+| **FastNetMon** | https://fastnetmon.com/ | https://fastnetmon.com/wp-content/uploads/2025/10/logo_FastNetMon.png (brand kit) | `/images/partners/fastnetmon.png` | Dark wordmark + bolt (light backgrounds) | No | Verified byte-for-byte against source 2026-09-04 |
+| **Gcore** | https://gcore.com/ | https://assets.gcore.pro/site-media/uploads/gcore_logo_orange_b7ea43b38e.svg (media kit) | `/images/partners/gcore.svg` | Orange horizontal logo | No | Byte-identical to source 2026-09-04 |
+| **StormWall** | https://stormwall.network/ | https://content2.stormwall.network/swssn-en/dark-logo.svg | `/images/partners/stormwall.svg` | Dark variant for light backgrounds (#082554) | No | Replaced a locally recoloured white variant on 2026-09-04 |
+| **Zenlayer** | https://www.zenlayer.com/ | https://www.zenlayer.com/wp-content/uploads/2023/10/zenlayer_logo-1-2.svg | `/images/partners/zenlayer.svg` | Primary horizontal logo | No | Byte-identical to source 2026-09-04 |
+| **IPXO** | https://www.ipxo.com/ | https://github.com/IPXO/branding — Logo/SVG/GRD--1 light background.svg | `/images/partners/ipxo.svg` | Gradient mark, light-background variant | No | Byte-identical to source 2026-09-04 |
+| **Vates** | https://vates.tech/ | https://vates.tech/assets/marketing-assets/Logos/vates-name-baseline-red.png | `/images/partners/vates.png` | Red wordmark with baseline (light backgrounds) | No | Replaced a locally assembled planet+text composite on 2026-09-04. Vates publishes no baseline-free horizontal wordmark; the baseline is small at ribbon size. OWNER ACTION: request a baseline-free horizontal mark. |
+| **ITcare** | https://itcare.net/ | https://itcare.net/wp-content/uploads/logo-with-side-ITcare-removebg-preview-1.svg | `/images/partners/itcare.svg` | Dark/cyan variant for light backgrounds | No | Replaced a locally recoloured white variant on 2026-09-04 |
+| **Airframe** | https://www.airframe.ai/ | https://www.airframe.ai/assets/airframe-lockup.png | `/images/partners/airframe.png` | Primary lockup | No | Byte-identical to source 2026-09-04 |
 
 `Supertrace` is not part of the owner-confirmed canonical partner list and its old synthetic asset has been removed.
 

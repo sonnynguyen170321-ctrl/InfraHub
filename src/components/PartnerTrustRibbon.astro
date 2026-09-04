@@ -88,7 +88,7 @@ const approvedPartners = allPartners
     background-color: #ffffff;
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-    padding: 16px 0;
+    padding: 34px 0;
     overflow: hidden;
     z-index: 10;
   }
@@ -96,10 +96,10 @@ const approvedPartners = allPartners
   .ribbon-inner {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
     align-items: flex-start;
   }
 
@@ -107,7 +107,7 @@ const approvedPartners = allPartners
     .ribbon-inner {
       flex-direction: row;
       align-items: center;
-      gap: 36px;
+      gap: 44px;
     }
   }
 
@@ -115,16 +115,18 @@ const approvedPartners = allPartners
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    padding-bottom: 12px;
+    gap: 8px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border-color);
     width: 100%;
   }
 
   @media (min-width: 900px) {
     .ribbon-fixed-zone {
-      width: 220px;
+      width: 270px;
+      min-width: 250px;
       padding-bottom: 0;
+      padding-right: 36px;
       border-bottom: none;
       border-right: 1px solid var(--border-color);
     }
@@ -132,17 +134,17 @@ const approvedPartners = allPartners
 
   .ribbon-kicker {
     font-family: var(--font-heading);
-    font-size: 0.92rem;
-    font-weight: 800;
+    font-size: 0.98rem;
+    font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.01em;
-    line-height: 1.25;
+    line-height: 1.35;
   }
 
   .ribbon-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #475569;
-    line-height: 1.35;
+    line-height: 1.5;
   }
 
   .partner-text-mark {
@@ -239,7 +241,8 @@ const approvedPartners = allPartners
     justify-content: center;
     opacity: 0.82;
     transition: opacity 160ms ease;
-    padding: 6px 4px;
+    padding: 8px 12px;
+    min-height: 44px;
     border-radius: var(--radius-sm);
     text-decoration: none;
   }

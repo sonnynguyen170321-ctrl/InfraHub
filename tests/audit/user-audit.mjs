@@ -7,8 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DIST_DIR = path.resolve(__dirname, '../../dist/client');
 
-// Import Playwright from CRM-4-Telestar-Final
-const { chromium } = await import('file:///C:/Users/admin/Desktop/Sonny%20&%20AI/CRM-4-Telestar-Final/node_modules/playwright/index.mjs');
+// Playwright comes from this project's own devDependency. The previous absolute import
+// pointed at another checkout on one machine, so this audit could not run anywhere else.
+import { chromium } from '@playwright/test';
 
 // Simple static file server
 const mimeTypes = {
