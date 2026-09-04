@@ -4,16 +4,15 @@ shortDescription: "Carrier-neutral high-bandwidth IP Transit with flexible commi
 category: "connectivity"
 location: "Frankfurt, Germany (Equinix / Interxion)"
 partner: "Gcore"
-displayPrice: "From €1,450/mo"
-verifiedPrice: "From €1,450/mo"
-priceStatus: "confirmed_allocation"
-publicApproved: true
+displayPrice: "Request current pricing"
+priceStatus: "unverified"
+publicApproved: false
 specifications:
   - "100 Gbps Port with 20G Committed Data Rate (CDR)"
   - "95th Percentile Burstable Billing Options"
   - "Full BGP Routing Table with Community Support"
   - "Sub-1ms Cross-Connect into Frankfurt MMRs"
-status: "active"
+status: "review"
 featured: true
 publishedDate: 2026-07-01
 expiryDate: 2026-12-31
