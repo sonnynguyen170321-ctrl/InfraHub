@@ -346,7 +346,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   /* The pin only exists where there is room for it: a pinned scene on a short or narrow
      viewport traps the reader in a scene they cannot see all of. */
-  @media (min-width: 1180px) and (min-height: 700px) {
+  @media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
     .discovery-scene {
       /* One viewport of pinned scene plus roughly one viewport of travel per extra
          discipline, so each one holds long enough to read. */
