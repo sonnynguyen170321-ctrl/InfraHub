@@ -14,11 +14,11 @@ const { isTeaser = false } = Astro.props;
     <div class="explorer-header">
       <div class="kicker-row">
         <span class="routing-junction" aria-hidden="true"></span>
-        <span class="explorer-kicker">PHYSICAL INFRASTRUCTURE AUDIT // ROUTE DIVERSITY</span>
+        <span class="explorer-kicker">Route diversity field note</span>
       </div>
       <h2 class="explorer-title">Two carriers. Two contracts.<br />One physical dependency.</h2>
       <p class="explorer-lead measure-lead">
-        Buying IP transit or wavelengths from two independent telecom carriers does not guarantee resilience. In metro and regional networks, different providers frequently lease sub-ducts within the exact same physical bridge crossing or trench.
+        Buying IP transit or wavelengths from two different providers does not by itself establish physical route diversity. In metro and regional networks, separate providers can still depend on the same building entrance, conduit, bridge crossing, or long-haul segment.
       </p>
     </div>
 
@@ -39,7 +39,7 @@ const { isTeaser = false } = Astro.props;
               data-view="logical"
             >
               <span class="toggle-indicator" aria-hidden="true"></span>
-              <span class="toggle-label">01 // Logical Network View</span>
+              <span class="toggle-label">Logical view</span>
             </button>
             <button 
               type="button" 
@@ -49,12 +49,12 @@ const { isTeaser = false } = Astro.props;
               data-view="physical"
             >
               <span class="toggle-indicator" aria-hidden="true"></span>
-              <span class="toggle-label">02 // Physical Conduit Path</span>
+              <span class="toggle-label">Physical path</span>
             </button>
           </div>
 
           <div class="status-readout">
-            <span class="status-tag" id="statusTag">STATE: DIVERSE ASNs</span>
+            <span class="status-tag" id="statusTag">ILLUSTRATIVE LOGICAL VIEW</span>
           </div>
         </div>
 
@@ -62,7 +62,7 @@ const { isTeaser = false } = Astro.props;
         <div class="schematic-viewport" id="schematicViewport">
           
           <!-- State 1: Logical Topology SVG -->
-          <svg class="schematic-svg state-logical" id="svgLogical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logical multihomed network diagram">
+          <svg class="schematic-svg state-logical" id="svgLogical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Illustrative logical multihomed network diagram" aria-hidden="false">
             <!-- Background Grid -->
             <defs>
               <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -89,22 +89,22 @@ const { isTeaser = false } = Astro.props;
             <path d="M 190 165 C 280 80, 480 80, 570 165" stroke="var(--accent-blue)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
             <g transform="translate(340, 60)">
               <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-blue)" stroke-width="1.2" />
-              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-blue)">CARRIER A (AS3356)</text>
+              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-blue)">PROVIDER A</text>
             </g>
 
             <!-- Carrier B Logical Path (Teal) -->
             <path d="M 190 195 C 280 280, 480 280, 570 195" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
             <g transform="translate(340, 290)">
               <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-cyan)" stroke-width="1.2" />
-              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-cyan)">CARRIER B (AS1299)</text>
+              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-cyan)">PROVIDER B</text>
             </g>
 
             <!-- Status Annotation -->
-            <text x="380" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--text-muted)">Contracts &amp; Autonomous Systems Completely Independent</text>
+            <text x="380" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--text-muted)">Separate provider identities can still hide shared physical dependencies</text>
           </svg>
 
           <!-- State 2: Physical Conduit Reality SVG -->
-          <svg class="schematic-svg state-physical" id="svgPhysical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Physical conduit convergence diagram" style="display: none;">
+          <svg class="schematic-svg state-physical" id="svgPhysical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Illustrative physical conduit convergence diagram" aria-hidden="true" style="display: none;">
             <rect width="100%" height="100%" fill="url(#archGrid)" />
 
             <!-- Origin Facility -->
@@ -145,7 +145,7 @@ const { isTeaser = false } = Astro.props;
 
               <!-- Pinch Point Marker -->
               <circle cx="130" cy="85" r="32" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-dasharray="4 3" />
-              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">SHARED RISK: 1 MUNICIPAL FIBER CUT</text>
+              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">ILLUSTRATIVE SHARED PHYSICAL DEPENDENCY</text>
             </g>
 
             <!-- Destination Feeders -->
@@ -157,12 +157,12 @@ const { isTeaser = false } = Astro.props;
         <!-- Metric & Status Footer -->
         <div class="stage-footer-status">
           <div class="status-metric-item">
-            <span class="metric-label">CONTRACTUAL DIVERSITY:</span>
-            <span class="metric-val text-success">100% (2 Independent Providers)</span>
+            <span class="metric-label">PROVIDER RELATIONSHIP:</span>
+            <span class="metric-val text-success">Two separate providers (illustrative)</span>
           </div>
           <div class="status-metric-item">
-            <span class="metric-label">PHYSICAL SEPARATION:</span>
-            <span class="metric-val" id="metricPhysical">UNAUDITED // 0 METERS (Shared Conduit)</span>
+            <span class="metric-label">PHYSICAL PATH:</span>
+            <span class="metric-val" id="metricPhysical">Not established from contracts alone</span>
           </div>
         </div>
 
@@ -178,21 +178,21 @@ const { isTeaser = false } = Astro.props;
             When network engineers procure redundant IP transit or 100G wavelengths, commercial agreements typically show separate Autonomous Systems (ASNs), independent NOC contact numbers, and distinct billing entities.
           </p>
           <p>
-            In the physical domain, however, metropolitan civil works are constrained by waterways, highway rights-of-way, rail corridors, and municipal bridge conduits. Both carriers often lease dark fiber strands or sub-ducts in the same underground utility trench.
+            In the physical domain, metropolitan civil works are constrained by waterways, highway rights-of-way, rail corridors, and municipal infrastructure. Different carriers can still share ducts, bridge crossings, building entrances, or other physical dependencies.
           </p>
           <div class="audit-checklist-box">
-            <span class="checklist-title">WHAT INFRAHUB VERIFIES IN SOURCING:</span>
+            <span class="checklist-title">WHAT TO VERIFY DURING SOURCING</span>
             <ul class="checklist-items">
               <li><strong>Manhole & Conduit Traces:</strong> Strict physical separation from building entry vaults (Dual Zero-Manhole Entry).</li>
               <li><strong>Bridge & River Crossings:</strong> Verified diverse river crossings or rail easements rather than common municipal spans.</li>
-              <li><strong>Facility MMR Diversity:</strong> Dedicated Meet-Me-Room patch paths and separate fiber distribution panels.</li>
+              <li><strong>Facility Path Diversity:</strong> Whether building entrances, meet-me-room paths, and distribution panels introduce a shared dependency.</li>
             </ul>
           </div>
         </div>
 
         <div class="narrative-action-row">
           <a href="/lets-talk?service=route-audit" class="btn btn-accent btn-md">
-            <span>Request Physical Route Verification</span>
+            <span>Discuss Route Diversity</span>
           </a>
           <a href="/wavelengths" class="narrative-link">
             <span>Explore Metro Wavelengths &rarr;</span>
@@ -314,7 +314,7 @@ const { isTeaser = false } = Astro.props;
     font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 140ms var(--ease-out);
+    transition: background-color 140ms var(--ease-out), color 140ms var(--ease-out), border-color 140ms var(--ease-out);
   }
 
   .toggle-btn:hover {
@@ -510,11 +510,13 @@ const { isTeaser = false } = Astro.props;
       btnPhysical.setAttribute('aria-pressed', 'false');
 
       svgLogical.style.display = 'block';
+      svgLogical.setAttribute('aria-hidden', 'false');
       svgPhysical.style.display = 'none';
+      svgPhysical.setAttribute('aria-hidden', 'true');
 
-      if (statusTag) statusTag.textContent = 'STATE: DIVERSE ASNs';
+      if (statusTag) statusTag.textContent = 'ILLUSTRATIVE LOGICAL VIEW';
       if (statusTag) statusTag.style.color = 'var(--accent-blue)';
-      if (metricPhysical) metricPhysical.textContent = 'LOGICAL ABSTRACTION (Separated)';
+      if (metricPhysical) metricPhysical.textContent = 'Not established from contracts alone';
       if (metricPhysical) metricPhysical.className = 'metric-val text-success';
     });
 
@@ -525,11 +527,13 @@ const { isTeaser = false } = Astro.props;
       btnLogical.setAttribute('aria-pressed', 'false');
 
       svgLogical.style.display = 'none';
+      svgLogical.setAttribute('aria-hidden', 'true');
       svgPhysical.style.display = 'block';
+      svgPhysical.setAttribute('aria-hidden', 'false');
 
-      if (statusTag) statusTag.textContent = 'CRITICAL: SHARED CONDUIT';
+      if (statusTag) statusTag.textContent = 'ILLUSTRATIVE SHARED-PATH RISK';
       if (statusTag) statusTag.style.color = 'var(--accent-amber)';
-      if (metricPhysical) metricPhysical.textContent = 'AUDITED REALITY // 0 METERS (Shared Duct)';
+      if (metricPhysical) metricPhysical.textContent = 'Example: shared physical dependency';
       if (metricPhysical) metricPhysical.className = 'metric-val';
     });
 
