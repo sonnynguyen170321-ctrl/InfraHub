@@ -22,4 +22,4 @@ campaignTag: "r650-hardware"
 
 ## Hardware Specification
 
-Tier-1 enterprise compute ready for private cloud, Proxmox virtualization, or database hosting. Extensively burn-in tested with component-level diagnostics and a 3-year advanced replacement warranty.
+Enterprise compute ready for private cloud, Proxmox virtualization, or database hosting. Testing, diagnostics, warranty and replacement terms are confirmed against the specific supplier quotation.

@@ -1,5 +1,5 @@
 ---
-title: "Dell PowerEdge R750 2U (Certified Refurbished)"
+title: "Dell PowerEdge R750 2U (Refurbished)"
 category: "hardware"
 location: "Frankfurt / EU Delivery"
 partner: "ITcare"
@@ -18,7 +18,7 @@ specifications:
 shortDescription: "High-density 2U enterprise workhorse server for virtualization pools, high-throughput storage, and relational database clusters."
 ---
 
-## Certified Refurbished Enterprise Workhorse
+## Refurbished Enterprise Workhorse
 
 The Dell PowerEdge R750 delivers exceptional dual-socket Ice Lake compute power and high NVMe density. Fully burn-in tested with 3-year advanced hardware replacement warranty.
 

@@ -109,26 +109,26 @@ const industries = [
 <style>
   .section-audience-editorial {
     background-color: #ffffff;
-    padding: 96px 0;
+    padding: 104px 0;
     border-bottom: 1px solid var(--border-color);
   }
 
   .split-editorial-layout {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 64px;
   }
   @media (min-width: 960px) {
     .split-editorial-layout {
       grid-template-columns: 1.15fr 1fr;
-      gap: 72px;
+      gap: 80px;
       align-items: start;
     }
   }
 
   /* Header */
   .column-header {
-    margin-bottom: 32px;
+    margin-bottom: 36px;
   }
   .column-title {
     font-size: clamp(1.8rem, 2.6vw, 2.4rem);
@@ -154,11 +154,12 @@ const industries = [
     display: grid;
     grid-template-columns: 36px 1fr 24px;
     align-items: start;
-    gap: 16px;
-    padding: 20px 0;
+    gap: 18px;
+    padding: 22px 8px;
     border-bottom: 1px solid var(--border-color);
     text-decoration: none;
     transition: background-color 160ms ease;
+    border-radius: var(--radius-sm);
   }
   .ind-index {
     font-family: var(--font-mono);
@@ -247,10 +248,10 @@ const industries = [
   }
 
   .analysis-body {
-    padding: 28px 24px;
+    padding: 36px 32px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
   .analysis-meta {
     display: flex;

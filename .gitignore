@@ -17,3 +17,7 @@ Thumbs.db
 # Playwright
 test-results/
 playwright-report/
+
+# Local design references (kept off the deployed site)
+*.reference.png
+packetfabric.com_.png
