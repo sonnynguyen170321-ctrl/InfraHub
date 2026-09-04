@@ -71,3 +71,69 @@ test.describe('route diversity explorer', () => {
     expect(animation === 'none' || animation === '').toBe(true);
   });
 });
+
+test.describe('route diversity states', () => {
+  test('scrolling moves through all four states', async ({ page }) => {
+    await page.goto('/');
+
+    const scene = await page.evaluate(() => {
+      const el = document.getElementById('routeScene');
+      const sticky = el?.querySelector('.route-sticky') as HTMLElement | null;
+      if (!el || !sticky) return null;
+      return {
+        top: el.getBoundingClientRect().top + window.scrollY,
+        travel: el.offsetHeight - sticky.offsetHeight
+      };
+    });
+
+    expect(scene).not.toBeNull();
+
+    const seen: string[] = [];
+    for (const fraction of [0.05, 0.35, 0.6, 0.9]) {
+      await page.evaluate(
+        ({ top, travel, fraction }) => window.scrollTo(0, Math.round(top + travel * fraction)),
+        { ...scene!, fraction }
+      );
+      await page.waitForTimeout(220);
+      seen.push((await page.locator('#route-explorer').getAttribute('data-state')) || '');
+    }
+
+    expect(seen).toEqual(['1', '2', '3', '4']);
+  });
+
+  test('the shared segment and its risk points only appear in the physical view', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.locator('#svgLogical')).toHaveAttribute('aria-hidden', 'false');
+    await expect(page.locator('#svgPhysical .route-shared')).toBeHidden();
+
+    await page.locator('[data-view="physical"]').click();
+    await page.waitForTimeout(250);
+
+    await expect(page.locator('#svgPhysical')).toHaveAttribute('aria-hidden', 'false');
+    await expect(page.locator('#svgPhysical .route-shared')).toBeVisible();
+  });
+
+  test('every convergence point named on the model is also written in the document', async ({ page }) => {
+    await page.goto('/');
+
+    const listed = (await page.locator('.route-verify').innerText()).toLowerCase();
+    for (const point of [
+      'building entry',
+      'local duct',
+      'bridge or rail crossing',
+      'carrier facility',
+      'meet-me room',
+      'long-haul segment'
+    ]) {
+      expect(listed, `"${point}" must exist as text, not only on the model`).toContain(point);
+    }
+  });
+
+  test('the exhibit needs no canvas', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.locator('#route-explorer canvas')).toHaveCount(0);
+    await expect(page.locator('#route-explorer svg')).not.toHaveCount(0);
+  });
+});
