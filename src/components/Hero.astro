@@ -1,17 +1,25 @@
 ---
 // src/components/Hero.astro
+//
+// The hero photograph is the LCP element of the site. It goes through astro:assets so the
+// build emits sized, modern-format variants and a srcset, rather than shipping one 1920px
+// JPEG to every device.
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero-datacenter.jpg';
 ---
 
 <section class="hero-section" id="hero">
   <div class="hero-backdrop" aria-hidden="true">
-    <img 
-      src="/images/hero-datacenter.jpg" 
-      alt="" 
+    <Image
+      src={heroImage}
+      alt=""
       class="hero-bg-img"
       loading="eager"
       fetchpriority="high"
-      width="1920"
-      height="1080"
+      widths={[900, 1280, 1600]}
+      sizes="100vw"
+      quality={64}
+      format="webp"
     />
     <div class="hero-scrim"></div>
   </div>
@@ -104,7 +112,7 @@
   /* Vertical Mask Revealing (Directive 6: Line-by-line independent reveals) */
   .hero-title {
     font-size: clamp(2.6rem, 5.2vw, 4.2rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.035em;
     color: #ffffff;
