@@ -13,3 +13,7 @@ dist/
 # OS / editor cruft
 Thumbs.db
 .DS_Store
+
+# Playwright
+test-results/
+playwright-report/

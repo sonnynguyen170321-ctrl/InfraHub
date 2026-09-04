@@ -59,6 +59,6 @@ test.describe('404', () => {
 
     expect(response?.status()).toBe(404);
     await expect(page.locator('h1')).toBeVisible();
-    await expect(page.locator('a[href="/solutions/infrastructure"]').first()).toBeVisible();
+    await expect(page.locator('main a[href="/solutions/infrastructure"]').first()).toBeVisible();
   });
 });
