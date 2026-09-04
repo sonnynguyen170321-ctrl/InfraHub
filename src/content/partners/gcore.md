@@ -12,7 +12,7 @@ capabilities:
   - "CDN, DNS, streaming, and edge application delivery"
   - "DDoS protection, WAF, and bot-management services"
 strategic: false
-verified: false
+verified: true
 shortRole: "Cloud, Edge, AI & Security Platform"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

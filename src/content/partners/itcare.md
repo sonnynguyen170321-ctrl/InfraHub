@@ -11,7 +11,7 @@ capabilities:
   - "DevOps and network automation using infrastructure-as-code workflows"
   - "AI-assisted network operations through ITcare's HORA platform"
 strategic: false
-verified: false
+verified: true
 shortRole: "Network Engineering, NOC & Automation"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

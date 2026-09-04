@@ -11,7 +11,7 @@ capabilities:
   - "DDoS protection for TCP and UDP services"
   - "Cloud-based WAF and antibot protection for web applications"
 strategic: false
-verified: false
+verified: true
 shortRole: "DDoS, WAF & Application Protection"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

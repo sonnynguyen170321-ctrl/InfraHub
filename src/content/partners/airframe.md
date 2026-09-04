@@ -12,7 +12,7 @@ capabilities:
   - "Build-versus-buy assessment for software and AI requirements"
   - "Decision recommendations that distinguish available evidence, remaining uncertainty, and next steps"
 strategic: false
-verified: false
+verified: true
 shortRole: "Technology Decision Intelligence & Vendor Diligence"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

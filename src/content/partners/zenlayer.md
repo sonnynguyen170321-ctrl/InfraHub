@@ -12,7 +12,7 @@ capabilities:
   - "IP transit, global acceleration, and CDN services"
   - "Edge colocation and distributed AI infrastructure services"
 strategic: false
-verified: false
+verified: true
 shortRole: "Distributed Cloud, Compute & Connectivity"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

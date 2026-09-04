@@ -12,7 +12,7 @@ capabilities:
   - "Integrated VM backup, replication, metrics, and automation workflows"
   - "Commercial support and services around the Vates Virtualization Management Stack"
 strategic: false
-verified: false
+verified: true
 shortRole: "Open-Source Virtualization & Management Stack"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

@@ -11,7 +11,7 @@ capabilities:
   - "IP management, governance, and reputation monitoring"
   - "KYC, RPKI, abuse monitoring, and LIR-related services"
 strategic: false
-verified: false
+verified: true
 shortRole: "IPv4 Leasing & Address Management Platform"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"

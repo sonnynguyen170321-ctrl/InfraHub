@@ -12,7 +12,7 @@ capabilities:
   - "Traffic diversion to external scrubbing centres using routing controls"
   - "APIs, blocklist integration, and operator-defined mitigation workflows"
 strategic: false
-verified: false
+verified: true
 shortRole: "DDoS Detection & Mitigation Control Plane"
 relationshipStatus: "confirmed"
 publicNamingStatus: "approved"
