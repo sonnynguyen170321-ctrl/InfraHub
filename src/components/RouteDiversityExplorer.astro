@@ -1,0 +1,542 @@
+---
+// src/components/RouteDiversityExplorer.astro — Physical Route Diversity Explorer (Parts XIX-XXII)
+interface Props {
+  isTeaser?: boolean;
+}
+
+const { isTeaser = false } = Astro.props;
+---
+
+<section class={`route-diversity-explorer ${isTeaser ? 'is-teaser' : 'is-full'}`} id="route-explorer" aria-label="Physical Route Diversity Explorer">
+  <div class="container explorer-container">
+    
+    <!-- Section Kicker & Header -->
+    <div class="explorer-header">
+      <div class="kicker-row">
+        <span class="routing-junction" aria-hidden="true"></span>
+        <span class="explorer-kicker">PHYSICAL INFRASTRUCTURE AUDIT // ROUTE DIVERSITY</span>
+      </div>
+      <h2 class="explorer-title">Two carriers. Two contracts.<br />One physical dependency.</h2>
+      <p class="explorer-lead measure-lead">
+        Buying IP transit or wavelengths from two independent telecom carriers does not guarantee resilience. In metro and regional networks, different providers frequently lease sub-ducts within the exact same physical bridge crossing or trench.
+      </p>
+    </div>
+
+    <!-- Interactive Architecture Exhibit -->
+    <div class="explorer-stage-grid">
+      
+      <!-- Left / Top: Interactive Visual Display (Logical vs Physical) -->
+      <div class="stage-canvas-card">
+        
+        <!-- Controls Bar -->
+        <div class="stage-controls-bar">
+          <div class="view-toggle-group" role="group" aria-label="Route Perspective">
+            <button 
+              type="button" 
+              class="toggle-btn active" 
+              id="btnLogicalView"
+              aria-pressed="true"
+              data-view="logical"
+            >
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span class="toggle-label">01 // Logical Network View</span>
+            </button>
+            <button 
+              type="button" 
+              class="toggle-btn" 
+              id="btnPhysicalView"
+              aria-pressed="false"
+              data-view="physical"
+            >
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span class="toggle-label">02 // Physical Conduit Path</span>
+            </button>
+          </div>
+
+          <div class="status-readout">
+            <span class="status-tag" id="statusTag">STATE: DIVERSE ASNs</span>
+          </div>
+        </div>
+
+        <!-- Architectural Schematic Canvas (Crisp 2D Vector + 3D Enhancement) -->
+        <div class="schematic-viewport" id="schematicViewport">
+          
+          <!-- State 1: Logical Topology SVG -->
+          <svg class="schematic-svg state-logical" id="svgLogical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logical multihomed network diagram">
+            <!-- Background Grid -->
+            <defs>
+              <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-color)" stroke-width="0.5" stroke-opacity="0.4" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#archGrid)" />
+
+            <!-- Origin Node: Enterprise DC -->
+            <g class="node-origin" transform="translate(60, 150)">
+              <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+              <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">ENTERPRISE DC</text>
+              <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Border AS65001</text>
+            </g>
+
+            <!-- Destination Node: Primary Core / Cloud -->
+            <g class="node-dest" transform="translate(570, 150)">
+              <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+              <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">PUBLIC CLOUD / IX</text>
+              <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Core MMR Exchange</text>
+            </g>
+
+            <!-- Carrier A Logical Path (Cobalt) -->
+            <path d="M 190 165 C 280 80, 480 80, 570 165" stroke="var(--accent-blue)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
+            <g transform="translate(340, 60)">
+              <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-blue)" stroke-width="1.2" />
+              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-blue)">CARRIER A (AS3356)</text>
+            </g>
+
+            <!-- Carrier B Logical Path (Teal) -->
+            <path d="M 190 195 C 280 280, 480 280, 570 195" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
+            <g transform="translate(340, 290)">
+              <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-cyan)" stroke-width="1.2" />
+              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-cyan)">CARRIER B (AS1299)</text>
+            </g>
+
+            <!-- Status Annotation -->
+            <text x="380" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--text-muted)">Contracts &amp; Autonomous Systems Completely Independent</text>
+          </svg>
+
+          <!-- State 2: Physical Conduit Reality SVG -->
+          <svg class="schematic-svg state-physical" id="svgPhysical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Physical conduit convergence diagram" style="display: none;">
+            <rect width="100%" height="100%" fill="url(#archGrid)" />
+
+            <!-- Origin Facility -->
+            <g transform="translate(50, 140)">
+              <rect x="0" y="0" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+              <text x="60" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">CAMPUS A</text>
+              <text x="60" y="46" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Single Duct Vault</text>
+              <rect x="116" y="36" width="8" height="8" fill="var(--accent-amber)" />
+            </g>
+
+            <!-- Destination Facility -->
+            <g transform="translate(590, 140)">
+              <rect x="0" y="0" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
+              <text x="60" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">FACILITY B</text>
+              <text x="60" y="46" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Metro MMR Suite</text>
+            </g>
+
+            <!-- Separate Feeder Conduits -->
+            <path d="M 170 170 L 250 170" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
+
+            <!-- CRITICAL BOTTLENECK: The Shared Bridge Crossing & Utility Trench -->
+            <g class="pinch-point-zone" transform="translate(250, 100)">
+              <!-- Outer Trench Boundary -->
+              <rect x="0" y="0" width="260" height="160" rx="2" fill="var(--accent-amber-light)" stroke="var(--accent-amber)" stroke-width="1.5" stroke-dasharray="4 2" />
+              
+              <!-- Warning Banner -->
+              <g transform="translate(130, 24)">
+                <rect x="-95" y="-12" width="190" height="22" rx="2" fill="var(--accent-amber)" />
+                <text x="0" y="3" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="0.04em">COMMON TRENCH / BRIDGE CONDUIT</text>
+              </g>
+
+              <!-- Shared Fiber Bundle Inside Trench -->
+              <line x1="20" y1="70" x2="240" y2="70" stroke="var(--accent-blue)" stroke-width="3" />
+              <text x="30" y="62" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-blue)" font-weight="600">Carrier A Sub-duct</text>
+
+              <line x1="20" y1="100" x2="240" y2="100" stroke="var(--accent-cyan)" stroke-width="3" />
+              <text x="30" y="118" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-cyan)" font-weight="600">Carrier B Sub-duct</text>
+
+              <!-- Pinch Point Marker -->
+              <circle cx="130" cy="85" r="32" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-dasharray="4 3" />
+              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">SHARED RISK: 1 MUNICIPAL FIBER CUT</text>
+            </g>
+
+            <!-- Destination Feeders -->
+            <path d="M 510 170 L 590 170" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
+          </svg>
+
+        </div>
+
+        <!-- Metric & Status Footer -->
+        <div class="stage-footer-status">
+          <div class="status-metric-item">
+            <span class="metric-label">CONTRACTUAL DIVERSITY:</span>
+            <span class="metric-val text-success">100% (2 Independent Providers)</span>
+          </div>
+          <div class="status-metric-item">
+            <span class="metric-label">PHYSICAL SEPARATION:</span>
+            <span class="metric-val" id="metricPhysical">UNAUDITED // 0 METERS (Shared Conduit)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right: Technical Narrative & Field Audit Methodology -->
+      <div class="stage-narrative-card">
+        <span class="narrative-kicker">ENGINEERING ANALYSIS</span>
+        <h3 class="narrative-title">Provider diversity is not automatically route diversity.</h3>
+        
+        <div class="narrative-body measure-technical">
+          <p>
+            When network engineers procure redundant IP transit or 100G wavelengths, commercial agreements typically show separate Autonomous Systems (ASNs), independent NOC contact numbers, and distinct billing entities.
+          </p>
+          <p>
+            In the physical domain, however, metropolitan civil works are constrained by waterways, highway rights-of-way, rail corridors, and municipal bridge conduits. Both carriers often lease dark fiber strands or sub-ducts in the same underground utility trench.
+          </p>
+          <div class="audit-checklist-box">
+            <span class="checklist-title">WHAT INFRAHUB VERIFIES IN SOURCING:</span>
+            <ul class="checklist-items">
+              <li><strong>Manhole & Conduit Traces:</strong> Strict physical separation from building entry vaults (Dual Zero-Manhole Entry).</li>
+              <li><strong>Bridge & River Crossings:</strong> Verified diverse river crossings or rail easements rather than common municipal spans.</li>
+              <li><strong>Facility MMR Diversity:</strong> Dedicated Meet-Me-Room patch paths and separate fiber distribution panels.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="narrative-action-row">
+          <a href="/lets-talk?service=route-audit" class="btn btn-accent btn-md">
+            <span>Request Physical Route Verification</span>
+          </a>
+          <a href="/wavelengths" class="narrative-link">
+            <span>Explore Metro Wavelengths &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .route-diversity-explorer {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 72px 0;
+  }
+
+  .is-teaser {
+    padding: 56px 0;
+  }
+
+  .explorer-container {
+    max-width: var(--max-width);
+  }
+
+  /* Header */
+  .explorer-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+
+  .kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .explorer-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+
+  .explorer-title {
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0 0 14px;
+  }
+
+  .explorer-lead {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Stage Grid */
+  .explorer-stage-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @media (min-width: 1040px) {
+    .explorer-stage-grid {
+      grid-template-columns: 1.3fr 1fr;
+      align-items: start;
+    }
+  }
+
+  /* Left Stage Card */
+  .stage-canvas-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Controls Bar */
+  .stage-controls-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    gap: 12px;
+  }
+
+  .view-toggle-group {
+    display: flex;
+    gap: 6px;
+  }
+
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 140ms var(--ease-out);
+  }
+
+  .toggle-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+  }
+
+  .toggle-btn.active {
+    background-color: var(--text-primary);
+    color: #ffffff;
+    border-color: var(--text-primary);
+  }
+
+  .toggle-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+  }
+
+  .toggle-btn.active .toggle-indicator {
+    background-color: var(--accent-cyan-glow);
+  }
+
+  .status-readout {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  /* Viewport */
+  .schematic-viewport {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .schematic-svg {
+    width: 100%;
+    height: auto;
+    max-height: 340px;
+    display: block;
+  }
+
+  /* Footer Status */
+  .stage-footer-status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    padding: 12px 16px;
+    gap: 16px;
+  }
+
+  .status-metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .metric-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .metric-val {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+  }
+
+  .metric-val.text-success {
+    color: var(--accent-blue);
+  }
+
+  /* Right Narrative Card */
+  .stage-narrative-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .narrative-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+
+  .narrative-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .narrative-body p {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+
+  .audit-checklist-box {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 2px solid var(--accent-amber);
+    padding: 16px 18px;
+    margin: 18px 0;
+    border-radius: var(--radius-sm);
+  }
+
+  .checklist-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .checklist-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .checklist-items li strong {
+    color: var(--text-primary);
+  }
+
+  .narrative-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+
+  .narrative-link {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+
+  .narrative-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  // Route Diversity Explorer View Switching
+  function setupRouteExplorer() {
+    const btnLogical = document.getElementById('btnLogicalView');
+    const btnPhysical = document.getElementById('btnPhysicalView');
+    const svgLogical = document.getElementById('svgLogical');
+    const svgPhysical = document.getElementById('svgPhysical');
+    const statusTag = document.getElementById('statusTag');
+    const metricPhysical = document.getElementById('metricPhysical');
+
+    if (!btnLogical || !btnPhysical || !svgLogical || !svgPhysical) return;
+
+    btnLogical.addEventListener('click', () => {
+      btnLogical.classList.add('active');
+      btnLogical.setAttribute('aria-pressed', 'true');
+      btnPhysical.classList.remove('active');
+      btnPhysical.setAttribute('aria-pressed', 'false');
+
+      svgLogical.style.display = 'block';
+      svgPhysical.style.display = 'none';
+
+      if (statusTag) statusTag.textContent = 'STATE: DIVERSE ASNs';
+      if (statusTag) statusTag.style.color = 'var(--accent-blue)';
+      if (metricPhysical) metricPhysical.textContent = 'LOGICAL ABSTRACTION (Separated)';
+      if (metricPhysical) metricPhysical.className = 'metric-val text-success';
+    });
+
+    btnPhysical.addEventListener('click', () => {
+      btnPhysical.classList.add('active');
+      btnPhysical.setAttribute('aria-pressed', 'true');
+      btnLogical.classList.remove('active');
+      btnLogical.setAttribute('aria-pressed', 'false');
+
+      svgLogical.style.display = 'none';
+      svgPhysical.style.display = 'block';
+
+      if (statusTag) statusTag.textContent = 'CRITICAL: SHARED CONDUIT';
+      if (statusTag) statusTag.style.color = 'var(--accent-amber)';
+      if (metricPhysical) metricPhysical.textContent = 'AUDITED REALITY // 0 METERS (Shared Duct)';
+      if (metricPhysical) metricPhysical.className = 'metric-val';
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupRouteExplorer);
+  } else {
+    setupRouteExplorer();
+  }
+</script>

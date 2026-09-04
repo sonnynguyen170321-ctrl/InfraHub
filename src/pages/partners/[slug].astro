@@ -1,5 +1,5 @@
 ---
-// src/pages/partners/[slug].astro
+// src/pages/partners/[slug].astro — Partner Architecture Framework & Decision Layer (Parts XVII & XVIII)
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
@@ -15,236 +15,873 @@ export async function getStaticPaths() {
 
 const { partner } = Astro.props;
 const { Content } = await partner.render();
+
+// Bespoke Signature Technical Blocks & Buyer Decision Guidance (Parts XVII & XVIII)
+const partnerSignatures: Record<string, {
+  architectureTitle: string;
+  architectureSubtitle: string;
+  steps: { num: string; title: string; desc: string }[];
+  decisionQuestions: string[];
+  whenFits: string;
+  whenAlternative: string;
+  commercialCaution: string;
+}> = {
+  fastnetmon: {
+    architectureTitle: "Detection & Mitigation Automation Flow",
+    architectureSubtitle: "How FastNetMon integrates with network edge routers and scrubbing centers",
+    steps: [
+      { num: "01", title: "Flow Telemetry Ingestion", desc: "Collects continuous sFlow, NetFlow (v5/v9), IPFIX, or port-mirror packet streams from edge routers." },
+      { num: "02", title: "Statistical Threshold Analysis", desc: "Detects packet/byte spikes, SYN floods, and UDP amplifications against host-level traffic baselines." },
+      { num: "03", title: "Automated Policy Trigger", desc: "Executes automated actions within seconds: announces BGP FlowSpec rules, sends RTBH, or calls webhook scripts." },
+      { num: "04", title: "Traffic Diversion & Scrubbing", desc: "Reroutes affected /32 or /24 prefixes to external scrubbing infrastructure (e.g. StormWall) until attack terminates." }
+    ],
+    decisionQuestions: [
+      "Do your edge routers support BGP FlowSpec and dynamic prefix announcements?",
+      "What is your transit provider's policy on remote-triggered blackholing (RTBH)?",
+      "Do you want inline filtering or purely out-of-band telemetry analysis?"
+    ],
+    whenFits: "ISPs, hosting providers, and Autonomous Systems (ASNs) that operate their own edge routers and want automated DDoS detection without routing all baseline traffic through a costly third-party proxy.",
+    whenAlternative: "When you do not operate BGP routing or lack in-house network engineering capability to manage BGP filters, an always-on reverse-proxy scrubbing service is simpler.",
+    commercialCaution: "Verify your upstream transit providers' FlowSpec community compatibility before relying on upstream line-rate filtering."
+  },
+  gcore: {
+    architectureTitle: "Global Edge & Sovereign Compute Architecture",
+    architectureSubtitle: "Compute, GPU acceleration, and low-latency network infrastructure",
+    steps: [
+      { num: "01", title: "Bare-Metal & Virtualization", desc: "High-density enterprise servers and private cloud hypervisors located across sovereign European and international facilities." },
+      { num: "02", title: "GPU & AI Infrastructure", desc: "Dedicated clusters equipped with NVIDIA H100 and L40S accelerators paired with high-bandwidth InfiniBand networking." },
+      { num: "03", title: "Global Anycast Delivery", desc: "Edge CDN, Anycast DNS, and real-time media streaming integrated directly into regional peering exchanges." },
+      { num: "04", title: "Perimeter DDoS Protection", desc: "Always-on network layer-3/4 and application layer-7 attack mitigation built into global network edge." }
+    ],
+    decisionQuestions: [
+      "Are your workloads sensitive to European data residency under GDPR and NIS2 regulations?",
+      "Do your AI workloads require dedicated bare-metal GPUs or elastic cloud instances?",
+      "What is your target ingress/egress ratio across edge distribution locations?"
+    ],
+    whenFits: "Enterprises and tech companies that need high-performance bare metal, European data sovereignty, and edge computing without hyperscaler egress penalties.",
+    whenAlternative: "If your architecture is completely locked into proprietary AWS or Azure proprietary managed services (e.g. DynamoDB, CloudFront functions), migration may require application re-engineering.",
+    commercialCaution: "Benchmark bandwidth commitments against burst rates to ensure predictable operational expenditure."
+  },
+  stormwall: {
+    architectureTitle: "Multilayer DDoS Scrubbing Architecture",
+    architectureSubtitle: "BGP network-layer diversion and application perimeter filtering",
+    steps: [
+      { num: "01", title: "BGP Route Announcement", desc: "Traffic is routed to StormWall's global scrubbing centers via BGP announcement during active attacks or on permanent basis." },
+      { num: "02", title: "Deep Packet Inspection (DPI)", desc: "Proprietary traffic filtering analyzes packet signatures, TCP window states, and HTTP application behavior." },
+      { num: "03", title: "Surgical Mitigation", desc: "Volumetric UDP/ICMP floods and malicious Layer-7 HTTP requests are absorbed; legitimate packets are preserved." },
+      { num: "04", title: "Clean Traffic Return", desc: "Cleaned traffic is returned to client infrastructure via dedicated GRE tunnels, Layer-2 cross-connects, or reverse proxy." }
+    ],
+    decisionQuestions: [
+      "Do you require always-on protection or on-demand BGP diversion triggered only during incidents?",
+      "What is the maximum clean bandwidth capacity required between scrubbing centers and your datacenter?",
+      "Do you need L7 SSL certificate termination at the scrubbing edge or pure packet-layer tunnel transport?"
+    ],
+    whenFits: "Networks, online gaming platforms, and financial services vulnerable to complex multi-vector volumetric and application-layer DDoS attacks.",
+    whenAlternative: "If attacks are strictly low-volume Layer-7 credential stuffing, a lightweight CDN WAF layer without dedicated GRE infrastructure may suffice.",
+    commercialCaution: "Confirm whether clean traffic return via GRE tunnels introduces MTU fragmentation or requires MSS clamping on your border routers."
+  },
+  zenlayer: {
+    architectureTitle: "Hyper-Connected Edge Infrastructure Topology",
+    architectureSubtitle: "Edge compute and low-latency connectivity across emerging markets",
+    steps: [
+      { num: "01", title: "Edge Bare Metal", desc: "Turnkey bare-metal servers provisioned directly at primary edge hubs across Southeast Asia, India, and Latin America." },
+      { num: "02", title: "Private Cloud WAN", desc: "Software-defined private network interconnecting edge nodes with major public cloud availability zones." },
+      { num: "03", title: "Global IP Acceleration", desc: "Optimized route selection bypassing congested public internet transits and unstable cross-border routes." },
+      { num: "04", title: "Carrier Colocation", desc: "Footprint deployment in carrier-dense colocation facilities with rapid cross-connect provisioning." }
+    ],
+    decisionQuestions: [
+      "Are your end-users concentrated in emerging regions with historically poor transit connectivity?",
+      "Do you need instant bare-metal provisioning or custom hardware builds in edge metros?",
+      "What are your target latency SLAs between edge compute nodes and central database clusters?"
+    ],
+    whenFits: "Gaming companies, cross-border e-commerce, and real-time streaming platforms scaling in regions where Tier-1 transit is fragmented.",
+    whenAlternative: "For workloads serving purely North American or Western European domestic traffic, local metro providers may offer lower transit costs.",
+    commercialCaution: "Review minimum port commitment durations across different geographic markets."
+  },
+  ipxo: {
+    architectureTitle: "IPv4 Allocation & Address Governance Flow",
+    architectureSubtitle: "Subnet sourcing, RPKI validation, and address reputation management",
+    steps: [
+      { num: "01", title: "Subnet Sourcing & Leasing", desc: "Access clean /24 to /16 IPv4 address pools across RIPE NCC, ARIN, APNIC, and LACNIC registries." },
+      { num: "02", title: "RPKI & LOA Generation", desc: "Instant generation of Route Origin Authorizations (ROA) and Letters of Authorization (LOA) for your ASN." },
+      { num: "03", title: "BGP Announcement", desc: "Announce leased subnets through your existing upstream transit providers without capital outlay." },
+      { num: "04", title: "Abuse & Reputation Monitoring", desc: "Continuous automated scanning across global blocklists, spam databases, and routing leak monitors." }
+    ],
+    decisionQuestions: [
+      "What subnet size (/24, /23, /22) matches your 12-month address growth requirement?",
+      "Which Regional Internet Registry (RIR) must the subnets be registered under for geolocation accuracy?",
+      "Do your upstream transit carriers accept third-party RPKI ROAs and Letters of Authorization promptly?"
+    ],
+    whenFits: "Growing hosting companies, ISPs, VPN platforms, and enterprise networks that need IPv4 address blocks immediately without paying $50+ per IP to purchase outright.",
+    whenAlternative: "If your application and end-user base can operate natively over IPv6 with dual-stack proxies, avoiding IPv4 leasing altogether is commercially superior.",
+    commercialCaution: "Always audit the historical reputation and blocklist status of any allocated subnet before announcing it to your upstream carriers."
+  },
+  vates: {
+    architectureTitle: "Open-Source Virtualization & Management Stack",
+    architectureSubtitle: "Enterprise hypervisor, orchestration, and backup architecture",
+    steps: [
+      { num: "01", title: "XCP-ng Hypervisor", desc: "Turnkey enterprise Type-1 hypervisor built on Xen Project, providing direct bare-metal hardware control." },
+      { num: "02", title: "Xen Orchestra Appliance", desc: "Agentless web management platform controlling multiple host pools, storage repositories, and network bonds." },
+      { num: "03", title: "Continuous Backup & Replication", desc: "Agentless delta backups, automated VM health checks, and cross-datacenter disaster recovery replication." },
+      { num: "04", title: "VMware Migration Engine", desc: "Direct ESXi / vCenter migration tools converting proprietary VMDK workloads directly to native XCP-ng storage." }
+    ],
+    decisionQuestions: [
+      "Are Broadcom/VMware per-core subscription price increases threatening your infrastructure margins?",
+      "Do you require certified enterprise support with strict SLA turnaround times?",
+      "What storage architecture (Ceph, iSCSI SAN, NFS, local ZFS) underpins your existing hypervisor pool?"
+    ],
+    whenFits: "Datacenters, MSPs, and enterprises seeking a proven open-source virtualization platform with commercial enterprise backing and zero per-core licensing penalties.",
+    whenAlternative: "If your operational teams only have Linux KVM expertise and no Xen experience, Proxmox VE may offer a shorter learning curve.",
+    commercialCaution: "Map your SAN storage multipath configurations and vLAN tagging schemes before initiating bulk ESXi workload conversions."
+  },
+  itcare: {
+    architectureTitle: "24/7 Managed NOC & NetOps Pipeline",
+    architectureSubtitle: "Proactive network monitoring, automated triage, and senior engineer escalation",
+    steps: [
+      { num: "01", title: "Continuous Telemetry", desc: "Monitors router interfaces, BGP peering sessions, optical light levels, and device health 24 hours a day." },
+      { num: "02", title: "HORA AI Incident Triage", desc: "Correlates flapping interfaces and cascading BGP alerts to suppress alert storms and identify root causes." },
+      { num: "03", title: "Senior Engineer Response", desc: "Direct escalation to qualified network architects capable of configuring BGP policies and mitigating transit outages." },
+      { num: "04", title: "Carrier Ticket Management", desc: "Coordinates directly with underlying transit carriers and fiber operators until link restoration is confirmed." }
+    ],
+    decisionQuestions: [
+      "Does your internal engineering team suffer from after-hours on-call alert fatigue?",
+      "Do you need full 24/7 Tier-3 NOC coverage or specialized night/weekend overflow support?",
+      "What is your target Mean Time to Detect (MTTD) and Mean Time to Respond (MTTR)?"
+    ],
+    whenFits: "Mid-market enterprises, infrastructure operators, and SaaS platforms that run critical multi-homed networks but cannot justify full in-house 24/7 NOC staffing.",
+    whenAlternative: "If your infrastructure is purely serverless code on AWS Lambda with no physical networking or BGP routing, specialized NetOps NOCs are unnecessary.",
+    commercialCaution: "Define clear runbooks and authority boundaries for automated versus engineer-approved routing changes."
+  },
+  airframe: {
+    architectureTitle: "Technology Market Intelligence & Diligence",
+    architectureSubtitle: "Empirical research, practitioner evidence, and build-vs-buy decisions",
+    steps: [
+      { num: "01", title: "Requirement Qualification", desc: "Frames architectural objectives, performance constraints, and budget realities before reviewing vendor marketing." },
+      { num: "02", title: "Market Landscape Mapping", desc: "Maps all active market providers, pricing structures, and technical capability boundaries across the sector." },
+      { num: "03", title: "Practitioner Due Diligence", desc: "Interviews engineering leaders who have actually deployed, operated, or rejected the tools in production." },
+      { num: "04", title: "Decision Defense & Terms", desc: "Delivers an actionable build-vs-buy recommendation, pricing benchmarks, and negotiation positions." }
+    ],
+    decisionQuestions: [
+      "Are you evaluating a costly multi-year software or AI vendor commitment with unclear ROI?",
+      "Do you need unbiased intelligence outside of vendor sales decks and analyst paywalls?",
+      "Is the decision whether to purchase commercial SaaS or engineer an internal solution?"
+    ],
+    whenFits: "CTOs, VP Engineering leaders, and procurement teams making major architectural software or AI platform decisions that cannot afford expensive implementation failures.",
+    whenAlternative: "If the product is an established commodity commodity (e.g. standard email hosting), formal vendor diligence may be disproportionate.",
+    commercialCaution: "Bring decisions to diligence early in the procurement cycle before vendor sales teams anchor price expectations."
+  }
+};
+
+const signature = partnerSignatures[partner.slug] || {
+  architectureTitle: "Technical Architecture & Operational Workflow",
+  architectureSubtitle: `How ${partner.data.name} integrates with enterprise infrastructure`,
+  steps: [
+    { num: "01", title: "Architecture Review", desc: "Qualify technical specifications and operational requirements." },
+    { num: "02", title: "Provider Matching", desc: "Evaluate capability fit against real workloads and SLAs." },
+    { num: "03", title: "Direct Contracting", desc: "Execute transparent commercial terms with provider." },
+    { num: "04", title: "Operational Execution", desc: "Deploy infrastructure with verified technical support." }
+  ],
+  decisionQuestions: [
+    "What are your core technical constraints and latency tolerances?",
+    "Do you require commercial SLAs backed by financial credits?",
+    "How does this integration fit into your long-term infrastructure roadmap?"
+  ],
+  whenFits: "Enterprises seeking verified technical capabilities with transparent commercial terms.",
+  whenAlternative: "When internal infrastructure resources already fulfill the operational requirement.",
+  commercialCaution: "Review contract terms and commitment durations prior to execution."
+};
 ---
 
 <Layout 
-  title={`${partner.data.name} + InfraHub | Partner Ecosystem`}
+  title={`${partner.data.name} — Specialist Partner Profile | InfraHub`}
   description={partner.data.tagline}
   canonicalPath={`/partners/${partner.slug}`}
 >
-  <div class="section section-hero network-overlay">
-    <div class="container partner-detail-container">
-      <div class="partner-detail-header">
-        <div class="partner-header-badge">
-          <span class="pill-badge badge-blue">{partner.data.category}</span>
-          <span class="partner-status-label">InfraHub partner ecosystem</span>
+  <div class="partner-profile-page">
+    <div class="container partner-profile-container">
+      
+      <!-- Profile Header / Identity Ribbon -->
+      <header class="profile-header">
+        <div class="header-breadcrumb-row">
+          <a href="/partners" class="breadcrumb-link">&larr; Partner Ecosystem Ledger</a>
+          <span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">{partner.data.name}</span>
         </div>
-        <h1 class="partner-hero-title">{partner.data.name} + InfraHub</h1>
-        <p class="partner-hero-tagline">{partner.data.tagline}</p>
-        <a href={partner.data.officialWebsite} class="official-site-link" target="_blank" rel="noopener noreferrer">
-          Visit {partner.data.name}'s official website <span aria-hidden="true">&nearr;</span>
-        </a>
-      </div>
 
-      <div class="partner-main-grid">
-        <div class="partner-prose-content">
-          <div class="capabilities-box">
-            <h2>Key capabilities</h2>
-            <ul class="caps-list">
-              {partner.data.capabilities.map(cap => (
+        <div class="header-main-flex">
+          <div class="header-brand-box">
+            {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
+              <img 
+                src={partner.data.logo} 
+                alt={`${partner.data.name} logo`} 
+                class="profile-logo-img"
+                loading="eager"
+                width="160"
+                height="36"
+              />
+            ) : (
+              <span class="profile-text-mark">{partner.data.name}</span>
+            )}
+            <div class="header-title-block">
+              <h1 class="profile-title">{partner.data.name}</h1>
+              <p class="profile-short-role">{partner.data.shortRole || partner.data.tagline}</p>
+            </div>
+          </div>
+
+          <div class="header-meta-actions">
+            <a 
+              href={partner.data.officialWebsite} 
+              class="btn btn-secondary btn-sm"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <span>Corporate Website</span>
+              <span class="ext-icon" aria-hidden="true">&nearr;</span>
+            </a>
+            <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-sm">
+              <span>Discuss Requirement</span>
+            </a>
+          </div>
+        </div>
+
+        <p class="profile-tagline measure-lead">{partner.data.tagline}</p>
+      </header>
+
+      <!-- Signature Technical Architecture Block (Part XVII: Subject-Specific Architecture) -->
+      <section class="signature-architecture-section">
+        <div class="sig-header">
+          <div class="sig-kicker-row">
+            <span class="routing-junction" aria-hidden="true"></span>
+            <span class="sig-kicker">TECHNICAL ARCHITECTURE // SIGNATURE INTEGRATION</span>
+          </div>
+          <h2 class="sig-title">{signature.architectureTitle}</h2>
+          <p class="sig-subtitle measure-technical">{signature.architectureSubtitle}</p>
+        </div>
+
+        <div class="sig-steps-grid">
+          {signature.steps.map(step => (
+            <div class="sig-step-card">
+              <span class="sig-step-num">{step.num}</span>
+              <h3 class="sig-step-title">{step.title}</h3>
+              <p class="sig-step-desc">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- The Buyer-Decision Layer (Part XVIII: Questions We Ask First, When Fits, Commercial Caution) -->
+      <section class="buyer-decision-layer">
+        <div class="decision-header">
+          <span class="decision-kicker">INFRASTRUCTURE FIELD GUIDE // BUYER DECISION CRITERIA</span>
+          <h2 class="decision-title">What Changes the Answer</h2>
+          <p class="decision-subhead measure-lead">
+            We evaluate specialist providers based on operational constraints rather than marketing catalogs. Consider these criteria before contracting.
+          </p>
+        </div>
+
+        <div class="decision-triad-grid">
+          <!-- Column 1: Questions We Ask First -->
+          <div class="decision-col-card">
+            <div class="col-indicator-bar" style="background: var(--accent-blue);"></div>
+            <h3 class="decision-col-title">Questions We Ask First</h3>
+            <ul class="decision-questions-list">
+              {signature.decisionQuestions.map(q => (
                 <li>
-                  <span class="cap-marker" aria-hidden="true">•</span>
-                  <span>{cap}</span>
+                  <span class="q-marker" aria-hidden="true">&rarr;</span>
+                  <span>{q}</span>
                 </li>
               ))}
             </ul>
-            {partner.data.sourceUrls.length > 0 && (
-              <p class="source-note">
-                Capability descriptions are aligned to {partner.data.name}'s official public materials.
-              </p>
-            )}
           </div>
 
-          <div class="markdown-body">
-            <Content />
-          </div>
-        </div>
-
-        <aside class="partner-sidebar">
-          <div class="partner-action-card">
-            <h2>Discuss {partner.data.name}</h2>
-            <p>
-              Tell InfraHub what you are trying to achieve. We can help assess whether {partner.data.name} fits the requirement and coordinate an introduction where appropriate.
-            </p>
-            <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-block btn-lg">
-              <span>Discuss Your Requirement</span>
-            </a>
-            
-            <div class="partner-sourcing-assurances">
-              <p>Requirement-led evaluation</p>
-              <p>Direct provider introduction where appropriate</p>
-              <p>Partner-delivered services remain contracted and delivered by the provider</p>
+          <!-- Column 2: When This Fits vs Alternative -->
+          <div class="decision-col-card">
+            <div class="col-indicator-bar" style="background: var(--accent-cyan);"></div>
+            <h3 class="decision-col-title">Workload Suitability</h3>
+            <div class="fit-block">
+              <span class="fit-tag tag-fits">WHEN THIS FITS:</span>
+              <p class="fit-text">{signature.whenFits}</p>
+            </div>
+            <div class="fit-block" style="margin-top: 14px;">
+              <span class="fit-tag tag-alt">WHEN AN ALTERNATIVE FITS:</span>
+              <p class="fit-text">{signature.whenAlternative}</p>
             </div>
           </div>
-        </aside>
-      </div>
+
+          <!-- Column 3: Commercial & Operational Caution -->
+          <div class="decision-col-card">
+            <div class="col-indicator-bar" style="background: var(--accent-amber);"></div>
+            <h3 class="decision-col-title">What Buyers Often Miss</h3>
+            <div class="caution-box">
+              <span class="caution-kicker">COMMERCIAL &amp; SOURCING FACTOR</span>
+              <p class="caution-text">{signature.commercialCaution}</p>
+            </div>
+            <p class="advisory-reassurance">
+              InfraHub reviews these constraints during technical qualification before provider introduction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editorial Narrative Prose & Sourced Capabilities -->
+      <section class="partner-prose-section">
+        <div class="prose-layout-grid">
+          
+          <!-- Left: Narrative Prose Content -->
+          <div class="prose-main-col">
+            <div class="markdown-body">
+              <Content />
+            </div>
+
+            <!-- Verified Capabilities Block -->
+            <div class="verified-caps-block">
+              <h3 class="caps-block-title">Verified Capability Scope</h3>
+              <p class="caps-block-note">
+                Descriptions are aligned to {partner.data.name}'s published technical specifications and operational roles:
+              </p>
+              <ul class="caps-detail-list">
+                {partner.data.capabilities.map(cap => (
+                  <li>
+                    <span class="cap-bullet" aria-hidden="true">&check;</span>
+                    <span>{cap}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right: Direct Consultation & Governance Sidebar -->
+          <aside class="prose-sidebar-col">
+            <div class="consultation-card">
+              <span class="consult-kicker">QUALIFIED INTRODUCTION</span>
+              <h3 class="consult-title">Evaluate {partner.data.name}</h3>
+              <p class="consult-desc">
+                Discuss your engineering constraints with our advisory desk. We benchmark provider pricing, physical route availability, and technical SLAs with zero broker markup.
+              </p>
+              <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-block btn-lg">
+                <span>Discuss Your Requirement</span>
+              </a>
+
+              <div class="governance-assurances-list">
+                <div class="assurance-item">
+                  <span class="assure-icon">&check;</span>
+                  <span>Requirement-led architectural evaluation</span>
+                </div>
+                <div class="assurance-item">
+                  <span class="assure-icon">&check;</span>
+                  <span>Zero broker fee or retail markup</span>
+                </div>
+                <div class="assurance-item">
+                  <span class="assure-icon">&check;</span>
+                  <span>Direct provider Master Services Agreement (MSA)</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </section>
+
     </div>
   </div>
 </Layout>
 
 <style>
-  .partner-detail-container {
-    max-width: 1040px;
+  .partner-profile-page {
+    background-color: var(--bg-primary);
+    padding: 48px 0 96px;
   }
 
-  .partner-detail-header {
-    max-width: 800px;
-    margin-bottom: 54px;
+  .partner-profile-container {
+    max-width: var(--max-width);
   }
 
-  .partner-header-badge {
+  /* Header */
+  .profile-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 36px;
+    margin-bottom: 56px;
+  }
+
+  .header-breadcrumb-row {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .partner-status-label {
-    font-size: 0.82rem;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
     color: var(--text-muted);
+    margin-bottom: 24px;
   }
 
-  .partner-hero-title {
-    font-size: clamp(2.4rem, 4vw, 3.4rem);
-    font-weight: 800;
-    margin-bottom: 14px;
-  }
-
-  .partner-hero-tagline {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-    max-width: 64ch;
-  }
-
-  .official-site-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 18px;
-    font-size: 0.92rem;
-    font-weight: 600;
+  .breadcrumb-link {
     color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
   }
 
-  .official-site-link:hover {
+  .breadcrumb-link:hover {
     text-decoration: underline;
   }
 
-  .partner-main-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 48px;
+  .header-main-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
     align-items: flex-start;
+    margin-bottom: 20px;
   }
-  @media (min-width: 992px) {
-    .partner-main-grid {
-      grid-template-columns: 1fr 340px;
+
+  @media (min-width: 900px) {
+    .header-main-flex {
+      flex-direction: row;
+      align-items: center;
     }
   }
 
-  .capabilities-box {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    margin-bottom: 40px;
-  }
-  .capabilities-box h2 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 18px;
-  }
-  .caps-list {
-    list-style: none;
+  .header-brand-box {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
-  .caps-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
+
+  @media (min-width: 600px) {
+    .header-brand-box {
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+    }
   }
 
-  .cap-marker {
-    color: var(--accent-blue);
-    line-height: 1.4;
-    flex-shrink: 0;
+  .profile-logo-img {
+    height: 32px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    display: block;
   }
 
-  .source-note {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-color);
+  .profile-text-mark {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .profile-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .profile-short-role {
+    font-family: var(--font-mono);
     font-size: 0.82rem;
-    color: var(--text-muted);
+    color: var(--accent-blue);
+    margin: 2px 0 0;
+    font-weight: 500;
   }
 
-  .markdown-body {
-    line-height: 1.7;
-    color: var(--text-secondary);
+  .header-meta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
   }
-  .markdown-body h2 {
+
+  .ext-icon {
+    font-size: 0.82rem;
+  }
+
+  .profile-tagline {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Signature Architecture Section */
+  .signature-architecture-section {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 40px;
+    margin-bottom: 56px;
+  }
+
+  .sig-header {
+    margin-bottom: 32px;
+  }
+
+  .sig-kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .sig-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+
+  .sig-title {
     font-size: 1.6rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin: 32px 0 14px;
+    margin: 0 0 6px;
   }
+
+  .sig-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .sig-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 860px) {
+    .sig-steps-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .sig-step-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sig-step-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+
+  .sig-step-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .sig-step-desc {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Buyer Decision Layer */
+  .buyer-decision-layer {
+    margin-bottom: 64px;
+    border-top: 2px solid var(--text-primary);
+    padding-top: 36px;
+  }
+
+  .decision-header {
+    margin-bottom: 32px;
+  }
+
+  .decision-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .decision-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+  }
+
+  .decision-subhead {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .decision-triad-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 900px) {
+    .decision-triad-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .decision-col-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .col-indicator-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .decision-col-title {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .decision-questions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .decision-questions-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .q-marker {
+    color: var(--accent-blue);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .fit-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .fit-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .tag-fits { color: var(--accent-cyan); }
+  .tag-alt { color: var(--text-muted); }
+
+  .fit-text {
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .caution-box {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-left: 2px solid var(--accent-amber);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+  }
+
+  .caution-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .caution-text {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .advisory-reassurance {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Prose & Sidebar Layout */
+  .prose-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  @media (min-width: 900px) {
+    .prose-layout-grid {
+      grid-template-columns: 1fr 340px;
+      align-items: start;
+    }
+  }
+
+  .markdown-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .markdown-body h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 32px 0 14px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+  }
+
   .markdown-body h3 {
-    font-size: 1.25rem;
+    font-size: 1.18rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 24px 0 10px;
   }
+
   .markdown-body p {
     margin-bottom: 16px;
   }
-  .markdown-body ul {
-    list-style: disc;
-    padding-left: 20px;
-    margin-bottom: 20px;
+
+  .verified-caps-block {
+    margin-top: 40px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 24px;
   }
 
-  .partner-sidebar {
-    position: sticky;
-    top: calc(var(--header-height) + 24px);
-  }
-
-  .partner-action-card {
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: 32px;
-    box-shadow: var(--shadow-lg);
-  }
-  .partner-action-card h2 {
-    font-size: 1.3rem;
+  .caps-block-title {
+    font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 12px;
+    color: var(--text-primary);
+    margin: 0 0 6px;
   }
-  .partner-action-card > p {
-    font-size: 0.9rem;
+
+  .caps-block-note {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0 0 16px;
+  }
+
+  .caps-detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .caps-detail-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 0.92rem;
     color: var(--text-secondary);
     line-height: 1.5;
-    margin-bottom: 24px;
   }
 
-  .partner-sourcing-assurances {
+  .cap-bullet {
+    color: var(--accent-blue);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Sidebar Consultation Card */
+  .consultation-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .consult-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+
+  .consult-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .consult-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .governance-assurances-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 24px;
-    padding-top: 20px;
     border-top: 1px solid var(--border-color);
-    font-size: 0.82rem;
-    color: var(--text-secondary);
+    padding-top: 16px;
+    margin-top: 6px;
   }
 
-  .partner-sourcing-assurances p {
-    margin: 0;
+  .assurance-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .assure-icon {
+    color: var(--accent-blue);
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
   }
 </style>

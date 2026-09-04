@@ -1,6 +1,7 @@
 ---
 // src/pages/solutions/network-connectivity.astro
 import Layout from '../../layouts/Layout.astro';
+import RouteDiversityExplorer from '../../components/RouteDiversityExplorer.astro';
 ---
 
 <Layout 
@@ -46,6 +47,11 @@ import Layout from '../../layouts/Layout.astro';
           <p>Clean /24 to /20 IPv4 address block leasing and transfer brokerage with verified RPKI validation and clean reputation.</p>
           <a href="/lets-talk?service=ipv4" class="disc-link">Request IPv4 Allocation →</a>
         </div>
+      </div>
+
+      <!-- Physical Route Diversity Interactive Exhibit (Parts XIX-XXII) -->
+      <div class="diversity-exhibit-wrapper">
+        <RouteDiversityExplorer />
       </div>
 
       <div class="hub-cta">

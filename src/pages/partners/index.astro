@@ -1,118 +1,185 @@
 ---
-// src/pages/partners/index.astro
+// src/pages/partners/index.astro — Editorial Ecosystem Ledger
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const allPartners = await getCollection('partners');
 
 // Filter strictly for partners with confirmed relationship and approved naming
-const publishedPartners = allPartners
-  .filter(p => p.data.partnerPageEnabled && p.data.relationshipConfirmed && p.data.publicNameApproved)
-  .sort((a, b) => (a.data.homepagePriority ?? 10) - (b.data.homepagePriority ?? 10));
+const publishedPartners = allPartners.filter(
+  p => p.data.partnerPageEnabled && p.data.relationshipConfirmed && p.data.publicNameApproved
+);
 
-const categories = [
-  'All Disciplines',
-  'Infrastructure & Cloud',
-  'Network & Connectivity',
-  'Security',
-  'Managed Operations',
-  'Virtualization',
-  'AI & Transformation'
+// Map partners into authoritative discipline groups per Part XVI
+const disciplines = [
+  {
+    id: "infrastructure-cloud",
+    number: "01",
+    name: "Infrastructure & Cloud",
+    scope: "Dedicated compute, hypervisors, bare-metal clusters, and distributed edge infrastructure.",
+    partners: publishedPartners.filter(p => ['gcore', 'zenlayer'].includes(p.slug))
+  },
+  {
+    id: "security",
+    number: "02",
+    name: "Defensive & Routing Security",
+    scope: "BGP-based volumetric scrubbing, real-time FlowSpec telemetry, and automated route diversion.",
+    partners: publishedPartners.filter(p => ['fastnetmon', 'stormwall'].includes(p.slug))
+  },
+  {
+    id: "network-resources",
+    number: "03",
+    name: "Network & IP Resources",
+    scope: "IPv4 address leasing, transfer governance, RPKI validation, and address monetization.",
+    partners: publishedPartners.filter(p => p.slug === 'ipxo')
+  },
+  {
+    id: "virtualization",
+    number: "04",
+    name: "Virtualization Architecture",
+    scope: "Enterprise open-source hypervisors, VMware migration paths, backup, and cluster replication.",
+    partners: publishedPartners.filter(p => p.slug === 'vates')
+  },
+  {
+    id: "managed-operations",
+    number: "05",
+    name: "Managed Network Operations",
+    scope: "24/7 Tier-3 NOC engineering, automated incident response, DevOps, and NetOps triage.",
+    partners: publishedPartners.filter(p => p.slug === 'itcare')
+  },
+  {
+    id: "technology-decision",
+    number: "06",
+    name: "Technology Decision Support",
+    scope: "Market mapping, vendor due diligence, build-vs-buy analysis, and practitioner evidence.",
+    partners: publishedPartners.filter(p => p.slug === 'airframe')
+  }
 ];
 ---
 
 <Layout 
-  title="Our Partner Ecosystem — Infrastructure & Technology Specialists"
-  description="Explore InfraHub's partner ecosystem across cloud, connectivity, DDoS security, IPv4, virtualization, network operations, and AI transformation."
+  title="Specialist Partner Ecosystem — Infrastructure Field Guide"
+  description="Explore InfraHub's curated partner ecosystem across cloud compute, DDoS protection, IPv4 leasing, virtualization, 24/7 NOC operations, and technology diligence."
   canonicalPath="/partners"
 >
-  <div class="partners-page-wrapper">
-    <div class="container partners-container">
+  <div class="ledger-page-wrapper">
+    <div class="container ledger-container">
       
       <!-- Editorial Header -->
-      <header class="catalog-header">
-        <span class="catalog-kicker">Specialist partner ecosystem</span>
-        <h1 class="catalog-title">Infrastructure and technology specialists.<br />Connected through InfraHub.</h1>
-        <p class="catalog-lead">
-          InfraHub works with specialist infrastructure operators, software vendors, and technology platforms. We start with the buyer's requirement, then identify where a partner's actual capabilities fit.
+      <header class="ledger-header">
+        <div class="ledger-kicker-row">
+          <span class="routing-junction" aria-hidden="true"></span>
+          <span class="ledger-kicker">INFRASTRUCTURE ECOSYSTEM // DIRECTORY LEDGER</span>
+        </div>
+        <h1 class="ledger-title">Infrastructure and technology specialists.<br />Connected through InfraHub.</h1>
+        <p class="ledger-lead measure-lead">
+          InfraHub works with specialist infrastructure operators, software vendors, and technical platforms. We qualify buyer requirements first, then identify where each partner's verified capabilities fit without retail sales markups.
         </p>
       </header>
 
-      <!-- Category Filter Tabs -->
-      <nav class="category-filter-nav" aria-label="Partner Categories">
-        {categories.map((cat, idx) => (
-          <button 
-            type="button" 
-            class={`category-tab ${idx === 0 ? 'active' : ''}`}
-            data-category={cat === 'All Disciplines' ? 'all' : cat}
-          >
-            {cat}
-          </button>
-        ))}
-      </nav>
-
-      <!-- Partners Directory Grid -->
-      <div class="partners-directory-grid" id="partners-grid">
-        {publishedPartners.map((partner, idx) => (
-          <article class="partner-dir-card" data-category={partner.data.category}>
-            <div class="partner-dir-top">
-              <div class="partner-brand-area">
-                {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
-                  <img 
-                    src={partner.data.logo} 
-                    alt={`${partner.data.name} logo`} 
-                    class="partner-card-logo"
-                    loading={idx === 0 ? "eager" : "lazy"}
-                    width="120"
-                    height="28"
-                  />
-                ) : (
-                  <div class="partner-text-mark">
-                    <span class="partner-name">{partner.data.name}</span>
-                    {partner.data.shortRole && <span class="partner-role">{partner.data.shortRole}</span>}
-                  </div>
-                )}
+      <!-- Editorial Ecosystem Ledger (No Generic Card Grid) -->
+      <div class="ecosystem-ledger">
+        {disciplines.map(discipline => (
+          <section class="discipline-section" id={discipline.id}>
+            <!-- Discipline Group Header -->
+            <div class="discipline-header-row">
+              <div class="discipline-label-col">
+                <span class="discipline-index">{discipline.number}</span>
+                <h2 class="discipline-name">{discipline.name}</h2>
               </div>
-              <span class="partner-category-pill">{partner.data.category}</span>
+              <p class="discipline-scope measure-technical">{discipline.scope}</p>
             </div>
 
-            <div class="partner-dir-body">
-              <h2 class="partner-headline">
-                <a href={`/partners/${partner.slug}`}>{partner.data.name}</a>
-              </h2>
-              <p class="partner-tagline">{partner.data.tagline}</p>
-              
-              <ul class="partner-caps-list">
-                {partner.data.capabilities.slice(0, 3).map(cap => (
-                  <li>{cap}</li>
-                ))}
-              </ul>
-            </div>
+            <!-- Ledger Entries Table -->
+            <div class="ledger-entries-list">
+              {discipline.partners.map((partner, pIdx) => (
+                <article class="ledger-row-item">
+                  
+                  <!-- Column 1: Brand & Identity -->
+                  <div class="ledger-col-brand">
+                    <a href={`/partners/${partner.slug}`} class="partner-logo-anchor" aria-label={`${partner.data.name} profile`}>
+                      {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
+                        <img 
+                          src={partner.data.logo} 
+                          alt={`${partner.data.name} logo`} 
+                          class="ledger-partner-logo"
+                          loading={discipline.number === "01" && pIdx === 0 ? "eager" : "lazy"}
+                          width="130"
+                          height="30"
+                        />
+                      ) : (
+                        <span class="ledger-text-logo">{partner.data.name}</span>
+                      )}
+                    </a>
+                    <a 
+                      href={partner.data.officialWebsite} 
+                      class="partner-ext-link" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      title={`Visit ${partner.data.name} corporate site`}
+                    >
+                      <span>{partner.data.officialWebsite.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</span>
+                      <span class="ext-arrow" aria-hidden="true">&nearr;</span>
+                    </a>
+                  </div>
 
-            <div class="partner-dir-footer">
-              <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm">
-                <span>View Partner Profile</span>
-              </a>
-              <a href={partner.data.officialWebsite} class="partner-discuss-link" target="_blank" rel="noopener noreferrer">
-                <span>Official Website</span>
-                <span class="link-arrow" aria-hidden="true">&nearr;</span>
-              </a>
+                  <!-- Column 2: Architectural Scope & Context -->
+                  <div class="ledger-col-content">
+                    <div class="partner-headline-row">
+                      <h3 class="partner-title">
+                        <a href={`/partners/${partner.slug}`}>{partner.data.name}</a>
+                      </h3>
+                      <span class="partner-short-role">{partner.data.shortRole || partner.data.tagline}</span>
+                    </div>
+                    <p class="partner-narrative measure-technical">
+                      {partner.data.tagline}. Aligned to enterprise workloads requiring verified operational depth, transparent commercial commitments, and technical precision.
+                    </p>
+                    
+                    <div class="capabilities-inline">
+                      <span class="caps-label">Verified Scope:</span>
+                      <ul class="caps-inline-list">
+                        {partner.data.capabilities.slice(0, 3).map((cap, cIdx) => (
+                          <li>
+                            {cap}{cIdx < 2 ? <span class="cap-sep" aria-hidden="true">·</span> : null}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Column 3: Navigation Actions -->
+                  <div class="ledger-col-actions">
+                    <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm ledger-profile-btn">
+                      <span>Technical Scope &rarr;</span>
+                    </a>
+                    <a href={`/lets-talk?partner=${partner.slug}`} class="ledger-inquire-link">
+                      <span>Inquire Sourcing</span>
+                    </a>
+                  </div>
+
+                </article>
+              ))}
             </div>
-          </article>
+          </section>
         ))}
       </div>
 
       <!-- Sourcing Inquiry Band -->
-      <section class="partners-inquiry-band">
-        <div class="inquiry-content">
-          <h2 class="inquiry-title">Join the InfraHub sourcing ecosystem</h2>
-          <p class="inquiry-desc">
-            Do you provide specialist infrastructure, networking, security, cloud, virtualization, managed operations, or enterprise technology capabilities?
-          </p>
+      <section class="ledger-inquiry-band">
+        <div class="inquiry-inner">
+          <div class="inquiry-text-col">
+            <span class="inquiry-kicker">ECOSYSTEM ADVISORY</span>
+            <h2 class="inquiry-title">Need guidance on provider selection?</h2>
+            <p class="inquiry-desc measure-lead">
+              Our advisory desk benchmarks requirements across independent carriers, colocation operators, and technology vendors. We evaluate pricing, physical routing, and technical SLAs with zero broker markup.
+            </p>
+          </div>
+          <div class="inquiry-action-col">
+            <a href="/lets-talk?service=advisory" class="btn btn-accent btn-lg">
+              <span>Consult an Infrastructure Architect</span>
+            </a>
+          </div>
         </div>
-        <a href="mailto:partners@infrahub.tech" class="btn btn-secondary">
-          <span>Inquire About Onboarding</span>
-        </a>
       </section>
 
     </div>
@@ -120,313 +187,334 @@ const categories = [
 </Layout>
 
 <style>
-  .partners-page-wrapper {
-    background-color: #ffffff;
-    padding: 72px 0 96px;
+  .ledger-page-wrapper {
+    background-color: var(--bg-primary);
+    padding: 48px 0 96px;
   }
 
-  .partners-container {
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
+  .ledger-container {
+    max-width: var(--max-width);
   }
 
-  .catalog-header {
-    max-width: 820px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  /* Header */
+  .ledger-header {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 40px;
+    margin-bottom: 56px;
   }
 
-  .catalog-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--accent-blue);
-  }
-
-  .catalog-title {
-    font-size: clamp(2.4rem, 4.4vw, 3.4rem);
-    font-weight: 800;
-    line-height: 1.24;
-    letter-spacing: -0.03em;
-    color: var(--text-primary);
-  }
-
-  .catalog-lead {
-    font-size: 1.15rem;
-    line-height: 1.65;
-    color: var(--text-secondary);
-    max-width: 48ch;
-  }
-
-  /* Filter Tabs */
-  .category-filter-nav {
+  .ledger-kicker-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding-bottom: 8px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
   }
 
-  .category-tab {
-    background: #f8fafc;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 8px 16px;
-    font-family: var(--font-heading);
-    font-size: 0.88rem;
+  .ledger-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
     font-weight: 600;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
   }
 
-  .category-tab:hover {
+  .ledger-title {
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
-    border-color: #cbd5e1;
+    margin: 0 0 20px;
   }
 
-  .category-tab.active {
-    background: #0f172a;
-    color: #ffffff;
-    border-color: #0f172a;
+  .ledger-lead {
+    font-size: 1.12rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin: 0;
   }
 
-  /* Partners Directory Grid */
-  .partners-directory-grid {
+  /* Discipline Groups */
+  .discipline-section {
+    margin-bottom: 64px;
+    border-top: 2px solid var(--text-primary);
+    padding-top: 24px;
+  }
+
+  .discipline-header-row {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 12px;
+    margin-bottom: 24px;
+    align-items: baseline;
   }
 
-  @media (min-width: 768px) {
-    .partners-directory-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
-    }
-  }
-
-  .partner-dir-card {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 24px;
-    transition: border-color 160ms ease, transform 160ms ease;
-  }
-
-  .partner-dir-card:hover {
-    border-color: var(--accent-blue);
-    transform: translateY(-2px);
-  }
-
-  .partner-dir-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 18px;
-  }
-
-  .partner-card-logo {
-    height: 24px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  .partner-text-mark {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .partner-name {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    line-height: 1.2;
-  }
-
-  .partner-role {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #64748b;
-    letter-spacing: 0.01em;
-    margin-top: 2px;
-  }
-
-  .partner-category-pill {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #475569;
-    background: #f1f5f9;
-    padding: 4px 10px;
-    border-radius: 4px;
-  }
-
-  .partner-dir-body {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    flex-grow: 1;
-  }
-
-  .partner-headline {
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-
-  .partner-headline a {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color 160ms ease;
-  }
-
-  .partner-headline a:hover {
-    color: var(--accent-blue);
-  }
-
-  .partner-tagline {
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-
-  .partner-caps-list {
-    list-style: none;
-    padding: 0;
-    margin: 4px 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .partner-caps-list li {
-    font-size: 0.88rem;
-    line-height: 1.5;
-    color: #475569;
-    position: relative;
-    padding-left: 18px;
-  }
-
-  .partner-caps-list li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--accent-blue);
-    font-weight: bold;
-  }
-
-  .partner-dir-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding-top: 18px;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .partner-discuss-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 160ms ease;
-  }
-
-  .partner-discuss-link:hover {
-    color: var(--accent-blue);
-  }
-
-  .link-arrow {
-    transition: transform 160ms ease;
-    display: inline-block;
-  }
-
-  .partner-discuss-link:hover .link-arrow {
-    transform: translate(2px, -2px);
-  }
-
-  /* Inquiry Band */
-  .partners-inquiry-band {
-    background: #0b1120;
-    color: #ffffff;
-    border-radius: var(--radius-md);
-    padding: 44px 36px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: flex-start;
-  }
-
-  @media (min-width: 860px) {
-    .partners-inquiry-band {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+  @media (min-width: 900px) {
+    .discipline-header-row {
+      grid-template-columns: 320px 1fr;
       gap: 40px;
     }
   }
 
-  .inquiry-content {
+  .discipline-label-col {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .discipline-index {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  .discipline-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .discipline-scope {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Ledger Entries Table / List */
+  .ledger-entries-list {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .ledger-row-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 160ms var(--ease-out);
+  }
+
+  @media (min-width: 900px) {
+    .ledger-row-item {
+      grid-template-columns: 220px 1fr 180px;
+      gap: 36px;
+      align-items: start;
+    }
+  }
+
+  /* Brand Column */
+  .ledger-col-brand {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    max-width: 600px;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .partner-logo-anchor {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+  }
+
+  .ledger-partner-logo {
+    height: 26px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .ledger-text-logo {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .partner-ext-link {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 120ms var(--ease-out);
+  }
+
+  .partner-ext-link:hover {
+    color: var(--accent-blue);
+  }
+
+  .ext-arrow {
+    font-size: 0.82rem;
+  }
+
+  /* Content Column */
+  .ledger-col-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .partner-headline-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px 16px;
+  }
+
+  .partner-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .partner-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .partner-title a:hover {
+    color: var(--accent-blue);
+  }
+
+  .partner-short-role {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-blue);
+    font-weight: 500;
+  }
+
+  .partner-narrative {
+    font-size: 0.94rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .capabilities-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: baseline;
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+
+  .caps-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .caps-inline-list {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .cap-sep {
+    color: var(--border-color);
+    margin-left: 10px;
+  }
+
+  /* Actions Column */
+  .ledger-col-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    .ledger-col-actions {
+      align-items: flex-end;
+    }
+  }
+
+  .ledger-profile-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (min-width: 900px) {
+    .ledger-profile-btn {
+      width: auto;
+    }
+  }
+
+  .ledger-inquire-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 120ms var(--ease-out);
+  }
+
+  .ledger-inquire-link:hover {
+    color: var(--accent-blue);
+  }
+
+  /* Inquiry Band */
+  .ledger-inquiry-band {
+    margin-top: 80px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent-blue);
+    padding: 40px;
+    border-radius: var(--radius-sm);
+  }
+
+  .inquiry-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .inquiry-inner {
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+    }
+  }
+
+  .inquiry-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    display: block;
+    margin-bottom: 8px;
   }
 
   .inquiry-title {
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 10px;
   }
 
   .inquiry-desc {
     font-size: 0.98rem;
+    color: var(--text-secondary);
     line-height: 1.6;
-    color: #cbd5e1;
+    margin: 0;
   }
 </style>
-
-<script>
-  function setupCategoryFilters() {
-    const tabs = document.querySelectorAll<HTMLButtonElement>('.category-tab');
-    const cards = document.querySelectorAll<HTMLElement>('.partner-dir-card');
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const cat = tab.getAttribute('data-category');
-        cards.forEach(card => {
-          if (cat === 'all' || card.getAttribute('data-category') === cat) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', setupCategoryFilters);
-</script>

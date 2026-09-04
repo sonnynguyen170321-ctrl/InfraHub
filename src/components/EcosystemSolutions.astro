@@ -1,25 +1,29 @@
 ---
-// src/components/EcosystemSolutions.astro
+// src/components/EcosystemSolutions.astro — Solution Discovery (Part XXVI: Left/Center/Right Architectural Discovery)
 const solutionFamilies = [
   {
     id: "infrastructure",
+    index: "01",
     name: "Infrastructure & Compute",
-    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade hardware sourcing.",
+    discipline: "Hardware & Facilities",
+    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade hardware sourcing without hyperscaler lock-in.",
     image: "/images/hero-datacenter.jpg",
     imageAlt: "Enterprise datacenter server racks with precision cooling",
     ctaLink: "/solutions/infrastructure",
     services: [
-      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom storage and memory options" },
-      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare metal clusters and dedicated hypervisors" },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "High-density GPU accelerators for compute and AI workloads" },
-      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Certified enterprise servers, optical modules, and routing hardware" },
-      { name: "Colocation", url: "/colocation", desc: "Fractional racks, private cages, and wholesale suites" }
+      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom NVMe storage and ECC RAM" },
+      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare-metal clusters and dedicated private hypervisors" },
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "High-density NVIDIA H100 and L40S accelerators for AI training" },
+      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Certified enterprise routing, switching, and optical transceivers" },
+      { name: "Colocation", url: "/colocation", desc: "Fractional racks, private cages, and wholesale suites in primary MMRs" }
     ]
   },
   {
     id: "cloud",
+    index: "02",
     name: "Cloud & Virtualization",
-    summary: "European private cloud deployments, VMware licensing alternatives, managed containers, and disaster recovery.",
+    discipline: "Hypervisors & Sovereignty",
+    summary: "European private cloud deployments, VMware licensing alternatives, managed containers, and off-site disaster recovery architectures.",
     image: "/images/cloud-compute.jpg",
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
@@ -32,7 +36,9 @@ const solutionFamilies = [
   },
   {
     id: "network",
+    index: "03",
     name: "Network & Connectivity",
+    discipline: "Optical & Transit Routing",
     summary: "High-bandwidth upstream IP transit, dedicated metro wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
     image: "/images/network-fiber.jpg",
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
@@ -42,27 +48,31 @@ const solutionFamilies = [
       { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths across major metros" },
       { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro DCI interconnects" },
       { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Private direct-connect bypass to cloud access points" },
-      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "RIPE and ARIN IPv4 subnet leasing and transfer support" }
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "RIPE and ARIN IPv4 subnet leasing and transfer governance" }
     ]
   },
   {
     id: "security",
+    index: "04",
     name: "Security & Telemetry",
-    summary: "DDoS mitigation, real-time BGP routing telemetry, automated flow filtering, and perimeter security.",
+    discipline: "Defensive Control Plane",
+    summary: "BGP DDoS mitigation, near-real-time flow telemetry, automated FlowSpec filtering, and perimeter security assessments.",
     image: "/images/security-operations.jpg",
     imageAlt: "Network operations security monitoring console and BGP telemetry",
     ctaLink: "/solutions/security",
     services: [
       { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing through specialized scrubbing networks" },
-      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon real-time FlowSpec and automated diversion triggers" },
+      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon near-real-time FlowSpec and automated diversion triggers" },
       { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Path telemetry and automated routing optimization" },
       { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter defense and managed security capabilities" }
     ]
   },
   {
     id: "managed",
+    index: "05",
     name: "Managed Operations",
-    summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure desks.",
+    discipline: "NOC & Engineering Sourcing",
+    summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure operations support.",
     image: "/images/managed-noc.jpg",
     imageAlt: "24/7 carrier Network Operations Center control room",
     ctaLink: "/solutions/managed-services",
@@ -76,79 +86,100 @@ const solutionFamilies = [
 ];
 ---
 
-<section class="section section-solutions" id="solutions-ecosystem">
-  <div class="container">
+<section class="section section-solutions" id="solutions-ecosystem" aria-label="Solutions by Discipline">
+  <div class="container solutions-container">
     
-    <!-- Editorial Header (No Eyebrow) -->
+    <!-- Section Header (Clean Editorial Field Guide) -->
     <div class="solutions-header">
+      <div class="solutions-kicker-row">
+        <span class="routing-junction" aria-hidden="true"></span>
+        <span class="solutions-kicker">INFRASTRUCTURE FIELD GUIDE // DISCIPLINES</span>
+      </div>
       <h2 class="solutions-title">Start with the requirement.</h2>
-      <p class="solutions-subhead">
+      <p class="solutions-subhead measure-lead">
         You do not need the provider or product figured out first. Explore by discipline or discuss your operational constraints directly with our advisory desk.
       </p>
     </div>
 
-    <!-- Editorial Solution Selector (Desktop) -->
-    <div class="selector-desktop" id="solutionSelector">
+    <!-- Desktop 3-Column Architectural Discovery (Part XXVI: Left/Center/Right) -->
+    <div class="discovery-triad-desktop" id="solutionDiscovery">
       
-      <!-- Left Column: Navigation Items (No blue 3px rail, typographic active state) -->
-      <nav class="selector-nav" role="tablist" aria-label="Infrastructure Disciplines">
+      <!-- Left Column: Typographic Discipline Index -->
+      <nav class="triad-col-disciplines" role="tablist" aria-label="Infrastructure Disciplines">
         {solutionFamilies.map((family, idx) => (
           <button 
             role="tab"
-            class={`selector-tab ${idx === 0 ? 'active' : ''}`}
+            class={`discipline-tab-btn ${idx === 0 ? 'active' : ''}`}
             id={`tab-${family.id}`}
             aria-selected={idx === 0 ? "true" : "false"}
             aria-controls={`panel-${family.id}`}
             data-target={family.id}
           >
-            <span class="tab-title">{family.name}</span>
+            <div class="tab-index-row">
+              <span class="tab-num">{family.index}</span>
+              <span class="tab-discipline-kicker">{family.discipline}</span>
+            </div>
+            <span class="tab-name">{family.name}</span>
           </button>
         ))}
       </nav>
 
-      <!-- Right Column: Active Content Panels -->
-      <div class="selector-panels">
+      <!-- Center Column: Authentic Documentary Visual -->
+      <div class="triad-col-visual">
+        {solutionFamilies.map((family, idx) => (
+          <div 
+            class={`visual-frame ${idx === 0 ? 'active' : ''}`}
+            id={`visual-${family.id}`}
+            aria-hidden={idx !== 0 ? "true" : "false"}
+          >
+            <img 
+              src={family.image} 
+              alt={family.imageAlt} 
+              class="visual-img"
+              loading="lazy"
+              width="680"
+              height="440"
+            />
+            <div class="visual-caption">
+              <span class="caption-marker" aria-hidden="true"></span>
+              <span class="caption-text">{family.imageAlt}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Right Column: Concise Explanation & Service Routes -->
+      <div class="triad-col-services">
         {solutionFamilies.map((family, idx) => (
           <div 
             role="tabpanel"
-            class={`selector-panel ${idx === 0 ? 'active' : ''}`}
+            class={`services-panel ${idx === 0 ? 'active' : ''}`}
             id={`panel-${family.id}`}
             aria-labelledby={`tab-${family.id}`}
             hidden={idx !== 0}
           >
-            <!-- Panel Photography -->
-            <div class="panel-visual">
-              <img 
-                src={family.image} 
-                alt={family.imageAlt} 
-                class="panel-img"
-                loading="lazy"
-                width="720"
-                height="400"
-              />
+            <div class="panel-header">
+              <span class="panel-kicker">DISCIPLINE OVERVIEW</span>
+              <h3 class="panel-title">{family.name}</h3>
+              <p class="panel-summary measure-compact">{family.summary}</p>
             </div>
 
-            <!-- Panel Details & Service List -->
-            <div class="panel-details">
-              <p class="panel-summary">{family.summary}</p>
-              
-              <div class="service-links-list">
-                {family.services.map(svc => (
-                  <a href={svc.url} class="service-row-item">
-                    <div class="service-meta">
-                      <span class="service-name">{svc.name}</span>
-                      <span class="service-desc">{svc.desc}</span>
-                    </div>
-                    <span class="service-arrow" aria-hidden="true">&rarr;</span>
-                  </a>
-                ))}
-              </div>
-
-              <div class="panel-action">
-                <a href={family.ctaLink} class="btn btn-secondary btn-sm">
-                  <span>Explore {family.name} Solutions</span>
+            <div class="service-routes-list">
+              {family.services.map(svc => (
+                <a href={svc.url} class="service-route-link">
+                  <div class="route-info">
+                    <span class="route-name">{svc.name}</span>
+                    <span class="route-desc">{svc.desc}</span>
+                  </div>
+                  <span class="route-arrow" aria-hidden="true">&rarr;</span>
                 </a>
-              </div>
+              ))}
+            </div>
+
+            <div class="panel-footer">
+              <a href={family.ctaLink} class="btn btn-secondary btn-sm">
+                <span>Explore {family.name} Overview &rarr;</span>
+              </a>
             </div>
           </div>
         ))}
@@ -156,41 +187,34 @@ const solutionFamilies = [
 
     </div>
 
-    <!-- Mobile Clean Accordion (No nested card surfaces) -->
-    <div class="solutions-accordion-mobile">
+    <!-- Mobile Architectural Accordion (No horizontal mini tabs) -->
+    <div class="discovery-mobile-accordion">
       {solutionFamilies.map((family, idx) => (
-        <details class="accordion-item" open={idx === 0}>
-          <summary class="accordion-summary">
-            <span class="accordion-title">{family.name}</span>
-            <span class="accordion-icon" aria-hidden="true">+</span>
+        <details class="mobile-discipline-item" open={idx === 0}>
+          <summary class="mobile-summary">
+            <span class="mobile-num">{family.index}</span>
+            <span class="mobile-name">{family.name}</span>
+            <span class="mobile-icon" aria-hidden="true">+</span>
           </summary>
-          <div class="accordion-body">
-            <div class="accordion-visual">
+          <div class="mobile-content-body">
+            <div class="mobile-img-wrapper">
               <img 
                 src={family.image} 
                 alt={family.imageAlt} 
-                class="panel-img"
+                class="mobile-img"
                 loading="lazy"
-                width="600"
-                height="320"
+                width="400"
+                height="220"
               />
             </div>
-            <p class="accordion-summary-text">{family.summary}</p>
-            <div class="accordion-services">
+            <p class="mobile-summary-text">{family.summary}</p>
+            <div class="mobile-links-list">
               {family.services.map(svc => (
-                <a href={svc.url} class="service-row-item">
-                  <div class="service-meta">
-                    <span class="service-name">{svc.name}</span>
-                    <span class="service-desc">{svc.desc}</span>
-                  </div>
-                  <span class="service-arrow" aria-hidden="true">&rarr;</span>
+                <a href={svc.url} class="mobile-link-row">
+                  <span class="mobile-svc-name">{svc.name}</span>
+                  <span class="mobile-svc-arrow" aria-hidden="true">&rarr;</span>
                 </a>
               ))}
-            </div>
-            <div class="accordion-cta">
-              <a href={family.ctaLink} class="btn btn-secondary btn-sm">
-                <span>Explore {family.name} Solutions</span>
-              </a>
             </div>
           </div>
         </details>
@@ -202,284 +226,438 @@ const solutionFamilies = [
 
 <style>
   .section-solutions {
-    background-color: #ffffff;
-    padding: 96px 0;
+    background-color: var(--bg-primary);
+    padding: 80px 0;
     border-bottom: 1px solid var(--border-color);
   }
 
-  /* Editorial Header (No Eyebrow) */
-  .solutions-header {
-    max-width: 760px;
-    margin-bottom: 56px;
-  }
-  .solutions-title {
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
-    font-weight: 800;
-    line-height: 1.24;
-    letter-spacing: -0.03em;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-  }
-  .solutions-subhead {
-    font-size: 1.12rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+  .solutions-container {
+    max-width: var(--max-width);
   }
 
-  /* Desktop Selector: Open, Architectural, No Outer Box */
-  .selector-desktop {
+  /* Header */
+  .solutions-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+
+  .solutions-kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .solutions-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+
+  .solutions-title {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 0 0 16px;
+  }
+
+  .solutions-subhead {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Desktop 3-Column Triad */
+  .discovery-triad-desktop {
     display: none;
   }
-  @media (min-width: 960px) {
-    .selector-desktop {
+
+  @media (min-width: 980px) {
+    .discovery-triad-desktop {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 56px;
+      grid-template-columns: 300px 1fr 340px;
+      gap: 36px;
       align-items: start;
+      min-height: 520px;
     }
   }
 
-  /* Left Navigation Tabs (Typographic, Open) */
-  .selector-nav {
+  /* Column 1: Disciplines Navigation */
+  .triad-col-disciplines {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border-color);
+    gap: 2px;
+    border-right: 1px solid var(--border-color);
+    padding-right: 28px;
   }
-  .selector-tab {
+
+  .discipline-tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 16px;
+    background: transparent;
+    border: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out);
+    border-radius: var(--radius-sm);
+  }
+
+  .discipline-tab-btn:hover {
+    background-color: var(--bg-secondary);
+  }
+
+  .discipline-tab-btn.active {
+    background-color: var(--bg-secondary);
+    border-left-color: var(--accent-blue);
+  }
+
+  .tab-index-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-    background: transparent;
-    color: #475569;
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: color 160ms ease;
+    gap: 8px;
+    margin-bottom: 4px;
   }
-  .selector-tab:hover {
-    color: var(--text-primary);
-  }
-  .selector-tab.active {
+
+  .tab-num {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
     color: var(--accent-blue);
-    font-weight: 800;
+    font-weight: 600;
   }
 
-  /* Right Panels */
-  .selector-panels {
-    min-height: 480px;
+  .tab-discipline-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
-  .selector-panel {
+
+  .tab-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .discipline-tab-btn.active .tab-name {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  /* Column 2: Center Visual */
+  .triad-col-visual {
+    position: relative;
+    height: 100%;
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .visual-frame {
     display: none;
-  }
-  .selector-panel.active {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
+    flex-direction: column;
+    height: 100%;
   }
 
-  .panel-visual {
-    overflow: hidden;
-    border-radius: var(--radius-md);
+  .visual-frame.active {
+    display: flex;
+    animation: fadeIn 200ms var(--ease-out);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .visual-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    display: block;
+  }
+
+  .visual-caption {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .caption-marker {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-blue);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  .caption-text {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* Column 3: Services & Context */
+  .triad-col-services {
+    position: relative;
+    border-left: 1px solid var(--border-color);
+    padding-left: 28px;
+  }
+
+  .services-panel {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .services-panel.active {
+    display: flex;
+    animation: fadeIn 200ms var(--ease-out);
+  }
+
+  .panel-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+  }
+
+  .panel-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .panel-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 6px;
+  }
+
+  .panel-summary {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .service-routes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .service-route-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-  }
-  .panel-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    aspect-ratio: 16 / 10;
-  }
-
-  .panel-details {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .panel-summary {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border-color);
-    max-width: 58ch;
-  }
-
-  /* Service Rows (Clean dividers, no cards) */
-  .service-links-list,
-  .accordion-services {
-    display: flex;
-    flex-direction: column;
-  }
-  .service-row-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
     text-decoration: none;
-    transition: transform 160ms ease;
+    transition: background-color 140ms var(--ease-out), border-color 140ms var(--ease-out), transform 140ms var(--ease-out);
   }
-  .service-row-item:last-child {
-    border-bottom: none;
+
+  .service-route-link:hover {
+    background-color: #ffffff;
+    border-color: var(--accent-blue);
+    transform: translateX(2px);
   }
-  .service-row-item:hover {
-    transform: translateX(3px);
-  }
-  .service-meta {
+
+  .route-info {
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
-  .service-name {
-    font-size: 0.95rem;
-    font-weight: 700;
+
+  .route-name {
+    font-size: 0.88rem;
+    font-weight: 600;
     color: var(--text-primary);
-    transition: color 160ms ease;
-  }
-  .service-row-item:hover .service-name {
-    color: var(--accent-blue);
-  }
-  .service-desc {
-    font-size: 0.85rem;
-    color: #475569;
-    line-height: 1.45;
-  }
-  .service-arrow {
-    font-size: 1.1rem;
-    color: var(--accent-blue);
-    opacity: 0;
-    transform: translateX(-6px);
-    transition: opacity 160ms ease, transform 160ms ease;
-  }
-  .service-row-item:hover .service-arrow {
-    opacity: 1;
-    transform: translateX(0);
   }
 
-  .panel-action {
-    padding-top: 8px;
+  .route-desc {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.35;
   }
 
-  /* Mobile Clean Accordion */
-  .solutions-accordion-mobile {
+  .route-arrow {
+    font-size: 0.88rem;
+    color: var(--accent-blue);
+    margin-left: 12px;
+    flex-shrink: 0;
+  }
+
+  .panel-footer {
+    margin-top: 4px;
+  }
+
+  /* Mobile Architectural Accordion */
+  .discovery-mobile-accordion {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border-color);
+    gap: 12px;
   }
-  @media (min-width: 960px) {
-    .solutions-accordion-mobile {
+
+  @media (min-width: 980px) {
+    .discovery-mobile-accordion {
       display: none;
     }
   }
 
-  .accordion-item {
-    border-bottom: 1px solid var(--border-color);
+  .mobile-discipline-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-secondary);
+    overflow: hidden;
   }
-  .accordion-summary {
+
+  .mobile-summary {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
-    font-family: var(--font-heading);
-    font-size: 1.18rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    padding: 16px 18px;
     cursor: pointer;
     list-style: none;
+    font-weight: 600;
+    color: var(--text-primary);
   }
-  .accordion-summary::-webkit-details-marker {
+
+  .mobile-summary::-webkit-details-marker {
     display: none;
   }
-  .accordion-icon {
-    font-size: 1.4rem;
-    font-weight: 400;
+
+  .mobile-num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-blue);
+    margin-right: 12px;
+  }
+
+  .mobile-name {
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+
+  .mobile-icon {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
     color: var(--text-muted);
-    transition: transform 200ms ease;
   }
-  details[open] .accordion-icon {
-    transform: rotate(45deg);
+
+  .mobile-content-body {
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 8px;
   }
-  .accordion-body {
-    padding: 0 0 24px;
+
+  .mobile-img-wrapper {
+    margin: 14px 0;
+  }
+
+  .mobile-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
+
+  .mobile-summary-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .mobile-links-list {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 8px;
   }
-  .accordion-visual {
-    overflow: hidden;
-    border-radius: var(--radius-md);
+
+  .mobile-link-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #ffffff;
     border: 1px solid var(--border-color);
-  }
-  .accordion-summary-text {
-    font-size: 0.98rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-  }
-  .accordion-cta {
-    padding-top: 10px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-weight: 500;
   }
 </style>
 
 <script>
-  function setupSolutionSelector() {
-    const tabs = document.querySelectorAll<HTMLButtonElement>('.selector-tab');
-    const panels = document.querySelectorAll<HTMLElement>('.selector-panel');
+  // Solution Discovery Interactive Tab Switching
+  function setupSolutionDiscovery() {
+    const container = document.getElementById('solutionDiscovery');
+    if (!container) return;
 
-    tabs.forEach((tab) => {
+    const tabs = container.querySelectorAll('.discipline-tab-btn');
+    const visuals = container.querySelectorAll('.visual-frame');
+    const panels = container.querySelectorAll('.services-panel');
+
+    tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        const targetId = tab.getAttribute('data-target');
+        const target = tab.getAttribute('data-target');
 
-        // Deactivate all
+        // Update tabs
         tabs.forEach(t => {
           t.classList.remove('active');
           t.setAttribute('aria-selected', 'false');
         });
-        panels.forEach(p => {
-          p.classList.remove('active');
-          p.setAttribute('hidden', '');
-        });
-
-        // Activate selected
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
 
-        const activePanel = document.getElementById(`panel-${targetId}`);
-        if (activePanel) {
-          activePanel.classList.add('active');
-          activePanel.removeAttribute('hidden');
-        }
-      });
+        // Update visuals
+        visuals.forEach(v => {
+          v.classList.remove('active');
+          v.setAttribute('aria-hidden', 'true');
+          if (v.id === `visual-${target}`) {
+            v.classList.add('active');
+            v.setAttribute('aria-hidden', 'false');
+          }
+        });
 
-      // Keyboard navigation support
-      tab.addEventListener('keydown', (e) => {
-        const tabList = Array.from(tabs);
-        const index = tabList.indexOf(tab);
-
-        let newIndex: number | null = null;
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-          newIndex = (index + 1) % tabList.length;
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-          newIndex = (index - 1 + tabList.length) % tabList.length;
-        } else if (e.key === 'Home') {
-          newIndex = 0;
-        } else if (e.key === 'End') {
-          newIndex = tabList.length - 1;
-        }
-
-        if (newIndex !== null) {
-          e.preventDefault();
-          tabList[newIndex].focus();
-          tabList[newIndex].click();
-        }
+        // Update panels
+        panels.forEach(p => {
+          p.classList.remove('active');
+          p.setAttribute('hidden', '');
+          if (p.id === `panel-${target}`) {
+            p.classList.add('active');
+            p.removeAttribute('hidden');
+          }
+        });
       });
     });
   }
 
-  document.addEventListener('DOMContentLoaded', setupSolutionSelector);
+  // Initialize on load and on client-side navigation
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSolutionDiscovery);
+  } else {
+    setupSolutionDiscovery();
+  }
 </script>

@@ -3,63 +3,77 @@
    ========================================================================== */
 
 :root {
-  /* Colors */
+  /* Bespoke Mineral / Telecom Infrastructure Palette (Part VIII) */
+  --color-carbon: #091118;
+  --color-deep-navy: #0C1722;
+  --color-ink: #17212A;
+  --color-paper: #F4F5F1;
+  --color-mist: #E9ECE8;
+  --color-structural-grey: #D2D7D3;
+  --color-cobalt: #2854C7;
+  --color-cobalt-hover: #1E44A8;
+  --color-signal-teal: #087D79;
+  --color-route-amber: #B86B2B;
+
   --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --bg-tertiary: #f1f5f9;
-  --bg-dark: #0b1120;
-  --bg-dark-secondary: #0f172a;
-  --bg-dark-tertiary: #1e293b;
+  --bg-secondary: #F4F5F1;        /* Paper light surface */
+  --bg-tertiary: #E9ECE8;         /* Mist */
+  --bg-dark: #091118;             /* Carbon */
+  --bg-dark-secondary: #0C1722;   /* Deep Navy */
+  --bg-dark-tertiary: #17212A;    /* Ink */
   
-  --text-primary: #0f172a;    /* Deep slate */
-  --text-secondary: #334155;  /* Slate 700 - high contrast */
-  --text-muted: #64748b;     /* Slate 500 - WCAG AA compliant */
-  --text-on-dark: #f8fafc;
-  --text-on-dark-muted: #cbd5e1;
+  --text-primary: #091118;        /* Carbon black / deep ink */
+  --text-secondary: #2C3844;      /* High-contrast structural slate */
+  --text-muted: #5A6773;          /* Slate 500 - WCAG AA compliant */
+  --text-on-dark: #F4F5F1;
+  --text-on-dark-muted: #A6B4C0;
   
-  --accent-blue: #2563eb;     /* Deep Royal Blue */
-  --accent-blue-hover: #1d4ed8;
-  --accent-blue-light: #eff6ff;
+  --accent-blue: #2854C7;         /* InfraHub Cobalt */
+  --accent-blue-hover: #1E44A8;
+  --accent-blue-light: #EEF2FC;
   
-  --accent-cyan: #0284c7;     /* Precision Architectural Cyan */
-  --accent-cyan-hover: #0369a1;
-  --accent-cyan-light: #f0f9ff;
-  --accent-cyan-glow: #38bdf8;  /* Crisp dark-mode indicator */
+  --accent-cyan: #087D79;         /* Signal Teal */
+  --accent-cyan-hover: #066562;
+  --accent-cyan-light: #E6F4F3;
+  --accent-cyan-glow: #087D79;
 
-  --accent-amber: #d97706;    /* Operational Amber */
-  --accent-amber-light: #fef3c7;
+  --accent-amber: #B86B2B;        /* Route Amber */
+  --accent-amber-light: #FBF4EE;
 
-  /* Architectural aliases replacing generic AI teal */
   --accent-teal: var(--accent-cyan);
   --accent-teal-hover: var(--accent-cyan-hover);
   --accent-teal-light: var(--accent-cyan-light);
   
-  --border-color: #e2e8f0;
-  --border-color-active: #cbd5e1;
-  --border-dark: rgba(255, 255, 255, 0.1);
-  --border-dark-highlight: rgba(37, 99, 235, 0.4);
+  --border-color: #D2D7D3;        /* Structural Grey */
+  --border-color-active: #B0B8B2;
+  --border-dark: rgba(210, 215, 211, 0.15);
+  --border-dark-highlight: rgba(40, 84, 199, 0.5);
   
-  /* Typography */
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Typography — Engineering Literate (Part VI) */
+  --font-heading: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   
   /* Layout & Spacing */
-  --max-width: 1240px;
+  --max-width: 1280px;
   --header-height: 80px;
   
-  /* Effects */
-  --radius-sm: 3px;
-  --radius-md: 6px;
+  /* Restrained Radius Hierarchy (Part IX: 0px, 2px, 4px, 8px) */
+  --radius-sm: 2px;
+  --radius-md: 4px;
   --radius-lg: 8px;
-  --radius-xl: 10px;
-  --radius-pill: 4px;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.06);
-  --shadow-xl: 0 20px 40px rgba(15, 23, 42, 0.08);
-  --transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease, opacity 160ms ease;
-  --transition-fast: background-color 120ms ease, color 120ms ease, border-color 120ms ease, transform 120ms ease, opacity 120ms ease;
+  --radius-xl: 8px;
+  --radius-pill: 2px;
+  --shadow-sm: 0 1px 2px rgba(9, 17, 24, 0.04);
+  --shadow-md: 0 3px 8px rgba(9, 17, 24, 0.04);
+  --shadow-lg: 0 8px 20px rgba(9, 17, 24, 0.05);
+  --shadow-xl: 0 16px 32px rgba(9, 17, 24, 0.06);
+
+  /* Emil Kowalski Motion Easing Tokens (Part XXIII) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --transition: background-color 160ms var(--ease-out), color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 160ms var(--ease-out), opacity 160ms var(--ease-out);
+  --transition-fast: background-color 120ms var(--ease-out), color 120ms var(--ease-out), border-color 120ms var(--ease-out), transform 120ms var(--ease-out), opacity 120ms var(--ease-out);
 }
 
 *, *::before, *::after {
@@ -368,3 +382,55 @@ img {
   color: var(--text-secondary);
   line-height: 1.6;
 }
+
+/* ==========================================================================
+   THE ROUTING LINE — INFRAHUB SIGNATURE STRUCTURAL MOTIF (Part III)
+   ========================================================================== */
+.routing-line-horizontal {
+  height: 1px;
+  background-color: var(--border-color);
+  position: relative;
+  width: 100%;
+}
+
+.routing-line-horizontal::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  background: var(--accent-blue);
+  border-radius: var(--radius-sm);
+}
+
+.routing-junction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--accent-blue);
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-sm);
+}
+
+.routing-path-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent-blue);
+  background: var(--accent-blue-light);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Editorial Measure Classes (Part VII) */
+.measure-lead { max-width: 52ch; }
+.measure-technical { max-width: 65ch; }
+.measure-insight { max-width: 68ch; }
+.measure-compact { max-width: 44ch; }
