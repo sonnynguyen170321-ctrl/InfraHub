@@ -7,6 +7,7 @@ const now = new Date();
 const allOffers = await getCollection('offers');
 const activeOffers = allOffers
   .filter(o => {
+    if (!o.data.publicApproved) return false;
     if (o.data.status !== 'active') return false;
     if (o.data.expiryDate && now > o.data.expiryDate) return false;
     return true;
@@ -27,7 +28,7 @@ const activeOffers = allOffers
         <span class="offers-kicker">Commercial Sourcing Board</span>
         <h1 class="offers-title">Featured Infrastructure Offers</h1>
         <p class="offers-lead">
-          Current hardware stock, transit commitments, and specialist capacity allocations available directly through our partner ecosystem.
+          Current public opportunities that have cleared InfraHub's publication checks. Availability and commercial terms remain subject to the specific provider or supplier confirmation.
         </p>
       </header>
 
