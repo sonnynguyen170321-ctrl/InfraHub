@@ -1,4 +1,10 @@
 ---
+import { Image } from 'astro:assets';
+import infrastructureVisual from '../assets/hero-datacenter.jpg';
+import cloudVisual from '../assets/cloud-compute.jpg';
+import networkVisual from '../assets/network-fiber.jpg';
+import securityVisual from '../assets/security-operations.jpg';
+import managedVisual from '../assets/managed-noc.jpg';
 // src/components/EcosystemSolutions.astro — Solution Discovery (Part XXVI: Left/Center/Right Architectural Discovery)
 const solutionFamilies = [
   {
@@ -7,7 +13,7 @@ const solutionFamilies = [
     name: "Infrastructure & Compute",
     discipline: "Hardware & facilities",
     summary: "Dedicated compute, colocation, GPU infrastructure, and enterprise hardware sourcing matched to workload, facility, and commercial requirements.",
-    image: "/images/hero-datacenter.jpg",
+    image: infrastructureVisual,
     imageAlt: "Enterprise datacenter server racks with precision cooling",
     ctaLink: "/solutions/infrastructure",
     services: [
@@ -24,7 +30,7 @@ const solutionFamilies = [
     name: "Cloud & Virtualization",
     discipline: "Virtualization & data location",
     summary: "Private cloud, public-cloud integration, VMware alternatives, container platforms, backup, and hybrid infrastructure architectures.",
-    image: "/images/cloud-compute.jpg",
+    image: cloudVisual,
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
@@ -40,7 +46,7 @@ const solutionFamilies = [
     name: "Network & Connectivity",
     discipline: "Transit & optical",
     summary: "Upstream IP transit, dedicated wavelengths, Layer 2 Ethernet, cloud connectivity, IPv4 sourcing, and edge-network options.",
-    image: "/images/network-fiber.jpg",
+    image: networkVisual,
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
     ctaLink: "/solutions/network-connectivity",
     services: [
@@ -57,7 +63,7 @@ const solutionFamilies = [
     name: "Security & Telemetry",
     discipline: "DDoS mitigation & telemetry",
     summary: "BGP DDoS mitigation, near-real-time flow telemetry, automated FlowSpec filtering, and perimeter security assessments.",
-    image: "/images/security-operations.jpg",
+    image: securityVisual,
     imageAlt: "Network operations security monitoring console and BGP telemetry",
     ctaLink: "/solutions/security",
     services: [
@@ -73,7 +79,7 @@ const solutionFamilies = [
     name: "Managed Operations",
     discipline: "Operations & engineering",
     summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure operations support.",
-    image: "/images/managed-noc.jpg",
+    image: managedVisual,
     imageAlt: "Network operations control room with infrastructure monitoring displays",
     ctaLink: "/solutions/managed-services",
     services: [
@@ -192,13 +198,15 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
             id={`visual-${family.id}`}
             aria-hidden={idx !== 0 ? "true" : "false"}
           >
-            <img 
-              src={family.image} 
-              alt={family.imageAlt} 
+            <Image
+              src={family.image}
+              alt={family.imageAlt}
               class="visual-img"
               loading="lazy"
-              width="680"
-              height="440"
+              widths={[480, 760, 1100]}
+              sizes="(min-width: 980px) 46vw, 92vw"
+              quality={68}
+              format="webp"
             />
             <div class="visual-caption">
               <span class="caption-marker" aria-hidden="true"></span>
