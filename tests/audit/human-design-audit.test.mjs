@@ -11,7 +11,11 @@ let errors = [];
 const ecosystemFile = 'src/components/EcosystemSolutions.astro';
 if (fs.existsSync(ecosystemFile)) {
   const content = fs.readFileSync(ecosystemFile, 'utf8');
-  const imageMatches = [...content.matchAll(/image:\s*["']([^"']+)["']/g)].map(m => m[1]);
+  // The visuals moved from string paths to imported assets when they started going through
+  // astro:assets, so both shapes count: image: "/images/x.jpg" and image: xVisual.
+  const imageMatches = [...content.matchAll(/image:\s*(?:["']([^"']+)["']|([A-Za-z_$][\w$]*))/g)].map(
+    (m) => m[1] || m[2]
+  );
   const uniqueImages = new Set(imageMatches);
 
   if (imageMatches.length < 5) {

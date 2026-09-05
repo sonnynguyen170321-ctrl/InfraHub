@@ -16,7 +16,9 @@ import sharp from 'sharp';
 
 const DELIVERED = path.resolve('public/images/partners');
 const ORIGINALS = path.resolve('docs/brand-source/partners');
-const MAX_WIDTH = 1000;
+// Logos render at 156px wide in the ribbon and about 120px in the catalogue. 600px is a 2x
+// delivery copy with room to spare; the untouched originals stay in docs/brand-source.
+const MAX_WIDTH = 600;
 
 fs.mkdirSync(ORIGINALS, { recursive: true });
 

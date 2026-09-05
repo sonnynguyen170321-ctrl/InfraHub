@@ -1,6 +1,6 @@
 ---
 name: "Zenlayer"
-logo: "/images/partners/zenlayer.svg"
+logo: "/images/partners/zenlayer.png"
 officialWebsite: "https://www.zenlayer.com/"
 sourceUrls:
   - "https://www.zenlayer.com/"
