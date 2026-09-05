@@ -28,7 +28,7 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 8
 partnerPageEnabled: true
-logoScale: 1
+logoScale: 0.98
 decisionLayer:
   architectureTitle: "Technology Evaluation & Diligence Flow"
   architectureSubtitle: "From requirements and market mapping through evidence, comparison, and build-versus-buy decisions"

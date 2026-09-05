@@ -6,6 +6,10 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DIST_DIR = path.resolve(__dirname, '../../dist/client');
+const ARTIFACTS_DIR = path.resolve(__dirname, '../../test-results/audit');
+if (!fs.existsSync(ARTIFACTS_DIR)) {
+  fs.mkdirSync(ARTIFACTS_DIR, { recursive: true });
+}
 
 // Playwright comes from this project's own devDependency. The previous absolute import
 // pointed at another checkout on one machine, so this audit could not run anywhere else.
@@ -112,8 +116,9 @@ try {
 
 
   const headerElem = page.locator('.site-header');
-  await headerElem.screenshot({ path: 'dist/client/audit_header.png' });
-  auditResults.screenshotsTaken.push('dist/client/audit_header.png');
+  const headerScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_header.png');
+  await headerElem.screenshot({ path: headerScreenshotPath });
+  auditResults.screenshotsTaken.push(headerScreenshotPath);
 
   // 2. Audit Partner Trust Ribbon on Homepage
   console.log('\n--- 2. Auditing Partner Trust Ribbon ---');
@@ -142,8 +147,9 @@ try {
   });
 
   const ribbonElem = page.locator('.partner-trust-ribbon');
-  await ribbonElem.screenshot({ path: 'dist/client/audit_ribbon.png' });
-  auditResults.screenshotsTaken.push('dist/client/audit_ribbon.png');
+  const ribbonScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_ribbon.png');
+  await ribbonElem.screenshot({ path: ribbonScreenshotPath });
+  auditResults.screenshotsTaken.push(ribbonScreenshotPath);
 
   // 3. Audit /partners page
   console.log('\n--- 3. Auditing /partners Ledger Page ---');
@@ -175,8 +181,9 @@ try {
     console.log(`Ledger partner: "${p.title}" | Img: ${p.hasImg ? p.imgSrc : p.textMarkText} (${p.naturalWidth}x${p.naturalHeight}) | Role: ${p.role}`);
   });
 
-  await page.screenshot({ path: 'dist/client/audit_partners_ledger.png', fullPage: true });
-  auditResults.screenshotsTaken.push('dist/client/audit_partners_ledger.png');
+  const ledgerScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_partners_ledger.png');
+  await page.screenshot({ path: ledgerScreenshotPath, fullPage: true });
+  auditResults.screenshotsTaken.push(ledgerScreenshotPath);
 
   // 4. Audit All 8 Partner Profile Pages
   const partnerSlugs = ['fastnetmon', 'gcore', 'stormwall', 'zenlayer', 'ipxo', 'vates', 'itcare', 'airframe'];
@@ -205,8 +212,9 @@ try {
     console.log(`Profile ${slug.padEnd(12)}: H1="${profileData.h1Text}", Logo=${profileData.hasImg ? profileData.imgSrc : profileData.textMarkText} (${profileData.imgNatWidth}x${profileData.imgNatHeight})`);
 
     const profileHeader = page.locator('.profile-header');
-    await profileHeader.screenshot({ path: `dist/client/audit_profile_${slug}.png` });
-    auditResults.screenshotsTaken.push(`dist/client/audit_profile_${slug}.png`);
+    const profileScreenshotPath = path.join(ARTIFACTS_DIR, `audit_profile_${slug}.png`);
+    await profileHeader.screenshot({ path: profileScreenshotPath });
+    auditResults.screenshotsTaken.push(profileScreenshotPath);
   }
 
   // 5. Global invisible/unappearable text scan across pages

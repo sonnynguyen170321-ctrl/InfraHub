@@ -67,6 +67,11 @@
 
   --accent-amber: #B86B2B;        /* Route Amber */
   --accent-amber-light: #FBF4EE;
+  /* Route amber as TEXT fails AA on white at 4.06:1. This darker cut reads 6.65:1 on
+     white and 6.10:1 on the amber tint; the original stays for lines and fills. */
+  --accent-amber-text: #8A4D1C;
+  /* Cobalt on the dark chapters is 2.85:1. This is the on-dark cut, at 10.4:1. */
+  --accent-blue-on-dark: #93C5FD;
 
   --accent-teal: var(--accent-cyan);
   --accent-teal-hover: var(--accent-cyan-hover);
@@ -317,7 +322,7 @@ img {
 
 .badge-amber {
   background-color: var(--accent-amber-light);
-  color: var(--accent-amber);
+  color: var(--accent-amber-text);
   border: 1px solid rgba(217, 119, 6, 0.2);
 }
 

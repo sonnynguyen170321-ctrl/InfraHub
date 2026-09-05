@@ -1,5 +1,5 @@
 ---
-// src/components/PartnerTrustRibbon.astro | InfraHub Partner Ecosystem Ribbon
+// src/components/PartnerTrustRibbon.astro | InfraHub Partner Ecosystem Ribbon — Premium Marquee Pass
 import { getCollection } from 'astro:content';
 
 const allPartners = await getCollection('partners');
@@ -12,6 +12,15 @@ const approvedPartners = allPartners
     p.data.publicNameApproved
   )
   .sort((a, b) => (a.data.homepagePriority ?? 10) - (b.data.homepagePriority ?? 10));
+
+// Optical scale is a property of the artwork, so it lives with the partner record rather
+// than in a second table here. A lockup whose wordmark is outlined or whose aspect ratio is
+// unusual needs a nudge to carry the same visual weight as the others in a 156x48 slot.
+function logoStyle(partner: typeof approvedPartners[0]) {
+  const scale = partner.data.logoScale ?? 1;
+  return scale === 1 ? undefined : `transform: scale(${scale});`;
+}
+
 ---
 
 <section class="partner-trust-ribbon" aria-label="Partner Ecosystem">
@@ -26,9 +35,10 @@ const approvedPartners = allPartners
     </div>
 
     <div class="ribbon-track-wrapper">
-      <div class="ribbon-marquee-content">
+      <div class="marquee-strip">
+        <!-- Sequence A: Accessible Primary Sequence -->
         <ul class="marquee-track primary-track" aria-label="Partner ecosystem">
-          {approvedPartners.map(partner => (
+          {approvedPartners.map((partner, index) => (
             <li class="partner-item">
               <a 
                 href={`/partners/${partner.slug}`} 
@@ -41,8 +51,8 @@ const approvedPartners = allPartners
                     src={partner.data.logo} 
                     alt={`${partner.data.name} logo`} 
                     class="partner-logo-img"
-                    style={partner.data.logoScale && partner.data.logoScale !== 1 ? `transform: scale(${partner.data.logoScale});` : undefined}
-                    loading="eager"
+                    style={logoStyle(partner)}
+                    loading={index < 2 ? "eager" : "lazy"}
                     width="140"
                     height="32"
                   />
@@ -57,26 +67,39 @@ const approvedPartners = allPartners
           ))}
         </ul>
 
+        <!-- Sequence B: Seamless Duplicate (aria-hidden) -->
         <ul class="marquee-track duplicate-track" aria-hidden="true">
           {approvedPartners.map(partner => (
             <li class="partner-item">
               <span class="partner-logo-link decorative">
-                {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
-                  <img 
-                    src={partner.data.logo} 
-                    alt="" 
-                    class="partner-logo-img"
-                    style={partner.data.logoScale && partner.data.logoScale !== 1 ? `transform: scale(${partner.data.logoScale});` : undefined}
-                    loading="lazy"
-                    width="140"
-                    height="32"
-                  />
-                ) : (
-                  <span class="partner-text-mark">
-                    <span class="partner-name">{partner.data.name}</span>
-                    {partner.data.shortRole && <span class="partner-role">{partner.data.shortRole}</span>}
-                  </span>
-                )}
+                <img 
+                  src={partner.data.logo} 
+                  alt="" 
+                  class="partner-logo-img"
+                  style={logoStyle(partner)}
+                  loading="lazy"
+                  width="140"
+                  height="32"
+                />
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <!-- Sequence C: Seamless Ultrawide Triplicate (aria-hidden) -->
+        <ul class="duplicate-track" aria-hidden="true">
+          {approvedPartners.map(partner => (
+            <li class="partner-item">
+              <span class="partner-logo-link decorative">
+                <img 
+                  src={partner.data.logo} 
+                  alt="" 
+                  class="partner-logo-img"
+                  style={logoStyle(partner)}
+                  loading="lazy"
+                  width="140"
+                  height="32"
+                />
               </span>
             </li>
           ))}
@@ -86,18 +109,57 @@ const approvedPartners = allPartners
   </div>
 </section>
 
+<script>
+  function initPartnerMarquee() {
+    const wrapper = document.querySelector('.partner-trust-ribbon .ribbon-track-wrapper') as HTMLElement | null;
+    if (!wrapper) return;
+    const primaryTrack = wrapper.querySelector('.primary-track') as HTMLElement | null;
+    if (!primaryTrack) return;
+
+    const SPEED_PPS = 28; // Constant speed: 28 CSS px per second
+
+    function measure() {
+      if (!primaryTrack || !wrapper) return;
+      const rect = primaryTrack.getBoundingClientRect();
+      const width = rect.width;
+      if (width <= 0) return;
+      const duration = Math.max(40, width / SPEED_PPS);
+      wrapper.style.setProperty('--marquee-distance', `${width.toFixed(2)}px`);
+      wrapper.style.setProperty('--marquee-duration', `${duration.toFixed(2)}s`);
+    }
+
+    measure();
+
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(() => measure());
+      ro.observe(primaryTrack);
+    }
+
+    window.addEventListener('resize', measure, { passive: true });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPartnerMarquee);
+  } else {
+    initPartnerMarquee();
+  }
+</script>
+
 <style>
   .partner-trust-ribbon {
     position: relative;
     background-color: #ffffff;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-    padding: 34px 0;
+    border-top: 1px solid var(--border-color, #e2e8f0);
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    padding: 26px 0;
     overflow: hidden;
     z-index: 10;
   }
 
-  /* Infrastructure Route Line Entry (Directive 2, 7) */
+  /* Infrastructure Route Line Entry (connector from hero) */
   .ribbon-route-entry {
     position: absolute;
     top: 0;
@@ -112,179 +174,147 @@ const approvedPartners = allPartners
   .route-entry-line {
     width: 1.5px;
     height: 100%;
-    background-color: var(--accent-blue);
+    background-color: var(--accent-blue, #2563eb);
   }
 
+  /* Composition: dedicated full-width horizontal geometry */
   .ribbon-inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 32px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding-left: clamp(20px, 2vw, 28px);
+    padding-right: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     align-items: flex-start;
   }
 
-  @media (min-width: 980px) {
+  @media (min-width: 900px) {
     .ribbon-inner {
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: clamp(178px, 13vw, 196px) minmax(0, 1fr);
       align-items: center;
-      gap: 40px;
+      column-gap: clamp(20px, 2vw, 28px);
+      gap: 0;
     }
+  }
+
+  /* Quiet Fixed Label Zone */
+  .ribbon-fixed-zone {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    flex-shrink: 0;
   }
 
   @media (min-width: 900px) {
-    .ribbon-inner {
-      flex-direction: row;
-      align-items: center;
-      gap: 44px;
-    }
-  }
-
-  .ribbon-fixed-zone {
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border-color);
-    width: 100%;
-  }
-
-  @media (min-width: 980px) {
     .ribbon-fixed-zone {
       width: auto;
-      padding: 0 40px 0 0;
+      min-width: 0;
+      padding: 0 clamp(18px, 1.8vw, 24px) 0 0;
       border-bottom: none;
-      border-right: 1px solid var(--border-color);
-    }
-  }
-
-  @media (min-width: 900px) {
-    .ribbon-fixed-zone {
-      width: 220px;
-      min-width: 200px;
-      padding-bottom: 0;
-      padding-right: 32px;
-      border-bottom: none;
-      border-right: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color, #e2e8f0);
+      justify-content: flex-start;
     }
   }
 
   .ribbon-kicker {
-    font-family: var(--font-heading);
-    font-size: 0.98rem;
-    font-weight: 700;
-    color: var(--text-primary);
+    font-family: var(--font-heading, "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif);
+    font-size: clamp(0.92rem, 1.1vw, 1rem);
+    font-weight: 600;
+    color: var(--text-primary, #0f172a);
     letter-spacing: -0.01em;
     line-height: 1.35;
+    white-space: nowrap;
+    margin: 0;
   }
 
-  .partner-text-mark {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    background: #f8fafc;
-    border: 1px solid var(--border-color);
-    transition: var(--transition-fast);
-  }
-  .partner-logo-link:hover .partner-text-mark {
-    border-color: var(--accent-blue);
-    background: #ffffff;
-    box-shadow: var(--shadow-sm);
-  }
-  .partner-name {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-  }
-  .partner-role {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #64748b;
-    letter-spacing: 0.01em;
-    line-height: 1.2;
-    margin-top: 2px;
-  }
-
+  /* Marquee Track Wrapper: edge mask + divider safe gap */
   .ribbon-track-wrapper {
     flex-grow: 1;
     overflow: hidden;
     position: relative;
     width: 100%;
-    mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+    padding-left: clamp(16px, 1.5vw, 24px);
+    mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 36px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 36px), transparent 100%);
   }
 
-  .ribbon-marquee-content {
+  /* Parent strip: only this element translates */
+  .marquee-strip {
     display: flex;
     width: max-content;
+    will-change: transform;
+    animation: partnerMarquee var(--marquee-duration, 52s) linear infinite;
   }
 
-  @keyframes marqueeSlide {
-    0% {
+  @keyframes partnerMarquee {
+    from {
       transform: translate3d(0, 0, 0);
     }
-    100% {
-      transform: translate3d(-100%, 0, 0);
+    to {
+      transform: translate3d(calc(-1 * var(--marquee-distance, 1472px)), 0, 0);
     }
   }
 
-  .marquee-track {
-    display: flex;
-    align-items: center;
-    gap: 56px;
-    padding-right: 56px;
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
-    animation: marqueeSlide 62s linear infinite;
-    will-change: transform;
-  }
-
-  @media (min-width: 1200px) {
-    .marquee-track {
-      gap: 72px;
-      padding-right: 72px;
-    }
-  }
-
-  .ribbon-track-wrapper:hover .marquee-track,
-  .ribbon-track-wrapper:focus-within .marquee-track {
+  /* Pause smoothly on hover or focus */
+  .ribbon-track-wrapper:hover .marquee-strip,
+  .ribbon-track-wrapper:focus-within .marquee-strip {
     animation-play-state: paused;
   }
 
-  .partner-item {
+  /* Groups: exact 28px gap & 28px right padding guarantees seamless loop */
+  .primary-track,
+  .duplicate-track {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 28px;
+    padding-right: 28px;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
     flex-shrink: 0;
   }
 
+  /* Optical Slot: 156px wide x 48px high architectural rhythm */
+  .partner-item {
+    flex: 0 0 156px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 899px) {
+    .partner-item {
+      flex: 0 0 140px;
+      height: 44px;
+    }
+  }
+
+  /* Interactive link area */
   .partner-logo-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.82;
-    transition: opacity 160ms ease;
-    padding: 8px 12px;
+    width: 100%;
+    height: 100%;
     min-height: 44px;
-    border-radius: var(--radius-sm);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm, 4px);
     text-decoration: none;
+    box-sizing: border-box;
+    transition: outline-color 160ms ease, background-color 160ms ease;
   }
 
   .partner-logo-link:hover,
   .partner-logo-link:focus-visible {
-    opacity: 1;
-    outline: 2px solid var(--accent-blue);
-    outline-offset: 4px;
+    outline: 2px solid var(--accent-blue, #2563eb);
+    outline-offset: 2px;
   }
 
   .partner-logo-link.decorative {
@@ -292,39 +322,78 @@ const approvedPartners = allPartners
     pointer-events: none;
   }
 
+  /* Logos: opacity 1, natural aspect ratio contained in 142x32 box */
   .partner-logo-img {
-    height: 30px;
-    max-height: 34px;
     width: auto;
-    max-width: 150px;
+    height: auto;
+    max-width: 142px;
+    max-height: 32px;
     object-fit: contain;
     display: block;
     user-select: none;
     pointer-events: none;
+    opacity: 1;
   }
 
+  /* Text mark fallback */
+  .partner-text-mark {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm, 4px);
+    background: #f8fafc;
+    border: 1px solid var(--border-color, #e2e8f0);
+    text-align: center;
+  }
+  .partner-name {
+    font-family: var(--font-heading, "IBM Plex Sans", sans-serif);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-primary, #0f172a);
+    line-height: 1.15;
+  }
+  .partner-role {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: #64748b;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  /* Accessible Reduced Motion: static swipeable row */
   @media (prefers-reduced-motion: reduce) {
     .ribbon-track-wrapper {
       mask-image: none;
       -webkit-mask-image: none;
       overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding-left: 0;
     }
 
-    .ribbon-marquee-content {
-      width: 100%;
+    .marquee-strip {
+      animation: none !important;
+      transform: none !important;
+      width: auto;
     }
 
     .marquee-track {
       animation: none !important;
       transform: none !important;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      padding: 12px 0;
     }
 
     .duplicate-track {
       display: none !important;
+    }
+
+    .primary-track {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 0;
     }
   }
 </style>

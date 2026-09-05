@@ -516,10 +516,12 @@ import BrandLogo from './BrandLogo.astro';
     // Focus follows the drawer: opening moves it to the first control inside, closing puts it
     // back on the toggle. Without this, a keyboard user opens the drawer and their focus is
     // still behind it, in content that is now aria-hidden.
-    const firstDrawerControl = () =>
-      drawer
-        ? drawer.querySelector('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
-        : null;
+    const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const drawerFocusables = () =>
+      drawer ? Array.from(drawer.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null) : [];
+
+    const firstDrawerControl = () => drawerFocusables()[0] || null;
 
     const isDrawerOpen = () => Boolean(drawer && drawer.classList.contains('is-open'));
 
@@ -580,6 +582,27 @@ import BrandLogo from './BrandLogo.astro';
       item.addEventListener('focusout', (event) => {
         if (!item.contains(event.relatedTarget)) setExpanded(false);
       });
+    });
+
+    // While the drawer is open the rest of the page is aria-hidden, so Tab must not walk into
+    // it. Wrap focus at both ends of the drawer instead.
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Tab' || !isDrawerOpen()) return;
+
+      const focusables = drawerFocusables();
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || !drawer.contains(active))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || !drawer.contains(active))) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     document.addEventListener('keydown', (event) => {

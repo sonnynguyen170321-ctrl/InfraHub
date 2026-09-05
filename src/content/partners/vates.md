@@ -27,7 +27,7 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 6
 partnerPageEnabled: true
-logoScale: 1.3
+logoScale: 1.08
 decisionLayer:
   architectureTitle: "XCP-ng & Xen Orchestra Stack"
   architectureSubtitle: "How the hypervisor, management, backup, replication, and support layers fit together"

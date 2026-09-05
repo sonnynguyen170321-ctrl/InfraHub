@@ -63,6 +63,18 @@ function jsonResponse(
 const optionalShortString = (max: number) =>
   z.string().trim().max(max).optional();
 
+// The labels the form shows, so a validation message names the field the sender is looking at.
+const FIELD_LABELS: Record<string, string> = {
+  lookingFor: 'Primary infrastructure scope',
+  requirementsDescription: 'Technical parameters and workload',
+  timeline: 'Anticipated timeline',
+  contactName: 'Your name',
+  companyName: 'Organization',
+  workEmail: 'Work email',
+  targetLocation: 'Target facility or metro',
+  phone: 'Direct phone'
+};
+
 const InquiryPayloadSchema = z.object({
   lookingFor: z.enum([
     'hardware',
@@ -161,8 +173,15 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     const validation = InquiryPayloadSchema.safeParse(rawBody);
     if (!validation.success) {
-      const issue = validation.error.issues[0]?.message || 'Invalid form payload.';
-      return jsonResponse({ success: false, message: issue }, 400);
+      // Zod's default message for an absent field is the bare word "Required", which tells the
+      // sender nothing about which field. Name the field, using the label the form shows.
+      const issue = validation.error.issues[0];
+      const field = issue?.path?.[0];
+      const label = typeof field === 'string' ? FIELD_LABELS[field] || field : undefined;
+      const detail = issue?.message || 'Invalid form payload.';
+      const message = label && detail === 'Required' ? `${label} is required.` : label ? `${label}: ${detail}` : detail;
+
+      return jsonResponse({ success: false, message }, 400);
     }
 
     const data = validation.data;
