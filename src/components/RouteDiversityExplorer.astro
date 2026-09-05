@@ -184,7 +184,7 @@ const riskPoints = [
                 <polygon class="building-roof" points="336,150 380,134 424,150 380,166" />
                 <polygon class="building-left" points="336,150 336,176 380,192 380,166" />
                 <polygon class="building-right" points="424,150 424,176 380,192 380,166" />
-                <text x="380" y="122" text-anchor="middle" class="model-label">Carrier facility</text>
+                <text x="340" y="108" text-anchor="end" class="model-label">Carrier facility</text>
               </g>
 
               <!-- Both routes leave their own duct, then ride one crossing -->
@@ -210,7 +210,7 @@ const riskPoints = [
                 </g>
                 <g class="risk-marker">
                   <circle cx="380" cy="166" r="4" />
-                  <text x="408" y="118" class="risk-text">Bridge or rail crossing</text>
+                  <text x="430" y="132" class="risk-text">Bridge or rail crossing</text>
                 </g>
                 <g class="risk-marker">
                   <circle cx="500" cy="200" r="4" />
@@ -253,7 +253,7 @@ const riskPoints = [
     position: relative;
     background-color: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
-    padding: 88px 0 96px;
+    padding: 64px 0 72px;
   }
 
   /* ── The two routes arriving from the process story ───────────────────── */
@@ -302,7 +302,7 @@ const riskPoints = [
     .route-sticky {
       position: sticky;
       top: var(--header-height);
-      min-height: calc(100vh - var(--header-height));
+      min-height: calc(100vh - var(--header-height) - 48px);
       display: flex;
       align-items: center;
     }
@@ -344,7 +344,7 @@ const riskPoints = [
 
   .state-copy-stack {
     position: relative;
-    min-height: 236px;
+    min-height: 200px;
   }
 
   .state-copy {
@@ -364,7 +364,7 @@ const riskPoints = [
   }
 
   .state-title {
-    font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+    font-size: clamp(1.7rem, 2.1vw, 2.2rem);
     font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.12;
@@ -618,7 +618,7 @@ const riskPoints = [
 
   /* ── The same content as text ─────────────────────────────────────────── */
   .route-verify {
-    margin-top: 72px;
+    margin-top: 32px;
     padding-top: 32px;
     border-top: 1px solid var(--border-color);
   }

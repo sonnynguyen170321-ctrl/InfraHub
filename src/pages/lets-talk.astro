@@ -184,11 +184,7 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Success Confirmation State -->
         <div id="form-success-card" class="form-success-card" role="status" aria-live="polite" tabindex="-1" hidden>
-          <div class="success-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
+          <span class="success-route" aria-hidden="true"></span>
           <h2>Requirement Received</h2>
           <p>
             Inquiry reference: <strong id="lead-id-display">#LEAD-0000</strong>
@@ -432,6 +428,47 @@ import Layout from '../layouts/Layout.astro';
     flex-direction: column;
     align-items: center;
     gap: 16px;
+  }
+
+  .success-route {
+    display: block;
+    width: 120px;
+    height: 2px;
+    background: var(--accent-blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: successRoute 480ms var(--ease-out) forwards;
+  }
+
+  @keyframes successRoute {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .form-success-card h2,
+  .form-success-card p {
+    opacity: 0;
+    animation: successCopy var(--motion-content) var(--ease-out) 420ms forwards;
+  }
+
+  @keyframes successCopy {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .success-route {
+      transform: scaleX(1);
+      animation: none;
+    }
+
+    .form-success-card h2,
+    .form-success-card p {
+      opacity: 1;
+      animation: none;
+    }
   }
   .success-icon {
     width: 64px;
