@@ -339,11 +339,6 @@ const annotations = [
     margin: 0;
   }
 
-  .annotation-stepper {
-    display: flex;
-    gap: 6px;
-    margin-top: 14px;
-  }
 
   .annotation-progress {
     display: flex;
@@ -369,21 +364,13 @@ const annotations = [
   .annotation-rule-fill {
     display: block;
     height: 100%;
-    width: 25%;
+    width: 100%;
     background-color: var(--accent-blue);
-    transition: width var(--motion-ui) var(--ease-out);
+    transform-origin: left center;
+    transform: scaleX(0.25);
+    transition: transform var(--motion-ui) var(--ease-out);
   }
 
-  .step-dot {
-    width: 16px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.2);
-    transition: background 200ms ease;
-  }
-
-  .step-dot.active {
-    background: var(--accent-blue);
-  }
 
   /* Right Column: Vertical Process Track (Directive 9) */
   .vertical-process-track {
@@ -667,7 +654,7 @@ const annotations = [
         count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
       }
       if (ruleFill) {
-        ruleFill.style.width = `${((index + 1) / slides.length) * 100}%`;
+        ruleFill.style.transform = `scaleX(${(index + 1) / slides.length})`;
       }
     }
 
