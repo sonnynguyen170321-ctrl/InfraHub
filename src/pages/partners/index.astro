@@ -70,7 +70,6 @@ const disciplines = [
       <!-- Editorial Header -->
       <header class="ledger-header">
         <div class="ledger-kicker-row">
-          <span class="routing-junction" aria-hidden="true"></span>
           <span class="ledger-kicker">Partner ecosystem</span>
         </div>
         <h1 class="ledger-title">Infrastructure and technology specialists.<br />Connected through InfraHub.</h1>
@@ -152,10 +151,10 @@ const disciplines = [
                   <!-- Column 3: Navigation Actions -->
                   <div class="ledger-col-actions">
                     <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm ledger-profile-btn">
-                      <span>Technical Scope &rarr;</span>
+                      <span>Technical scope</span>
                     </a>
                     <a href={`/lets-talk?partner=${partner.slug}`} class="ledger-inquire-link">
-                      <span>Inquire Sourcing</span>
+                      <span>Discuss requirement</span>
                     </a>
                   </div>
 
@@ -216,9 +215,8 @@ const disciplines = [
     font-family: var(--font-mono);
     font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.01em;
     color: var(--accent-blue);
-    text-transform: uppercase;
   }
 
   .ledger-title {
@@ -415,7 +413,6 @@ const disciplines = [
     font-size: 0.72rem;
     font-weight: 600;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
@@ -500,7 +497,7 @@ const disciplines = [
     font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.01em;
     color: var(--accent-blue);
     display: block;
     margin-bottom: 8px;

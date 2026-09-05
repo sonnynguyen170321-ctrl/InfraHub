@@ -28,8 +28,8 @@ const activeOffers = allOffers
       
       <!-- Editorial Header -->
       <header class="offers-header">
-        <span class="offers-kicker">Commercial Sourcing Board</span>
-        <h1 class="offers-title">Featured Infrastructure Offers</h1>
+        <span class="offers-kicker">Commercial sourcing board</span>
+        <h1 class="offers-title">Current infrastructure opportunities</h1>
         <p class="offers-lead">
           Current public opportunities that have cleared InfraHub's publication checks. Availability and commercial terms remain subject to the specific provider or supplier confirmation.
         </p>
@@ -38,13 +38,6 @@ const activeOffers = allOffers
       <!-- Empty State Guard -->
       {activeOffers.length === 0 ? (
         <div class="offers-empty-state">
-          <div class="empty-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-          </div>
           <h2 class="empty-title">No open public allocations at this time.</h2>
           <p class="empty-desc">
             Public commercial allocations are being updated for the current cycle. Infrastructure sourcing requests and bespoke quotations are evaluated continuously on demand.
@@ -154,17 +147,12 @@ const activeOffers = allOffers
 
   /* Empty State */
   .offers-empty-state {
-    background: #f8fafc;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 64px 32px;
-    text-align: center;
+    padding: 8px 0 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 18px;
-    max-width: 680px;
-    margin: 0 auto;
+    max-width: 62ch;
   }
 
   .empty-title {
