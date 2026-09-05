@@ -251,7 +251,10 @@ export class Hero3DTransitionController {
       const projectedCorners = corners.map(c => this.project3D(c, width, height, p));
 
       if (projectedCorners.every(c => c.visible)) {
-        const planeAlpha = Math.min((p - 0.25) / 0.25, 1) * 0.92;
+        // Reaches 1, not 0.92: the plane's bottom edge butts directly against the partner
+        // ribbon, so anything less composites the dark photograph through it and leaves a
+        // visible step at the seam.
+        const planeAlpha = Math.min((p - 0.25) / 0.25, 1);
         ctx.beginPath();
         ctx.moveTo(projectedCorners[0].x, projectedCorners[0].y);
         ctx.lineTo(projectedCorners[1].x, projectedCorners[1].y);
@@ -263,9 +266,11 @@ export class Hero3DTransitionController {
           0, projectedCorners[0].y,
           0, projectedCorners[2].y
         );
-        grad.addColorStop(0, `rgba(246, 248, 252, ${0.4 * planeAlpha})`);
-        grad.addColorStop(0.5, `rgba(255, 255, 255, ${0.85 * planeAlpha})`);
-        grad.addColorStop(1, `rgba(255, 255, 255, ${planeAlpha})`);
+        // Warm paper, the same #F7F7F5 the ribbon and .section-solutions carry, rather than a
+        // cool white that reads as a different material where the two surfaces meet.
+        grad.addColorStop(0, `rgba(247, 247, 245, ${0.4 * planeAlpha})`);
+        grad.addColorStop(0.5, `rgba(247, 247, 245, ${0.85 * planeAlpha})`);
+        grad.addColorStop(1, `rgba(247, 247, 245, ${planeAlpha})`);
 
         ctx.fillStyle = grad;
         ctx.fill();

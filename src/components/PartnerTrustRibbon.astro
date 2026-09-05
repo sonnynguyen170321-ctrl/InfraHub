@@ -24,11 +24,6 @@ const RIBBON_LOGO_HEIGHT = 32;
 ---
 
 <section class="partner-trust-ribbon" aria-label="Partner Ecosystem">
-  <!-- Subtle Route Line Entry Connector from Hero -->
-  <div class="ribbon-route-entry" aria-hidden="true">
-    <div class="route-entry-line"></div>
-  </div>
-
   <div class="ribbon-inner">
     <div class="ribbon-fixed-zone">
       <span class="ribbon-kicker">Our partner ecosystem</span>
@@ -144,40 +139,96 @@ const RIBBON_LOGO_HEIGHT = 32;
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPartnerMarquee);
-  } else {
+  /*
+   * The surface arrives rather than appearing: --ribbon-land runs 0 -> 1 across the hero's exit
+   * and the CSS turns that into a hinge and a lift, so the ribbon finishes flat at the moment
+   * the canvas plane finishes landing. Reads one offsetHeight and window.scrollY, writes one
+   * custom property, both behind a single rAF, so a scroll never queues more than one frame.
+   */
+  function initRibbonLanding() {
+    const section = document.querySelector('.partner-trust-ribbon') as HTMLElement | null;
+    if (!section) return;
+
+    const hero = document.querySelector('.hero-section') as HTMLElement | null;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+
+    function settle() {
+      section!.style.setProperty('--ribbon-land', '1');
+    }
+
+    function measure() {
+      frame = 0;
+
+      /*
+       * Keyed to the hero's exit, using the identical mapping hero-3d-transition.ts feeds the
+       * canvas, so the ribbon and the plane it lands on settle in lockstep instead of drifting
+       * against each other. Tying this to the ribbon's own entry did not work: under a hero
+       * shorter than the viewport the ribbon is already on screen at first paint, so the whole
+       * motion was spent inside the first hundred pixels of scroll and never actually read.
+       */
+      const heroHeight = hero ? hero.offsetHeight || 1 : 1;
+      const raw = (window.scrollY - heroHeight * 0.45) / (heroHeight * 0.55);
+      const land = Math.min(Math.max(raw, 0), 1);
+
+      section!.style.setProperty('--ribbon-land', land.toFixed(3));
+    }
+
+    function request() {
+      if (frame) return;
+      frame = requestAnimationFrame(measure);
+    }
+
+    function apply() {
+      if (reduce.matches) {
+        window.removeEventListener('scroll', request);
+        window.removeEventListener('resize', request);
+        settle();
+        return;
+      }
+      window.addEventListener('scroll', request, { passive: true });
+      window.addEventListener('resize', request, { passive: true });
+      measure();
+    }
+
+    apply();
+
+    if (typeof reduce.addEventListener === 'function') {
+      reduce.addEventListener('change', apply);
+    }
+  }
+
+  function initRibbon() {
     initPartnerMarquee();
+    initRibbonLanding();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRibbon);
+  } else {
+    initRibbon();
   }
 </script>
 
 <style>
+  /*
+   * The ribbon used to be a white strip fenced by two rules, sitting between a dark hero and
+   * the paper ground of the section below — three tones and four edges, which is what made it
+   * read as a box dropped onto the page rather than part of it. It now carries the same ground
+   * as .section-solutions, so the hero plane lands, the logos ride it, and the content below
+   * continues on one uninterrupted surface. The structural axis at the bottom stays: that line
+   * means something (DESIGN.md section 2), the borders did not.
+   *
+   * --ribbon-land is 0 while the surface is still arriving and 1 once it has settled. It
+   * defaults to 1 so that without JavaScript the ribbon renders finished, not tilted.
+   */
   .partner-trust-ribbon {
     position: relative;
-    background-color: #ffffff;
-    border-top: 1px solid var(--border-color, #e2e8f0);
-    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    background-color: var(--bg-subtle-paper, #F7F7F5);
     padding: 26px 0;
     overflow: hidden;
     z-index: 10;
-  }
-
-  /* Infrastructure Route Line Entry (connector from hero) */
-  .ribbon-route-entry {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 16px;
-    display: flex;
-    justify-content: center;
-    z-index: 2;
-  }
-  .route-entry-line {
-    width: 1.5px;
-    height: 100%;
-    background-color: var(--accent-blue, #2563eb);
+    --ribbon-land: 1;
   }
 
   /* Structural axis: the route flattens into the marquee axis (Directives 10 & 11) */
@@ -209,6 +260,17 @@ const RIBBON_LOGO_HEIGHT = 32;
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
+    /*
+     * The surface hinges up from its own bottom edge as it arrives, finishing flat. Every term
+     * is a plain multiplication by a unit, deliberately: a min()/max() around an angle here is
+     * what silently invalidated the hero's transform and froze it. Clamping happens in JS.
+     */
+    transform-origin: 50% 100%;
+    transform:
+      perspective(900px)
+      rotateX(calc((1 - var(--ribbon-land, 1)) * 2.5deg))
+      translateY(calc((1 - var(--ribbon-land, 1)) * 8px));
+    opacity: calc(0.88 + var(--ribbon-land, 1) * 0.12);
   }
 
   @media (min-width: 900px) {
@@ -388,6 +450,15 @@ const RIBBON_LOGO_HEIGHT = 32;
 
   /* Accessible Reduced Motion: static swipeable row */
   @media (prefers-reduced-motion: reduce) {
+    .partner-trust-ribbon {
+      --ribbon-land: 1;
+    }
+
+    .ribbon-inner {
+      transform: none;
+      opacity: 1;
+    }
+
     .ribbon-track-wrapper {
       mask-image: none;
       -webkit-mask-image: none;
