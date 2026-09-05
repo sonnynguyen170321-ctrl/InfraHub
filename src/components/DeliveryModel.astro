@@ -36,18 +36,15 @@ const annotations = [
       
       <div class="delivery-narrative-col">
         <div class="sticky-narrative-wrapper">
-          <div class="delivery-kicker-row">
-            <span class="delivery-kicker">Operational model</span>
-          </div>
           <h2 class="delivery-title">
             One requirement.<br />
             A network of specialists.
           </h2>
           <p class="delivery-lead">
-            InfraHub qualifies requirements, compares architectural approaches, and introduces specialist providers.
+            InfraHub helps define the requirement, compare suitable approaches and identify specialist providers.
           </p>
           <p class="delivery-body">
-            InfraHub helps qualify requirements and connect your team with suitable specialist operators. For partner-delivered services, the selected provider confirms commercial terms, contracts directly, and delivers the service.
+            For partner-delivered services, the selected provider confirms the commercial terms, contracts directly and delivers the service.
           </p>
           
           <div class="delivery-action">
@@ -69,10 +66,9 @@ const annotations = [
                 </div>
               ))}
             </div>
-            <div class="annotation-stepper" aria-hidden="true">
-              {annotations.map((_, index) => (
-                <span class={`step-dot ${index === 0 ? 'active' : ''}`}></span>
-              ))}
+            <div class="annotation-progress" aria-hidden="true">
+              <span class="annotation-count" id="annotationCount">01 / {String(annotations.length).padStart(2, '0')}</span>
+              <span class="annotation-rule"><span class="annotation-rule-fill" id="annotationRuleFill"></span></span>
             </div>
           </div>
         </div>
@@ -240,13 +236,6 @@ const annotations = [
     background-color: var(--accent-blue);
   }
 
-  .delivery-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: #93c5fd;
-  }
 
   .delivery-title {
     font-size: clamp(2.2rem, 4vw, 3.2rem);
@@ -308,10 +297,8 @@ const annotations = [
   }
 
   .sideband-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.82rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
     color: #93c5fd;
     display: block;
   }
@@ -352,22 +339,38 @@ const annotations = [
     margin: 0;
   }
 
-  .annotation-stepper {
+
+  .annotation-progress {
     display: flex;
-    gap: 6px;
-    margin-top: 14px;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
   }
 
-  .step-dot {
-    width: 16px;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.2);
-    transition: background 200ms ease;
+  .annotation-count {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(226, 232, 240, 0.7);
+    white-space: nowrap;
   }
 
-  .step-dot.active {
-    background: var(--accent-blue);
+  .annotation-rule {
+    flex: 1;
+    height: 1.5px;
+    background-color: rgba(255, 255, 255, 0.14);
+    display: block;
   }
+
+  .annotation-rule-fill {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: var(--accent-blue);
+    transform-origin: left center;
+    transform: scaleX(0.25);
+    transition: transform var(--motion-ui) var(--ease-out);
+  }
+
 
   /* Right Column: Vertical Process Track (Directive 9) */
   .vertical-process-track {
@@ -476,8 +479,7 @@ const annotations = [
   }
 
   .input-item {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 0.82rem;
     color: #cbd5e1;
     padding: 6px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
@@ -495,8 +497,7 @@ const annotations = [
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     color: #93c5fd;
     padding: 7px 0;
   }
@@ -532,8 +533,7 @@ const annotations = [
   }
 
   .specialist-text {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
+    font-size: 0.84rem;
     font-weight: 600;
     color: #a7f3d0;
   }
@@ -641,9 +641,8 @@ const annotations = [
     const slides = Array.from(
       document.querySelectorAll<HTMLElement>('#annotationRotator .annotation-slide')
     );
-    const dots = Array.from(
-      document.querySelectorAll<HTMLElement>('.annotation-stepper .step-dot')
-    );
+    const count = document.getElementById('annotationCount');
+    const ruleFill = document.getElementById('annotationRuleFill');
 
     if (steps.length === 0) return;
 
@@ -651,7 +650,12 @@ const annotations = [
 
     function showAnnotation(index: number) {
       slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+      if (count) {
+        count.textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      }
+      if (ruleFill) {
+        ruleFill.style.transform = `scaleX(${(index + 1) / slides.length})`;
+      }
     }
 
     function setActiveStep(index: number) {

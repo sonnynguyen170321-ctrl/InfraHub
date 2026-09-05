@@ -27,29 +27,24 @@ const secondaryOffers = primaryOffer
 
   <div class="container">
     
-    <!-- Clean Headline -->
-    <div class="offers-header">
-      <div class="kicker-row">
-        <span class="offers-kicker">Infrastructure market desk</span>
-      </div>
-      <h2 class="offers-headline">Current infrastructure opportunities</h2>
-      <p class="offers-lead">
-        Commercial allocations across connectivity, bare metal, hardware and security available through the InfraHub specialist network.
-      </p>
-    </div>
-
-    <!-- Empty State Guard -->
     {activeOffers.length === 0 ? (
-      <div class="offers-empty-state">
-        <p class="empty-state-text">Current commercial allocations are being updated for the current cycle.</p>
-        <a href="/lets-talk" class="btn btn-secondary btn-sm">
+      <div class="offers-band">
+        <p class="offers-band-text">Current opportunities are being updated.</p>
+        <a href="/lets-talk" class="offers-band-link">
           <span>Discuss a specific requirement</span>
           <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
       </div>
     ) : (
-      <!-- Asymmetric Composition: 1 Featured Opportunity + 2 Compact Secondary Rows -->
-      <div class="offers-composition">
+      <div class="offers-populated">
+        <div class="offers-header">
+          <h2 class="offers-headline">Current infrastructure opportunities</h2>
+          <p class="offers-lead">
+            Commercial allocations across connectivity, bare metal, hardware and security available through the InfraHub specialist network.
+          </p>
+        </div>
+
+      <div class={`offers-composition ${activeOffers.length === 1 ? 'is-single' : ''}`}>
         
         <!-- Prominent Primary Opportunity -->
         {primaryOffer && (
@@ -115,6 +110,7 @@ const secondaryOffers = primaryOffer
         </div>
 
       </div>
+      </div>
     )}
 
   </div>
@@ -132,6 +128,49 @@ const secondaryOffers = primaryOffer
     background-color: #ffffff;
     padding: 72px 0 80px;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  /* With no inventory the chapter is one line, not a headline over a hole. */
+  .section-offers:has(.offers-band) {
+    padding: 26px 0;
+  }
+
+  .offers-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 32px;
+  }
+
+  .offers-band-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .offers-band-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.94rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .offers-band-link:hover {
+    color: var(--accent-blue-hover);
+  }
+
+  .offers-band-link:hover .link-arrow {
+    transform: translateX(3px);
+  }
+
+  /* One opportunity is a strong single column, not a grid missing two cells. */
+  .offers-composition.is-single {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   /* Route Connectors */
@@ -187,13 +226,6 @@ const secondaryOffers = primaryOffer
     margin-bottom: 12px;
   }
 
-  .offers-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--accent-blue);
-  }
 
   .offers-headline {
     font-size: clamp(2.2rem, 4vw, 3.2rem);

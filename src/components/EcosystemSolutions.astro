@@ -16,6 +16,7 @@ const solutionFamilies = [
     summary: "Dedicated compute, colocation, GPU infrastructure, and enterprise hardware sourcing matched to workload, facility, and commercial requirements.",
     image: infrastructureVisual,
     imageAlt: "Datacenter compute environment with high-density server racks",
+    imageCaption: "Datacenter compute environment",
     ctaLink: "/solutions/infrastructure",
     services: [
       { name: "Dedicated Servers", url: "/dedicated-servers", desc: "Bare-metal compute and custom configurations." },
@@ -33,6 +34,7 @@ const solutionFamilies = [
     summary: "Private cloud, public-cloud integration, VMware alternatives, container platforms, backup, and hybrid infrastructure architectures.",
     image: cloudVisual,
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
+    imageCaption: "Private-cloud compute cluster",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
       { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable economics." },
@@ -49,6 +51,7 @@ const solutionFamilies = [
     summary: "Upstream IP transit, dedicated wavelengths, Layer 2 Ethernet, cloud connectivity, IPv4 sourcing, and edge-network options.",
     image: networkVisual,
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
+    imageCaption: "Optical interconnection environment",
     ctaLink: "/solutions/network-connectivity",
     services: [
       { name: "IP Transit", url: "/ip-transit", desc: "Upstream BGP connectivity and committed data rates." },
@@ -66,6 +69,7 @@ const solutionFamilies = [
     summary: "BGP DDoS mitigation, near-real-time flow telemetry, automated FlowSpec filtering, and perimeter security assessments.",
     image: securityVisual,
     imageAlt: "Network operations security monitoring console and BGP telemetry",
+    imageCaption: "Network security operations",
     ctaLink: "/solutions/security",
     services: [
       { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing." },
@@ -82,6 +86,7 @@ const solutionFamilies = [
     summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure operations support.",
     image: managedVisual,
     imageAlt: "Network operations control room with infrastructure monitoring displays",
+    imageCaption: "Network operations environment",
     ctaLink: "/solutions/managed-services",
     services: [
       { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and incident escalation." },
@@ -241,10 +246,9 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                     quality={74}
                     format="webp"
                   />
-                  <div class="discipline-geometry-overlay" aria-hidden="true"></div>
                 </div>
-                <div class="visual-meta-bar">
-                  <span class="visual-caption">Datacenter compute environment</span>
+                <div class="visual-meta">
+                  <span class="visual-caption">{family.imageCaption}</span>
                   <span class="visual-index">{family.index} / 05</span>
                 </div>
               </div>
@@ -261,8 +265,8 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                 aria-labelledby={`tab-${family.id}`}
                 hidden={idx !== 0}
               >
-                <div class="services-panel-header">
-                  <span class="panel-category-title">{family.name}</span>
+                <div class="panel-header">
+                  <span class="panel-title">{family.name}</span>
                   <p class="panel-summary">{family.summary}</p>
                   <div class="panel-anchor-hairline" aria-hidden="true"></div>
                 </div>
@@ -475,11 +479,17 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       overflow: hidden;
     }
 
+    /*
+     * Driven every animation frame from scroll travel, so it scales rather than resizing:
+     * a width transition on a per-frame value permanently trails the scroll it is meant to
+     * be reporting, and relayouts the rail on the way.
+     */
     .progress-bar {
       height: 100%;
-      width: 20%;
+      width: 100%;
       background-color: var(--color-cobalt);
-      transition: width 240ms var(--ease-out);
+      transform-origin: left center;
+      transform: scaleX(0.2);
     }
   }
 
@@ -753,19 +763,31 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     filter: contrast(1.02);
   }
 
-  /* Quiet editorial caption in main sans (Directive 12) */
-  .visual-caption {
+  /*
+   * Caption and index sit on one baseline under the image: the caption names the subject
+   * in the main sans, the index is genuine notation and stays in mono.
+   */
+  .visual-meta {
     margin-top: 10px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
   }
 
-  .caption-text {
+  .visual-caption {
     font-family: var(--font-heading);
     font-size: 0.78rem;
     font-weight: 450;
     color: var(--text-muted);
     letter-spacing: 0.01em;
+  }
+
+  .visual-index {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    white-space: nowrap;
   }
 
   /* Column 3: Service Detail & Index (Directives 20–23) */
@@ -918,6 +940,8 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 </style>
 
 <script>
+  import { homepageScheduler, pinnedProgress } from '../scripts/homepage-scheduler';
+
   function setupSolutionDiscovery() {
     const container = document.getElementById('solutionDiscovery');
     const scene = document.getElementById('discoveryScene');
@@ -942,16 +966,15 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
       const target = tabs[index].getAttribute('data-target') || 'infrastructure';
 
-      // Update progress bar
-      if (progressBar) {
-        const pct = ((index + 1) / tabs.length) * 100;
-        progressBar.style.width = `${pct}%`;
-      }
 
       tabs.forEach((tab, i) => {
         const isActive = i === index;
         tab.classList.toggle('active', isActive);
         tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        // Roving tabindex: Tab reaches the tablist once and lands on the selected tab,
+        // then the arrow keys move within it. Without this a keyboard visitor has to tab
+        // through all five disciplines to reach the panel they are already looking at.
+        tab.tabIndex = isActive ? 0 : -1;
       });
 
       visuals.forEach((visual) => {
@@ -971,32 +994,39 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
         set.classList.toggle('active', set.getAttribute('data-route-set') === target);
       });
 
-      // Dispatch event to HomepageSceneSystem (Directive 02)
+      // The rail is visible at widths where the scene does not pin — 980-1179px, and wider
+      // viewports under 700px tall. There, choosing a discipline changes nothing about scroll
+      // position, so no scheduler frame follows and the bar would hold its previous value until
+      // some unrelated scroll or resize happened to repaint it.
+      renderProgress(sceneProgress());
+
       window.dispatchEvent(new CustomEvent('infrahub:discipline-changed', {
         detail: { id: target, index }
       }));
     }
 
-    let ticking = false;
+    const sticky = scene ? scene.querySelector<HTMLElement>('.discovery-sticky') : null;
 
-    function progressToIndex() {
-      if (!scene) return 0;
-      const sticky = scene.querySelector<HTMLElement>('.discovery-sticky');
-      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
-      if (travel <= 0) return activeIndex;
-
-      const scrolled = window.scrollY - (scene.getBoundingClientRect().top + window.scrollY);
-      const progress = Math.min(Math.max(scrolled / travel, 0), 0.9999);
-      return Math.floor(progress * tabs.length);
+    /**
+     * Real normalized travel through the pinned scene. When the scene is not pinned there
+     * is no scroll travel to read, so progress follows the discipline the visitor chose.
+     */
+    function sceneProgress(): number {
+      if (!isPinned()) return (activeIndex + 1) / tabs.length;
+      return pinnedProgress(scene, sticky, window.scrollY);
     }
 
-    function onScroll() {
-      if (ticking || !isPinned()) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        activate(progressToIndex());
-        ticking = false;
-      });
+    /**
+     * The bar moves every frame; the discipline changes at thresholds. Driving the bar from
+     * the active index instead made it jump 20% at a time, which reads as dead scroll
+     * travel between the jumps.
+     */
+    function renderProgress(progress: number) {
+      if (progressBar) progressBar.style.transform = `scaleX(${progress.toFixed(4)})`;
+    }
+
+    function indexForProgress(progress: number): number {
+      return Math.min(Math.floor(progress * tabs.length), tabs.length - 1);
     }
 
     function scrollToIndex(index: number) {
@@ -1039,12 +1069,21 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       });
     });
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    pinQuery.addEventListener('change', onScroll);
-    reducedMotion.addEventListener('change', onScroll);
+    const scheduler = homepageScheduler();
+    scheduler.registerProgressSource('discovery', sceneProgress);
+
+    scheduler.onFrame(() => {
+      const progress = sceneProgress();
+      renderProgress(progress);
+      if (isPinned()) activate(indexForProgress(progress));
+    });
+
+    const requestFrame = () => scheduler.request();
+    pinQuery.addEventListener('change', requestFrame);
+    reducedMotion.addEventListener('change', requestFrame);
 
     activate(0);
+    renderProgress(sceneProgress());
   }
 
   if (document.readyState === 'loading') {

@@ -1,9 +1,19 @@
 /**
- * InfraHub Homepage Scene Controller (Master Art Direction Directive 02 & 03)
+ * Homepage scene controller.
  *
- * Coordinates chapter progression, inter-scene transition contracts, continuous route-line
- * states, and developer HUD (?sceneDebug=1) without external libraries or wheel hijacking.
+ * Tracks where the visitor is in the page's sequence of chapters and runs the handoffs that
+ * make one chapter create the next. It owns no scroll listener and no rAF of its own: it is a
+ * subscriber of the shared homepage scheduler, so its numbers come from the same frame and the
+ * same measurements every other scene is using.
+ *
+ * Progress model. A scene that computes its own real travel — the two pinned scenes and the
+ * hero — publishes it to the scheduler, and this controller reads that value. Only the
+ * chapters that simply scroll past get a progress derived here, from their passage through the
+ * viewport. Deriving a second, approximate number for a scene that already knows its own was
+ * what made cross-scene handoffs fire at the wrong visual moment.
  */
+
+import { homepageScheduler, passageProgress, type HomepageFrame } from './homepage-scheduler';
 
 export interface SceneState {
   id: string;
@@ -12,16 +22,31 @@ export interface SceneState {
   isSettled: boolean;
 }
 
+/**
+ * The homepage's chapters, in order, each addressed by a stable id or component root class.
+ * Every one of these must resolve; tests/e2e/homepage-scenes.spec.ts fails the build if one
+ * does not. The hero was previously registered as `.hero-chapter`, a class the hero has never
+ * carried, so the first chapter of the page was silently absent from the controller.
+ */
+export const SCENE_SELECTORS: ReadonlyArray<{ id: string; selector: string }> = [
+  { id: 'hero', selector: '#hero' },
+  { id: 'ecosystem', selector: '.partner-trust-ribbon' },
+  { id: 'discovery', selector: '#discovery-stage' },
+  { id: 'judgment', selector: '#how-it-works' },
+  { id: 'routeReality', selector: '#route-explorer' },
+  { id: 'market', selector: '#featured-offers' },
+  { id: 'practice', selector: '#who-we-help' },
+  { id: 'conversation', selector: '#contact' },
+];
+
 export class HomepageSceneSystem {
   private scenes: Map<string, SceneState> = new Map();
-  private isReducedMotion: boolean = false;
   private isDebug: boolean = false;
   private debugHud: HTMLElement | null = null;
-  private ticking: boolean = false;
   private activeDiscipline: string = 'infrastructure';
+  private reducedMotion: boolean = false;
 
   constructor() {
-    this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const urlParams = new URLSearchParams(window.location.search);
     this.isDebug = urlParams.get('sceneDebug') === '1';
 
@@ -30,48 +55,33 @@ export class HomepageSceneSystem {
     if (this.isDebug) {
       this.initDebugHud();
     }
-    this.update();
   }
 
   private registerScenes() {
-    const sceneConfigs = [
-      { id: 'hero', selector: '.hero-chapter' },
-      { id: 'ecosystem', selector: '.partner-trust-ribbon' },
-      { id: 'discovery', selector: '#discovery-stage' },
-      { id: 'judgment', selector: '#how-it-works' },
-      { id: 'routeReality', selector: '#route-explorer' },
-      { id: 'market', selector: '#featured-offers' },
-      { id: 'practice', selector: '#who-we-help' },
-      { id: 'conversation', selector: '#contact' },
-    ];
-
-    for (const config of sceneConfigs) {
-      const el = document.querySelector<HTMLElement>(config.selector);
+    for (const config of SCENE_SELECTORS) {
       this.scenes.set(config.id, {
         id: config.id,
-        element: el,
+        element: document.querySelector<HTMLElement>(config.selector),
         activeProgress: 0,
         isSettled: false,
       });
     }
   }
 
+  /** Scenes the controller could not find. Surfaced by the scene resolution test. */
+  public missingScenes(): string[] {
+    return [...this.scenes.values()].filter((scene) => !scene.element).map((scene) => scene.id);
+  }
+
+  public sceneProgress(id: string): number {
+    return this.scenes.get(id)?.activeProgress ?? 0;
+  }
+
   private initListeners() {
-    window.addEventListener('scroll', () => {
-      if (!this.ticking) {
-        window.requestAnimationFrame(() => {
-          this.update();
-          this.ticking = false;
-        });
-        this.ticking = true;
-      }
-    }, { passive: true });
+    homepageScheduler().onFrame((frame) => this.update(frame));
 
-    window.addEventListener('resize', () => {
-      this.update();
-    }, { passive: true });
-
-    // Listen for custom discipline change events from EcosystemSolutions
+    // EcosystemSolutions announces which discipline the visitor is on so the discovery handoff
+    // can wait for the last one before starting to converge.
     window.addEventListener('infrahub:discipline-changed', ((e: CustomEvent<{ id: string }>) => {
       if (e.detail?.id) {
         this.activeDiscipline = e.detail.id;
@@ -80,28 +90,29 @@ export class HomepageSceneSystem {
     }) as EventListener);
   }
 
-  public update() {
-    if (this.isReducedMotion) {
+  public update(frame: HomepageFrame) {
+    this.reducedMotion = frame.reducedMotion;
+    if (frame.reducedMotion || !frame.visible) {
       return;
     }
 
-    const viewportHeight = window.innerHeight;
+    const scheduler = homepageScheduler();
 
     for (const [id, scene] of this.scenes.entries()) {
       if (!scene.element) continue;
 
-      const rect = scene.element.getBoundingClientRect();
-      const elementHeight = rect.height || 1;
-      
-      // Calculate progress: 0 when element top hits viewport bottom, 1 when element bottom hits viewport top
-      const progress = Math.min(Math.max((viewportHeight - rect.top) / (viewportHeight + elementHeight), 0), 1);
-      scene.activeProgress = parseFloat(progress.toFixed(3));
-      scene.isSettled = rect.top <= viewportHeight * 0.3 && rect.bottom >= viewportHeight * 0.7;
+      // A scene that knows its own travel is the authority on it.
+      const owned = scheduler.progressFor(id);
+      scene.activeProgress =
+        owned !== null
+          ? Number(owned.toFixed(3))
+          : Number(passageProgress(scene.element, frame.viewportHeight).toFixed(3));
 
-      // Set CSS variable on the element for scoped progress styling
+      const rect = scene.element.getBoundingClientRect();
+      scene.isSettled = rect.top <= frame.viewportHeight * 0.3 && rect.bottom >= frame.viewportHeight * 0.7;
+
       scene.element.style.setProperty('--scene-progress', scene.activeProgress.toString());
-      
-      // Check for transition contracts
+
       if (id === 'discovery') {
         this.handleDiscoveryHandoff(scene);
       } else if (id === 'judgment') {
@@ -117,15 +128,15 @@ export class HomepageSceneSystem {
   }
 
   /**
-   * Transition Contract: Discovery → Judgment (Directive 17)
-   * When Managed Operations reaches its exit threshold, signal convergence into Judgment
+   * Discovery → Judgment. Once the visitor is on the last discipline and discovery is running
+   * out of travel, the discipline rail quietens and the route begins converging into the
+   * process spine, so the next chapter is created by this one rather than following it.
    */
   private handleDiscoveryHandoff(scene: SceneState) {
     if (!scene.element) return;
     const judgment = this.scenes.get('judgment');
     if (!judgment?.element) return;
 
-    // Transition zone: final 15% of discovery
     if (this.activeDiscipline === 'managed' && scene.activeProgress > 0.75) {
       const morphProgress = Math.min(Math.max((scene.activeProgress - 0.75) / 0.25, 0), 1);
       scene.element.style.setProperty('--morph-to-judgment', morphProgress.toFixed(2));
@@ -136,35 +147,24 @@ export class HomepageSceneSystem {
     }
   }
 
-  /**
-   * Transition Contract: Judgment → Route Reality (Directive 20)
-   * The single provider delivery route forks into Carrier A & Carrier B
-   */
+  /** Judgment → Route Reality: the single delivery route forks into carrier A and carrier B. */
   private handleJudgmentHandoff(scene: SceneState) {
     if (!scene.element) return;
     const reality = this.scenes.get('routeReality');
     if (!reality?.element) return;
 
-    // When judgment is exiting, prepare carrier fork
-    if (scene.activeProgress > 0.8) {
-      const forkProgress = Math.min(Math.max((scene.activeProgress - 0.8) / 0.2, 0), 1);
-      reality.element.style.setProperty('--carrier-fork-progress', forkProgress.toFixed(2));
-    }
+    const forkProgress = scene.activeProgress > 0.8 ? Math.min((scene.activeProgress - 0.8) / 0.2, 1) : 0;
+    reality.element.style.setProperty('--carrier-fork-progress', forkProgress.toFixed(2));
   }
 
-  /**
-   * Transition Contract: Route Reality → Market (Directive 26)
-   * 3D physical route flattens into 1px commercial ledger rule
-   */
+  /** Route Reality → Market: the physical model flattens into the commercial ledger rule. */
   private handleRouteRealityHandoff(scene: SceneState) {
     if (!scene.element) return;
     const market = this.scenes.get('market');
     if (!market?.element) return;
 
-    if (scene.activeProgress > 0.85) {
-      const flattenProgress = Math.min(Math.max((scene.activeProgress - 0.85) / 0.15, 0), 1);
-      market.element.style.setProperty('--market-flatten-progress', flattenProgress.toFixed(2));
-    }
+    const flattenProgress = scene.activeProgress > 0.85 ? Math.min((scene.activeProgress - 0.85) / 0.15, 1) : 0;
+    market.element.style.setProperty('--market-flatten-progress', flattenProgress.toFixed(2));
   }
 
   private initDebugHud() {
@@ -186,7 +186,7 @@ export class HomepageSceneSystem {
       line-height: 1.4;
       pointer-events: none;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      max-width: 260px;
+      max-width: 280px;
     `;
     document.body.appendChild(this.debugHud);
     this.updateDebugHud();
@@ -209,6 +209,8 @@ export class HomepageSceneSystem {
       }
     }
 
+    const missing = this.missingScenes();
+
     this.debugHud.innerHTML = `
       <div style="font-weight:700;color:#93C5FD;margin-bottom:4px;border-bottom:1px solid #1E44A8;padding-bottom:2px;">
         INFRAHUB SCENE HUD
@@ -216,17 +218,23 @@ export class HomepageSceneSystem {
       <div>Active Scene: <span style="color:#F4F5F1;font-weight:600;">${activeSceneId}</span></div>
       <div>Progress: <span style="color:#38BDF8;">${(activeProgress * 100).toFixed(1)}%</span></div>
       <div>Discipline: <span style="color:#34D399;">${this.activeDiscipline}</span></div>
-      <div>Reduced Motion: <span style="color:${this.isReducedMotion ? '#F87171' : '#A7F3D0'}">${this.isReducedMotion ? 'ACTIVE' : 'OFF'}</span></div>
+      <div>Reduced Motion: <span style="color:${this.reducedMotion ? '#F87171' : '#A7F3D0'}">${this.reducedMotion ? 'ACTIVE' : 'OFF'}</span></div>
+      <div>Missing scenes: <span style="color:${missing.length ? '#F87171' : '#A7F3D0'}">${missing.length ? missing.join(', ') : 'none'}</span></div>
       <div>Viewport: <span style="color:#CBD5E1;">${window.innerWidth}×${window.innerHeight}</span></div>
     `;
   }
 }
 
-// Auto-initialize when loaded on client
+// Auto-initialize when loaded on client, and expose the instance so tests can assert that
+// every chapter of the page actually resolved.
 if (typeof window !== 'undefined') {
+  const start = () => {
+    (window as unknown as { __infrahubScenes?: HomepageSceneSystem }).__infrahubScenes =
+      new HomepageSceneSystem();
+  };
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new HomepageSceneSystem());
+    document.addEventListener('DOMContentLoaded', start);
   } else {
-    new HomepageSceneSystem();
+    start();
   }
 }

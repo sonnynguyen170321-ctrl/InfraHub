@@ -27,17 +27,19 @@ import heroImage from '../assets/hero-datacenter.jpg';
 <section class="hero-section" id="hero">
   <div class="hero-backdrop" aria-hidden="true">
     <div class="hero-camera">
-      <Image
-        src={heroImage}
-        alt=""
-        class="hero-bg-img"
-        loading="eager"
-        fetchpriority="high"
-        widths={[640, 960, 1376]}
-        sizes="100vw"
-        quality={76}
-        format="webp"
-      />
+      <div class="hero-pointer">
+        <Image
+          src={heroImage}
+          alt=""
+          class="hero-bg-img"
+          loading="eager"
+          fetchpriority="high"
+          widths={[640, 960, 1376]}
+          sizes="100vw"
+          quality={76}
+          format="webp"
+        />
+      </div>
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-light-field"></div>
@@ -111,12 +113,24 @@ import heroImage from '../assets/hero-datacenter.jpg';
     transform:
       scale(calc(1 + var(--hero-progress, 0) * 0.045))
       translate3d(
-        calc(var(--hero-progress, 0) * -5px + var(--hero-pointer-x, 0px)),
-        calc(var(--hero-progress, 0) * -8px + var(--hero-pointer-y, 0px)),
+        calc(var(--hero-progress, 0) * -5px),
+        calc(var(--hero-progress, 0) * -8px),
         0
       );
-    transition: transform 220ms var(--ease-out);
     will-change: transform;
+  }
+
+  /*
+   * The pointer offset is a separate layer because the two transforms want opposite
+   * things. Scroll is written every animation frame and has to land on the frame it was
+   * written for; a transition on that same element makes the camera lag the scroll, which
+   * reads as viscous. The pointer is an occasional, tiny offset and does want smoothing.
+   */
+  .hero-pointer {
+    position: absolute;
+    inset: 0;
+    transform: translate3d(var(--hero-pointer-x, 0px), var(--hero-pointer-y, 0px), 0);
+    transition: transform 220ms var(--ease-out);
   }
 
   .hero-bg-img {
@@ -502,7 +516,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
       filter: brightness(0.92) contrast(1.06) saturate(0.92);
       transform: none;
     }
-    .hero-camera {
+    .hero-camera,
+    .hero-pointer {
       transform: none;
       transition: none;
       will-change: auto;
@@ -533,6 +548,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
 </style>
 
 <script>
+  import { homepageScheduler } from '../scripts/homepage-scheduler';
+
   /**
    * The hero writes one number. Everything the scroll drives — camera push, content exit,
    * the exit exposure, the route extending, the partner surface rising — is expressed in CSS
@@ -545,29 +562,17 @@ import heroImage from '../assets/hero-datacenter.jpg';
     if (!heroSection) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    let ticking = false;
-
-    const write = () => {
+    const heroProgress = () => {
       const heroHeight = heroSection.offsetHeight || 1;
-      const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
-      heroSection.style.setProperty('--hero-progress', progress.toFixed(4));
-      ticking = false;
+      return Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
     };
 
-    write();
-
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(write);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-
-    window.addEventListener('resize', write, { passive: true });
+    const scheduler = homepageScheduler();
+    scheduler.registerProgressSource('hero', heroProgress);
+    scheduler.onFrame((frame) => {
+      if (frame.reducedMotion) return;
+      heroSection.style.setProperty('--hero-progress', heroProgress().toFixed(4));
+    });
   }
 
   /**
