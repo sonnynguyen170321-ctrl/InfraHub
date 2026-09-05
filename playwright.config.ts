@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Point the suite at a deployed URL with E2E_BASE to verify a real deployment rather than a
+// local build; with it set, no local server is started.
+const deployedBase = process.env.E2E_BASE;
+
 // The site is desktop-first (1280px+) but must not break on a phone, so the suite runs a
 // desktop project by default and a narrow project for the drawer and layout checks.
 //
@@ -16,7 +20,7 @@ export default defineConfig({
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
 
   use: {
-    baseURL: 'http://localhost:4399',
+    baseURL: deployedBase || 'http://localhost:4399',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure'
   },
@@ -34,7 +38,7 @@ export default defineConfig({
     }
   ],
 
-  webServer: {
+  webServer: deployedBase ? undefined : {
     command: 'node scripts/static-server.mjs',
     env: { PORT: '4399' },
     url: 'http://localhost:4399/',
