@@ -185,23 +185,18 @@ const industries = [
     padding: 80px 0 96px;
     border-bottom: 1px solid var(--border-color);
   }
-
-  /* Horizontal Market Rule Extension (Directive 28) */
   .editorial-top-rule-track {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 1px;
-    background: transparent;
   }
   .editorial-top-rule {
     width: 100%;
     height: 1px;
     background-color: var(--border-color);
   }
-
-  /* Route Connectors */
   .practice-route-entry {
     position: absolute;
     top: 0;
@@ -216,7 +211,6 @@ const industries = [
     height: 100%;
     background-color: var(--accent-blue);
   }
-
   .practice-route-exit {
     position: absolute;
     bottom: 0;
@@ -240,7 +234,6 @@ const industries = [
     border-radius: 50%;
     background-color: var(--accent-blue);
   }
-
   .practice-header {
     margin-bottom: 48px;
     max-width: 800px;
@@ -266,8 +259,6 @@ const industries = [
     line-height: 1.55;
     color: var(--text-secondary);
   }
-
-  /* Journal Layout: Asymmetric Split (Left Dominant 58%, Right Supporting 42%) */
   .journal-editorial-stage {
     display: grid;
     grid-template-columns: 1fr;
@@ -280,8 +271,6 @@ const industries = [
       align-items: start;
     }
   }
-
-  /* Dominant Left: Featured Technical Analysis (Cardless, direct typesetting) */
   .journal-analysis-dominant {
     display: flex;
     flex-direction: column;
@@ -323,7 +312,6 @@ const industries = [
     backdrop-filter: blur(4px);
     transition: color 160ms ease, border-color 160ms ease;
   }
-
   .analysis-editorial-body {
     padding-top: 24px;
     display: flex;
@@ -346,14 +334,13 @@ const industries = [
     color: var(--text-muted);
     font-size: 0.75rem;
   }
-  .analysis-time {
+  .analysis-time, .analysis-context-hint {
     font-size: 0.82rem;
     color: #475569;
   }
   .analysis-context-hint {
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: #475569;
     letter-spacing: 0.02em;
   }
   .analysis-title {
@@ -400,8 +387,6 @@ const industries = [
   .link-arrow {
     transition: transform 160ms ease;
   }
-
-  /* Supporting Right: Industry Index */
   .journal-industries-sidebar {
     display: flex;
     flex-direction: column;
@@ -421,7 +406,6 @@ const industries = [
     line-height: 1.55;
     color: var(--text-secondary);
   }
-
   .industries-nav-list {
     display: flex;
     flex-direction: column;
@@ -477,7 +461,6 @@ const industries = [
     color: var(--accent-blue);
     transform: translateX(3px);
   }
-
   .ecosystem-strip-link {
     margin-top: 24px;
   }
