@@ -3,12 +3,6 @@
 ---
 
 <section class="section-conversion-band" id="contact" aria-label="Final Conversation">
-  <!-- Route Line Entry Connector from Practice (Directive 22) -->
-  <div class="cta-route-entry" aria-hidden="true">
-    <div class="route-line-stem"></div>
-    <div class="route-line-junction"></div>
-  </div>
-
   <div class="container conversion-container">
     <div class="conversion-left">
       <h2 class="conversion-headline">
@@ -29,76 +23,15 @@
       </a>
     </div>
   </div>
-
-  <!-- Route Line Final Termination into Footer Rule (Directive 22) -->
-  <div class="cta-route-termination" aria-hidden="true">
-    <div class="termination-stem"></div>
-    <div class="termination-dot"></div>
-  </div>
 </section>
 
 <style>
   .section-conversion-band {
     position: relative;
     background-color: #0b1120;
-    padding: 120px 0 112px;
+    padding: 84px 0 76px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
-  }
-
-  /* Infrastructure Route Line Entry & Termination (Directive 22) */
-  .cta-route-entry {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 36px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .cta-route-entry .route-line-stem {
-    width: 1.5px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--accent-blue), rgba(40, 84, 199, 0.4));
-  }
-
-  .cta-route-entry .route-line-junction {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: var(--accent-blue);
-    margin-top: -2px;
-  }
-
-  .cta-route-termination {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-  }
-
-  .termination-stem {
-    width: 1.5px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--accent-blue), rgba(255, 255, 255, 0.2));
-  }
-
-  .termination-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.4);
-    margin-top: -2px;
   }
 
   .kicker-row {

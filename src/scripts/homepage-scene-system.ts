@@ -28,13 +28,13 @@ export interface SceneState {
  * does not. The hero was previously registered as `.hero-chapter`, a class the hero has never
  * carried, so the first chapter of the page was silently absent from the controller.
  */
-export const SCENE_SELECTORS: ReadonlyArray<{ id: string; selector: string }> = [
+export const SCENE_SELECTORS: ReadonlyArray<{ id: string; selector: string; optional?: boolean }> = [
   { id: 'hero', selector: '#hero' },
   { id: 'ecosystem', selector: '.partner-trust-ribbon' },
   { id: 'discovery', selector: '#discovery-stage' },
   { id: 'judgment', selector: '#how-it-works' },
   { id: 'routeReality', selector: '#route-explorer' },
-  { id: 'market', selector: '#featured-offers' },
+  { id: 'market', selector: '#featured-offers', optional: true },
   { id: 'practice', selector: '#who-we-help' },
   { id: 'conversation', selector: '#contact' },
 ];
@@ -70,7 +70,13 @@ export class HomepageSceneSystem {
 
   /** Scenes the controller could not find. Surfaced by the scene resolution test. */
   public missingScenes(): string[] {
-    return [...this.scenes.values()].filter((scene) => !scene.element).map((scene) => scene.id);
+    return [...this.scenes.values()]
+      .filter((scene) => !scene.element)
+      .filter((scene) => {
+        const conf = SCENE_SELECTORS.find((s) => s.id === scene.id);
+        return !conf?.optional;
+      })
+      .map((scene) => scene.id);
   }
 
   public sceneProgress(id: string): number {
@@ -128,8 +134,8 @@ export class HomepageSceneSystem {
   }
 
   /**
-   * Discovery → Judgment. Once the visitor is on the last discipline and discovery is running
-   * out of travel, the discipline rail quietens and the route begins converging into the
+   * Discovery → Judgment. Once discovery begins running out of travel (final ~28%),
+   * the discipline rail quietens and the selected route begins converging into the
    * process spine, so the next chapter is created by this one rather than following it.
    */
   private handleDiscoveryHandoff(scene: SceneState) {
@@ -137,8 +143,8 @@ export class HomepageSceneSystem {
     const judgment = this.scenes.get('judgment');
     if (!judgment?.element) return;
 
-    if (this.activeDiscipline === 'managed' && scene.activeProgress > 0.75) {
-      const morphProgress = Math.min(Math.max((scene.activeProgress - 0.75) / 0.25, 0), 1);
+    if (scene.activeProgress > 0.72) {
+      const morphProgress = Math.min(Math.max((scene.activeProgress - 0.72) / 0.28, 0), 1);
       scene.element.style.setProperty('--morph-to-judgment', morphProgress.toFixed(2));
       document.documentElement.style.setProperty('--route-convergence', morphProgress.toFixed(2));
     } else {

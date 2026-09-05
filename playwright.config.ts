@@ -42,7 +42,7 @@ export default defineConfig({
     command: 'node scripts/static-server.mjs',
     env: { PORT: '4399' },
     url: 'http://localhost:4399/',
-    reuseExistingServer: false,
+    reuseExistingServer: !process.env.CI,
     timeout: 60_000
   }
 });

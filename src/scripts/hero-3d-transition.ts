@@ -1,13 +1,13 @@
 /**
- * InfraHub Signature Hero → Partner Ecosystem 3D Spatial Transition
- * Master Directives 01–63: "THE ROUTE LEAVES THE FACILITY"
+ * InfraHub Hero → Partner Ecosystem 2.5D Spatial Perspective Transition
+ * "THE ROUTE LEAVES THE FACILITY"
  *
- * Lightweight, zero-dependency 3D spatial projection engine.
- * Delivers true mathematical perspective, 3D spline interpolation,
- * architectural plane rotation, on-demand scroll rendering, and
- * seamless crossfade handoff into the DOM PartnerTrustRibbon.
+ * Lightweight, zero-dependency 2.5D spatial projection engine using
+ * CanvasRenderingContext2D with mathematical 3D perspective projection,
+ * spline interpolation, architectural plane rotation, on-demand scroll rendering,
+ * and seamless crossfade handoff into the DOM PartnerTrustRibbon.
  *
- * Weight: ~6 KB (satisfies Directive 29 & strict performance budgets with 0 warnings).
+ * Restrained spatial canvas treatment (~6 KB, 0 external dependencies).
  */
 
 export interface Hero3DConfig {

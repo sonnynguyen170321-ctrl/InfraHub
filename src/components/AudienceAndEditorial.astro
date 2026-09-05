@@ -3,44 +3,30 @@
 const industries = [
   {
     name: "ISPs & Network Operators",
-    summary: "Upstream IP transit, optical wavelengths, BGP routing optimization, and automated DDoS flow mitigation.",
-    url: "/industries/isps-network-operators",
-    context: "Optical & Routing Focus",
-    contextSnippet: "Transit / BGP / DWDM / DDoS"
+    summary: "Transit, optical connectivity, routing and DDoS requirements.",
+    url: "/industries/isps-network-operators"
   },
   {
     name: "Hosting & Cloud Providers",
-    summary: "Wholesale bare-metal compute fleets, rack allocations in Tier-3+ facilities, and IPv4 block leasing.",
-    url: "/industries/hosting-cloud-providers",
-    context: "Compute & Facility Focus",
-    contextSnippet: "Bare Metal / Colocation / IPv4"
+    summary: "Compute, colocation, IPv4 and network capacity.",
+    url: "/industries/hosting-cloud-providers"
   },
   {
     name: "SaaS & Technology",
-    summary: "Egress traffic cost suppression, low-latency regional edge peering, and sovereign private cloud architectures.",
-    url: "/industries/saas-technology",
-    context: "Edge & Cloud Focus",
-    contextSnippet: "Edge Peering / Sovereign Cloud"
+    summary: "Regional connectivity, cloud economics and private infrastructure.",
+    url: "/industries/saas-technology"
   },
   {
     name: "Enterprise",
-    summary: "VMware alternatives, multi-cloud connectivity, enterprise hardware sourcing, and managed network operations.",
-    url: "/industries/enterprise",
-    context: "Enterprise Infrastructure",
-    contextSnippet: "Private Cloud / Multi-Cloud / NOC"
+    summary: "Private cloud, connectivity, hardware and managed operations.",
+    url: "/industries/enterprise"
   }
 ];
 ---
 
 <section class="section section-audience-editorial" id="who-we-help" aria-label="Industries and Editorial Practice">
-  <!-- Horizontal Market Rule Extension (Directive 28: Turning a page) -->
   <div class="editorial-top-rule-track" aria-hidden="true">
     <div class="editorial-top-rule"></div>
-  </div>
-
-  <!-- Route Line Entry Connector from Offers -->
-  <div class="practice-route-entry" aria-hidden="true">
-    <div class="route-line-stem"></div>
   </div>
 
   <div class="container">
@@ -54,29 +40,23 @@ const industries = [
 
     <div class="journal-editorial-stage">
       
-      <!-- Dominant Left Column: Featured Technical Analysis (7 Columns / ~58%) -->
-      <article class="journal-analysis-dominant" aria-labelledby="featured-analysis-title">
+      <!-- Dominant Left Column: Featured Technical Analysis (~62%) -->
+      <article class="journal-analysis-dominant" id="featuredArticle" aria-labelledby="featured-analysis-title">
         <a href="/insights/physical-path-diversity" class="analysis-image-frame">
           <img 
             src="/images/physical-route-diversity.jpg" 
             alt="Physical optical fiber route diversity diagram across bridge choke point" 
             class="analysis-lead-img"
+            id="analysisLeadImg"
             loading="lazy"
             width="800"
             height="450"
           />
-          <div class="analysis-image-overlay" aria-hidden="true">
-            <span class="analysis-overlay-badge">Optical Networks</span>
-          </div>
         </a>
 
         <div class="analysis-editorial-body">
           <div class="analysis-meta-row">
             <span class="analysis-category">Optical Networks</span>
-            <span class="meta-dot" aria-hidden="true">&bull;</span>
-            <span class="analysis-time">9 min read</span>
-            <span class="meta-dot" aria-hidden="true">&bull;</span>
-            <span class="analysis-context-hint">Transit / BGP / DWDM / DDoS</span>
           </div>
 
           <h3 class="analysis-title" id="featured-analysis-title">
@@ -91,19 +71,19 @@ const industries = [
 
           <div class="analysis-footer">
             <a href="/insights/physical-path-diversity" class="analysis-read-link">
-              <span>Read the Technical Analysis</span>
+              <span>Read technical analysis</span>
               <span class="link-arrow" aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>
       </article>
 
-      <!-- Supporting Right Column: Industry Index Navigation (5 Columns / ~42%) -->
+      <!-- Supporting Right Column: Industry Index Navigation (~38%) -->
       <aside class="journal-industries-sidebar" aria-label="Target Industries">
         <div class="sidebar-header">
-          <h3 class="sidebar-title">Sectors in Practice</h3>
+          <h3 class="sidebar-title">Who we work with</h3>
           <p class="sidebar-desc">
-            We tailor sourcing, routing, and hardware evaluation to the exact operational realities of four core sectors.
+            We tailor sourcing, routing, and hardware evaluation to the operational realities of four core sectors.
           </p>
         </div>
 
@@ -113,8 +93,6 @@ const industries = [
               href={ind.url} 
               class="industry-nav-item" 
               data-sector-index={idx}
-              data-sector-context={ind.context}
-              data-sector-snippet={ind.contextSnippet}
             >
               <span class="ind-index">{String(idx + 1).padStart(2, '0')}</span>
               <div class="ind-text-wrap">
@@ -135,12 +113,6 @@ const industries = [
       </aside>
 
     </div>
-  </div>
-
-  <!-- Route Line Exit Connector to Final Conversation (Directive 31: Nightfall route descends) -->
-  <div class="practice-route-exit" aria-hidden="true">
-    <div class="exit-stem"></div>
-    <div class="exit-junction"></div>
   </div>
 </section>
 
@@ -163,45 +135,8 @@ const industries = [
     height: 1px;
     background-color: var(--border-color);
   }
-  .practice-route-entry {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 28px;
-    z-index: 2;
-  }
-  .practice-route-entry .route-line-stem {
-    width: 1.5px;
-    height: 100%;
-    background-color: var(--accent-blue);
-  }
-  .practice-route-exit {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 36px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
-  }
-  .practice-route-exit .exit-stem {
-    width: 1.5px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--accent-blue), #0b1120);
-  }
-  .practice-route-exit .exit-junction {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: var(--accent-blue);
-  }
   .practice-header {
-    margin-bottom: 48px;
+    margin-bottom: 44px;
     max-width: 800px;
   }
 
@@ -221,12 +156,12 @@ const industries = [
   .journal-editorial-stage {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 48px;
   }
   @media (min-width: 960px) {
     .journal-editorial-stage {
-      grid-template-columns: 1.35fr 1fr;
-      gap: 72px;
+      grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
+      gap: 64px;
       align-items: start;
     }
   }
@@ -247,10 +182,11 @@ const industries = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 360ms ease;
+    transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .analysis-image-frame:hover .analysis-lead-img {
-    transform: scale(1.02);
+  .analysis-image-frame:hover .analysis-lead-img,
+  .analysis-lead-img.shift-crop {
+    transform: scale(1.025) translate3d(2px, -2px, 0);
   }
   .analysis-image-overlay {
     position: absolute;
@@ -435,3 +371,24 @@ const industries = [
     color: var(--accent-blue-hover);
   }
 </style>
+
+<script>
+  function initPracticeInteractions() {
+    const leadImg = document.getElementById('analysisLeadImg');
+    const items = document.querySelectorAll('.industry-nav-item');
+    if (!leadImg || !items.length) return;
+
+    items.forEach((item) => {
+      item.addEventListener('mouseenter', () => leadImg.classList.add('shift-crop'));
+      item.addEventListener('mouseleave', () => leadImg.classList.remove('shift-crop'));
+      item.addEventListener('focus', () => leadImg.classList.add('shift-crop'));
+      item.addEventListener('blur', () => leadImg.classList.remove('shift-crop'));
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPracticeInteractions);
+  } else {
+    initPracticeInteractions();
+  }
+</script>

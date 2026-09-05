@@ -31,8 +31,10 @@ test.describe('without JavaScript', () => {
     expect(verify).toContain('building entry');
     expect(verify).toContain('bridge or rail crossing');
 
-    // 06 Market, 07 Practice, 08 Conversation
-    await expect(page.locator('#featured-offers')).toBeVisible();
+    // 06 Market (conditional on inventory), 07 Practice, 08 Conversation
+    if ((await page.locator('#featured-offers').count()) > 0) {
+      await expect(page.locator('#featured-offers')).toBeVisible();
+    }
     await expect(page.locator('#who-we-help')).toBeVisible();
     await expect(page.locator('#contact')).toBeVisible();
     await expect(page.locator('#contact a[href="/lets-talk"]').first()).toBeVisible();

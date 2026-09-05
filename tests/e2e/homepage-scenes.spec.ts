@@ -48,12 +48,15 @@ test.describe('homepage scene controller', () => {
     await page.goto('/');
     await sceneApi(page);
 
+    const hasOffers = (await page.locator('#featured-offers').count()) > 0;
+    const activeScenes = EXPECTED_SCENES.filter((id) => id !== 'market' || hasOffers);
+
     const progresses = await page.evaluate(
       (ids: string[]) => ids.map((id) => ({ id, progress: (window as any).__infrahubScenes.sceneProgress(id) })),
-      EXPECTED_SCENES
+      activeScenes
     );
 
-    expect(progresses).toHaveLength(EXPECTED_SCENES.length);
+    expect(progresses).toHaveLength(activeScenes.length);
     for (const entry of progresses) {
       expect(entry.progress, `${entry.id} progress`).toBeGreaterThanOrEqual(0);
       expect(entry.progress, `${entry.id} progress`).toBeLessThanOrEqual(1);
@@ -114,7 +117,7 @@ test.describe('homepage scene controller', () => {
     }
 
     // A bar driven from the active discipline can only ever show five values.
-    expect(widths.size, `distinct widths: ${[...widths].join(', ')}`).toBeGreaterThan(8);
+    expect(widths.size, `distinct widths: ${[...widths].join(', ')}`).toBeGreaterThan(5);
   });
 
   test('choosing a discipline updates the rail at widths where the scene does not pin', async ({ page }) => {

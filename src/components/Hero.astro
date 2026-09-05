@@ -19,7 +19,12 @@
 //   .hero-light-field restrained radial lift around the rack architecture
 //   .hero-light-trace one-time highlight across the overhead cable geometry
 //   .hero-exit-veil   a 10% exposure drop, applied only in the last third of the exit
-//   .hero-paper-rise  the partner surface pushing up into the frame as the hero leaves
+//
+// The partner surface that rises into the frame is drawn by the 3D canvas
+// (hero-3d-transition.ts, "Architectural Partner Plane"), not by a CSS layer here. A second
+// CSS gradient used to sit in this stack doing the same job. Its transform mixed a unitless
+// 0 with a deg value inside max(), so the declaration was invalid, it never animated, and it
+// washed the bottom of the photograph out at every scroll position.
 import { Image } from 'astro:assets';
 import heroImage from '../assets/hero-datacenter.jpg';
 ---
@@ -45,7 +50,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     <div class="hero-light-field"></div>
     <div class="hero-light-trace"></div>
     <div class="hero-exit-veil"></div>
-    <div class="hero-paper-rise"></div>
   </div>
 
   <div class="container hero-container">
@@ -204,8 +208,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
         180deg,
         rgba(7, 12, 20, 0.1) 0%,
         rgba(7, 12, 20, 0) 44%,
-        rgba(7, 12, 20, 0.24) 80%,
-        rgba(7, 12, 20, 0.52) 100%
+        rgba(7, 12, 20, 0.16) 80%,
+        rgba(7, 12, 20, 0.3) 100%
       );
   }
 
@@ -267,32 +271,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     pointer-events: none;
     background-color: #070c14;
     opacity: calc((var(--hero-progress, 0) - 0.65) / 3.5);
-  }
-
-  /*
-   * The partner surface physically enters from below rather than the hero cross-fading out.
-   * It completes by 60% of the exit, so the route line leaves the photograph and continues
-   * into the ecosystem on a light ground.
-   */
-  .hero-paper-rise {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 80px;
-    pointer-events: none;
-    background: linear-gradient(
-      to top,
-      #ffffff 0%,
-      rgba(255, 255, 255, 0.92) 48%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    transform-origin: bottom center;
-    transform:
-      perspective(1000px)
-      rotateX(calc(max(0, (1 - min(var(--hero-progress, 0) * 1.35, 1)) * 5deg)))
-      translateY(calc(100% - min(var(--hero-progress, 0) * 1.5, 1) * 100%));
-    will-change: transform;
   }
 
   .hero-container {

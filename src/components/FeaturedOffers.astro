@@ -19,30 +19,16 @@ const secondaryOffers = primaryOffer
   : [];
 ---
 
+{activeOffers.length > 0 && (
 <section class="section section-offers" id="featured-offers" aria-label="Commercial Opportunities">
-  <!-- Route Line Entry Connector from Route Diversity (Directive 18) -->
-  <div class="offers-route-entry" aria-hidden="true">
-    <div class="route-line-stem"></div>
-  </div>
-
   <div class="container">
-    
-    {activeOffers.length === 0 ? (
-      <div class="offers-band">
-        <p class="offers-band-text">Current opportunities are being updated.</p>
-        <a href="/lets-talk" class="offers-band-link">
-          <span>Discuss a specific requirement</span>
-          <span class="link-arrow" aria-hidden="true">&rarr;</span>
-        </a>
+    <div class="offers-populated">
+      <div class="offers-header">
+        <h2 class="offers-headline">Current infrastructure opportunities</h2>
+        <p class="offers-lead">
+          Commercial allocations across connectivity, bare metal, hardware and security available through the InfraHub specialist network.
+        </p>
       </div>
-    ) : (
-      <div class="offers-populated">
-        <div class="offers-header">
-          <h2 class="offers-headline">Current infrastructure opportunities</h2>
-          <p class="offers-lead">
-            Commercial allocations across connectivity, bare metal, hardware and security available through the InfraHub specialist network.
-          </p>
-        </div>
 
       <div class={`offers-composition ${activeOffers.length === 1 ? 'is-single' : ''}`}>
         
@@ -111,16 +97,9 @@ const secondaryOffers = primaryOffer
 
       </div>
       </div>
-    )}
-
-  </div>
-
-  <!-- Route Line Exit Connector to Practice / Editorial (Directive 20) -->
-  <div class="offers-route-exit" aria-hidden="true">
-    <div class="exit-stem"></div>
-    <div class="exit-junction"></div>
   </div>
 </section>
+)}
 
 <style>
   .section-offers {

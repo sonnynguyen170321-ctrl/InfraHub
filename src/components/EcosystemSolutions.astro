@@ -14,16 +14,17 @@ const solutionFamilies = [
     name: "Infrastructure & Compute",
     discipline: "Hardware & facilities",
     summary: "Dedicated compute, colocation, GPU infrastructure, and enterprise hardware sourcing matched to workload, facility, and commercial requirements.",
+    advisoryInsight: "Facility power, hardware lifecycle and workload density change the answer.",
     image: infrastructureVisual,
     imageAlt: "Datacenter compute environment with high-density server racks",
     imageCaption: "Datacenter compute environment",
     ctaLink: "/solutions/infrastructure",
     services: [
-      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "Bare-metal compute and custom configurations." },
-      { name: "Custom IaaS", url: "/custom-iaas", desc: "Dedicated clusters and private hypervisors." },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "Accelerator-heavy workloads." },
-      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Routing, switching and server sourcing." },
-      { name: "Colocation", url: "/colocation", desc: "Rack, cage, power and interconnection." }
+      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "Bare-metal compute and custom configurations.", branch: "Compute" },
+      { name: "Custom IaaS", url: "/custom-iaas", desc: "Dedicated clusters and private hypervisors.", branch: "Hardware" },
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "Accelerator-heavy workloads.", branch: "Compute" },
+      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Routing, switching and server sourcing.", branch: "Hardware" },
+      { name: "Colocation", url: "/colocation", desc: "Rack, cage, power and interconnection.", branch: "Colocation" }
     ]
   },
   {
@@ -32,15 +33,16 @@ const solutionFamilies = [
     name: "Cloud & Virtualization",
     discipline: "Virtualization & data location",
     summary: "Private cloud, public-cloud integration, VMware alternatives, container platforms, backup, and hybrid infrastructure architectures.",
+    advisoryInsight: "Workload stability, licensing and operational ownership change the answer.",
     image: cloudVisual,
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     imageCaption: "Private-cloud compute cluster",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
-      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable economics." },
-      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates architectures." },
-      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Private direct-connect to major clouds." },
-      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and failover architectures." }
+      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable economics.", branch: "Private cloud" },
+      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates architectures.", branch: "Virtualization" },
+      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Private direct-connect to major clouds.", branch: "Hybrid" },
+      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and failover architectures.", branch: "Backup" }
     ]
   },
   {
@@ -49,16 +51,17 @@ const solutionFamilies = [
     name: "Network & Connectivity",
     discipline: "Transit & optical",
     summary: "Upstream IP transit, dedicated wavelengths, Layer 2 Ethernet, cloud connectivity, IPv4 sourcing, and edge-network options.",
+    advisoryInsight: "Physical presence, route quality and traffic commitment change the answer.",
     image: networkVisual,
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
     imageCaption: "Optical interconnection environment",
     ctaLink: "/solutions/network-connectivity",
     services: [
-      { name: "IP Transit", url: "/ip-transit", desc: "Upstream BGP connectivity and committed data rates." },
-      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths." },
-      { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro interconnects." },
-      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Direct cloud bypass to major access points." },
-      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "Verified address space and routing authorization." }
+      { name: "IP Transit", url: "/ip-transit", desc: "Upstream BGP connectivity and committed data rates.", branch: "Transit" },
+      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths.", branch: "Wavelengths" },
+      { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro interconnects.", branch: "Layer 2" },
+      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Direct cloud bypass to major access points.", branch: "Cloud on-ramp" },
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "Verified address space and routing authorization.", branch: "IPv4" }
     ]
   },
   {
@@ -67,15 +70,16 @@ const solutionFamilies = [
     name: "Security & Telemetry",
     discipline: "DDoS mitigation & telemetry",
     summary: "BGP DDoS mitigation, near-real-time flow telemetry, automated FlowSpec filtering, and perimeter security assessments.",
+    advisoryInsight: "Detection ownership, mitigation path and upstream capability change the answer.",
     image: securityVisual,
     imageAlt: "Network operations security monitoring console and BGP telemetry",
     imageCaption: "Network security operations",
     ctaLink: "/solutions/security",
     services: [
-      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing." },
-      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "Near-real-time FlowSpec and automated diversion." },
-      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "BGP visibility and route analysis support." },
-      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter protection through specialist providers." }
+      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing.", branch: "Mitigation" },
+      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "Near-real-time FlowSpec and automated diversion.", branch: "Detection" },
+      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "BGP visibility and route analysis support.", branch: "Detection" },
+      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter protection through specialist providers.", branch: "Diversion" }
     ]
   },
   {
@@ -84,15 +88,16 @@ const solutionFamilies = [
     name: "Managed Operations",
     discipline: "Operations & engineering",
     summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure operations support.",
+    advisoryInsight: "Coverage model, escalation path and engineering responsibility change the answer.",
     image: managedVisual,
     imageAlt: "Network operations control room with infrastructure monitoring displays",
     imageCaption: "Network operations environment",
     ctaLink: "/solutions/managed-services",
     services: [
-      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and incident escalation." },
-      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated dispatch." },
-      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP routing and network architecture support." },
-      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Infrastructure-as-code and configuration." }
+      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and incident escalation.", branch: "Monitor" },
+      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated dispatch.", branch: "Triage" },
+      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP routing and network architecture support.", branch: "Engineer" },
+      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Infrastructure-as-code and configuration.", branch: "Escalate" }
     ]
   }
 ];
@@ -225,7 +230,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                   <g class={`route-set ${idx === 0 ? 'active' : ''}`} data-route-set={set.id}>
                     <path class="route-trunk" d={`M ${TRUNK_X} 0 V ${set.height - 18}`} />
                     {set.rows.map((row) => (
-                      <g class="branch-item">
+                      <g class="branch-item" data-branch-label={row.label}>
                         <path class={`route-branch ${row.isRisk ? 'is-risk' : ''}`} d={row.d} />
                         <text class="route-label" x={LABEL_X} y={row.y + 3}>{row.label}</text>
                         {row.connectsToPhoto && (
@@ -287,7 +292,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
                 <div class="service-routes-list">
                   {family.services.map(svc => (
-                    <a href={svc.url} class="service-route-link" data-service-name={svc.name}>
+                    <a href={svc.url} class="service-route-link" data-service-name={svc.name} data-branch={svc.branch}>
                       <div class="route-info">
                         <span class="route-name">{svc.name}</span>
                         <span class="route-desc">{svc.desc}</span>
@@ -295,6 +300,12 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                       <span class="route-arrow" aria-hidden="true">&rarr;</span>
                     </a>
                   ))}
+                </div>
+
+                <!-- One What Changes The Answer Insight Per Discipline (Directive 5) -->
+                <div class="panel-advisory-block">
+                  <span class="advisory-kicker">What changes the answer</span>
+                  <p class="advisory-statement">{family.advisoryInsight}</p>
                 </div>
 
                 <div class="panel-footer">
@@ -541,12 +552,18 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   @media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
     .discovery-scene {
-      min-height: 250vh;
+      /* Paced discovery explorer: ~82vh visual stage + ~55vh exit travel */
+      min-height: 145vh;
     }
 
     .discovery-sticky {
       position: sticky;
-      top: calc(var(--header-height) + 16px);
+      top: var(--header-height);
+      min-height: calc(100vh - var(--header-height) - 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 16px 0 24px;
     }
   }
 
@@ -563,7 +580,8 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   .discovery-triad-desktop {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
+    align-items: start;
   }
 
   @media (min-width: 1080px) {
@@ -645,20 +663,20 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   .tab-num {
     font-family: var(--font-mono);
     font-size: 0.74rem;
-    color: var(--text-muted);
+    color: #334155;
     font-weight: 600;
   }
 
   .discipline-tab-btn.active .tab-num {
-    color: var(--color-cobalt);
+    color: #1e3a8a;
   }
 
   /* Descriptors in main sans (Directive 14) */
   .tab-discipline-kicker {
     font-family: var(--font-heading);
     font-size: 0.76rem;
-    font-weight: 450;
-    color: var(--text-muted);
+    font-weight: 550;
+    color: #334155;
     letter-spacing: 0.01em;
   }
 
@@ -870,7 +888,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   .panel-summary {
     font-size: 0.86rem;
-    color: var(--text-secondary);
+    color: var(--text-primary, #091118);
     line-height: 1.5;
     margin: 0 0 10px;
   }
@@ -974,6 +992,65 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   .panel-overview-link:focus-visible .link-arrow {
     transform: translateX(3px);
   }
+
+  /* One "What Changes The Answer" Observation Per Discipline (Directive 5) */
+  .panel-advisory-block {
+    margin: 16px 0 12px;
+    padding: 10px 14px;
+    background: rgba(15, 23, 42, 0.035);
+    border-left: 2px solid #1e40af;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .advisory-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #1e3a8a;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .advisory-statement {
+    font-size: 0.84rem;
+    line-height: 1.45;
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* Route branch interactive highlight on service hover (Directive 6) */
+  .branch-item {
+    transition: opacity 140ms ease;
+  }
+
+  .branch-item.is-highlighted .route-branch {
+    stroke: var(--color-cobalt, #2563eb) !important;
+    stroke-width: 2.2px !important;
+  }
+
+  .branch-item.is-highlighted .route-label {
+    fill: var(--color-cobalt, #2563eb) !important;
+    font-weight: 750 !important;
+  }
+
+  /* Discovery Exit Transition into Judgment (Directives 9 & 10) */
+  .discovery-scene.is-exiting .triad-col-disciplines {
+    opacity: 0.9;
+    transition: opacity 220ms ease;
+  }
+
+  .discovery-scene.is-exiting .triad-col-services {
+    opacity: 1;
+    transform: translateY(2px);
+    transition: transform 220ms ease;
+  }
+
+  .discovery-scene.is-exiting .visual-frame.active .visual-img {
+    transform: scale(1.02);
+  }
 </style>
 
 <script>
@@ -1062,28 +1139,9 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       if (progressBar) progressBar.style.transform = `scaleX(${progress.toFixed(4)})`;
     }
 
-    function indexForProgress(progress: number): number {
-      return Math.min(Math.floor(progress * tabs.length), tabs.length - 1);
-    }
-
-    function scrollToIndex(index: number) {
-      if (!scene || !isPinned()) return;
-      const sticky = scene.querySelector<HTMLElement>('.discovery-sticky');
-      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
-      if (travel <= 0) return;
-
-      const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
-      const band = travel / tabs.length;
-      window.scrollTo({
-        top: Math.round(sceneTop + band * index + band * 0.5),
-        behavior: reducedMotion.matches ? 'auto' : 'smooth'
-      });
-    }
-
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
         activate(index);
-        scrollToIndex(index);
       });
 
       tab.addEventListener('keydown', (event) => {
@@ -1106,13 +1164,47 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       });
     });
 
+    // ── Physical Visual Interaction (Directive 6) ──────────────────────────
+    const visualCol = container.querySelector<HTMLElement>('.triad-col-visual');
+    if (visualCol && window.matchMedia('(pointer: fine)').matches && !reducedMotion.matches) {
+      visualCol.addEventListener('mousemove', (e) => {
+        const rect = visualCol.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const activeImg = visualCol.querySelector<HTMLElement>('.visual-frame.active .visual-img');
+        if (activeImg) {
+          activeImg.style.transform = `perspective(1000px) rotateX(${-y * 0.7}deg) rotateY(${x * 0.7}deg) translate3d(${(x * 6).toFixed(1)}px, ${(y * 6).toFixed(1)}px, 0)`;
+        }
+      });
+      visualCol.addEventListener('mouseleave', () => {
+        const activeImg = visualCol.querySelector<HTMLElement>('.visual-frame.active .visual-img');
+        if (activeImg) activeImg.style.transform = '';
+      });
+    }
+
+    // ── Service Hover Route Branch Emphasis (Directive 6) ───────────────────
+    const serviceLinks = Array.from(container.querySelectorAll<HTMLElement>('.service-route-link'));
+    serviceLinks.forEach((link) => {
+      const branch = link.getAttribute('data-branch');
+      if (!branch) return;
+      link.addEventListener('mouseenter', () => {
+        container.querySelectorAll<SVGElement>(`.branch-item[data-branch-label="${branch}"]`).forEach((b) => b.classList.add('is-highlighted'));
+      });
+      link.addEventListener('mouseleave', () => {
+        container.querySelectorAll<SVGElement>('.branch-item.is-highlighted').forEach((b) => b.classList.remove('is-highlighted'));
+      });
+    });
+
+    // ── Scheduler and Exit Handoff (Directives 8, 9, 10) ────────────────────
     const scheduler = homepageScheduler();
     scheduler.registerProgressSource('discovery', sceneProgress);
 
     scheduler.onFrame(() => {
       const progress = sceneProgress();
       renderProgress(progress);
-      if (isPinned()) activate(indexForProgress(progress));
+      if (scene) {
+        scene.classList.toggle('is-exiting', progress > 0.72);
+      }
     });
 
     const requestFrame = () => scheduler.request();

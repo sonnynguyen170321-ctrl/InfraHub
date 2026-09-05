@@ -58,10 +58,10 @@ const states = [
 const riskPoints = [
   { at: 'Building entry', note: 'One entrance or handhole serving both circuits' },
   { at: 'Local duct', note: 'Shared sub-duct along the same street run' },
+  { at: 'Long-haul segment', note: 'Leased capacity riding one underlying fibre pair' },
   { at: 'Bridge or rail crossing', note: 'A single civil crossing for a whole corridor' },
   { at: 'Carrier facility', note: 'Both routes transiting the same building' },
-  { at: 'Meet-me room', note: 'Shared distribution path inside the facility' },
-  { at: 'Long-haul segment', note: 'Leased capacity riding one underlying fibre pair' }
+  { at: 'Meet-me room', note: 'Shared distribution path inside the facility' }
 ];
 ---
 
@@ -70,12 +70,6 @@ const riskPoints = [
   id="route-explorer"
   aria-label="Physical route diversity"
 >
-  <!-- The two carrier routes arrive from the process story above. -->
-  <div class="explorer-route-entry" aria-hidden="true">
-    <div class="entry-fork-line line-a"></div>
-    <div class="entry-fork-line line-b"></div>
-  </div>
-
   <div class="route-scene" id="routeScene">
     <div class="route-sticky">
       <div class="container route-stage-grid">
@@ -118,9 +112,6 @@ const riskPoints = [
         <!-- Exhibit: one model, two views, drawn in SVG -->
         <div class="route-exhibit">
           <div class="axo-stage" id="axonoStage">
-            <!-- Photo bridge layer (Directive 22: Real infrastructure foundation beneath model) -->
-            <div class="photo-bridge-layer" aria-hidden="true"></div>
-
             <svg
               class="schematic-svg state-logical"
               id="svgLogical"
@@ -139,82 +130,97 @@ const riskPoints = [
               <g class="site-group">
                 <rect x="588" y="132" width="132" height="76" rx="3" class="site-block" />
                 <text x="604" y="162" class="site-name">Site B</text>
-                <text x="604" y="182" class="site-meta">Cloud on-ramp</text>
+                <text x="604" y="182" class="site-meta">Primary core</text>
               </g>
 
-              <path class="route-path route-a" d="M172 158 C 300 78, 460 78, 588 158" />
-              <path class="route-path route-b" d="M172 182 C 300 262, 460 262, 588 182" />
+              <!-- Independent-looking paths in logical view -->
+              <path
+                d="M 172 152 C 260 92, 500 92, 588 152"
+                class="route-path carrier-alpha"
+              />
+              <text x="380" y="112" text-anchor="middle" class="path-label label-alpha">
+                Carrier Alpha (ASN 1299)
+              </text>
 
-              <text x="352" y="96" class="route-label route-label-a">Carrier A</text>
-              <text x="352" y="256" class="route-label route-label-b">Carrier B</text>
+              <path
+                d="M 172 188 C 260 248, 500 248, 588 188"
+                class="route-path carrier-bravo"
+              />
+              <text x="380" y="238" text-anchor="middle" class="path-label label-bravo">
+                Carrier Bravo (ASN 3356)
+              </text>
 
               <text x="380" y="326" text-anchor="middle" class="model-note">
-                Separate contracts. Separate ASNs. No physical claim yet.
+                Illustrative model. Not a survey of any real route.
               </text>
             </svg>
 
+            <!-- Physical schematic: the same two paths in the ground, converging -->
             <svg
               class="schematic-svg state-physical"
               id="svgPhysical"
               viewBox="0 0 760 340"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              aria-label="Illustrative physical diagram: two carrier paths converging on one shared crossing"
+              aria-label="Illustrative physical diagram: two circuits sharing ground infrastructure"
               aria-hidden="true"
             >
-              <!-- Ground plane, drawn as an axonometric slab -->
-              <polygon class="ground-plane" points="60,236 380,124 700,236 380,320" />
-
-              <!-- Buildings -->
-              <g class="axo-building">
-                <polygon class="building-roof" points="96,206 148,186 200,206 148,226" />
-                <polygon class="building-left" points="96,206 96,238 148,258 148,226" />
-                <polygon class="building-right" points="200,206 200,238 148,258 148,226" />
-                <text x="76" y="284" class="model-label">Site A</text>
+              <g class="site-group">
+                <rect x="40" y="132" width="132" height="76" rx="3" class="site-block" />
+                <text x="56" y="162" class="site-name">Site A</text>
+                <text x="56" y="182" class="site-meta">Enterprise edge</text>
               </g>
 
-              <g class="axo-building">
-                <polygon class="building-roof" points="560,206 612,186 664,206 612,226" />
-                <polygon class="building-left" points="560,206 560,238 612,258 612,226" />
-                <polygon class="building-right" points="664,206 664,238 612,258 612,226" />
-                <text x="586" y="284" class="model-label">Site B</text>
+              <g class="site-group">
+                <rect x="588" y="132" width="132" height="76" rx="3" class="site-block" />
+                <text x="604" y="162" class="site-name">Site B</text>
+                <text x="604" y="182" class="site-meta">Primary core</text>
               </g>
 
-              <!-- Carrier facility between them -->
-              <g class="axo-building is-facility">
-                <polygon class="building-roof" points="336,150 380,134 424,150 380,166" />
-                <polygon class="building-left" points="336,150 336,176 380,192 380,166" />
-                <polygon class="building-right" points="424,150 424,176 380,192 380,166" />
-                <text x="340" y="108" text-anchor="end" class="model-label">Carrier facility</text>
-              </g>
+              <!-- In the ground: routes converge through one crossing -->
+              <path
+                d="M 172 152 C 230 152, 280 166, 330 166 L 430 166 C 480 166, 530 152, 588 152"
+                class="route-path carrier-alpha physical-run"
+              />
+              <path
+                d="M 172 188 C 230 188, 280 166, 330 166 L 430 166 C 480 166, 530 188, 588 188"
+                class="route-path carrier-bravo physical-run"
+              />
 
-              <!-- Both routes leave their own duct, then ride one crossing -->
-              <path class="route-path route-a" d="M148 232 L 244 200 L 306 178" />
-              <path class="route-path route-b" d="M148 244 L 246 210 L 306 186" />
-              <path class="route-shared" d="M306 178 L 380 166 L 454 178" />
-              <path class="route-path route-a" d="M454 178 L 516 200 L 612 232" />
-              <path class="route-path route-b" d="M454 186 L 514 210 L 612 244" />
+              <!-- The shared choke point: amber highlight on the converged segment -->
+              <path
+                d="M 330 166 L 430 166"
+                class="route-path route-shared shared-segment"
+              />
 
-              <text x="380" y="236" text-anchor="middle" class="shared-label">
-                Shared crossing
+              <text x="380" y="148" text-anchor="middle" class="shared-label">
+                Shared civil crossing
               </text>
 
-              <!-- Named convergence points, revealed in state 3 -->
+              <!-- Named 6 convergence points, interactive hotspots -->
               <g class="risk-markers">
-                <g class="risk-marker">
-                  <circle cx="176" cy="240" r="4" />
+                <g class="risk-marker" data-risk-point="building-entry">
+                  <circle cx="176" cy="240" r="5" />
                   <text x="186" y="252" class="risk-text">Building entry</text>
                 </g>
-                <g class="risk-marker">
-                  <circle cx="262" cy="200" r="4" />
+                <g class="risk-marker" data-risk-point="local-duct">
+                  <circle cx="262" cy="200" r="5" />
                   <text x="236" y="176" class="risk-text">Local duct</text>
                 </g>
-                <g class="risk-marker">
-                  <circle cx="380" cy="166" r="4" />
-                  <text x="430" y="132" class="risk-text">Bridge or rail crossing</text>
+                <g class="risk-marker" data-risk-point="long-haul-segment">
+                  <circle cx="320" cy="190" r="5" />
+                  <text x="280" y="214" class="risk-text">Long-haul</text>
                 </g>
-                <g class="risk-marker">
-                  <circle cx="500" cy="200" r="4" />
+                <g class="risk-marker" data-risk-point="bridge-or-rail-crossing">
+                  <circle cx="380" cy="166" r="6" />
+                  <text x="430" y="132" class="risk-text">Civil crossing</text>
+                </g>
+                <g class="risk-marker" data-risk-point="carrier-facility">
+                  <circle cx="440" cy="190" r="5" />
+                  <text x="420" y="214" class="risk-text">Carrier facility</text>
+                </g>
+                <g class="risk-marker" data-risk-point="meet-me-room">
+                  <circle cx="500" cy="200" r="5" />
                   <text x="518" y="186" class="risk-text">Meet-me room</text>
                 </g>
               </g>
@@ -229,24 +235,17 @@ const riskPoints = [
     </div>
   </div>
 
-  <!-- The same information as text: the exhibit is an illustration of this, never the only
-       place it exists. -->
+  <!-- The same information as text: the exhibit is an illustration of this, never the only place it exists. -->
   <div class="container route-verify">
     <h3 class="verify-title">What to check before treating two circuits as diverse</h3>
     <ul class="verify-list">
       {riskPoints.map((point) => (
-        <li>
+        <li class="verify-item" data-risk-target={point.at.toLowerCase().replace(/[^a-z0-9]+/g, '-')} tabindex="0">
           <span class="verify-at">{point.at}</span>
           <span class="verify-note">{point.note}</span>
         </li>
       ))}
     </ul>
-  </div>
-
-  <div class="explorer-route-exit" aria-hidden="true">
-    <div class="exit-stem"></div>
-    <div class="exit-junction"></div>
-    <div class="exit-horizontal-flat-rule"></div>
   </div>
 </section>
 
@@ -256,34 +255,6 @@ const riskPoints = [
     background-color: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
     padding: 64px 0 72px;
-  }
-
-  /* ── The two routes arriving from the process story ───────────────────── */
-  .explorer-route-entry {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 120px;
-    height: 56px;
-    transform: translateX(-50%);
-    pointer-events: none;
-  }
-
-  .entry-fork-line {
-    position: absolute;
-    top: 0;
-    width: 1.5px;
-    height: 100%;
-    background: linear-gradient(180deg, var(--accent-blue), transparent);
-  }
-
-  .entry-fork-line.line-a {
-    left: 34px;
-  }
-
-  .entry-fork-line.line-b {
-    left: 84px;
-    background: linear-gradient(180deg, var(--accent-teal, #0d9488), transparent);
   }
 
   /* ── Scene ────────────────────────────────────────────────────────────── */
@@ -297,8 +268,8 @@ const riskPoints = [
 
   @media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
     .route-scene {
-      /* Four states with room to read each one. */
-      min-height: 300vh;
+      /* Two-act scroll story: logical then physical convergence, followed by interaction */
+      min-height: 165vh;
     }
 
     .route-sticky {
@@ -603,14 +574,36 @@ const riskPoints = [
     opacity: 1;
   }
 
+  .risk-marker {
+    cursor: pointer;
+    transition: transform 160ms var(--ease-out);
+    outline: none;
+  }
+
   .risk-marker circle {
     fill: var(--accent-amber, #d97706);
+    transition: fill 140ms ease, r 140ms ease;
+  }
+
+  .risk-marker:hover circle,
+  .risk-marker:focus-visible circle,
+  .risk-marker.is-active circle {
+    fill: var(--color-cobalt, #2563eb);
+    r: 8px;
   }
 
   .risk-text {
     font-family: var(--font-mono);
     font-size: 10.5px;
     fill: var(--text-secondary);
+    transition: fill 140ms ease;
+  }
+
+  .risk-marker:hover .risk-text,
+  .risk-marker:focus-visible .risk-text,
+  .risk-marker.is-active .risk-text {
+    fill: var(--color-cobalt, #2563eb);
+    font-weight: 700;
   }
 
   /* ── The same content as text ─────────────────────────────────────────── */
@@ -643,62 +636,42 @@ const riskPoints = [
     }
   }
 
-  .verify-list li {
+  .verify-item {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     gap: 12px;
-    padding: 12px 0;
+    padding: 12px 8px;
     border-bottom: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 140ms ease, border-color 140ms ease;
+    outline: none;
+  }
+
+  .verify-item:hover,
+  .verify-item:focus-visible,
+  .verify-item.is-active {
+    background-color: rgba(37, 99, 235, 0.05);
+    border-color: var(--color-cobalt, #2563eb);
   }
 
   .verify-at {
     font-weight: 700;
     color: var(--text-primary);
     min-width: 190px;
+    transition: color 140ms ease;
+  }
+
+  .verify-item:hover .verify-at,
+  .verify-item:focus-visible .verify-at,
+  .verify-item.is-active .verify-at {
+    color: var(--color-cobalt, #2563eb);
   }
 
   .verify-note {
     font-size: 0.92rem;
     color: var(--text-secondary);
-  }
-
-  /* ── Exit toward the commercial chapter ───────────────────────────────── */
-  .explorer-route-exit {
-    position: relative;
-    height: 56px;
-    margin-top: 48px;
-  }
-
-  .exit-stem {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 1.5px;
-    height: 44px;
-    background: linear-gradient(180deg, var(--accent-blue), transparent);
-  }
-
-  .exit-junction {
-    position: absolute;
-    left: calc(50% - 3px);
-    top: 44px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent-blue);
-  }
-
-  /* Flattening horizontal rule transition into Market (Directive 26) */
-  .exit-horizontal-flat-rule {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: var(--max-width);
-    height: 1px;
-    background: var(--border-color);
   }
 
   .photo-bridge-layer {
@@ -852,6 +825,51 @@ const riskPoints = [
         stage.style.transform = '';
       });
     }
+
+    // ── Interactive Hotspot Inspection (Directives 18 & 19) ─────────────────
+    const markers = Array.from(section!.querySelectorAll<HTMLElement>('.risk-marker'));
+    const verifyItems = Array.from(section!.querySelectorAll<HTMLElement>('.verify-item'));
+
+    function highlightPoint(targetId: string | null) {
+      markers.forEach((m) => {
+        const match = targetId && m.getAttribute('data-risk-point') === targetId;
+        m.classList.toggle('is-active', Boolean(match));
+      });
+      verifyItems.forEach((v) => {
+        const match = targetId && v.getAttribute('data-risk-target') === targetId;
+        v.classList.toggle('is-active', Boolean(match));
+      });
+    }
+
+    markers.forEach((marker) => {
+      const targetId = marker.getAttribute('data-risk-point');
+      marker.addEventListener('mouseenter', () => highlightPoint(targetId));
+      marker.addEventListener('mouseleave', () => highlightPoint(null));
+      marker.addEventListener('focus', () => {
+        setState(2);
+        highlightPoint(targetId);
+      });
+      marker.addEventListener('blur', () => highlightPoint(null));
+      marker.addEventListener('click', () => {
+        setState(2);
+        highlightPoint(targetId);
+      });
+    });
+
+    verifyItems.forEach((item) => {
+      const targetId = item.getAttribute('data-risk-target');
+      item.addEventListener('mouseenter', () => highlightPoint(targetId));
+      item.addEventListener('mouseleave', () => highlightPoint(null));
+      item.addEventListener('focus', () => {
+        setState(2);
+        highlightPoint(targetId);
+      });
+      item.addEventListener('blur', () => highlightPoint(null));
+      item.addEventListener('click', () => {
+        setState(2);
+        highlightPoint(targetId);
+      });
+    });
 
     // First paint: state 1, and the logical view visible without waiting for a scroll event.
     section.setAttribute('data-state', '1');

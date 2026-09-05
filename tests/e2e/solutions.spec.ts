@@ -63,7 +63,7 @@ test.describe('solution discovery tabs', () => {
 });
 
 test.describe('discovery scene progression', () => {
-  test('scrolling through the pinned scene changes the discipline', async ({ page }) => {
+  test('free explore allows user choice and exit scroll triggers transition', async ({ page }) => {
     await page.goto('/');
 
     const bands = await page.evaluate(() => {
@@ -75,21 +75,29 @@ test.describe('discovery scene progression', () => {
     });
 
     expect(bands, 'the discovery scene should exist').not.toBeNull();
-    expect(bands!.travel, 'the scene should be taller than its sticky child').toBeGreaterThan(200);
+    expect(bands!.travel, 'the scene should have exit travel').toBeGreaterThan(50);
 
-    const seen: string[] = [];
-    for (const fraction of [0.05, 0.45, 0.95]) {
-      await page.evaluate(
-        ({ top, travel, fraction }) => window.scrollTo(0, Math.round(top + travel * fraction)),
-        { ...bands!, fraction }
-      );
-      await page.waitForTimeout(200);
-      seen.push(
-        (await page.locator('.discipline-tab-btn.active').getAttribute('data-target')) || ''
-      );
-    }
+    // Initial state: first discipline active
+    const initialDiscipline = await page.locator('.discipline-tab-btn.active').getAttribute('data-target');
+    expect(initialDiscipline).toBe('infrastructure');
 
-    expect(new Set(seen).size, `scrolling should change discipline, saw ${seen.join(' -> ')}`).toBeGreaterThan(2);
+    // Free explore: scrolling during early scene preserves user choice without auto-forcing jumps
+    await page.evaluate(
+      ({ top, travel }) => window.scrollTo(0, Math.round(top + travel * 0.3)),
+      bands!
+    );
+    await page.waitForTimeout(200);
+    const scrollDiscipline = await page.locator('.discipline-tab-btn.active').getAttribute('data-target');
+    expect(scrollDiscipline).toBe('infrastructure');
+
+    // Exit travel: at final ~28% scroll travel, exit state activates
+    await page.evaluate(
+      ({ top, travel }) => window.scrollTo(0, Math.round(top + travel * 0.95)),
+      bands!
+    );
+    await page.waitForTimeout(200);
+    const isExiting = await page.locator('#discoveryScene').evaluate((el) => el.classList.contains('is-exiting'));
+    expect(isExiting).toBe(true);
     await expect(page.locator('#solutionDiscovery .services-panel:not([hidden])')).toHaveCount(1);
   });
 
