@@ -81,8 +81,6 @@ const riskPoints = [
       <div class="container route-stage-grid">
         <!-- Narrative: one state at a time, all four present in the document -->
         <div class="route-narrative">
-          <span class="explorer-kicker">Route diversity field note</span>
-
           <div class="state-copy-stack">
             {states.map((state) => (
               <div class={`state-copy ${state.id === 1 ? 'active' : ''}`} data-state-copy={state.id}>
@@ -338,13 +336,6 @@ const riskPoints = [
   }
 
   /* ── Narrative ────────────────────────────────────────────────────────── */
-  .explorer-kicker {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--accent-blue);
-    margin-bottom: 18px;
-  }
 
   .state-copy-stack {
     position: relative;

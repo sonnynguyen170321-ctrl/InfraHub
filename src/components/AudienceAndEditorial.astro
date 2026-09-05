@@ -46,12 +46,9 @@ const industries = [
   <div class="container">
     <!-- Chapter Opening Statement (Quiet Authority) -->
     <div class="practice-header">
-      <div class="kicker-row">
-        <span class="editorial-kicker">Practice & Analysis</span>
-      </div>
-      <h2 class="practice-headline">Engineering analysis and operational sectors.</h2>
+      <h2 class="practice-headline">Infrastructure in practice</h2>
       <p class="practice-subline">
-        How infrastructure requirements translate into physical topologies, commercial agreements, and operating practice.
+        How technical, physical and commercial constraints change the infrastructure decision.
       </p>
     </div>
 
@@ -69,17 +66,17 @@ const industries = [
             height="450"
           />
           <div class="analysis-image-overlay" aria-hidden="true">
-            <span class="analysis-overlay-badge" id="journal-context-badge">Optical Networks</span>
+            <span class="analysis-overlay-badge">Optical Networks</span>
           </div>
         </a>
 
         <div class="analysis-editorial-body">
           <div class="analysis-meta-row">
-            <span class="analysis-category" id="journal-category-label">Optical Networks</span>
+            <span class="analysis-category">Optical Networks</span>
             <span class="meta-dot" aria-hidden="true">&bull;</span>
             <span class="analysis-time">9 min read</span>
             <span class="meta-dot" aria-hidden="true">&bull;</span>
-            <span class="analysis-context-hint" id="journal-context-hint">Transit / BGP / DWDM / DDoS</span>
+            <span class="analysis-context-hint">Transit / BGP / DWDM / DDoS</span>
           </div>
 
           <h3 class="analysis-title" id="featured-analysis-title">
@@ -147,37 +144,6 @@ const industries = [
   </div>
 </section>
 
-<script>
-  // Desktop-only subtle sector hover environmental cue (Directive 30)
-  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!isReduced && window.innerWidth >= 960) {
-    const navItems = document.querySelectorAll<HTMLElement>('.industry-nav-item');
-    const badge = document.getElementById('journal-context-badge');
-    const catLabel = document.getElementById('journal-category-label');
-    const hintLabel = document.getElementById('journal-context-hint');
-
-    const defaultBadge = 'Optical Networks';
-    const defaultCat = 'Optical Networks';
-    const defaultHint = 'Transit / BGP / DWDM / DDoS';
-
-    navItems.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        const ctx = item.dataset.sectorContext;
-        const snip = item.dataset.sectorSnippet;
-        if (ctx && badge) badge.textContent = ctx;
-        if (ctx && catLabel) catLabel.textContent = ctx;
-        if (snip && hintLabel) hintLabel.textContent = snip;
-      });
-
-      item.addEventListener('mouseleave', () => {
-        if (badge) badge.textContent = defaultBadge;
-        if (catLabel) catLabel.textContent = defaultCat;
-        if (hintLabel) hintLabel.textContent = defaultHint;
-      });
-    });
-  }
-</script>
-
 <style>
   .section-audience-editorial {
     position: relative;
@@ -238,14 +204,7 @@ const industries = [
     margin-bottom: 48px;
     max-width: 800px;
   }
-  .editorial-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--accent-blue);
-    text-transform: uppercase;
-  }
+
   .practice-headline {
     font-size: clamp(1.8rem, 2.6vw, 2.4rem);
     font-weight: 700;
@@ -301,10 +260,8 @@ const industries = [
   .analysis-overlay-badge {
     display: inline-block;
     padding: 4px 10px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
     color: #ffffff;
     background: rgba(11, 17, 32, 0.82);
     border: 1px solid rgba(255, 255, 255, 0.2);
