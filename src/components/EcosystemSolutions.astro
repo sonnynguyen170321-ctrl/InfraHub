@@ -139,31 +139,45 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
         <h2 class="solutions-title">Start with the requirement.</h2>
         <div class="solutions-lead-rhythm">
           <p class="lead-primary">
-            Start with the workload, location, capacity and constraints. The provider usually comes later.
+            Workload profile, facility location, capacity, and resilience define the architecture. The provider selection follows.
           </p>
           <p class="lead-secondary">
-            InfraHub helps turn those requirements into a practical infrastructure approach and a shortlist of suitable specialists.
+            InfraHub turns those specifications into a verified infrastructure architecture and an introduction to qualified specialist providers.
           </p>
         </div>
       </div>
 
       <div class="header-qualification-right" aria-label="Qualification parameters">
-        <div class="qualification-top-rule" aria-hidden="true"></div>
-        <span class="qualification-kicker">What we establish first</span>
-        <div class="qualification-grid">
-          <span class="qual-item">Workload</span>
-          <span class="qual-item">Location</span>
-          <span class="qual-item">Capacity</span>
-          <span class="qual-item">Resilience</span>
-          <span class="qual-item">Timing</span>
-          <span class="qual-item">Commercial constraints</span>
+        <div class="qualification-header-row">
+          <span class="qualification-kicker">What we establish first</span>
+          <span class="qualification-meta" aria-hidden="true">06 Parameters</span>
         </div>
-      </div>
-    </div>
-
-    <div class="qualification-route-connector" aria-hidden="true">
-      <div class="connector-track">
-        <div class="connector-line"></div>
+        <div class="qualification-grid">
+          <div class="qual-item">
+            <span class="qual-num">01</span>
+            <span class="qual-name">Workload</span>
+          </div>
+          <div class="qual-item">
+            <span class="qual-num">02</span>
+            <span class="qual-name">Location</span>
+          </div>
+          <div class="qual-item">
+            <span class="qual-num">03</span>
+            <span class="qual-name">Capacity</span>
+          </div>
+          <div class="qual-item">
+            <span class="qual-num">04</span>
+            <span class="qual-name">Resilience</span>
+          </div>
+          <div class="qual-item">
+            <span class="qual-num">05</span>
+            <span class="qual-name">Timing</span>
+          </div>
+          <div class="qual-item">
+            <span class="qual-num">06</span>
+            <span class="qual-name">Commercial constraints</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -318,27 +332,28 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     }
   }
 
-  /* Editorial Header Split (Directives 04–07) */
+  /* Editorial Header Split */
   .discovery-header-split {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 32px;
     margin-bottom: 24px;
     padding-bottom: 24px;
   }
 
   @media (min-width: 980px) {
     .discovery-header-split {
-      grid-template-columns: 1.4fr 1fr;
-      gap: 56px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1.2fr) minmax(360px, 420px);
+      gap: 48px;
+      align-items: center;
     }
   }
 
   @media (min-width: 1280px) {
     .discovery-header-split {
-      grid-template-columns: 1.55fr 0.95fr;
-      gap: 72px;
+      grid-template-columns: minmax(0, 1.3fr) minmax(380px, 430px);
+      gap: 56px;
+      align-items: center;
     }
   }
 
@@ -347,18 +362,18 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     flex-direction: column;
   }
 
-  /* Authoritative editorial headline (Directive 04) */
+  /* Authoritative editorial headline */
   .solutions-title {
-    font-size: clamp(2.6rem, 4vw, 4.2rem);
+    font-size: clamp(2.4rem, 3.8vw, 3.8rem);
     font-weight: 550;
-    line-height: 1.02;
+    line-height: 1.05;
     letter-spacing: -0.03em;
     color: var(--text-primary);
     margin: 0 0 16px;
     text-wrap: balance;
   }
 
-  /* Copy rhythm (Directive 05) */
+  /* Copy rhythm */
   .solutions-lead-rhythm {
     display: flex;
     flex-direction: column;
@@ -366,88 +381,110 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   }
 
   .lead-primary {
-    font-size: clamp(1.08rem, 1.3vw, 1.18rem);
+    font-size: clamp(1.04rem, 1.25vw, 1.15rem);
     font-weight: 450;
-    line-height: 1.48;
+    line-height: 1.5;
     color: var(--text-primary);
-    max-width: 50ch;
-  }
-
-  .lead-secondary {
-    font-size: 0.94rem;
-    font-weight: 400;
-    line-height: 1.58;
-    color: var(--text-secondary);
     max-width: 52ch;
   }
 
-  /* Compact Qualification Block (Directive 06) */
+  .lead-secondary {
+    font-size: 0.92rem;
+    font-weight: 400;
+    line-height: 1.56;
+    color: var(--text-secondary);
+    max-width: 54ch;
+  }
+
+  /* Compact Qualification Panel */
   .header-qualification-right {
     display: flex;
     flex-direction: column;
-    padding-top: 4px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
-  .qualification-top-rule {
-    width: 100%;
-    height: 1px;
-    background-color: var(--border-color);
-    margin-bottom: 12px;
+  @media (min-width: 640px) {
+    .header-qualification-right {
+      padding: 20px 22px;
+    }
+  }
+
+  .qualification-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
   }
 
   .qualification-kicker {
     font-family: var(--font-heading);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 12px;
+  }
+
+  .qualification-meta {
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    font-weight: 500;
+    color: var(--color-cobalt, #2563eb);
+    background: rgba(37, 99, 235, 0.08);
+    padding: 2px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
   }
 
   .qualification-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 24px;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  @media (min-width: 440px) {
+    .qualification-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 12px;
+    }
   }
 
   .qual-item {
-    font-size: 0.88rem;
-    font-weight: 450;
-    color: var(--text-secondary);
-    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--bg-subtle-paper, #F7F7F5);
+    border: 1px solid rgba(226, 232, 240, 0.7);
+    min-width: 0;
   }
 
-  /* Qualification Route Connector (Directive 08) */
-  .qualification-route-connector {
-    display: none;
+  .qual-num {
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    font-weight: 600;
+    color: var(--color-cobalt, #2563eb);
+    flex-shrink: 0;
   }
 
-  @media (min-width: 980px) {
-    .qualification-route-connector {
-      display: block;
-      width: 100%;
-      height: 20px;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .connector-track {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background-color: var(--border-color);
-    }
-
-    .connector-line {
-      position: absolute;
-      left: 0;
-      width: 120px;
-      height: 1.5px;
-      background-color: var(--color-cobalt);
-    }
+  .qual-name {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 
   /* Continuous Scene Progress Rail (Directives 13, 28, 29) */
