@@ -78,7 +78,7 @@ const auditResults = {
 try {
   // 1. Audit Homepage Header Logo & Alignment
   console.log('\n--- 1. Auditing Header Brand Logo Alignment ---');
-  await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/`, { waitUntil: 'load' });
 
   const headerBox = await page.locator('.site-header').boundingBox();
   const logoBox = await page.locator('.site-header .brand-logo').boundingBox();
@@ -117,7 +117,7 @@ try {
 
   const headerElem = page.locator('.site-header');
   const headerScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_header.png');
-  await headerElem.screenshot({ path: headerScreenshotPath });
+  await headerElem.screenshot({ path: headerScreenshotPath , timeout: 15000 });
   auditResults.screenshotsTaken.push(headerScreenshotPath);
 
   // 2. Audit Partner Trust Ribbon on Homepage
@@ -148,12 +148,12 @@ try {
 
   const ribbonElem = page.locator('.partner-trust-ribbon');
   const ribbonScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_ribbon.png');
-  await ribbonElem.screenshot({ path: ribbonScreenshotPath });
+  await ribbonElem.screenshot({ path: ribbonScreenshotPath , timeout: 15000 });
   auditResults.screenshotsTaken.push(ribbonScreenshotPath);
 
   // 3. Audit /partners page
   console.log('\n--- 3. Auditing /partners Ledger Page ---');
-  await page.goto(`${BASE_URL}/partners`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}/partners`, { waitUntil: 'load' });
 
   const ledgerPartners = await page.$$eval('.ledger-row-item', cards => {
     return cards.map(card => {
@@ -182,14 +182,14 @@ try {
   });
 
   const ledgerScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_partners_ledger.png');
-  await page.screenshot({ path: ledgerScreenshotPath, fullPage: true });
+  await page.screenshot({ path: ledgerScreenshotPath, fullPage: true , timeout: 15000 });
   auditResults.screenshotsTaken.push(ledgerScreenshotPath);
 
   // 4. Audit All 8 Partner Profile Pages
   const partnerSlugs = ['fastnetmon', 'gcore', 'stormwall', 'zenlayer', 'ipxo', 'vates', 'itcare', 'airframe'];
   console.log('\n--- 4. Auditing Partner Profile Pages ---');
   for (const slug of partnerSlugs) {
-    await page.goto(`${BASE_URL}/partners/${slug}/`, { waitUntil: 'networkidle' });
+    await page.goto(`${BASE_URL}/partners/${slug}/`, { waitUntil: 'load' });
     
     const profileData = await page.evaluate(() => {
       const h1 = document.querySelector('.profile-title');
@@ -213,7 +213,7 @@ try {
 
     const profileHeader = page.locator('.profile-header');
     const profileScreenshotPath = path.join(ARTIFACTS_DIR, `audit_profile_${slug}.png`);
-    await profileHeader.screenshot({ path: profileScreenshotPath });
+    await profileHeader.screenshot({ path: profileScreenshotPath , timeout: 15000 });
     auditResults.screenshotsTaken.push(profileScreenshotPath);
   }
 
@@ -222,7 +222,7 @@ try {
   const pagesToScan = [`${BASE_URL}/`, `${BASE_URL}/partners`, `${BASE_URL}/offers`, `${BASE_URL}/how-we-work`, `${BASE_URL}/lets-talk`];
   
   for (const pageUrl of pagesToScan) {
-    await page.goto(pageUrl, { waitUntil: 'networkidle' });
+    await page.goto(pageUrl, { waitUntil: 'load' });
     const pageIssues = await page.evaluate((url) => {
       const all = document.querySelectorAll('p, h1, h2, h3, h4, span, a, li');
       const issues = [];

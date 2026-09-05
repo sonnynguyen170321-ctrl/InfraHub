@@ -2,6 +2,10 @@
 // src/pages/partners/[slug].astro — Partner Architecture Framework & Decision Layer (Parts XVII & XVIII)
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { logoHeightStyle } from '../../lib/partner-logo';
+
+// The profile header shows the lockup at its largest; the correction still applies.
+const PROFILE_LOGO_HEIGHT = 32;
 import { fallbackDecisionLayer } from '../../lib/partner-decision-layer';
 
 export async function getStaticPaths() {
@@ -48,6 +52,7 @@ const sourceRefs = signature.sourceRefs ?? [];
                 src={partner.data.logo} 
                 alt={`${partner.data.name} logo`} 
                 class="profile-logo-img"
+                style={logoHeightStyle(partner.data.logoScale, PROFILE_LOGO_HEIGHT)}
                 loading="eager"
                 width="160"
                 height="36"

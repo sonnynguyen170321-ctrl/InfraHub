@@ -44,6 +44,21 @@ The previously generated synthetic partner SVGs were removed from `public/images
 
 ---
 
+### Optical sizing
+
+Logos are compared by the size of the wordmark, not the size of the file. The share of canvas
+height each wordmark occupies differs widely — StormWall 98%, Zenlayer 69%, FastNetMon 39%,
+because its lightning bolt overshoots the name above and below. Sizing every file to one pixel
+height therefore renders some brands at half the size of others.
+
+`logoScale` on the partner record raises or lowers the delivered height cap so the *names* match.
+It is an optical correction to presentation size, never a change to artwork: no cropping, no
+recolouring, no re-composition. Current values: FastNetMon 1.5, Vates 1.08, Airframe 0.98,
+Gcore 0.96, everything else 1. The rule is applied by `src/lib/partner-logo.ts` on all three
+surfaces that show a logo, and held by tests in `tests/e2e/partners.spec.ts`.
+
+---
+
 ## 3. Documentary & Infrastructure Photography
 
 > **Policy:** Photography is illustrative of infrastructure domains such as optical networking, compute clusters, facility architecture, and network operations. Images must never be captioned or presented in a way that implies InfraHub owns third-party facilities or equipment.

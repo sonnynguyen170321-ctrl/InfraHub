@@ -2,6 +2,10 @@
 // src/pages/partners/index.astro — Editorial Ecosystem Ledger
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { logoHeightStyle } from '../../lib/partner-logo';
+
+// Catalogue rows render logos smaller than the ribbon does; the same optical correction applies.
+const LEDGER_LOGO_HEIGHT = 26;
 
 const allPartners = await getCollection('partners');
 
@@ -104,6 +108,7 @@ const disciplines = [
                           src={partner.data.logo} 
                           alt={`${partner.data.name} logo`} 
                           class="ledger-partner-logo"
+                          style={logoHeightStyle(partner.data.logoScale, LEDGER_LOGO_HEIGHT)}
                           loading={discipline.number === "01" && pIdx === 0 ? "eager" : "lazy"}
                           width="130"
                           height="30"
