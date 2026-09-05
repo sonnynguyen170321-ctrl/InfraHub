@@ -256,11 +256,13 @@ const structuredData = {
     color: var(--text-secondary);
     margin-bottom: 40px;
   }
-  .markdown-prose h2, .markdown-prose h3 {
+  .markdown-prose :global(h2),
+
+  .markdown-prose :global(h3) {
     margin: 24px 0 12px;
     color: var(--text-primary);
   }
-  .markdown-prose p {
+  .markdown-prose :global(p) {
     margin-bottom: 16px;
   }
 

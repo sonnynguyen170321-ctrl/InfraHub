@@ -628,7 +628,7 @@ const sourceRefs = signature.sourceRefs ?? [];
     color: var(--text-secondary);
   }
 
-  .markdown-body h2 {
+  .markdown-body :global(h2) {
     font-size: 1.45rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -637,14 +637,14 @@ const sourceRefs = signature.sourceRefs ?? [];
     padding-bottom: 8px;
   }
 
-  .markdown-body h3 {
+  .markdown-body :global(h3) {
     font-size: 1.18rem;
     font-weight: 700;
     color: var(--text-primary);
     margin: 24px 0 10px;
   }
 
-  .markdown-body p {
+  .markdown-body :global(p) {
     margin-bottom: 16px;
   }
 
