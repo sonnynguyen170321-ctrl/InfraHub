@@ -110,11 +110,35 @@ test.describe('homepage scene controller', () => {
     for (let i = 0; i <= 14; i++) {
       await scrollThroughScene(page, '#discovery-stage', i / 16);
       await page.waitForTimeout(120);
-      widths.add(await page.locator('#discoveryProgressBar').evaluate((el) => (el as HTMLElement).style.width));
+      widths.add(await page.locator('#discoveryProgressBar').evaluate((el) => (el as HTMLElement).style.transform));
     }
 
     // A bar driven from the active discipline can only ever show five values.
     expect(widths.size, `distinct widths: ${[...widths].join(', ')}`).toBeGreaterThan(8);
+  });
+
+  test('choosing a discipline updates the rail at widths where the scene does not pin', async ({ page }) => {
+    // Between 980 and 1179px the progress rail is visible but the scene does not pin, so a tab
+    // click causes no scroll and therefore no scheduler frame. The bar has to be written by the
+    // activation itself or it holds the previous discipline's value until something unrelated
+    // happens to repaint it.
+    await page.setViewportSize({ width: 1100, height: 900 });
+    await page.goto('/');
+    await page.waitForTimeout(500);
+
+    const rail = page.locator('#discoveryProgressBar');
+    await expect(page.locator('.discovery-progress-rail')).toBeVisible();
+
+    const tabs = page.locator('.discipline-tab-btn');
+    await tabs.nth(0).click();
+    await page.waitForTimeout(200);
+    const first = await rail.evaluate((el) => (el as HTMLElement).style.transform);
+
+    await tabs.nth(3).click();
+    await page.waitForTimeout(200);
+    const fourth = await rail.evaluate((el) => (el as HTMLElement).style.transform);
+
+    expect(fourth).not.toBe(first);
   });
 
   test('the discipline tablist uses roving tabindex', async ({ page }) => {
