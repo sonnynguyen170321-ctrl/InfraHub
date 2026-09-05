@@ -734,6 +734,8 @@ const riskPoints = [
 </style>
 
 <script>
+  import { homepageScheduler, pinnedProgress } from '../scripts/homepage-scheduler';
+
   // Four states, two ways to drive them.
   //
   // Scroll drives the states where the scene is pinned; the two buttons drive them everywhere.
@@ -795,26 +797,17 @@ const riskPoints = [
     }
 
     // ── Scroll progression ────────────────────────────────────────────────
-    let ticking = false;
 
-    function stateFromScroll() {
-      if (!scene) return state;
-      const sticky = scene.querySelector<HTMLElement>('.route-sticky');
-      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
-      if (travel <= 0) return state;
+    const sticky = scene ? scene.querySelector<HTMLElement>('.route-sticky') : null;
 
-      const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
-      const progress = Math.min(Math.max((window.scrollY - sceneTop) / travel, 0), 0.9999);
-      return Math.floor(progress * STATE_COUNT) + 1;
+    /** Real normalized travel through the pinned exhibit, shared with the scene system. */
+    function sceneProgress(): number {
+      if (!isPinned()) return (state - 1) / STATE_COUNT;
+      return pinnedProgress(scene, sticky, window.scrollY);
     }
 
-    function onScroll() {
-      if (ticking || !isPinned()) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        setState(stateFromScroll());
-        ticking = false;
-      });
+    function stateFromProgress(progress: number): number {
+      return Math.min(Math.floor(progress * STATE_COUNT) + 1, STATE_COUNT);
     }
 
     function scrollToState(target: number) {
@@ -839,10 +832,16 @@ const riskPoints = [
       });
     });
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    pinQuery.addEventListener('change', onScroll);
-    reducedMotion.addEventListener('change', onScroll);
+    const scheduler = homepageScheduler();
+    scheduler.registerProgressSource('routeReality', sceneProgress);
+
+    scheduler.onFrame(() => {
+      if (isPinned()) setState(stateFromProgress(sceneProgress()));
+    });
+
+    const requestFrame = () => scheduler.request();
+    pinQuery.addEventListener('change', requestFrame);
+    reducedMotion.addEventListener('change', requestFrame);
 
     // ── Pointer parallax ──────────────────────────────────────────────────
     // The model is an exhibit, not a toy: the pointer tilts it by a couple of degrees and
@@ -868,7 +867,7 @@ const riskPoints = [
     section.setAttribute('data-route-view', 'logical');
     logical.classList.add('is-showing');
     state = 1;
-    onScroll();
+    scheduler.request();
   }
 
   if (document.readyState === 'loading') {
