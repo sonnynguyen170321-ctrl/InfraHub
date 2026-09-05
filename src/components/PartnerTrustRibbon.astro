@@ -107,6 +107,9 @@ const RIBBON_LOGO_HEIGHT = 32;
       </div>
     </div>
   </div>
+
+  <!-- The route flattens into the structural axis of the partner ecosystem (Directives 10 & 11) -->
+  <div class="ribbon-structural-axis" aria-hidden="true"></div>
 </section>
 
 <script>
@@ -175,6 +178,23 @@ const RIBBON_LOGO_HEIGHT = 32;
     width: 1.5px;
     height: 100%;
     background-color: var(--accent-blue, #2563eb);
+  }
+
+  /* Structural axis: the route flattens into the marquee axis (Directives 10 & 11) */
+  .ribbon-structural-axis {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0,
+      rgba(37, 99, 235, 0.45) clamp(178px, 13vw, 196px),
+      rgba(37, 99, 235, 0.25) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
   }
 
   /* Composition: dedicated full-width horizontal geometry */

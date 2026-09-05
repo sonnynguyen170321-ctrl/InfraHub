@@ -71,10 +71,32 @@ import heroImage from '../assets/hero-datacenter.jpg';
     </div>
   </div>
 
-  <!-- The route motif starts here, after the environment has established itself. -->
-  <div class="hero-routing-exit" aria-hidden="true">
-    <div class="routing-line-stem"></div>
-    <div class="routing-line-junction"></div>
+  <!-- Signature Hero → Partner Ecosystem 3D Spatial Transition (Directives 01–63) -->
+  <div class="hero-spatial-transition hero-routing-exit" id="heroSpatialTransition" aria-hidden="true">
+    <canvas class="hero-3d-canvas" id="hero3dCanvas"></canvas>
+
+    <svg class="hero-spatial-fallback" viewBox="0 0 1000 600" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="routeSplineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="rgba(164, 185, 212, 0.4)" />
+          <stop offset="50%" stop-color="rgba(70, 120, 220, 0.85)" />
+          <stop offset="100%" stop-color="#2563eb" />
+        </linearGradient>
+      </defs>
+      <path
+        class="spatial-route-path"
+        d="M 620 180 Q 560 340, 480 440 T 420 590"
+      />
+      <path
+        class="spatial-route-branch branch-left"
+        d="M 480 440 Q 450 510, 360 590"
+      />
+      <path
+        class="spatial-route-branch branch-right"
+        d="M 480 440 Q 510 510, 490 590"
+      />
+      <circle class="spatial-route-junction" cx="480" cy="440" r="3" />
+    </svg>
   </div>
 </section>
 
@@ -257,15 +279,20 @@ import heroImage from '../assets/hero-datacenter.jpg';
     left: 0;
     right: 0;
     bottom: 0;
-    height: 72px;
+    height: 80px;
     pointer-events: none;
     background: linear-gradient(
       to top,
       #ffffff 0%,
-      rgba(255, 255, 255, 0.86) 42%,
+      rgba(255, 255, 255, 0.92) 48%,
       rgba(255, 255, 255, 0) 100%
     );
-    transform: translateY(calc(100% - min(var(--hero-progress, 0) * 1.667, 1) * 100%));
+    transform-origin: bottom center;
+    transform:
+      perspective(1000px)
+      rotateX(calc(max(0, (1 - min(var(--hero-progress, 0) * 1.35, 1)) * 5deg)))
+      translateY(calc(100% - min(var(--hero-progress, 0) * 1.5, 1) * 100%));
+    will-change: transform;
   }
 
   .hero-container {
@@ -408,51 +435,62 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   /*
-   * The route belongs to the journey, so it arrives once the environment and the copy have
-   * both landed, then extends downward as the visitor scrolls.
+   * Signature Hero → Partner Ecosystem 3D Spatial Transition (Directives 01–63)
+   * A true spatial path emerging from the physical datacenter cable tray geometry,
+   * curving forward in 3D space, landing onto the architectural partner plane.
    */
-  .hero-routing-exit {
+  .hero-spatial-transition {
     position: absolute;
+    left: 0;
+    right: 0;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 38px;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    animation: heroRouteArrive 520ms var(--ease-out) 1000ms forwards;
+    height: 380px;
+    pointer-events: none;
+    z-index: 8;
+    overflow: visible;
   }
 
-  @keyframes heroRouteArrive {
-    to {
-      opacity: 1;
-    }
-  }
-
-  .routing-line-stem {
-    width: 1.5px;
+  .hero-3d-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(40, 84, 199, 0), var(--accent-blue));
-    /*
-     * Anchored at the hero's bottom edge so it is continuous with the ribbon's entry line at
-     * rest; scaling from the top instead left a 21px gap between the two segments, which read
-     * as two unrelated marks rather than one route. On scroll it extends up out of the
-     * photograph, which is where the route comes from.
-     */
-    transform-origin: bottom center;
-    transform: scaleY(calc(0.45 + min(var(--hero-progress, 0) * 2, 1) * 0.55));
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
   }
 
-  .routing-line-junction {
-    width: 5px;
-    height: 5px;
-    background-color: var(--accent-blue);
-    border-radius: 50%;
-    margin-top: -2px;
-    opacity: calc(var(--hero-progress, 0) * 4);
+  .hero-spatial-fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: calc(min(max((var(--hero-progress, 0) - 0.5) * 3, 0), 1));
+    transition: opacity 180ms ease-out;
+  }
+
+  .spatial-route-path {
+    fill: none;
+    stroke: url(#routeSplineGradient);
+    stroke-width: 1.5;
+    stroke-dasharray: 600;
+    stroke-dashoffset: calc(600 - min(max((var(--hero-progress, 0) - 0.6) * 2.5, 0), 1) * 600);
+    stroke-linecap: round;
+  }
+
+  .spatial-route-branch {
+    fill: none;
+    stroke: rgba(37, 99, 235, 0.4);
+    stroke-width: 1;
+    stroke-dasharray: 200;
+    stroke-dashoffset: calc(200 - min(max((var(--hero-progress, 0) - 0.8) * 5, 0), 1) * 200);
+  }
+
+  .spatial-route-junction {
+    fill: var(--accent-blue, #2563eb);
+    opacity: calc(min(max((var(--hero-progress, 0) - 0.78) * 5, 0), 1));
   }
 
   /*
@@ -533,16 +571,16 @@ import heroImage from '../assets/hero-datacenter.jpg';
       transform: none !important;
       opacity: 1 !important;
     }
+    .hero-3d-canvas {
+      display: none !important;
+    }
+    .hero-spatial-fallback {
+      opacity: 1 !important;
+    }
     .hero-container {
       transform: none;
       opacity: 1;
       will-change: auto;
-    }
-    .routing-line-stem {
-      transform: none;
-    }
-    .routing-line-junction {
-      opacity: 1;
     }
   }
 </style>
@@ -625,6 +663,21 @@ import heroImage from '../assets/hero-datacenter.jpg';
   function initHero() {
     initHeroScroll();
     initHeroPointerDepth();
+
+    // Lazy load Three.js 3D spatial transition on desktop after initial paint (Directives 12, 28, 47)
+    if (window.innerWidth >= 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const load3D = () => {
+        import('../scripts/hero-3d-transition').then(({ initHero3DTransition }) => {
+          initHero3DTransition();
+        }).catch(() => {});
+      };
+
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(load3D, { timeout: 2500 });
+      } else {
+        setTimeout(load3D, 1500);
+      }
+    }
   }
 
   if (document.readyState === 'loading') {
