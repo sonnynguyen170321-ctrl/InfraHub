@@ -27,7 +27,7 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 1
 partnerPageEnabled: true
-logoScale: 1.15
+logoScale: 1.5
 decisionLayer:
   architectureTitle: "Detection & Mitigation Control Flow"
   architectureSubtitle: "Where FastNetMon can sit between network telemetry, routing policy, and external mitigation"

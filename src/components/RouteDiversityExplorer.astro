@@ -120,6 +120,9 @@ const riskPoints = [
         <!-- Exhibit: one model, two views, drawn in SVG -->
         <div class="route-exhibit">
           <div class="axo-stage" id="axonoStage">
+            <!-- Photo bridge layer (Directive 22: Real infrastructure foundation beneath model) -->
+            <div class="photo-bridge-layer" aria-hidden="true"></div>
+
             <svg
               class="schematic-svg state-logical"
               id="svgLogical"
@@ -245,6 +248,7 @@ const riskPoints = [
   <div class="explorer-route-exit" aria-hidden="true">
     <div class="exit-stem"></div>
     <div class="exit-junction"></div>
+    <div class="exit-horizontal-flat-rule"></div>
   </div>
 </section>
 
@@ -692,6 +696,31 @@ const riskPoints = [
     height: 6px;
     border-radius: 50%;
     background: var(--accent-blue);
+  }
+
+  /* Flattening horizontal rule transition into Market (Directive 26) */
+  .exit-horizontal-flat-rule {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: var(--max-width);
+    height: 1px;
+    background: var(--border-color);
+  }
+
+  .photo-bridge-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(circle at 50% 55%, rgba(9, 17, 24, 0.03), transparent 70%);
+    transition: opacity var(--motion-image) var(--ease-out);
+  }
+
+  .route-diversity-explorer[data-route-view='physical'] .photo-bridge-layer {
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: reduce) {

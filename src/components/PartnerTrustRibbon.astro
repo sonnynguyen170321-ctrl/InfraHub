@@ -1,6 +1,7 @@
 ---
 // src/components/PartnerTrustRibbon.astro | InfraHub Partner Ecosystem Ribbon — Premium Marquee Pass
 import { getCollection } from 'astro:content';
+import { logoMaxHeightStyle } from '../lib/partner-logo';
 
 const allPartners = await getCollection('partners');
 
@@ -16,10 +17,9 @@ const approvedPartners = allPartners
 // Optical scale is a property of the artwork, so it lives with the partner record rather
 // than in a second table here. A lockup whose wordmark is outlined or whose aspect ratio is
 // unusual needs a nudge to carry the same visual weight as the others in a 156x48 slot.
-function logoStyle(partner: typeof approvedPartners[0]) {
-  const scale = partner.data.logoScale ?? 1;
-  return scale === 1 ? undefined : `transform: scale(${scale});`;
-}
+// Optical sizing lives in src/lib/partner-logo.ts, because the ribbon, the catalogue and
+// the profile header all need the same correction and had three different fixed heights.
+const RIBBON_LOGO_HEIGHT = 32;
 
 ---
 
@@ -51,7 +51,7 @@ function logoStyle(partner: typeof approvedPartners[0]) {
                     src={partner.data.logo} 
                     alt={`${partner.data.name} logo`} 
                     class="partner-logo-img"
-                    style={logoStyle(partner)}
+                    style={logoMaxHeightStyle(partner.data.logoScale, RIBBON_LOGO_HEIGHT)}
                     loading={index < 2 ? "eager" : "lazy"}
                     width="140"
                     height="32"
@@ -76,7 +76,7 @@ function logoStyle(partner: typeof approvedPartners[0]) {
                   src={partner.data.logo} 
                   alt="" 
                   class="partner-logo-img"
-                  style={logoStyle(partner)}
+                  style={logoMaxHeightStyle(partner.data.logoScale, RIBBON_LOGO_HEIGHT)}
                   loading="lazy"
                   width="140"
                   height="32"
@@ -95,7 +95,7 @@ function logoStyle(partner: typeof approvedPartners[0]) {
                   src={partner.data.logo} 
                   alt="" 
                   class="partner-logo-img"
-                  style={logoStyle(partner)}
+                  style={logoMaxHeightStyle(partner.data.logoScale, RIBBON_LOGO_HEIGHT)}
                   loading="lazy"
                   width="140"
                   height="32"
@@ -282,7 +282,7 @@ function logoStyle(partner: typeof approvedPartners[0]) {
   /* Optical Slot: 156px wide x 48px high architectural rhythm */
   .partner-item {
     flex: 0 0 156px;
-    height: 48px;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -292,7 +292,7 @@ function logoStyle(partner: typeof approvedPartners[0]) {
   @media (max-width: 899px) {
     .partner-item {
       flex: 0 0 140px;
-      height: 44px;
+      height: 50px;
     }
   }
 

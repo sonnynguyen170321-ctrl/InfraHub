@@ -59,10 +59,11 @@ const annotations = [
             </a>
           </div>
 
-          <!-- One note at a time, rotating. Rendered from the annotations array above: the
-               same copy was previously duplicated here in markup, which is how the two drift. -->
-          <div class="single-annotation-card" id="deliveryAnnotationCard">
-            <span class="annotation-badge">What changes the answer</span>
+          <!-- Editorial Sideband: What changes the answer (Directive 19) -->
+          <div class="editorial-sideband" id="deliveryAnnotationCard">
+            <div class="sideband-header">
+              <span class="sideband-kicker">What changes the answer</span>
+            </div>
             <div class="annotation-rotator" id="annotationRotator">
               {annotations.map((note, index) => (
                 <div class={`annotation-slide ${index === 0 ? 'active' : ''}`} data-index={index}>
@@ -297,28 +298,30 @@ const annotations = [
     transform: translateX(3px);
   }
 
-  /* Single Rotating Annotation Card (Directive 10) */
-  .single-annotation-card {
+  /* Editorial Sideband (Directive 19: Small rule, large statement, short explanation) */
+  .editorial-sideband {
     border-top: 1px solid rgba(255, 255, 255, 0.16);
-    padding: 22px 0 0;
-    margin-top: 40px;
+    padding: 24px 0 0;
+    margin-top: 44px;
     position: relative;
-    overflow: hidden;
   }
 
-  .annotation-badge {
+  .sideband-header {
+    margin-bottom: 10px;
+  }
+
+  .sideband-kicker {
     font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     color: #93c5fd;
     display: block;
-    margin-bottom: 8px;
   }
 
   .annotation-rotator {
     position: relative;
-    min-height: 84px;
+    min-height: 80px;
   }
 
   .annotation-slide {
@@ -338,15 +341,16 @@ const annotations = [
   }
 
   .annotation-title {
-    font-size: 1.02rem;
+    font-size: 1.12rem;
     font-weight: 700;
     color: #ffffff;
+    line-height: 1.35;
     margin: 0;
   }
 
   .annotation-desc {
     font-size: 0.88rem;
-    line-height: 1.55;
+    line-height: 1.6;
     color: #cbd5e1;
     margin: 0;
   }

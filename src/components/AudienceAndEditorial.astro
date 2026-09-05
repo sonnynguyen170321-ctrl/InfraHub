@@ -1,53 +1,124 @@
 ---
-// src/components/AudienceAndEditorial.astro  -  Asymmetric Editorial Split
+// src/components/AudienceAndEditorial.astro  -  Technical Journal Editorial Split (Directives 28-30)
 const industries = [
   {
     name: "ISPs & Network Operators",
     summary: "Upstream IP transit, optical wavelengths, BGP routing optimization, and automated DDoS flow mitigation.",
-    url: "/industries/isps-network-operators"
+    url: "/industries/isps-network-operators",
+    context: "Optical & Routing Focus",
+    contextSnippet: "Transit / BGP / DWDM / DDoS"
   },
   {
     name: "Hosting & Cloud Providers",
     summary: "Wholesale bare-metal compute fleets, rack allocations in Tier-3+ facilities, and IPv4 block leasing.",
-    url: "/industries/hosting-cloud-providers"
+    url: "/industries/hosting-cloud-providers",
+    context: "Compute & Facility Focus",
+    contextSnippet: "Bare Metal / Colocation / IPv4"
   },
   {
     name: "SaaS & Technology",
     summary: "Egress traffic cost suppression, low-latency regional edge peering, and sovereign private cloud architectures.",
-    url: "/industries/saas-technology"
+    url: "/industries/saas-technology",
+    context: "Edge & Cloud Focus",
+    contextSnippet: "Edge Peering / Sovereign Cloud"
   },
   {
     name: "Enterprise",
     summary: "VMware alternatives, multi-cloud connectivity, enterprise hardware sourcing, and managed network operations.",
-    url: "/industries/enterprise"
+    url: "/industries/enterprise",
+    context: "Enterprise Infrastructure",
+    contextSnippet: "Private Cloud / Multi-Cloud / NOC"
   }
 ];
 ---
 
 <section class="section section-audience-editorial" id="who-we-help" aria-label="Industries and Editorial Practice">
-  <!-- Route Line Entry Connector from Offers (Directive 20) -->
+  <!-- Horizontal Market Rule Extension (Directive 28: Turning a page) -->
+  <div class="editorial-top-rule-track" aria-hidden="true">
+    <div class="editorial-top-rule"></div>
+  </div>
+
+  <!-- Route Line Entry Connector from Offers -->
   <div class="practice-route-entry" aria-hidden="true">
     <div class="route-line-stem"></div>
   </div>
 
   <div class="container">
-    <div class="split-editorial-layout">
+    <!-- Chapter Opening Statement (Quiet Authority) -->
+    <div class="practice-header">
+      <div class="kicker-row">
+        <span class="editorial-kicker">Practice & Analysis</span>
+      </div>
+      <h2 class="practice-headline">Engineering analysis and operational sectors.</h2>
+      <p class="practice-subline">
+        How infrastructure requirements translate into physical topologies, commercial agreements, and operating practice.
+      </p>
+    </div>
+
+    <div class="journal-editorial-stage">
       
-      <!-- Left Column: Who We Work With (Industries) -->
-      <div class="audience-column">
-        <div class="column-header">
-          <div class="kicker-row">
-            <span class="editorial-kicker">Sectors in practice</span>
+      <!-- Dominant Left Column: Featured Technical Analysis (7 Columns / ~58%) -->
+      <article class="journal-analysis-dominant" aria-labelledby="featured-analysis-title">
+        <a href="/insights/physical-path-diversity" class="analysis-image-frame">
+          <img 
+            src="/images/physical-route-diversity.jpg" 
+            alt="Physical optical fiber route diversity diagram across bridge choke point" 
+            class="analysis-lead-img"
+            loading="lazy"
+            width="800"
+            height="450"
+          />
+          <div class="analysis-image-overlay" aria-hidden="true">
+            <span class="analysis-overlay-badge" id="journal-context-badge">Optical Networks</span>
           </div>
-          <h2 class="column-title">Infrastructure built for technical buyers.</h2>
-          <p class="column-desc">
+        </a>
+
+        <div class="analysis-editorial-body">
+          <div class="analysis-meta-row">
+            <span class="analysis-category" id="journal-category-label">Optical Networks</span>
+            <span class="meta-dot" aria-hidden="true">&bull;</span>
+            <span class="analysis-time">9 min read</span>
+            <span class="meta-dot" aria-hidden="true">&bull;</span>
+            <span class="analysis-context-hint" id="journal-context-hint">Transit / BGP / DWDM / DDoS</span>
+          </div>
+
+          <h3 class="analysis-title" id="featured-analysis-title">
+            <a href="/insights/physical-path-diversity" class="analysis-title-link">
+              Why two diverse network circuits may still share the same physical path.
+            </a>
+          </h3>
+
+          <p class="analysis-excerpt">
+            Logical route diversity does not guarantee physical diversity. How shared bridge crossings, rail right-of-ways, and common carrier conduits create invisible single points of failure in enterprise backbones.
+          </p>
+
+          <div class="analysis-footer">
+            <a href="/insights/physical-path-diversity" class="analysis-read-link">
+              <span>Read the Technical Analysis</span>
+              <span class="link-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Supporting Right Column: Industry Index Navigation (5 Columns / ~42%) -->
+      <aside class="journal-industries-sidebar" aria-label="Target Industries">
+        <div class="sidebar-header">
+          <h3 class="sidebar-title">Sectors in Practice</h3>
+          <p class="sidebar-desc">
             We tailor sourcing, routing, and hardware evaluation to the exact operational realities of four core sectors.
           </p>
         </div>
 
         <nav class="industries-nav-list" aria-label="Target Industries">
           {industries.map((ind, idx) => (
-            <a href={ind.url} class="industry-nav-item">
+            <a 
+              href={ind.url} 
+              class="industry-nav-item" 
+              data-sector-index={idx}
+              data-sector-context={ind.context}
+              data-sector-snippet={ind.contextSnippet}
+            >
               <span class="ind-index">{String(idx + 1).padStart(2, '0')}</span>
               <div class="ind-text-wrap">
                 <span class="ind-name">{ind.name}</span>
@@ -64,68 +135,70 @@ const industries = [
             <span class="link-arrow" aria-hidden="true">&rarr;</span>
           </a>
         </div>
-      </div>
-
-      <!-- Right Column: Infrastructure in Practice (Featured Technical Analysis) -->
-      <div class="editorial-column">
-        <div class="column-header">
-          <h2 class="column-title">Engineering Analysis</h2>
-          <p class="column-desc">
-            Practical technical analysis and decision frameworks for infrastructure buyers.
-          </p>
-        </div>
-
-        <!-- Featured Technical Analysis Card -->
-        <article class="featured-analysis-card">
-          <a href="/insights/physical-path-diversity" class="analysis-visual-link">
-            <img 
-              src="/images/physical-route-diversity.jpg" 
-              alt="Physical optical fiber route diversity diagram across bridge choke point" 
-              class="analysis-img"
-              loading="lazy"
-              width="800"
-              height="450"
-            />
-          </a>
-
-          <div class="analysis-body">
-            <div class="analysis-meta">
-              <span class="analysis-category">Optical Networks</span>
-              <span class="analysis-time">9 min read</span>
-            </div>
-
-            <h3 class="analysis-title">
-              <a href="/insights/physical-path-diversity">Why two diverse network circuits may still share the same physical path.</a>
-            </h3>
-            <p class="analysis-excerpt">
-              Logical route diversity does not guarantee physical diversity. How shared bridge crossings, rail right-of-ways, and common carrier conduits create invisible single points of failure in enterprise backbones.
-            </p>
-            <div class="analysis-footer">
-              <a href="/insights/physical-path-diversity" class="analysis-cta">
-                <span>Read the Analysis</span>
-                <span class="link-arrow" aria-hidden="true">&rarr;</span>
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
+      </aside>
 
     </div>
   </div>
 
-  <!-- Route Line Exit Connector to Final Conversation (Directive 22) -->
+  <!-- Route Line Exit Connector to Final Conversation (Directive 31: Nightfall route descends) -->
   <div class="practice-route-exit" aria-hidden="true">
     <div class="exit-stem"></div>
     <div class="exit-junction"></div>
   </div>
 </section>
 
+<script>
+  // Desktop-only subtle sector hover environmental cue (Directive 30)
+  const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!isReduced && window.innerWidth >= 960) {
+    const navItems = document.querySelectorAll<HTMLElement>('.industry-nav-item');
+    const badge = document.getElementById('journal-context-badge');
+    const catLabel = document.getElementById('journal-category-label');
+    const hintLabel = document.getElementById('journal-context-hint');
+
+    const defaultBadge = 'Optical Networks';
+    const defaultCat = 'Optical Networks';
+    const defaultHint = 'Transit / BGP / DWDM / DDoS';
+
+    navItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const ctx = item.dataset.sectorContext;
+        const snip = item.dataset.sectorSnippet;
+        if (ctx && badge) badge.textContent = ctx;
+        if (ctx && catLabel) catLabel.textContent = ctx;
+        if (snip && hintLabel) hintLabel.textContent = snip;
+      });
+
+      item.addEventListener('mouseleave', () => {
+        if (badge) badge.textContent = defaultBadge;
+        if (catLabel) catLabel.textContent = defaultCat;
+        if (hintLabel) hintLabel.textContent = defaultHint;
+      });
+    });
+  }
+</script>
+
 <style>
   .section-audience-editorial {
     position: relative;
     background-color: #ffffff;
-    padding: 72px 0 84px;
+    padding: 80px 0 96px;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Horizontal Market Rule Extension (Directive 28) */
+  .editorial-top-rule-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: transparent;
+  }
+  .editorial-top-rule {
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
   }
 
   /* Route Connectors */
@@ -150,7 +223,7 @@ const industries = [
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
-    height: 32px;
+    height: 36px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -159,7 +232,7 @@ const industries = [
   .practice-route-exit .exit-stem {
     width: 1.5px;
     height: 100%;
-    background: linear-gradient(to bottom, var(--accent-blue), var(--border-color));
+    background: linear-gradient(to bottom, var(--accent-blue), #0b1120);
   }
   .practice-route-exit .exit-junction {
     width: 5px;
@@ -168,46 +241,187 @@ const industries = [
     background-color: var(--accent-blue);
   }
 
+  .practice-header {
+    margin-bottom: 48px;
+    max-width: 800px;
+  }
   .editorial-kicker {
     font-family: var(--font-mono);
     font-size: 0.76rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--accent-blue);
+    text-transform: uppercase;
+  }
+  .practice-headline {
+    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin: 10px 0 12px;
+  }
+  .practice-subline {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
   }
 
-  .split-editorial-layout {
+  /* Journal Layout: Asymmetric Split (Left Dominant 58%, Right Supporting 42%) */
+  .journal-editorial-stage {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 64px;
+    gap: 56px;
   }
   @media (min-width: 960px) {
-    .split-editorial-layout {
-      grid-template-columns: 1.15fr 1fr;
-      gap: 80px;
+    .journal-editorial-stage {
+      grid-template-columns: 1.35fr 1fr;
+      gap: 72px;
       align-items: start;
     }
   }
 
-  /* Header */
-  .column-header {
-    margin-bottom: 36px;
+  /* Dominant Left: Featured Technical Analysis (Cardless, direct typesetting) */
+  .journal-analysis-dominant {
+    display: flex;
+    flex-direction: column;
   }
-  .column-title {
-    font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  .analysis-image-frame {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-sm);
+    background-color: #0b1120;
+    border: 1px solid var(--border-color);
+  }
+  .analysis-lead-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 360ms ease;
+  }
+  .analysis-image-frame:hover .analysis-lead-img {
+    transform: scale(1.02);
+  }
+  .analysis-image-overlay {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+  }
+  .analysis-overlay-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    background: rgba(11, 17, 32, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    backdrop-filter: blur(4px);
+    transition: color 160ms ease, border-color 160ms ease;
+  }
+
+  .analysis-editorial-body {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .analysis-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .analysis-category {
+    font-size: 0.82rem;
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.025em;
-    color: var(--text-primary);
-    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+    color: var(--accent-blue);
   }
-  .column-desc {
-    font-size: 1.05rem;
+  .meta-dot {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+  .analysis-time {
+    font-size: 0.82rem;
+    color: #475569;
+  }
+  .analysis-context-hint {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #475569;
+    letter-spacing: 0.02em;
+  }
+  .analysis-title {
+    font-size: clamp(1.35rem, 1.8vw, 1.65rem);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 4px 0 0;
+  }
+  .analysis-title-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+  .analysis-title-link:hover {
+    color: var(--accent-blue);
+  }
+  .analysis-excerpt {
+    font-size: 0.95rem;
     line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 62ch;
+  }
+  .analysis-footer {
+    padding-top: 8px;
+  }
+  .analysis-read-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.94rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+  .analysis-read-link:hover {
+    color: var(--accent-blue-hover);
+  }
+  .analysis-read-link:hover .link-arrow,
+  .btn-ecosystem-link:hover .link-arrow {
+    transform: translateX(3px);
+  }
+  .link-arrow {
+    transition: transform 160ms ease;
+  }
+
+  /* Supporting Right: Industry Index */
+  .journal-industries-sidebar {
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar-header {
+    margin-bottom: 20px;
+  }
+  .sidebar-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .sidebar-desc {
+    font-size: 0.92rem;
+    line-height: 1.55;
     color: var(--text-secondary);
   }
 
-  /* Left Industries Nav List */
   .industries-nav-list {
     display: flex;
     flex-direction: column;
@@ -215,14 +429,16 @@ const industries = [
   }
   .industry-nav-item {
     display: grid;
-    grid-template-columns: 36px 1fr 24px;
+    grid-template-columns: 32px 1fr 20px;
     align-items: start;
-    gap: 18px;
-    padding: 22px 8px;
+    gap: 16px;
+    padding: 18px 4px;
     border-bottom: 1px solid var(--border-color);
     text-decoration: none;
     transition: background-color 160ms ease;
-    border-radius: var(--radius-sm);
+  }
+  .industry-nav-item:hover {
+    background-color: rgba(40, 84, 199, 0.02);
   }
   .ind-index {
     font-family: var(--font-mono);
@@ -237,21 +453,22 @@ const industries = [
     gap: 4px;
   }
   .ind-name {
-    font-size: 1.08rem;
+    font-size: 1.02rem;
     font-weight: 700;
     color: var(--text-primary);
     transition: color 160ms ease;
+    line-height: 1.35;
   }
   .industry-nav-item:hover .ind-name {
     color: var(--accent-blue);
   }
   .ind-summary {
-    font-size: 0.86rem;
+    font-size: 0.84rem;
     color: #475569;
     line-height: 1.45;
   }
   .ind-arrow {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-muted);
     transition: transform 160ms ease, color 160ms ease;
     padding-top: 2px;
@@ -262,94 +479,9 @@ const industries = [
   }
 
   .ecosystem-strip-link {
-    margin-top: 28px;
+    margin-top: 24px;
   }
   .btn-ecosystem-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--accent-blue);
-    text-decoration: none;
-    transition: color 160ms ease;
-  }
-  .btn-ecosystem-link:hover {
-    color: var(--accent-blue-hover);
-  }
-  .link-arrow {
-    transition: transform 160ms ease;
-  }
-  .btn-ecosystem-link:hover .link-arrow,
-  .analysis-cta:hover .link-arrow {
-    transform: translateX(3px);
-  }
-
-  /* Right Editorial Column */
-  .featured-analysis-card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .analysis-visual-link {
-    display: block;
-    overflow: hidden;
-    aspect-ratio: 16 / 9;
-    background-color: var(--bg-primary);
-  }
-  .analysis-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 300ms ease;
-  }
-  .analysis-visual-link:hover .analysis-img {
-    transform: scale(1.02);
-  }
-
-  .analysis-body {
-    padding: 36px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .analysis-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .analysis-category {
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--accent-blue);
-  }
-  .analysis-time {
-    font-size: 0.82rem;
-    color: #475569;
-  }
-  .analysis-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.42;
-    color: var(--text-primary);
-  }
-  .analysis-title a:hover {
-    color: var(--accent-blue);
-  }
-  .analysis-excerpt {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    max-width: 54ch;
-  }
-  .analysis-footer {
-    padding-top: 12px;
-  }
-  .analysis-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -359,7 +491,7 @@ const industries = [
     text-decoration: none;
     transition: color 160ms ease;
   }
-  .analysis-cta:hover {
+  .btn-ecosystem-link:hover {
     color: var(--accent-blue-hover);
   }
 </style>

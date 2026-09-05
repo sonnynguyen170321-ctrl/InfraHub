@@ -120,6 +120,12 @@
   --route-line-secondary: #087D79;
   --route-line-risk: #B86B2B;
   --transition-fast: background-color 120ms var(--ease-out), color 120ms var(--ease-out), border-color 120ms var(--ease-out), transform 120ms var(--ease-out), opacity 120ms var(--ease-out);
+
+  /* Conceptual Depth Planes (Master Art Direction Directive 04) */
+  --plane-env: 1;      /* Environment: paper, carbon, surfaces */
+  --plane-infra: 2;    /* Infrastructure: photography, technical cutaway model */
+  --plane-route: 3;    /* Route: routing lines, decision branches, amber hazard */
+  --plane-info: 4;     /* Information: typography, controls, buttons, CTAs */
 }
 
 *, *::before, *::after {
