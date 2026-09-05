@@ -4,16 +4,15 @@ shortDescription: "Carrier-neutral high-bandwidth IP Transit with flexible commi
 category: "connectivity"
 location: "Frankfurt, Germany (Equinix / Interxion)"
 partner: "Gcore"
-displayPrice: "From €1,450/mo"
-verifiedPrice: "From €1,450/mo"
-priceStatus: "confirmed_allocation"
-publicApproved: true
+displayPrice: "Request current pricing"
+priceStatus: "unverified"
+publicApproved: false
 specifications:
   - "100 Gbps Port with 20G Committed Data Rate (CDR)"
   - "95th Percentile Burstable Billing Options"
   - "Full BGP Routing Table with Community Support"
-  - "Sub-1ms Cross-Connect into Frankfurt MMRs"
-status: "active"
+  - "Cross-connect into Frankfurt MMRs; latency confirmed per facility"
+status: "review"
 featured: true
 publishedDate: 2026-07-01
 expiryDate: 2026-12-31
@@ -22,7 +21,7 @@ campaignTag: "frankfurt-100g"
 
 ## Overview
 
-High-capacity IP transit tailored for content providers, hosting platforms, and ISPs requiring Tier-1 connectivity in Frankfurt. Available across major colocation facilities including Equinix FR5/FR7 and Digital Realty/Interxion FRA campus.
+High-capacity IP transit tailored for content providers, hosting platforms, and ISPs requiring high-capacity upstream connectivity in Frankfurt. Available across major colocation facilities including Equinix FR5/FR7 and Digital Realty/Interxion FRA campus.
 
 ### Technical Decision Factors
 - Port Capacity: 100 Gbps LR4 / CWDM4 interface

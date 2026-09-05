@@ -1,558 +1,848 @@
 ---
-// src/components/RouteDiversityExplorer.astro — Physical Route Diversity Explorer (Parts XIX-XXII)
+// src/components/RouteDiversityExplorer.astro — the route diversity exhibit.
+//
+// The signature scene of the homepage, and the one that has to teach something: two carriers
+// and two contracts can still share one physical segment. It runs as four states.
+//
+//   1. Logical    two independent-looking paths between two sites
+//   2. Physical   the same two paths in the ground, converging on one shared crossing
+//   3. Risk       the places where convergence usually happens, named
+//   4. Conclusion provider diversity and route diversity are different questions
+//
+// On a desktop viewport with room for it the states follow scroll inside a pinned scene. The
+// two toggle buttons drive the same states, so the exhibit is fully usable by click and by
+// keyboard, on any viewport, with or without motion. The model is drawn in SVG: no WebGL, no
+// canvas, no render loop, and every claim it makes also exists as text in the document.
+//
+// It is explicitly illustrative. It is not a survey of any real route.
+
 interface Props {
   isTeaser?: boolean;
 }
 
 const { isTeaser = false } = Astro.props;
+
+const states = [
+  {
+    id: 1,
+    view: 'logical',
+    title: 'Two carriers. Two contracts.',
+    body:
+      'Redundant transit or wavelengths from two providers usually show separate ASNs, separate NOCs and separate invoices. On paper the two paths are independent.'
+  },
+  {
+    id: 2,
+    view: 'physical',
+    title: 'One physical dependency.',
+    body:
+      'In the ground the same two paths can leave through one building entrance, share a duct, and cross the same bridge. The commercial diversity survives; the physical diversity does not.'
+  },
+  {
+    id: 3,
+    view: 'physical',
+    title: 'Convergence has usual suspects.',
+    body:
+      'Building entry, local duct, a bridge or rail crossing, the carrier facility, and the meet-me room are where separate providers most often meet. Which of them apply is a question for the specific route.'
+  },
+  {
+    id: 4,
+    view: 'physical',
+    title: 'Provider diversity and route diversity are different questions.',
+    body:
+      'Supplier separation is answered by contracts. Physical separation is answered by route evidence: entrance, duct, crossing and facility path, checked per circuit.'
+  }
+];
+
+// Where separate carriers most often converge. Rendered both as labels on the model and as a
+// list in the document, so the exhibit is never the only place the information exists.
+const riskPoints = [
+  { at: 'Building entry', note: 'One entrance or handhole serving both circuits' },
+  { at: 'Local duct', note: 'Shared sub-duct along the same street run' },
+  { at: 'Bridge or rail crossing', note: 'A single civil crossing for a whole corridor' },
+  { at: 'Carrier facility', note: 'Both routes transiting the same building' },
+  { at: 'Meet-me room', note: 'Shared distribution path inside the facility' },
+  { at: 'Long-haul segment', note: 'Leased capacity riding one underlying fibre pair' }
+];
 ---
 
-<section class={`route-diversity-explorer ${isTeaser ? 'is-teaser' : 'is-full'}`} id="route-explorer" aria-label="Physical Route Diversity Explorer">
-  <div class="container explorer-container">
-    
-    <!-- Section Kicker & Header -->
-    <div class="explorer-header">
-      <div class="kicker-row">
-        <span class="routing-junction" aria-hidden="true"></span>
-        <span class="explorer-kicker">PHYSICAL INFRASTRUCTURE AUDIT // ROUTE DIVERSITY</span>
-      </div>
-      <h2 class="explorer-title">Two carriers. Two contracts.<br />One physical dependency.</h2>
-      <p class="explorer-lead measure-lead">
-        Buying IP transit or wavelengths from two independent telecom carriers does not guarantee resilience. In metro and regional networks, different providers frequently lease sub-ducts within the exact same physical bridge crossing or trench.
-      </p>
-    </div>
+<section
+  class={`route-diversity-explorer ${isTeaser ? 'is-teaser' : 'is-full'}`}
+  id="route-explorer"
+  aria-label="Physical route diversity"
+>
+  <!-- The two carrier routes arrive from the process story above. -->
+  <div class="explorer-route-entry" aria-hidden="true">
+    <div class="entry-fork-line line-a"></div>
+    <div class="entry-fork-line line-b"></div>
+  </div>
 
-    <!-- Interactive Architecture Exhibit -->
-    <div class="explorer-stage-grid">
-      
-      <!-- Left / Top: Interactive Visual Display (Logical vs Physical) -->
-      <div class="stage-canvas-card">
-        
-        <!-- Controls Bar -->
-        <div class="stage-controls-bar">
-          <div class="view-toggle-group" role="group" aria-label="Route Perspective">
-            <button 
-              type="button" 
-              class="toggle-btn active" 
-              id="btnLogicalView"
-              aria-pressed="true"
-              data-view="logical"
-            >
-              <span class="toggle-indicator" aria-hidden="true"></span>
-              <span class="toggle-label">01 // Logical Network View</span>
-            </button>
-            <button 
-              type="button" 
-              class="toggle-btn" 
-              id="btnPhysicalView"
-              aria-pressed="false"
-              data-view="physical"
-            >
-              <span class="toggle-indicator" aria-hidden="true"></span>
-              <span class="toggle-label">02 // Physical Conduit Path</span>
-            </button>
+  <div class="route-scene" id="routeScene">
+    <div class="route-sticky">
+      <div class="container route-stage-grid">
+        <!-- Narrative: one state at a time, all four present in the document -->
+        <div class="route-narrative">
+          <span class="explorer-kicker">Route diversity field note</span>
+
+          <div class="state-copy-stack">
+            {states.map((state) => (
+              <div class={`state-copy ${state.id === 1 ? 'active' : ''}`} data-state-copy={state.id}>
+                <h2 class="state-title">{state.title}</h2>
+                <p class="state-body">{state.body}</p>
+              </div>
+            ))}
           </div>
 
-          <div class="status-readout">
-            <span class="status-tag" id="statusTag">STATE: DIVERSE ASNs</span>
+          <div class="route-controls">
+            <div class="view-toggle-group" role="group" aria-label="Route perspective">
+              <button type="button" class="toggle-btn active" data-view="logical" aria-pressed="true">
+                <span class="toggle-indicator" aria-hidden="true"></span>
+                <span class="toggle-label">Logical view</span>
+              </button>
+              <button type="button" class="toggle-btn" data-view="physical" aria-pressed="false">
+                <span class="toggle-indicator" aria-hidden="true"></span>
+                <span class="toggle-label">Physical path</span>
+              </button>
+            </div>
+            <span class="status-tag" id="statusTag">Illustrative: logical view</span>
+          </div>
+
+          <div class="route-actions">
+            <a href="/lets-talk?service=route-audit" class="btn btn-accent btn-md">
+              <span>Discuss route diversity</span>
+            </a>
+            <a href="/wavelengths" class="narrative-link">
+              <span>Explore metro wavelengths</span>
+              <span class="link-arrow" aria-hidden="true">&rarr;</span>
+            </a>
           </div>
         </div>
 
-        <!-- Architectural Schematic Canvas (Crisp 2D Vector + 3D Enhancement) -->
-        <div class="schematic-viewport" id="schematicViewport">
-          
-          <!-- State 1: Logical Topology SVG -->
-          <svg class="schematic-svg state-logical" id="svgLogical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Logical multihomed network diagram">
-            <!-- Background Grid -->
-            <defs>
-              <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-color)" stroke-width="0.5" stroke-opacity="0.4" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#archGrid)" />
-
-            <!-- Origin Node: Enterprise DC -->
-            <g class="node-origin" transform="translate(60, 150)">
-              <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">ENTERPRISE DC</text>
-              <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Border AS65001</text>
-            </g>
-
-            <!-- Destination Node: Primary Core / Cloud -->
-            <g class="node-dest" transform="translate(570, 150)">
-              <rect x="0" y="0" width="130" height="60" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="65" y="26" text-anchor="middle" font-family="var(--font-mono)" font-size="11" font-weight="600" fill="var(--text-primary)">PUBLIC CLOUD / IX</text>
-              <text x="65" y="44" text-anchor="middle" font-family="var(--font-mono)" font-size="9" fill="var(--text-muted)">Core MMR Exchange</text>
-            </g>
-
-            <!-- Carrier A Logical Path (Cobalt) -->
-            <path d="M 190 165 C 280 80, 480 80, 570 165" stroke="var(--accent-blue)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
-            <g transform="translate(340, 60)">
-              <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-blue)" stroke-width="1.2" />
-              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-blue)">CARRIER A (AS3356)</text>
-            </g>
-
-            <!-- Carrier B Logical Path (Teal) -->
-            <path d="M 190 195 C 280 280, 480 280, 570 195" stroke="var(--accent-cyan)" stroke-width="2.5" stroke-dasharray="6 3" fill="none" />
-            <g transform="translate(340, 290)">
-              <rect x="-60" y="-14" width="120" height="28" rx="2" fill="var(--bg-primary)" stroke="var(--accent-cyan)" stroke-width="1.2" />
-              <text x="0" y="4" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="600" fill="var(--accent-cyan)">CARRIER B (AS1299)</text>
-            </g>
-
-            <!-- Status Annotation -->
-            <text x="380" y="175" text-anchor="middle" font-family="var(--font-mono)" font-size="11" fill="var(--text-muted)">Contracts &amp; Autonomous Systems Completely Independent</text>
-          </svg>
-
-          <!-- State 2: Physical Conduit Reality SVG -->
-          <svg class="schematic-svg state-physical" id="svgPhysical" viewBox="0 0 760 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Physical conduit convergence diagram" style="display: none;">
-            <rect width="100%" height="100%" fill="url(#archGrid)" />
-
-            <!-- Origin Facility -->
-            <g transform="translate(50, 140)">
-              <rect x="0" y="0" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="60" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">CAMPUS A</text>
-              <text x="60" y="46" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Single Duct Vault</text>
-              <rect x="116" y="36" width="8" height="8" fill="var(--accent-amber)" />
-            </g>
-
-            <!-- Destination Facility -->
-            <g transform="translate(590, 140)">
-              <rect x="0" y="0" width="120" height="80" rx="2" fill="var(--bg-primary)" stroke="var(--text-primary)" stroke-width="1.5" />
-              <text x="60" y="28" text-anchor="middle" font-family="var(--font-mono)" font-size="10" font-weight="700" fill="var(--text-primary)">FACILITY B</text>
-              <text x="60" y="46" text-anchor="middle" font-family="var(--font-mono)" font-size="8.5" fill="var(--text-muted)">Metro MMR Suite</text>
-            </g>
-
-            <!-- Separate Feeder Conduits -->
-            <path d="M 170 170 L 250 170" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
-
-            <!-- CRITICAL BOTTLENECK: The Shared Bridge Crossing & Utility Trench -->
-            <g class="pinch-point-zone" transform="translate(250, 100)">
-              <!-- Outer Trench Boundary -->
-              <rect x="0" y="0" width="260" height="160" rx="2" fill="var(--accent-amber-light)" stroke="var(--accent-amber)" stroke-width="1.5" stroke-dasharray="4 2" />
-              
-              <!-- Warning Banner -->
-              <g transform="translate(130, 24)">
-                <rect x="-95" y="-12" width="190" height="22" rx="2" fill="var(--accent-amber)" />
-                <text x="0" y="3" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="0.04em">COMMON TRENCH / BRIDGE CONDUIT</text>
+        <!-- Exhibit: one model, two views, drawn in SVG -->
+        <div class="route-exhibit">
+          <div class="axo-stage" id="axonoStage">
+            <svg
+              class="schematic-svg state-logical"
+              id="svgLogical"
+              viewBox="0 0 760 340"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Illustrative logical diagram: two carrier paths between two sites"
+              aria-hidden="false"
+            >
+              <g class="site-group">
+                <rect x="40" y="132" width="132" height="76" rx="3" class="site-block" />
+                <text x="56" y="162" class="site-name">Site A</text>
+                <text x="56" y="182" class="site-meta">Enterprise edge</text>
               </g>
 
-              <!-- Shared Fiber Bundle Inside Trench -->
-              <line x1="20" y1="70" x2="240" y2="70" stroke="var(--accent-blue)" stroke-width="3" />
-              <text x="30" y="62" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-blue)" font-weight="600">Carrier A Sub-duct</text>
+              <g class="site-group">
+                <rect x="588" y="132" width="132" height="76" rx="3" class="site-block" />
+                <text x="604" y="162" class="site-name">Site B</text>
+                <text x="604" y="182" class="site-meta">Cloud on-ramp</text>
+              </g>
 
-              <line x1="20" y1="100" x2="240" y2="100" stroke="var(--accent-cyan)" stroke-width="3" />
-              <text x="30" y="118" font-family="var(--font-mono)" font-size="8.5" fill="var(--accent-cyan)" font-weight="600">Carrier B Sub-duct</text>
+              <path class="route-path route-a" d="M172 158 C 300 78, 460 78, 588 158" />
+              <path class="route-path route-b" d="M172 182 C 300 262, 460 262, 588 182" />
 
-              <!-- Pinch Point Marker -->
-              <circle cx="130" cy="85" r="32" fill="none" stroke="var(--accent-amber)" stroke-width="2" stroke-dasharray="4 3" />
-              <text x="130" y="148" text-anchor="middle" font-family="var(--font-mono)" font-size="9" font-weight="700" fill="var(--accent-amber)">SHARED RISK: 1 MUNICIPAL FIBER CUT</text>
-            </g>
+              <text x="352" y="96" class="route-label route-label-a">Carrier A</text>
+              <text x="352" y="256" class="route-label route-label-b">Carrier B</text>
 
-            <!-- Destination Feeders -->
-            <path d="M 510 170 L 590 170" stroke="var(--accent-amber)" stroke-width="3" fill="none" />
-          </svg>
+              <text x="380" y="326" text-anchor="middle" class="model-note">
+                Separate contracts. Separate ASNs. No physical claim yet.
+              </text>
+            </svg>
 
-        </div>
+            <svg
+              class="schematic-svg state-physical"
+              id="svgPhysical"
+              viewBox="0 0 760 340"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Illustrative physical diagram: two carrier paths converging on one shared crossing"
+              aria-hidden="true"
+            >
+              <!-- Ground plane, drawn as an axonometric slab -->
+              <polygon class="ground-plane" points="60,236 380,124 700,236 380,320" />
 
-        <!-- Metric & Status Footer -->
-        <div class="stage-footer-status">
-          <div class="status-metric-item">
-            <span class="metric-label">CONTRACTUAL DIVERSITY:</span>
-            <span class="metric-val text-success">100% (2 Independent Providers)</span>
+              <!-- Buildings -->
+              <g class="axo-building">
+                <polygon class="building-roof" points="96,206 148,186 200,206 148,226" />
+                <polygon class="building-left" points="96,206 96,238 148,258 148,226" />
+                <polygon class="building-right" points="200,206 200,238 148,258 148,226" />
+                <text x="76" y="284" class="model-label">Site A</text>
+              </g>
+
+              <g class="axo-building">
+                <polygon class="building-roof" points="560,206 612,186 664,206 612,226" />
+                <polygon class="building-left" points="560,206 560,238 612,258 612,226" />
+                <polygon class="building-right" points="664,206 664,238 612,258 612,226" />
+                <text x="586" y="284" class="model-label">Site B</text>
+              </g>
+
+              <!-- Carrier facility between them -->
+              <g class="axo-building is-facility">
+                <polygon class="building-roof" points="336,150 380,134 424,150 380,166" />
+                <polygon class="building-left" points="336,150 336,176 380,192 380,166" />
+                <polygon class="building-right" points="424,150 424,176 380,192 380,166" />
+                <text x="340" y="108" text-anchor="end" class="model-label">Carrier facility</text>
+              </g>
+
+              <!-- Both routes leave their own duct, then ride one crossing -->
+              <path class="route-path route-a" d="M148 232 L 244 200 L 306 178" />
+              <path class="route-path route-b" d="M148 244 L 246 210 L 306 186" />
+              <path class="route-shared" d="M306 178 L 380 166 L 454 178" />
+              <path class="route-path route-a" d="M454 178 L 516 200 L 612 232" />
+              <path class="route-path route-b" d="M454 186 L 514 210 L 612 244" />
+
+              <text x="380" y="236" text-anchor="middle" class="shared-label">
+                Shared crossing
+              </text>
+
+              <!-- Named convergence points, revealed in state 3 -->
+              <g class="risk-markers">
+                <g class="risk-marker">
+                  <circle cx="176" cy="240" r="4" />
+                  <text x="186" y="252" class="risk-text">Building entry</text>
+                </g>
+                <g class="risk-marker">
+                  <circle cx="262" cy="200" r="4" />
+                  <text x="236" y="176" class="risk-text">Local duct</text>
+                </g>
+                <g class="risk-marker">
+                  <circle cx="380" cy="166" r="4" />
+                  <text x="430" y="132" class="risk-text">Bridge or rail crossing</text>
+                </g>
+                <g class="risk-marker">
+                  <circle cx="500" cy="200" r="4" />
+                  <text x="518" y="186" class="risk-text">Meet-me room</text>
+                </g>
+              </g>
+
+              <text x="380" y="326" text-anchor="middle" class="model-note">
+                Illustrative model. Not a survey of any real route.
+              </text>
+            </svg>
           </div>
-          <div class="status-metric-item">
-            <span class="metric-label">PHYSICAL SEPARATION:</span>
-            <span class="metric-val" id="metricPhysical">UNAUDITED // 0 METERS (Shared Conduit)</span>
-          </div>
         </div>
-
       </div>
-
-      <!-- Right: Technical Narrative & Field Audit Methodology -->
-      <div class="stage-narrative-card">
-        <span class="narrative-kicker">ENGINEERING ANALYSIS</span>
-        <h3 class="narrative-title">Provider diversity is not automatically route diversity.</h3>
-        
-        <div class="narrative-body measure-technical">
-          <p>
-            When network engineers procure redundant IP transit or 100G wavelengths, commercial agreements typically show separate Autonomous Systems (ASNs), independent NOC contact numbers, and distinct billing entities.
-          </p>
-          <p>
-            In the physical domain, however, metropolitan civil works are constrained by waterways, highway rights-of-way, rail corridors, and municipal bridge conduits. Both carriers often lease dark fiber strands or sub-ducts in the same underground utility trench.
-          </p>
-          <div class="audit-checklist-box">
-            <span class="checklist-title">WHAT INFRAHUB VERIFIES IN SOURCING:</span>
-            <ul class="checklist-items">
-              <li><strong>Manhole & Conduit Traces:</strong> Strict physical separation from building entry vaults (Dual Zero-Manhole Entry).</li>
-              <li><strong>Bridge & River Crossings:</strong> Verified diverse river crossings or rail easements rather than common municipal spans.</li>
-              <li><strong>Facility MMR Diversity:</strong> Dedicated Meet-Me-Room patch paths and separate fiber distribution panels.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="narrative-action-row">
-          <a href="/lets-talk?service=route-audit" class="btn btn-accent btn-md">
-            <span>Request Physical Route Verification</span>
-          </a>
-          <a href="/wavelengths" class="narrative-link">
-            <span>Explore Metro Wavelengths &rarr;</span>
-          </a>
-        </div>
-      </div>
-
     </div>
+  </div>
 
+  <!-- The same information as text: the exhibit is an illustration of this, never the only
+       place it exists. -->
+  <div class="container route-verify">
+    <h3 class="verify-title">What to check before treating two circuits as diverse</h3>
+    <ul class="verify-list">
+      {riskPoints.map((point) => (
+        <li>
+          <span class="verify-at">{point.at}</span>
+          <span class="verify-note">{point.note}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="explorer-route-exit" aria-hidden="true">
+    <div class="exit-stem"></div>
+    <div class="exit-junction"></div>
   </div>
 </section>
 
 <style>
   .route-diversity-explorer {
+    position: relative;
     background-color: var(--bg-secondary);
-    border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-    padding: 72px 0;
+    padding: 64px 0 72px;
   }
 
-  .is-teaser {
-    padding: 56px 0;
+  /* ── The two routes arriving from the process story ───────────────────── */
+  .explorer-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 120px;
+    height: 56px;
+    transform: translateX(-50%);
+    pointer-events: none;
   }
 
-  .explorer-container {
-    max-width: var(--max-width);
+  .entry-fork-line {
+    position: absolute;
+    top: 0;
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent-blue), transparent);
   }
 
-  /* Header */
-  .explorer-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 28px;
-    margin-bottom: 40px;
+  .entry-fork-line.line-a {
+    left: 34px;
   }
 
-  .kicker-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
+  .entry-fork-line.line-b {
+    left: 84px;
+    background: linear-gradient(180deg, var(--accent-teal, #0d9488), transparent);
   }
 
-  .explorer-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--accent-blue);
-    text-transform: uppercase;
+  /* ── Scene ────────────────────────────────────────────────────────────── */
+  .route-scene {
+    position: relative;
   }
 
-  .explorer-title {
-    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    margin: 0 0 14px;
+  .route-sticky {
+    position: relative;
   }
 
-  .explorer-lead {
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
-  }
+  @media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+    .route-scene {
+      /* Four states with room to read each one. */
+      min-height: 300vh;
+    }
 
-  /* Stage Grid */
-  .explorer-stage-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  @media (min-width: 1040px) {
-    .explorer-stage-grid {
-      grid-template-columns: 1.3fr 1fr;
-      align-items: start;
+    .route-sticky {
+      position: sticky;
+      top: var(--header-height);
+      min-height: calc(100vh - var(--header-height) - 48px);
+      display: flex;
+      align-items: center;
     }
   }
 
-  /* Left Stage Card */
-  .stage-canvas-card {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  @media (prefers-reduced-motion: reduce) {
+    .route-scene {
+      min-height: 0;
+    }
+
+    .route-sticky {
+      position: static;
+    }
   }
 
-  /* Controls Bar */
-  .stage-controls-bar {
+  .route-stage-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+  }
+
+  @media (min-width: 980px) {
+    .route-stage-grid {
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+      gap: 48px;
+    }
+  }
+
+  /* ── Narrative ────────────────────────────────────────────────────────── */
+  .explorer-kicker {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-blue);
+    margin-bottom: 18px;
+  }
+
+  .state-copy-stack {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .state-copy {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--motion-content) var(--ease-out),
+      transform var(--motion-content) var(--ease-out);
+    pointer-events: none;
+  }
+
+  .state-copy.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .state-title {
+    font-size: clamp(1.7rem, 2.1vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    color: var(--text-primary);
+    margin: 0 0 18px;
+    max-width: 18ch;
+  }
+
+  .state-body {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .route-controls {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    background-color: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
-    gap: 12px;
+    gap: 16px;
+    margin-top: 28px;
   }
 
   .view-toggle-group {
-    display: flex;
-    gap: 6px;
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
   }
 
   .toggle-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 7px 12px;
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
+    gap: 8px;
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 3px;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 600;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 140ms var(--ease-out);
+    transition: background-color var(--motion-ui) var(--ease-out),
+      color var(--motion-ui) var(--ease-out);
   }
 
   .toggle-btn:hover {
-    border-color: var(--accent-blue);
     color: var(--text-primary);
   }
 
   .toggle-btn.active {
-    background-color: var(--text-primary);
+    background: var(--text-primary);
     color: #ffffff;
-    border-color: var(--text-primary);
   }
 
   .toggle-indicator {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: var(--border-color);
+    background: currentColor;
+    opacity: 0.7;
   }
 
-  .toggle-btn.active .toggle-indicator {
-    background-color: var(--accent-cyan-glow);
-  }
-
-  .status-readout {
+  .status-tag {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--accent-blue);
-  }
-
-  /* Viewport */
-  .schematic-viewport {
-    position: relative;
-    width: 100%;
-    min-height: 320px;
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .schematic-svg {
-    width: 100%;
-    height: auto;
-    max-height: 340px;
-    display: block;
-  }
-
-  /* Footer Status */
-  .stage-footer-status {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--border-color);
-    background-color: var(--bg-secondary);
-    padding: 12px 16px;
-    gap: 16px;
-  }
-
-  .status-metric-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .metric-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 600;
+    font-size: 0.76rem;
     color: var(--text-muted);
   }
 
-  .metric-val {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--accent-amber);
-  }
-
-  .metric-val.text-success {
-    color: var(--accent-blue);
-  }
-
-  /* Right Narrative Card */
-  .stage-narrative-card {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .narrative-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--accent-blue);
-    text-transform: uppercase;
-  }
-
-  .narrative-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-    margin: 0;
-    line-height: 1.3;
-  }
-
-  .narrative-body p {
-    font-size: 0.94rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0 0 14px;
-  }
-
-  .audit-checklist-box {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-left: 2px solid var(--accent-amber);
-    padding: 16px 18px;
-    margin: 18px 0;
-    border-radius: var(--radius-sm);
-  }
-
-  .checklist-title {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: 0.04em;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  .checklist-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 0.86rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-  }
-
-  .checklist-items li strong {
-    color: var(--text-primary);
-  }
-
-  .narrative-action-row {
+  .route-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 16px;
-    margin-top: 8px;
+    gap: 24px;
+    margin-top: 28px;
   }
 
   .narrative-link {
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     font-weight: 600;
-    color: var(--accent-blue);
+    color: var(--text-primary);
     text-decoration: none;
   }
 
-  .narrative-link:hover {
-    text-decoration: underline;
+  .narrative-link .link-arrow {
+    transition: transform var(--motion-ui) var(--ease-out);
+  }
+
+  .narrative-link:hover .link-arrow,
+  .narrative-link:focus-visible .link-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Exhibit ──────────────────────────────────────────────────────────── */
+  .route-exhibit {
+    position: relative;
+  }
+
+  .axo-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 760 / 340;
+    transform: perspective(1400px) rotateX(0deg) rotateZ(0deg);
+    transform-origin: center 60%;
+    transition: transform var(--motion-scene) var(--ease-out);
+    will-change: transform;
+  }
+
+  /* The model tips into its axonometric view once the physical path is the subject. */
+  .route-diversity-explorer[data-route-view='physical'] .axo-stage {
+    transform: perspective(1400px) rotateX(11deg) rotateZ(-1.5deg);
+  }
+
+  .schematic-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    /* The inactive view is genuinely inert rather than transparent: nothing in it is
+       reachable, hoverable or announced while the other view is the subject. */
+    visibility: hidden;
+    transition: opacity var(--motion-image) var(--ease-out), visibility 0s linear var(--motion-image);
+  }
+
+  .schematic-svg.is-showing {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--motion-image) var(--ease-out), visibility 0s;
+  }
+
+  .site-block {
+    fill: #ffffff;
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .site-name,
+  .model-label {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    fill: var(--text-primary);
+  }
+
+  .site-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--text-muted);
+  }
+
+  .route-path {
+    stroke-width: 2;
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .route-a {
+    stroke: var(--accent-blue);
+  }
+
+  .route-b {
+    stroke: var(--accent-teal, #0d9488);
+  }
+
+  /* The one segment both routes ride. Amber is reserved for exactly this. */
+  .route-shared {
+    stroke: var(--accent-amber, #d97706);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .route-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+
+  .route-label-a {
+    fill: var(--accent-blue);
+  }
+
+  .route-label-b {
+    fill: var(--accent-teal, #0d9488);
+  }
+
+  .shared-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    fill: var(--accent-amber, #d97706);
+  }
+
+  .model-note {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    fill: var(--text-muted);
+  }
+
+  .ground-plane {
+    fill: rgba(15, 23, 42, 0.04);
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .building-roof {
+    fill: #f8fafc;
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .building-left {
+    fill: #e2e8f0;
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .building-right {
+    fill: #cbd5e1;
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .is-facility .building-roof {
+    fill: #eef2ff;
+  }
+
+  .risk-markers {
+    opacity: 0;
+    transition: opacity var(--motion-content) var(--ease-out);
+  }
+
+  .route-diversity-explorer[data-state='3'] .risk-markers,
+  .route-diversity-explorer[data-state='4'] .risk-markers {
+    opacity: 1;
+  }
+
+  .risk-marker circle {
+    fill: var(--accent-amber, #d97706);
+  }
+
+  .risk-text {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    fill: var(--text-secondary);
+  }
+
+  /* ── The same content as text ─────────────────────────────────────────── */
+  .route-verify {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .verify-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 20px;
+  }
+
+  .verify-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (min-width: 860px) {
+    .verify-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 56px;
+    }
+  }
+
+  .verify-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .verify-at {
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 190px;
+  }
+
+  .verify-note {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+  }
+
+  /* ── Exit toward the commercial chapter ───────────────────────────────── */
+  .explorer-route-exit {
+    position: relative;
+    height: 56px;
+    margin-top: 48px;
+  }
+
+  .exit-stem {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1.5px;
+    height: 44px;
+    background: linear-gradient(180deg, var(--accent-blue), transparent);
+  }
+
+  .exit-junction {
+    position: absolute;
+    left: calc(50% - 3px);
+    top: 44px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .axo-stage,
+    .schematic-svg,
+    .state-copy,
+    .risk-markers {
+      transition: none;
+    }
   }
 </style>
 
 <script>
-  // Route Diversity Explorer View Switching
-  function setupRouteExplorer() {
-    const btnLogical = document.getElementById('btnLogicalView');
-    const btnPhysical = document.getElementById('btnPhysicalView');
-    const svgLogical = document.getElementById('svgLogical');
-    const svgPhysical = document.getElementById('svgPhysical');
+  // Four states, two ways to drive them.
+  //
+  // Scroll drives the states where the scene is pinned; the two buttons drive them everywhere.
+  // Both go through setState, so the model, the copy, the toggle and the status line can never
+  // disagree. There is no canvas and no render loop: state is a class and an attribute.
+  function initRouteExplorer() {
+    const section = document.getElementById('route-explorer');
+    const scene = document.getElementById('routeScene');
+    if (!section) return;
+
+    const copies = Array.from(section.querySelectorAll<HTMLElement>('[data-state-copy]'));
+    const toggles = Array.from(section.querySelectorAll<HTMLElement>('.toggle-btn'));
+    const logical = document.getElementById('svgLogical');
+    const physical = document.getElementById('svgPhysical');
     const statusTag = document.getElementById('statusTag');
-    const metricPhysical = document.getElementById('metricPhysical');
+    const stage = document.getElementById('axonoStage');
+    if (copies.length === 0 || !logical || !physical) return;
 
-    if (!btnLogical || !btnPhysical || !svgLogical || !svgPhysical) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pinQuery = window.matchMedia('(min-width: 1180px) and (min-height: 700px)');
+    const isPinned = () => pinQuery.matches && !reducedMotion.matches;
 
-    btnLogical.addEventListener('click', () => {
-      btnLogical.classList.add('active');
-      btnLogical.setAttribute('aria-pressed', 'true');
-      btnPhysical.classList.remove('active');
-      btnPhysical.setAttribute('aria-pressed', 'false');
+    const STATE_COUNT = copies.length;
+    const statusFor: Record<number, string> = {
+      1: 'Illustrative: logical view',
+      2: 'Illustrative: shared physical segment',
+      3: 'Illustrative: where routes converge',
+      4: 'Illustrative: what to verify'
+    };
 
-      svgLogical.style.display = 'block';
-      svgPhysical.style.display = 'none';
+    let state = 0;
 
-      if (statusTag) statusTag.textContent = 'STATE: DIVERSE ASNs';
-      if (statusTag) statusTag.style.color = 'var(--accent-blue)';
-      if (metricPhysical) metricPhysical.textContent = 'LOGICAL ABSTRACTION (Separated)';
-      if (metricPhysical) metricPhysical.className = 'metric-val text-success';
+    function setState(next: number) {
+      const clamped = Math.min(Math.max(next, 1), STATE_COUNT);
+      if (clamped === state) return;
+      state = clamped;
+
+      const view = clamped === 1 ? 'logical' : 'physical';
+
+      section!.setAttribute('data-state', String(clamped));
+      section!.setAttribute('data-route-view', view);
+
+      copies.forEach((copy) => {
+        copy.classList.toggle('active', copy.getAttribute('data-state-copy') === String(clamped));
+      });
+
+      logical!.classList.toggle('is-showing', view === 'logical');
+      logical!.setAttribute('aria-hidden', view === 'logical' ? 'false' : 'true');
+      physical!.classList.toggle('is-showing', view === 'physical');
+      physical!.setAttribute('aria-hidden', view === 'physical' ? 'false' : 'true');
+
+      toggles.forEach((button) => {
+        const isActive = button.getAttribute('data-view') === view;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      if (statusTag) statusTag.textContent = statusFor[clamped];
+    }
+
+    // ── Scroll progression ────────────────────────────────────────────────
+    let ticking = false;
+
+    function stateFromScroll() {
+      if (!scene) return state;
+      const sticky = scene.querySelector<HTMLElement>('.route-sticky');
+      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
+      if (travel <= 0) return state;
+
+      const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
+      const progress = Math.min(Math.max((window.scrollY - sceneTop) / travel, 0), 0.9999);
+      return Math.floor(progress * STATE_COUNT) + 1;
+    }
+
+    function onScroll() {
+      if (ticking || !isPinned()) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setState(stateFromScroll());
+        ticking = false;
+      });
+    }
+
+    function scrollToState(target: number) {
+      if (!scene || !isPinned()) return;
+      const sticky = scene.querySelector<HTMLElement>('.route-sticky');
+      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
+      if (travel <= 0) return;
+
+      const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
+      const band = travel / STATE_COUNT;
+      window.scrollTo({
+        top: Math.round(sceneTop + band * (target - 1) + band * 0.5),
+        behavior: reducedMotion.matches ? 'auto' : 'smooth'
+      });
+    }
+
+    toggles.forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-view') === 'logical' ? 1 : 2;
+        setState(target);
+        scrollToState(target);
+      });
     });
 
-    btnPhysical.addEventListener('click', () => {
-      btnPhysical.classList.add('active');
-      btnPhysical.setAttribute('aria-pressed', 'true');
-      btnLogical.classList.remove('active');
-      btnLogical.setAttribute('aria-pressed', 'false');
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    pinQuery.addEventListener('change', onScroll);
+    reducedMotion.addEventListener('change', onScroll);
 
-      svgLogical.style.display = 'none';
-      svgPhysical.style.display = 'block';
+    // ── Pointer parallax ──────────────────────────────────────────────────
+    // The model is an exhibit, not a toy: the pointer tilts it by a couple of degrees and
+    // nothing more, and only when the physical view is the subject.
+    if (stage && window.matchMedia('(pointer: fine)').matches && !reducedMotion.matches) {
+      const MAX_TILT = 2.5;
 
-      if (statusTag) statusTag.textContent = 'CRITICAL: SHARED CONDUIT';
-      if (statusTag) statusTag.style.color = 'var(--accent-amber)';
-      if (metricPhysical) metricPhysical.textContent = 'AUDITED REALITY // 0 METERS (Shared Duct)';
-      if (metricPhysical) metricPhysical.className = 'metric-val';
-    });
+      stage.addEventListener('mousemove', (event) => {
+        if (section!.getAttribute('data-route-view') !== 'physical') return;
+        const rect = stage.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        stage.style.transform = `perspective(1400px) rotateX(${11 - y * MAX_TILT}deg) rotateZ(${-1.5 + x * MAX_TILT}deg)`;
+      });
 
-    btnLogical.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        btnPhysical.focus();
-        btnPhysical.click();
-      }
-    });
+      stage.addEventListener('mouseleave', () => {
+        stage.style.transform = '';
+      });
+    }
 
-    btnPhysical.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        btnLogical.focus();
-        btnLogical.click();
-      }
-    });
+    // First paint: state 1, and the logical view visible without waiting for a scroll event.
+    section.setAttribute('data-state', '1');
+    section.setAttribute('data-route-view', 'logical');
+    logical.classList.add('is-showing');
+    state = 1;
+    onScroll();
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupRouteExplorer);
+    document.addEventListener('DOMContentLoaded', initRouteExplorer);
   } else {
-    setupRouteExplorer();
+    initRouteExplorer();
   }
 </script>

@@ -5,85 +5,118 @@ const solutionFamilies = [
     id: "infrastructure",
     index: "01",
     name: "Infrastructure & Compute",
-    discipline: "Hardware & Facilities",
-    summary: "Dedicated compute, physical colocation, high-density GPU nodes, and enterprise-grade hardware sourcing without hyperscaler lock-in.",
+    discipline: "Hardware & facilities",
+    summary: "Dedicated compute, colocation, GPU infrastructure, and enterprise hardware sourcing matched to workload, facility, and commercial requirements.",
     image: "/images/hero-datacenter.jpg",
     imageAlt: "Enterprise datacenter server racks with precision cooling",
     ctaLink: "/solutions/infrastructure",
     services: [
       { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom NVMe storage and ECC RAM" },
       { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare-metal clusters and dedicated private hypervisors" },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "High-density NVIDIA H100 and L40S accelerators for AI training" },
-      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Certified enterprise routing, switching, and optical transceivers" },
-      { name: "Colocation", url: "/colocation", desc: "Fractional racks, private cages, and wholesale suites in primary MMRs" }
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "GPU infrastructure for training, inference, and accelerator-heavy workloads" },
+      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Enterprise routing, switching, server, and optical hardware sourcing" },
+      { name: "Colocation", url: "/colocation", desc: "Rack, cage, power, and interconnection options matched to facility requirements" }
     ]
   },
   {
     id: "cloud",
     index: "02",
     name: "Cloud & Virtualization",
-    discipline: "Hypervisors & Sovereignty",
-    summary: "European private cloud deployments, VMware licensing alternatives, managed containers, and off-site disaster recovery architectures.",
+    discipline: "Virtualization & data location",
+    summary: "Private cloud, public-cloud integration, VMware alternatives, container platforms, backup, and hybrid infrastructure architectures.",
     image: "/images/cloud-compute.jpg",
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
       { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable operational economics" },
       { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates migration architectures" },
-      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Direct enterprise interconnects to AWS, Azure, and GCP" },
-      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and automated failover architectures" }
+      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Private connectivity and cloud on-ramps to major public cloud platforms" },
+      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and failover architectures, delivered by the selected provider" }
     ]
   },
   {
     id: "network",
     index: "03",
     name: "Network & Connectivity",
-    discipline: "Optical & Transit Routing",
-    summary: "High-bandwidth upstream IP transit, dedicated metro wavelengths, Layer 2 Ethernet, IPv4 transfers, and edge peering.",
+    discipline: "Transit & optical",
+    summary: "Upstream IP transit, dedicated wavelengths, Layer 2 Ethernet, cloud connectivity, IPv4 sourcing, and edge-network options.",
     image: "/images/network-fiber.jpg",
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
     ctaLink: "/solutions/network-connectivity",
     services: [
-      { name: "IP Transit", url: "/ip-transit", desc: "Direct BGP connectivity with burstable 95th percentile billing" },
+      { name: "IP Transit", url: "/ip-transit", desc: "Upstream BGP connectivity; commit levels and billing model are confirmed per provider" },
       { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths across major metros" },
       { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro DCI interconnects" },
       { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Private direct-connect bypass to cloud access points" },
-      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "RIPE and ARIN IPv4 subnet leasing and transfer governance" }
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "IPv4 leasing, sourcing, reputation, authorization, and routing considerations" }
     ]
   },
   {
     id: "security",
     index: "04",
     name: "Security & Telemetry",
-    discipline: "Defensive Control Plane",
+    discipline: "DDoS mitigation & telemetry",
     summary: "BGP DDoS mitigation, near-real-time flow telemetry, automated FlowSpec filtering, and perimeter security assessments.",
     image: "/images/security-operations.jpg",
     imageAlt: "Network operations security monitoring console and BGP telemetry",
     ctaLink: "/solutions/security",
     services: [
-      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing through specialized scrubbing networks" },
+      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing through provider scrubbing networks" },
       { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon near-real-time FlowSpec and automated diversion triggers" },
-      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "Path telemetry and automated routing optimization" },
-      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter defense and managed security capabilities" }
+      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "BGP visibility, route analysis, and operational routing decision support" },
+      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter and managed security options available through specialist providers" }
     ]
   },
   {
     id: "managed",
     index: "05",
     name: "Managed Operations",
-    discipline: "NOC & Engineering Sourcing",
+    discipline: "Operations & engineering",
     summary: "Continuous network operations, automated incident triage, BGP engineering, and infrastructure operations support.",
     image: "/images/managed-noc.jpg",
-    imageAlt: "24/7 carrier Network Operations Center control room",
+    imageAlt: "Network operations control room with infrastructure monitoring displays",
     ctaLink: "/solutions/managed-services",
     services: [
-      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and rapid incident escalation workflows" },
-      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated incident dispatch" },
-      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP route engineering, hardware provisioning, and physical patching" },
-      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Ansible, Terraform, and NetBox workflow pipelines" }
+      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and incident escalation, available through specialist providers" },
+      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated incident dispatch, available through specialist providers" },
+      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP, peering, routing and network architecture support, available through specialist providers" },
+      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Infrastructure-as-code and network automation, available through specialist providers" }
     ]
   }
 ];
+// The routing line branches by discipline. Each label is a real route the panel offers,
+// so the line describes the choice being made rather than decorating the column.
+const routeBranches: Record<string, string[]> = {
+  infrastructure: ['Compute', 'Hardware', 'Colocation'],
+  cloud: ['Private cloud', 'Virtualization', 'Hybrid', 'Backup'],
+  network: ['Transit', 'Wavelengths', 'Layer 2', 'Cloud on-ramp', 'IPv4'],
+  security: ['Detection', 'Mitigation', 'Diversion'],
+  managed: ['Monitor', 'Triage', 'Engineer', 'Escalate']
+};
+
+// Geometry for the branch fan: a trunk down the left, one elbow per branch.
+const BRANCH_TOP = 14;
+const BRANCH_GAP = 26;
+const TRUNK_X = 10;
+const ELBOW_X = 30;
+const LABEL_X = 40;
+
+const branchSets = solutionFamilies.map((family) => {
+  const labels = routeBranches[family.id] ?? [];
+  const rows = labels.map((label, i) => {
+    const y = BRANCH_TOP + i * BRANCH_GAP;
+    return {
+      label,
+      y,
+      d: `M ${TRUNK_X} ${y - BRANCH_GAP / 2} V ${y} H ${ELBOW_X}`,
+      isRisk: family.id === 'security' && label === 'Mitigation'
+    };
+  });
+  const height = BRANCH_TOP + Math.max(labels.length - 1, 0) * BRANCH_GAP + 18;
+  return { id: family.id, rows, height };
+});
+
+const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 ---
 
 <section class="section section-solutions" id="solutions-ecosystem" aria-label="Solutions by Discipline">
@@ -93,7 +126,7 @@ const solutionFamilies = [
     <div class="solutions-header">
       <div class="solutions-kicker-row">
         <span class="routing-junction" aria-hidden="true"></span>
-        <span class="solutions-kicker">INFRASTRUCTURE FIELD GUIDE // DISCIPLINES</span>
+        <span class="solutions-kicker">Infrastructure field guide</span>
       </div>
       <h2 class="solutions-title">Start with the requirement.</h2>
       <p class="solutions-subhead measure-lead">
@@ -101,7 +134,11 @@ const solutionFamilies = [
       </p>
     </div>
 
-    <!-- Desktop 3-Column Architectural Discovery (Part XXVI: Left/Center/Right) -->
+    <!-- The discovery scene pins on desktop: the viewport holds still while the discipline
+         changes with scroll. Below the pin breakpoint, and under reduced motion, the same
+         markup is an ordinary block and the tabs work by click alone. -->
+    <div class="discovery-scene" id="discoveryScene" data-scene-steps={solutionFamilies.length}>
+      <div class="discovery-sticky">
     <div class="discovery-triad-desktop" id="solutionDiscovery">
       
       <!-- Left Column: Typographic Discipline Index -->
@@ -122,6 +159,29 @@ const solutionFamilies = [
             <span class="tab-name">{family.name}</span>
           </button>
         ))}
+
+        <!-- The line divides into the routes this discipline actually offers. -->
+        <div class="discipline-route" aria-hidden="true">
+          <svg
+            class="route-svg"
+            viewBox={`0 0 240 ${branchViewHeight}`}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMinYMin meet"
+          >
+            {branchSets.map((set, idx) => (
+              <g class={`route-set ${idx === 0 ? 'active' : ''}`} data-route-set={set.id}>
+                <path class="route-trunk" d={`M ${TRUNK_X} 0 V ${set.height - 18}`} />
+                {set.rows.map((row) => (
+                  <>
+                    <path class={`route-branch ${row.isRisk ? 'is-risk' : ''}`} d={row.d} />
+                    <text class="route-label" x={LABEL_X} y={row.y + 3}>{row.label}</text>
+                  </>
+                ))}
+              </g>
+            ))}
+          </svg>
+        </div>
       </nav>
 
       <!-- Center Column: Authentic Documentary Visual -->
@@ -159,7 +219,6 @@ const solutionFamilies = [
             hidden={idx !== 0}
           >
             <div class="panel-header">
-              <span class="panel-kicker">DISCIPLINE OVERVIEW</span>
               <h3 class="panel-title">{family.name}</h3>
               <p class="panel-summary measure-compact">{family.summary}</p>
             </div>
@@ -177,14 +236,17 @@ const solutionFamilies = [
             </div>
 
             <div class="panel-footer">
-              <a href={family.ctaLink} class="btn btn-secondary btn-sm">
-                <span>Explore {family.name} Overview &rarr;</span>
+              <a href={family.ctaLink} class="panel-overview-link">
+                <span>{family.name} overview</span>
+                <span class="route-arrow" aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
         ))}
       </div>
 
+    </div>
+      </div>
     </div>
 
     <!-- Mobile Architectural Accordion (No horizontal mini tabs) -->
@@ -227,7 +289,7 @@ const solutionFamilies = [
 <style>
   .section-solutions {
     background-color: var(--bg-primary);
-    padding: 80px 0;
+    padding: 72px 0 64px;
     border-bottom: 1px solid var(--border-color);
   }
 
@@ -238,8 +300,8 @@ const solutionFamilies = [
   /* Header */
   .solutions-header {
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 32px;
-    margin-bottom: 48px;
+    padding-bottom: 36px;
+    margin-bottom: 56px;
   }
 
   .solutions-kicker-row {
@@ -251,11 +313,10 @@ const solutionFamilies = [
 
   .solutions-kicker {
     font-family: var(--font-mono);
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.01em;
     color: var(--accent-blue);
-    text-transform: uppercase;
   }
 
   .solutions-title {
@@ -275,15 +336,90 @@ const solutionFamilies = [
   }
 
   /* Desktop 3-Column Triad */
+  .discovery-scene {
+    position: relative;
+  }
+
+  .discovery-sticky {
+    position: relative;
+  }
+
+  /* The pin only exists where there is room for it: a pinned scene on a short or narrow
+     viewport traps the reader in a scene they cannot see all of. */
+  @media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+    .discovery-scene {
+      /* One viewport of pinned scene plus roughly one viewport of travel per extra
+         discipline, so each one holds long enough to read. */
+      min-height: 260vh;
+    }
+
+    .discovery-sticky {
+      position: sticky;
+      top: calc(var(--header-height) + 24px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .discovery-scene {
+      min-height: 0;
+    }
+
+    .discovery-sticky {
+      position: static;
+    }
+  }
+
   .discovery-triad-desktop {
     display: none;
+  }
+
+  .discipline-route {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .route-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .route-set {
+    opacity: 0;
+    transition: opacity var(--motion-ui) var(--ease-out);
+  }
+
+  .route-set.active {
+    opacity: 1;
+  }
+
+  .route-trunk {
+    stroke: var(--border-color);
+    stroke-width: 1;
+  }
+
+  .route-branch {
+    stroke: var(--accent-blue);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+
+  .route-branch.is-risk {
+    stroke: var(--accent-amber, #d97706);
+  }
+
+  .route-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    fill: var(--text-secondary);
   }
 
   @media (min-width: 980px) {
     .discovery-triad-desktop {
       display: grid;
-      grid-template-columns: 300px 1fr 340px;
-      gap: 36px;
+      grid-template-columns: 310px 1fr 350px;
+      gap: 40px;
       align-items: start;
       min-height: 520px;
     }
@@ -293,16 +429,16 @@ const solutionFamilies = [
   .triad-col-disciplines {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
     border-right: 1px solid var(--border-color);
-    padding-right: 28px;
+    padding-right: 32px;
   }
 
   .discipline-tab-btn {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 18px 16px;
+    padding: 20px 18px;
     background: transparent;
     border: none;
     border-left: 2px solid transparent;
@@ -339,7 +475,6 @@ const solutionFamilies = [
     font-family: var(--font-mono);
     font-size: 0.68rem;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 0.04em;
   }
 
@@ -355,34 +490,47 @@ const solutionFamilies = [
     font-weight: 700;
   }
 
-  /* Column 2: Center Visual */
+  /* Column 2: Center Visual (Directive 8: Controlled horizontal clip reveal) */
   .triad-col-visual {
     position: relative;
     height: 100%;
-    min-height: 460px;
+    min-height: 560px;
     display: flex;
     flex-direction: column;
   }
 
   .visual-frame {
-    display: none;
+    position: absolute;
+    inset: 0;
+    justify-content: center;
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: scale(0.985);
+    transition: clip-path 480ms var(--ease-out), opacity 350ms var(--ease-out), transform 480ms var(--ease-out);
+    pointer-events: none;
+    display: flex;
     flex-direction: column;
-    height: 100%;
   }
 
   .visual-frame.active {
-    display: flex;
-    animation: fadeIn 200ms var(--ease-out);
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: scale(1);
+    pointer-events: auto;
+    z-index: 2;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .visual-frame {
+      clip-path: none !important;
+      transform: none !important;
+      transition: opacity 120ms ease !important;
+    }
   }
 
   .visual-img {
     width: 100%;
-    height: 380px;
+    height: clamp(380px, 52vh, 560px);
     object-fit: cover;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-color);
@@ -415,35 +563,30 @@ const solutionFamilies = [
   .triad-col-services {
     position: relative;
     border-left: 1px solid var(--border-color);
-    padding-left: 28px;
+    padding-left: 36px;
   }
 
   .services-panel {
     display: none;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
   }
 
   .services-panel.active {
     display: flex;
-    animation: fadeIn 200ms var(--ease-out);
+    animation: panelReveal var(--motion-content) var(--ease-out);
+  }
+
+  @keyframes panelReveal {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .panel-header {
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 14px;
+    padding-bottom: 18px;
   }
 
-  .panel-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: var(--accent-blue);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 4px;
-  }
 
   .panel-title {
     font-size: 1.25rem;
@@ -453,63 +596,90 @@ const solutionFamilies = [
   }
 
   .panel-summary {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.55;
     margin: 0;
   }
 
   .service-routes-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
 
   .service-route-link {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 10px 12px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
+    align-items: baseline;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-color);
     text-decoration: none;
-    transition: background-color 140ms var(--ease-out), border-color 140ms var(--ease-out), transform 140ms var(--ease-out);
+    transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out);
   }
 
-  .service-route-link:hover {
-    background-color: #ffffff;
+  .service-route-link:hover,
+  .service-route-link:focus-visible {
     border-color: var(--accent-blue);
-    transform: translateX(2px);
+  }
+
+  .service-route-link:hover .route-name,
+  .service-route-link:focus-visible .route-name {
+    color: var(--accent-blue);
+  }
+
+  .service-route-link:hover .route-arrow,
+  .service-route-link:focus-visible .route-arrow {
+    transform: translateX(4px);
   }
 
   .route-info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
   }
 
   .route-name {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     font-weight: 600;
     color: var(--text-primary);
   }
 
   .route-desc {
-    font-size: 0.76rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
-    line-height: 1.35;
+    line-height: 1.45;
   }
 
   .route-arrow {
-    font-size: 0.88rem;
+    font-size: 0.95rem;
+    transition: transform var(--motion-ui) var(--ease-out);
     color: var(--accent-blue);
     margin-left: 12px;
     flex-shrink: 0;
   }
 
   .panel-footer {
-    margin-top: 4px;
+    margin-top: 20px;
+  }
+
+  .panel-overview-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-blue);
+    padding-bottom: 2px;
+    transition: color var(--motion-ui) var(--ease-out);
+  }
+
+  .panel-overview-link:hover,
+  .panel-overview-link:focus-visible {
+    color: var(--accent-blue);
   }
 
   /* Mobile Architectural Accordion */
@@ -605,56 +775,113 @@ const solutionFamilies = [
     text-decoration: none;
     color: var(--text-primary);
     font-size: 0.88rem;
-    font-weight: 500;
+    font-weight: 600;
   }
 </style>
 
 <script>
-  // Solution Discovery Interactive Tab Switching
+  // Solution discovery: one scene, two ways in.
+  //
+  // Clicking a discipline is the primary control and works everywhere, with or without
+  // JavaScript-driven scrolling. On a desktop viewport with room for it, the scene also pins
+  // and the discipline follows scroll position, so the reader moves through the disciplines by
+  // reading rather than by clicking. Both paths call the same activate(), so the two can never
+  // disagree about which discipline is showing.
   function setupSolutionDiscovery() {
     const container = document.getElementById('solutionDiscovery');
+    const scene = document.getElementById('discoveryScene');
     if (!container) return;
 
-    const tabs = container.querySelectorAll('.discipline-tab-btn');
-    const visuals = container.querySelectorAll('.visual-frame');
-    const panels = container.querySelectorAll('.services-panel');
+    const tabs = Array.from(container.querySelectorAll<HTMLElement>('.discipline-tab-btn'));
+    const visuals = Array.from(container.querySelectorAll<HTMLElement>('.visual-frame'));
+    const panels = Array.from(container.querySelectorAll<HTMLElement>('.services-panel'));
+    const routeSets = Array.from(container.querySelectorAll<SVGGElement>('.route-set'));
+    if (tabs.length === 0) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pinQuery = window.matchMedia('(min-width: 1180px) and (min-height: 700px)');
+    const isPinned = () => pinQuery.matches && !reducedMotion.matches;
+
+    let activeIndex = 0;
+
+    function activate(index: number) {
+      if (index === activeIndex) return;
+      activeIndex = index;
+
+      const target = tabs[index].getAttribute('data-target');
+
+      tabs.forEach((tab, i) => {
+        const isActive = i === index;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      visuals.forEach((visual) => {
+        const isActive = visual.id === `visual-${target}`;
+        visual.classList.toggle('active', isActive);
+        visual.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+
+      panels.forEach((panel) => {
+        const isActive = panel.id === `panel-${target}`;
+        panel.classList.toggle('active', isActive);
+        if (isActive) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+
+      routeSets.forEach((set) => {
+        set.classList.toggle('active', set.getAttribute('data-route-set') === target);
+      });
+    }
+
+    // ── Scroll progression ────────────────────────────────────────────────
+    // The scene is taller than the viewport; the sticky child holds still through the
+    // difference. Progress through that difference selects the discipline.
+    let ticking = false;
+
+    function progressToIndex() {
+      if (!scene) return 0;
+      const sticky = scene.querySelector<HTMLElement>('.discovery-sticky');
+      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
+      if (travel <= 0) return activeIndex;
+
+      const scrolled = window.scrollY - (scene.getBoundingClientRect().top + window.scrollY);
+      const progress = Math.min(Math.max(scrolled / travel, 0), 0.9999);
+      return Math.floor(progress * tabs.length);
+    }
+
+    function onScroll() {
+      if (ticking || !isPinned()) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        activate(progressToIndex());
+        ticking = false;
+      });
+    }
+
+    // Clicking scrolls to the position that represents that discipline, so the scene state and
+    // the scroll position stay in agreement rather than fighting on the next wheel event.
+    function scrollToIndex(index: number) {
+      if (!scene || !isPinned()) return;
+      const sticky = scene.querySelector<HTMLElement>('.discovery-sticky');
+      const travel = scene.offsetHeight - (sticky ? sticky.offsetHeight : 0);
+      if (travel <= 0) return;
+
+      const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
+      const band = travel / tabs.length;
+      window.scrollTo({
+        top: Math.round(sceneTop + band * index + band * 0.5),
+        behavior: reducedMotion.matches ? 'auto' : 'smooth'
+      });
+    }
 
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
-        const target = tab.getAttribute('data-target');
-
-        // Update tabs
-        tabs.forEach(t => {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        tab.classList.add('active');
-        tab.setAttribute('aria-selected', 'true');
-
-        // Update visuals
-        visuals.forEach(v => {
-          v.classList.remove('active');
-          v.setAttribute('aria-hidden', 'true');
-          if (v.id === `visual-${target}`) {
-            v.classList.add('active');
-            v.setAttribute('aria-hidden', 'false');
-          }
-        });
-
-        // Update panels
-        panels.forEach(p => {
-          p.classList.remove('active');
-          p.setAttribute('hidden', '');
-          if (p.id === `panel-${target}`) {
-            p.classList.add('active');
-            p.removeAttribute('hidden');
-          }
-        });
+        activate(index);
+        scrollToIndex(index);
       });
 
-      // Keyboard arrow navigation for tablist
-      tab.addEventListener('keydown', (e) => {
-        const event = e as KeyboardEvent;
+      tab.addEventListener('keydown', (event) => {
         let newIndex: number | null = null;
         if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
           newIndex = (index + 1) % tabs.length;
@@ -668,15 +895,23 @@ const solutionFamilies = [
 
         if (newIndex !== null) {
           event.preventDefault();
-          const nextTab = tabs[newIndex] as HTMLElement;
-          nextTab.focus();
-          nextTab.click();
+          tabs[newIndex].focus();
+          tabs[newIndex].click();
         }
       });
     });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // A resize changes the scene's travel distance, so the mapping has to be recomputed
+    // rather than left stale.
+    window.addEventListener('resize', onScroll, { passive: true });
+    pinQuery.addEventListener('change', onScroll);
+    reducedMotion.addEventListener('change', onScroll);
+
+    onScroll();
   }
 
-  // Initialize on load and on client-side navigation
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', setupSolutionDiscovery);
   } else {

@@ -1,0 +1,4 @@
+{
+  "$comment": "Claims that were removed for lack of evidence and have since been approved for publication. An entry lifts the banned-phrase regression in tests/audit/content-truth-audit.mjs for that exact phrase. Every entry needs who approved it and what it rests on; an entry without both is ignored.",
+  "approved": []
+}

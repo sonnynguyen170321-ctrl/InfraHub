@@ -5,13 +5,15 @@ import Layout from '../../layouts/Layout.astro';
 
 <Layout 
   title="Security & DDoS Protection Solutions | InfraHub"
-  description="Defend your network against multi-terabit DDoS attacks. Sourcing always-on cloud scrubbing, FastNetMon out-of-band telemetry, and BGP route intelligence."
+  description="Evaluate DDoS protection, FastNetMon detection and routing controls, application security, and BGP routing safeguards through InfraHub."
   canonicalPath="/solutions/security"
+  ogImage="/images/og/solution.png"
+  ogImageAlt="InfraHub solution family"
 >
   <div class="section section-hero network-overlay">
     <div class="container hub-container">
       <div class="hub-header">
-        <span class="hub-kicker">SOLUTION ARCHITECTURE // DISCIPLINE</span>
+        <span class="hub-kicker">Solution family</span>
         <h1>Security & Network Defense</h1>
         <p class="hub-lead">
           Cloud scrubbing, out-of-band flow detection, automated FlowSpec mitigation, and external perimeter cybersecurity.
@@ -22,7 +24,7 @@ import Layout from '../../layouts/Layout.astro';
         <div class="service-discovery-card">
           <span class="disc-pill">Cloud Mitigation</span>
           <h2>DDoS Cloud Scrubbing</h2>
-          <p>Always-on and on-demand BGP diversion absorbing volumetric UDP/TCP floods across specialist partner scrubbing centers.</p>
+          <p>Evaluate always-on or on-demand DDoS protection, including routing, onboarding, clean-traffic return, application requirements, and provider-specific service commitments.</p>
           <a href="/ddos-protection" class="disc-link">Explore DDoS Protection →</a>
         </div>
 
@@ -36,21 +38,21 @@ import Layout from '../../layouts/Layout.astro';
         <div class="service-discovery-card">
           <span class="disc-pill">Routing Security</span>
           <h2>BGP & Routing Intelligence</h2>
-          <p>Prevent route hijacking and sub-prefix leaks with RPKI validation, AS-path filters, and telemetry monitoring.</p>
+          <p>Improve routing hygiene with RPKI origin validation, prefix and AS-path policy, monitoring, and incident-response procedures.</p>
           <a href="/lets-talk?service=bgp" class="disc-link">Inquire Routing Security →</a>
         </div>
 
         <div class="service-discovery-card">
           <span class="disc-pill">Perimeter</span>
           <h2>Cybersecurity & Pentesting</h2>
-          <p>Independent external vulnerability assessments, web application firewalling, and network infrastructure hardening.</p>
+          <p>Evaluate vulnerability assessment, application protection, infrastructure hardening, and other specialist cybersecurity requirements where appropriate coverage is available.</p>
           <a href="/lets-talk?service=cybersecurity" class="disc-link">Inquire Security Sourcing →</a>
         </div>
       </div>
 
       <div class="hub-cta">
         <h2>Harden Your Network Perimeter</h2>
-        <a href="/lets-talk?service=security" class="btn btn-accent btn-lg">Consult a Security Architect</a>
+        <a href="/lets-talk?service=security" class="btn btn-accent btn-lg">Discuss Security Requirements</a>
       </div>
     </div>
   </div>
@@ -60,7 +62,7 @@ import Layout from '../../layouts/Layout.astro';
   .hub-container { max-width: 1040px; }
   .hub-header { max-width: 820px; margin: 0 auto 54px; }
   .hub-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-blue); display: block; margin-bottom: 8px; }
-  .hub-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; margin: 16px 0; }
+  .hub-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 700; margin: 16px 0; }
   .hub-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
   .services-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 64px; }
   @media (min-width: 640px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }

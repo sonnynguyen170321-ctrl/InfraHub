@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="BGP Routing Intelligence & Route Leak Defense | InfraHub"
-  description="Audit autonomous system (ASN) routing health, prevent BGP route leaks, enforce RPKI origin validation, and optimize global transit path selection."
+  title="BGP Routing Intelligence & Routing-Security Advisory | InfraHub"
+  description="Evaluate BGP routing health, RPKI origin validation, route-leak monitoring, prefix policy, and transit path decisions with InfraHub."
   canonicalPath="/bgp-routing-intelligence"
 >
   <div class="section section-hero network-overlay">
@@ -17,10 +17,10 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h1 class="service-title">BGP Routing Intelligence & Protection</h1>
         <p class="service-lead">
-          Protect your prefixes from accidental route hijacking, misconfigured upstream leaks, and suboptimal AS-path selection. Implement RPKI ROA signing and automated telemetry monitoring.
+          Improve routing hygiene around prefix origination, RPKI, filters, monitoring, upstream policy, and path selection. InfraHub helps structure the routing questions and identify where specialist tooling or engineering support may fit.
         </p>
         <div class="service-hero-actions">
-          <a href="/lets-talk?service=bgp" class="btn btn-accent btn-lg">Request BGP Routing Audit</a>
+          <a href="/lets-talk?service=bgp" class="btn btn-accent btn-lg">Discuss BGP Routing</a>
         </div>
       </div>
 
@@ -30,22 +30,22 @@ import Layout from '../layouts/Layout.astro';
         <div class="problem-grid">
           <div class="problem-card">
             <h3>RPKI ROA Validation</h3>
-            <p>Cryptographically authorize which Autonomous System is permitted to originate your IP prefixes, preventing accidental global hijacks.</p>
+            <p>Use Route Origin Authorizations to state which Autonomous System is authorized to originate a prefix, then apply origin validation as one layer of routing policy.</p>
           </div>
           <div class="problem-card">
             <h3>Route Leak Detection</h3>
-            <p>Real-time alerting when an upstream transit carrier accidentally advertises your peer prefixes to another transit provider.</p>
+            <p>Monitor unexpected origin, prefix, or path changes so routing incidents can be investigated and escalated quickly.</p>
           </div>
           <div class="problem-card">
             <h3>AS-Path Optimization</h3>
-            <p>Identify suboptimal multi-hop routes across international backbones to improve round-trip latency to critical eyeball networks.</p>
+            <p>Identify paths worth investigating when reachability, traffic engineering, or latency to important networks differs from the intended routing policy.</p>
           </div>
         </div>
       </div>
 
       <div class="service-footer-cta">
         <h2>Audit Your Autonomous System Health</h2>
-        <a href="/lets-talk?service=bgp" class="btn btn-accent btn-lg">Consult a BGP Network Architect</a>
+        <a href="/lets-talk?service=bgp" class="btn btn-accent btn-lg">Discuss Routing Requirements</a>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@ import Layout from '../layouts/Layout.astro';
   .service-container { max-width: 1040px; }
   .service-header { text-align: left; max-width: 860px; margin: 0 0 64px; padding-bottom: 24px; border-bottom: 1px solid var(--border-color); }
   .header-badge-row { display: flex; justify-content: flex-start; gap: 8px; margin-bottom: 16px; }
-  .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+  .service-title { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 700; line-height: 1.15; margin-bottom: 20px; }
   .service-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
   .service-hero-actions { display: flex; justify-content: center; gap: 14px; }
   .content-section { margin-bottom: 72px; }

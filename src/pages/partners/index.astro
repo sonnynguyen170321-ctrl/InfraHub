@@ -23,7 +23,7 @@ const disciplines = [
     id: "security",
     number: "02",
     name: "Defensive & Routing Security",
-    scope: "BGP-based volumetric scrubbing, real-time FlowSpec telemetry, and automated route diversion.",
+    scope: "DDoS detection, routing controls, traffic diversion, and managed network or application protection.",
     partners: publishedPartners.filter(p => ['fastnetmon', 'stormwall'].includes(p.slug))
   },
   {
@@ -44,7 +44,7 @@ const disciplines = [
     id: "managed-operations",
     number: "05",
     name: "Managed Network Operations",
-    scope: "24/7 Tier-3 NOC engineering, automated incident response, DevOps, and NetOps triage.",
+    scope: "24/7 NOC services, network engineering, automation, and incident-response workflows.",
     partners: publishedPartners.filter(p => p.slug === 'itcare')
   },
   {
@@ -61,6 +61,8 @@ const disciplines = [
   title="Specialist Partner Ecosystem — Infrastructure Field Guide"
   description="Explore InfraHub's curated partner ecosystem across cloud compute, DDoS protection, IPv4 leasing, virtualization, 24/7 NOC operations, and technology diligence."
   canonicalPath="/partners"
+  ogImage="/images/og/partner.png"
+  ogImageAlt="InfraHub partner ecosystem"
 >
   <div class="ledger-page-wrapper">
     <div class="container ledger-container">
@@ -69,11 +71,11 @@ const disciplines = [
       <header class="ledger-header">
         <div class="ledger-kicker-row">
           <span class="routing-junction" aria-hidden="true"></span>
-          <span class="ledger-kicker">INFRASTRUCTURE ECOSYSTEM // DIRECTORY LEDGER</span>
+          <span class="ledger-kicker">Partner ecosystem</span>
         </div>
         <h1 class="ledger-title">Infrastructure and technology specialists.<br />Connected through InfraHub.</h1>
         <p class="ledger-lead measure-lead">
-          InfraHub works with specialist infrastructure operators, software vendors, and technical platforms. We qualify buyer requirements first, then identify where each partner's verified capabilities fit without retail sales markups.
+          InfraHub works with specialist infrastructure operators, software vendors, and technical platforms. We qualify the buyer requirement first, then identify where each partner's published capabilities may fit.
         </p>
       </header>
 
@@ -132,11 +134,11 @@ const disciplines = [
                       <span class="partner-short-role">{partner.data.shortRole || partner.data.tagline}</span>
                     </div>
                     <p class="partner-narrative measure-technical">
-                      {partner.data.tagline}. Aligned to enterprise workloads requiring verified operational depth, transparent commercial commitments, and technical precision.
+                      {partner.data.tagline}. The profile explains where the partner can fit, what to evaluate, and where another approach may make more sense.
                     </p>
                     
                     <div class="capabilities-inline">
-                      <span class="caps-label">Verified Scope:</span>
+                      <span class="caps-label">Published capability scope:</span>
                       <ul class="caps-inline-list">
                         {partner.data.capabilities.slice(0, 3).map((cap, cIdx) => (
                           <li>
@@ -171,12 +173,12 @@ const disciplines = [
             <span class="inquiry-kicker">ECOSYSTEM ADVISORY</span>
             <h2 class="inquiry-title">Need guidance on provider selection?</h2>
             <p class="inquiry-desc measure-lead">
-              Our advisory desk benchmarks requirements across independent carriers, colocation operators, and technology vendors. We evaluate pricing, physical routing, and technical SLAs with zero broker markup.
+              InfraHub compares requirements across carriers, infrastructure operators, and technology vendors, then helps clarify provider fit, routing, technical requirements, and commercial questions before introduction.
             </p>
           </div>
           <div class="inquiry-action-col">
             <a href="/lets-talk?service=advisory" class="btn btn-accent btn-lg">
-              <span>Consult an Infrastructure Architect</span>
+              <span>Discuss Your Requirement</span>
             </a>
           </div>
         </div>
@@ -189,7 +191,7 @@ const disciplines = [
 <style>
   .ledger-page-wrapper {
     background-color: var(--bg-primary);
-    padding: 48px 0 96px;
+    padding: 64px 0 112px;
   }
 
   .ledger-container {
@@ -199,8 +201,8 @@ const disciplines = [
   /* Header */
   .ledger-header {
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 40px;
-    margin-bottom: 56px;
+    padding-bottom: 44px;
+    margin-bottom: 64px;
   }
 
   .ledger-kicker-row {
@@ -237,16 +239,16 @@ const disciplines = [
 
   /* Discipline Groups */
   .discipline-section {
-    margin-bottom: 64px;
+    margin-bottom: 72px;
     border-top: 2px solid var(--text-primary);
-    padding-top: 24px;
+    padding-top: 32px;
   }
 
   .discipline-header-row {
     display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     align-items: baseline;
   }
 
@@ -293,16 +295,16 @@ const disciplines = [
   .ledger-row-item {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 28px 0;
+    gap: 24px;
+    padding: 36px 0;
     border-bottom: 1px solid var(--border-color);
     transition: background-color 160ms var(--ease-out);
   }
 
   @media (min-width: 900px) {
     .ledger-row-item {
-      grid-template-columns: 220px 1fr 180px;
-      gap: 36px;
+      grid-template-columns: 240px 1fr 180px;
+      gap: 44px;
       align-items: start;
     }
   }
@@ -389,7 +391,7 @@ const disciplines = [
     font-family: var(--font-mono);
     font-size: 0.78rem;
     color: var(--accent-blue);
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .partner-narrative {

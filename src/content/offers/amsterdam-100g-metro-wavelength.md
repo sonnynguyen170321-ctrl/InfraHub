@@ -3,11 +3,10 @@ title: "100G Metro Optical Wavelength (Amsterdam DCI)"
 category: "connectivity"
 location: "Amsterdam (Equinix AM3 to Interxion AMS1)"
 partner: "Zenlayer"
-status: "active"
-displayPrice: "€950 / mo"
-verifiedPrice: "€950 / mo"
-priceStatus: "confirmed_allocation"
-publicApproved: true
+status: "review"
+displayPrice: "Request current pricing"
+priceStatus: "unverified"
+publicApproved: false
 publishedDate: 2026-08-20
 expiryDate: 2026-12-31
 specifications:

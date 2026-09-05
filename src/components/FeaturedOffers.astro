@@ -1,10 +1,12 @@
 ---
 // src/components/FeaturedOffers.astro
 import { getCollection } from 'astro:content';
+import { publicPriceLabel } from '../lib/offer-pricing';
 
 const now = new Date();
 const allOffers = await getCollection('offers');
 const activeOffers = allOffers.filter(o => {
+  if (!o.data.publicApproved) return false;
   if (o.data.status !== 'active') return false;
   if (o.data.expiryDate && now > o.data.expiryDate) return false;
   return true;
@@ -17,14 +19,23 @@ const secondaryOffers = primaryOffer
   : [];
 ---
 
-<section class="section section-offers" id="featured-offers">
+<section class="section section-offers" id="featured-offers" aria-label="Commercial Opportunities">
+  <!-- Route Line Entry Connector from Route Diversity (Directive 18) -->
+  <div class="offers-route-entry" aria-hidden="true">
+    <div class="route-line-stem"></div>
+  </div>
+
   <div class="container">
     
     <!-- Clean Headline -->
     <div class="offers-header">
-      <h2 class="offers-headline">Featured Offers</h2>
+      <div class="kicker-row">
+        <span class="routing-junction" aria-hidden="true"></span>
+        <span class="offers-kicker">Infrastructure market desk</span>
+      </div>
+      <h2 class="offers-headline">Current infrastructure opportunities</h2>
       <p class="offers-lead">
-        Current infrastructure, connectivity, hardware and security opportunities available through the InfraHub ecosystem.
+        Commercial allocations across connectivity, bare metal, hardware and security available through the InfraHub specialist network.
       </p>
     </div>
 
@@ -45,7 +56,7 @@ const secondaryOffers = primaryOffer
         {primaryOffer && (
           <article class="featured-primary-card">
             <div class="primary-card-top">
-              <span class="primary-kicker">{primaryOffer.data.category.toUpperCase()} ALLOCATION</span>
+              <span class="primary-kicker">{primaryOffer.data.category}</span>
               <h3 class="primary-title">
                 <a href={`/offers/${primaryOffer.slug}`}>{primaryOffer.data.title}</a>
               </h3>
@@ -62,7 +73,7 @@ const secondaryOffers = primaryOffer
 
             <div class="primary-card-bottom">
               <div class="primary-price">
-                <span class="price-figure">{primaryOffer.data.displayPrice || primaryOffer.data.verifiedPrice}</span>
+                <span class="price-figure">{publicPriceLabel(primaryOffer.data)}</span>
               </div>
               <a href={`/lets-talk?offer=${primaryOffer.slug}`} class="btn btn-accent btn-sm">
                 <span>Request Pricing</span>
@@ -87,7 +98,7 @@ const secondaryOffers = primaryOffer
               </div>
 
               <div class="secondary-action-group">
-                <span class="secondary-price">{offer.data.displayPrice || offer.data.verifiedPrice}</span>
+                <span class="secondary-price">{publicPriceLabel(offer.data)}</span>
                 <a href={`/offers/${offer.slug}`} class="secondary-link">
                   <span>View Offer</span>
                   <span class="link-arrow" aria-hidden="true">&rarr;</span>
@@ -108,23 +119,86 @@ const secondaryOffers = primaryOffer
     )}
 
   </div>
+
+  <!-- Route Line Exit Connector to Practice / Editorial (Directive 20) -->
+  <div class="offers-route-exit" aria-hidden="true">
+    <div class="exit-stem"></div>
+    <div class="exit-junction"></div>
+  </div>
 </section>
 
 <style>
   .section-offers {
+    position: relative;
     background-color: #ffffff;
-    padding: 96px 0;
+    padding: 72px 0 80px;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Route Connectors */
+  .offers-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 28px;
+    z-index: 2;
+  }
+  .offers-route-entry .route-line-stem {
+    width: 1.5px;
+    height: 100%;
+    background-color: var(--accent-blue);
+  }
+
+  .offers-route-exit {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+  .offers-route-exit .exit-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), var(--border-color));
+  }
+  .offers-route-exit .exit-junction {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
   }
 
   /* Clean Headline */
   .offers-header {
     max-width: 720px;
-    margin-bottom: 48px;
+    margin-bottom: 56px;
   }
+
+  .kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .offers-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue);
+  }
+
   .offers-headline {
     font-size: clamp(2.2rem, 4vw, 3.2rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.24;
     letter-spacing: -0.03em;
     color: var(--text-primary);
@@ -140,22 +214,20 @@ const secondaryOffers = primaryOffer
   .offers-composition {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 36px;
   }
   @media (min-width: 960px) {
     .offers-composition {
       grid-template-columns: 1.25fr 1fr;
-      gap: 48px;
+      gap: 52px;
       align-items: stretch;
     }
   }
 
   /* Primary Featured Opportunity */
   .featured-primary-card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 36px 32px;
+    padding: 0 0 34px;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -164,7 +236,7 @@ const secondaryOffers = primaryOffer
   .primary-card-top {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
   .primary-kicker {
     font-family: var(--font-mono);
@@ -175,7 +247,7 @@ const secondaryOffers = primaryOffer
   }
   .primary-title {
     font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-primary);
     line-height: 1.35;
     letter-spacing: -0.02em;
@@ -189,7 +261,7 @@ const secondaryOffers = primaryOffer
   }
   .primary-desc {
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--text-secondary);
     max-width: 54ch;
   }
@@ -198,7 +270,7 @@ const secondaryOffers = primaryOffer
     padding-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     font-size: 0.88rem;
     color: var(--text-secondary);
   }
@@ -206,9 +278,9 @@ const secondaryOffers = primaryOffer
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
+    padding-top: 24px;
     border-top: 1px solid var(--border-color);
-    margin-top: 8px;
+    margin-top: 12px;
   }
   .primary-price .price-figure {
     font-family: var(--font-mono);
@@ -222,22 +294,20 @@ const secondaryOffers = primaryOffer
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 20px;
+    gap: 24px;
   }
   .secondary-offer-row {
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 24px 28px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
     justify-content: space-between;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border-color);
   }
   .secondary-meta {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .secondary-badge-row {
     display: flex;
@@ -255,7 +325,7 @@ const secondaryOffers = primaryOffer
     color: #475569;
   }
   .secondary-title {
-    font-size: 1.15rem;
+    font-size: 1.18rem;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.4;
@@ -266,14 +336,14 @@ const secondaryOffers = primaryOffer
   .secondary-spec {
     font-size: 0.88rem;
     color: var(--text-secondary);
-    line-height: 1.45;
+    line-height: 1.5;
     max-width: 50ch;
   }
   .secondary-action-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 14px;
+    padding-top: 18px;
     border-top: 1px solid var(--border-color);
   }
   .secondary-price {

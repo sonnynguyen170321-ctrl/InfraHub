@@ -60,6 +60,8 @@ const structuredData = {
   title={`${insight.data.title} | InfraHub Insights`}
   description={insight.data.summary}
   canonicalPath={`/insights/${insight.slug}`}
+  ogImage="/images/og/insight.png"
+  ogImageAlt="InfraHub technical insight"
   ogType="article"
 >
   <article class="section section-hero network-overlay">
@@ -117,7 +119,7 @@ const structuredData = {
 
   .article-headline {
     font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.2;
     margin-bottom: 16px;
   }

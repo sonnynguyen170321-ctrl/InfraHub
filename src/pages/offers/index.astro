@@ -2,11 +2,13 @@
 // src/pages/offers/index.astro
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { publicPriceLabel } from '../../lib/offer-pricing';
 
 const now = new Date();
 const allOffers = await getCollection('offers');
 const activeOffers = allOffers
   .filter(o => {
+    if (!o.data.publicApproved) return false;
     if (o.data.status !== 'active') return false;
     if (o.data.expiryDate && now > o.data.expiryDate) return false;
     return true;
@@ -18,6 +20,8 @@ const activeOffers = allOffers
   title="Commercial Opportunities & Infrastructure Allocations — InfraHub"
   description="Explore current commercial opportunities across dedicated servers, IP transit, hardware, and DDoS protection available through the InfraHub partner network."
   canonicalPath="/offers"
+  ogImage="/images/og/offer.png"
+  ogImageAlt="InfraHub commercial sourcing board"
 >
   <div class="offers-page-wrapper">
     <div class="container offers-container">
@@ -27,7 +31,7 @@ const activeOffers = allOffers
         <span class="offers-kicker">Commercial Sourcing Board</span>
         <h1 class="offers-title">Featured Infrastructure Offers</h1>
         <p class="offers-lead">
-          Current hardware stock, transit commitments, and specialist capacity allocations available directly through our partner ecosystem.
+          Current public opportunities that have cleared InfraHub's publication checks. Availability and commercial terms remain subject to the specific provider or supplier confirmation.
         </p>
       </header>
 
@@ -74,7 +78,7 @@ const activeOffers = allOffers
               <div class="board-col-commercial">
                 <div class="price-block">
                   <span class="price-term">Commercial Rate</span>
-                  <span class="price-amount">{offer.data.displayPrice || offer.data.verifiedPrice || 'Partner Quote'}</span>
+                  <span class="price-amount">{publicPriceLabel(offer.data)}</span>
                 </div>
                 <div class="board-actions">
                   <a href={`/offers/${offer.slug}`} class="btn btn-secondary btn-sm">
@@ -104,16 +108,16 @@ const activeOffers = allOffers
 <style>
   .offers-page-wrapper {
     background-color: #ffffff;
-    padding: 72px 0 96px;
+    padding: 80px 0 112px;
   }
 
   .offers-container {
     max-width: 1080px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: 56px;
   }
 
   .offers-header {
@@ -122,7 +126,7 @@ const activeOffers = allOffers
     flex-direction: column;
     gap: 16px;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 40px;
+    padding-bottom: 48px;
   }
 
   .offers-kicker {
@@ -135,7 +139,7 @@ const activeOffers = allOffers
 
   .offers-title {
     font-size: clamp(2.4rem, 4.4vw, 3.4rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.03em;
     color: var(--text-primary);
@@ -165,7 +169,7 @@ const activeOffers = allOffers
 
   .empty-title {
     font-size: 1.6rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-primary);
   }
 
@@ -187,8 +191,8 @@ const activeOffers = allOffers
   .board-row-item {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 32px 28px;
+    gap: 28px;
+    padding: 38px 36px;
     border-bottom: 1px solid var(--border-color);
     background: #ffffff;
     align-items: center;
@@ -206,7 +210,7 @@ const activeOffers = allOffers
   @media (min-width: 860px) {
     .board-row-item {
       grid-template-columns: 1fr 240px;
-      gap: 40px;
+      gap: 44px;
     }
   }
 
@@ -241,7 +245,7 @@ const activeOffers = allOffers
 
   .board-title {
     font-size: 1.35rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.45;
   }
 
@@ -309,7 +313,7 @@ const activeOffers = allOffers
   .price-amount {
     font-family: var(--font-heading);
     font-size: 1.3rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-primary);
   }
 

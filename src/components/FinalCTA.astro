@@ -2,14 +2,24 @@
 // src/components/FinalCTA.astro
 ---
 
-<section class="section-conversion-band" id="contact">
+<section class="section-conversion-band" id="contact" aria-label="Final Conversation">
+  <!-- Route Line Entry Connector from Practice (Directive 22) -->
+  <div class="cta-route-entry" aria-hidden="true">
+    <div class="route-line-stem"></div>
+    <div class="route-line-junction"></div>
+  </div>
+
   <div class="container conversion-container">
     <div class="conversion-left">
+      <div class="kicker-row">
+        <span class="routing-junction-light" aria-hidden="true"></span>
+        <span class="cta-kicker">Direct advisory</span>
+      </div>
       <h2 class="conversion-headline">
         Tell us what you're<br />trying to build.
       </h2>
       <p class="conversion-copy">
-        Start with the requirement, location constraints, and timeline. Sourcing through InfraHub connects your team directly with verified infrastructure specialists.
+        Start with the requirement, location constraints, and timing. InfraHub evaluates the approach and coordinates an introduction to specialist providers across our ecosystem.
       </p>
     </div>
 
@@ -18,31 +28,116 @@
         Discuss your requirement
       </a>
       <a href="/how-we-work" class="conversion-text-link">
-        <span>Review how we work</span>
+        <span>How InfraHub works</span>
         <span class="link-arrow" aria-hidden="true">&rarr;</span>
       </a>
     </div>
+  </div>
+
+  <!-- Route Line Final Termination into Footer Rule (Directive 22) -->
+  <div class="cta-route-termination" aria-hidden="true">
+    <div class="termination-stem"></div>
+    <div class="termination-dot"></div>
   </div>
 </section>
 
 <style>
   .section-conversion-band {
+    position: relative;
     background-color: #0b1120;
-    padding: 104px 0 96px;
+    padding: 120px 0 112px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+
+  /* Infrastructure Route Line Entry & Termination (Directive 22) */
+  .cta-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .cta-route-entry .route-line-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), rgba(40, 84, 199, 0.4));
+  }
+
+  .cta-route-entry .route-line-junction {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+    margin-top: -2px;
+  }
+
+  .cta-route-termination {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
+
+  .termination-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), rgba(255, 255, 255, 0.2));
+  }
+
+  .termination-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    margin-top: -2px;
+  }
+
+  .kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .routing-junction-light {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+  }
+
+  .cta-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #93c5fd;
   }
 
   .conversion-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 56px;
     align-items: center;
   }
 
   @media (min-width: 960px) {
     .conversion-container {
       grid-template-columns: 1.35fr 1fr;
-      gap: 72px;
+      gap: 80px;
     }
   }
 
@@ -55,10 +150,11 @@
 
   .conversion-headline {
     font-size: clamp(2.4rem, 4.4vw, 3.6rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: #ffffff;
+    margin: 0;
   }
 
   .conversion-copy {
@@ -66,19 +162,20 @@
     line-height: 1.65;
     color: #cbd5e1;
     max-width: 50ch;
+    margin: 0;
   }
 
   .conversion-right {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 24px;
   }
 
   @media (min-width: 960px) {
     .conversion-right {
       align-items: flex-start;
-      padding-left: 24px;
+      padding-left: 32px;
     }
   }
 

@@ -1,136 +1,254 @@
-# InfraHub Design System & Brand Architecture
+# InfraHub Design System
 
-**Version:** 3.0.0 — Category-Defining Product Experience (Final Directive)  
-**Product Identity:** InfraHub.tech  
-**Business Model:** Independent B2B Infrastructure Sourcing & Commercial Advisory Desk  
+**Version:** 4.0.0 — cinematic homepage
+**Product:** infrahub.tech
+**Business model:** infrastructure sourcing and technical advisory; partner-delivered services are contracted with the selected provider
 
----
-
-## 1. Creative Thesis: The Infrastructure Field Guide
-
-InfraHub is an infrastructure sourcing, advisory, and specialist-partner desk. It is authored by engineers and operators with carrier, routing, and facility judgment.
-
-The visual and architectural concept is **The Infrastructure Field Guide**:
-1. **Engineering Field Guide:** Precise, structured technical analysis explaining what changes the infrastructure decision (e.g. 95th percentile billing vs committed data rates, BGP FlowSpec vs RTBH, hypervisor migration trade-offs, physical conduit route diversity).
-2. **Infrastructure Atlas:** Documenting physical routes, data center fabrics, cross-connect topologies, and provider dependencies with documentary realism.
-3. **Commercial Advisory Desk:** Objective market guidance, unearned marketing claims rejected, fail-closed pricing, and direct introduction to specialist operators.
+This records what the site does, verified against the code and against measurements taken from
+the built output. Where a number appears, it was measured, not intended.
 
 ---
 
-## 2. The Signature Motif: The Routing Line
+## 1. Creative thesis: the infrastructure field guide
 
-Derived from fiber paths, cross-connects, BGP autonomous system boundaries, and physical conduit trenches:
-- **Structural Role:** Restrained 1px structural hairpins with defined junction points (`.routing-line-horizontal`, `.routing-junction`).
-- **No Decorative Slop:** Prohibits circuit-board wallpapers, random animated dot meshes, glowing neon particle grids, or sci-fi tech holograms.
-- **Purpose:** Connects decisions, stages, and technical relationships visually across pages and diagrams.
+InfraHub is a sourcing and advisory desk, authored by people with carrier, routing and facility
+judgement. The site reads as a field guide: precise, structured, and willing to say what it does
+not know.
 
----
+The homepage is one continuous journey rather than a stack of sections:
 
-## 3. Typography: Engineering-Literate Sans & Monospace
+```
+Arrival → Ecosystem → Discovery → Judgment → Reality → Market → Practice → Conversation
+```
 
-Standardized on **IBM Plex** across the entire digital estate:
-
-| Role | Typeface | Weights | Purpose & Characteristics |
-|:---|:---|:---|:---|
-| **Headings & Display** | `IBM Plex Sans` | 600, 700, 800 | Industrial grotesque with architectural balance. Never generic startup font. Natural tracking, relaxed line heights (1.2 to 1.35). |
-| **Editorial & Body** | `IBM Plex Sans` | 400, 500, 600 | Clear legibility across technical documentation, service comparisons, and partner profiles. |
-| **Data & Technical Metadata** | `IBM Plex Mono` | 400, 500, 600 | Monospaced figures for ASNs, CDRs, CIDR subnets, VLAN IDs, protocol specs, and timing telemetry. |
-
-### Editorial Reading Measures
-- **Marketing Lead:** 42–55ch (`.measure-lead`)
-- **Technical Explanation:** 58–68ch (`.measure-technical`)
-- **Insight Analysis Body:** 60–72ch (`.measure-insight`)
-- **Metadata & Compact Callouts:** 38–46ch (`.measure-compact`)
+Underneath it sits the operating model the business actually runs:
+**Understand → Match → Introduce → Deliver.**
 
 ---
 
-## 4. Mineral & Infrastructure Palette
+## 2. The routing line
 
-Bespoke palette inspired by physical telecom conduits, optical fiber, and architectural materials:
+One line, used everywhere it means something.
 
-| Color Name | Hex Code | Purpose |
+| Role | Colour | Weight |
 |:---|:---|:---|
-| **Carbon** | `#091118` | Deep datacenter core, primary text, high-density dark bands |
-| **Deep Navy** | `#0C1722` | Secondary dark surface, terminal backgrounds |
-| **Ink** | `#17212A` | Elevated dark card surfaces, border treatments on dark |
-| **Paper** | `#F4F5F1` | Architectural broadsheet light background, editorial ledger rows |
-| **Mist** | `#E9ECE8` | Subtle grouping background, technical callouts |
-| **Structural Grey** | `#D2D7D3` | 1px structural hairpins, dividers, junction borders |
-| **InfraHub Cobalt** | `#2854C7` | Primary interactive cues, route selections, verified badges |
-| **Signal Teal** | `#087D79` | Carrier telemetry, secondary indicators, status active |
-| **Route Amber** | `#B86B2B` | Shared physical dependency highlights, warnings, risk advisories |
+| Structural path | `--border-color` | 1px |
+| Active route | InfraHub cobalt `#2854C7` | 1.5–2px |
+| Secondary route | Signal teal `#0D9488` | 1.5–2px |
+| Shared dependency / risk | Route amber `#D97706` | 3.5px |
+
+Where it appears, and what it means in each place:
+
+- **Hero exit** — the requirement entering the site.
+- **Partner ribbon** — the structural baseline under the ecosystem.
+- **Discovery** — branches into the routes a discipline actually offers, generated from the same
+  data the panels render, so the line cannot drift from the services it describes.
+- **Judgment** — a vertical spine that draws as each step is reached; passed steps stay drawn.
+- **Reality** — becomes the two carrier routes, and the one amber segment they share.
+- **Conversation** — arrives at the CTA and terminates into the footer rule.
+- **Form success** — completes, then the confirmation copy arrives.
+
+Prohibited: connected-dot meshes, glowing nodes, circuit-board wallpaper, particle fields,
+animated grid backgrounds, transit-map treatments where every element gets a node.
 
 ---
 
-## 5. Surface & Radius Hierarchy
+## 3. Typography
 
-InfraHub uses fine structural rules, authentic documentary photography, and typography rather than heavy box shadows or nested cards:
-- **0px:** Major architectural sections, full-width headers, divider lines.
-- **2px (`--radius-sm`):** Buttons, interactive links, junction boxes, route tags.
-- **4px (`--radius-md`):** Lead containers, partner ledger blocks, decision cards.
-- **8px (`--radius-lg`):** Max allowable corner radius on modal dialogs or isolated callouts.
-- **Shadows:** Minimalist architectural elevation (`0 1px 2px rgba(9, 17, 24, 0.04)` to `0 8px 20px rgba(9, 17, 24, 0.05)`). Never colorful button glows or heavy blurry drop-shadows.
+IBM Plex, self-hosted from this origin. No third-party font requests.
 
----
+| Role | Family | Weights | Files |
+|:---|:---|:---|:---|
+| Display and headings | IBM Plex Sans | 600, 700 | `ibm-plex-sans-var.woff2` (variable, 45kb) |
+| Body | IBM Plex Sans | 400, 600 | same file |
+| Technical data | IBM Plex Mono | 400, 600 | `ibm-plex-mono-400.woff2`, `-600.woff2` |
 
-## 6. Grid & Layout Composition
+**700 is the heaviest weight.** IBM Plex Sans has no 800; asking for one produced synthetic bold
+in 45 files, which is why the site now asks for 700. There is no 500 either — those declarations
+became 600.
 
-12-column responsive editorial grid (`max-width: 1280px`):
-- **Desktop Compositions:** Asymmetrical splits reflecting editorial content: `4 / 8`, `5 / 7`, `7 / 5`, `3 / 9`. Avoids universal `6 / 6` splits.
-- **Photography Bleed:** High-resolution documentary photography anchored to outer boundaries, establishing physical reality.
+Mono is for technical values: ASN, prefix, capacity, price, date, diagram labels. It is not for
+marketing eyebrows or section headings.
 
----
-
-## 7. Signature Interactive Experiences
-
-### A. Partner Directory: Editorial Ecosystem Ledger (`/partners`)
-Replaces card grids with an authoritative ledger organized into 6 core disciplines:
-1. **Infrastructure & Cloud:** Distributed compute, bare-metal, edge fabrics.
-2. **Defensive & Routing Security:** Flow telemetry, automated mitigation, scrubbing centers.
-3. **Network & IP Resources:** IPv4 leasing, transfer governance, RPKI routing health.
-4. **Virtualization Architecture:** Hypervisor sovereignty, XCP-ng, Xen Orchestra.
-5. **Managed Network Operations:** NOC triage, 24/7 runbook automation, carrier escalation.
-6. **Technology Decision Support:** Benchmark sourcing, vendor RFP distillation.
-
-### B. Solution Discovery: 3-Column Architectural Triad
-1. **Left (Discipline Index):** Numbered typographic navigation tabs.
-2. **Center (Authentic Visual):** Documentary photography capturing physical hardware, fiber conduits, or NOC operations.
-3. **Right (Editorial Brief & Route Actions):** Concise problem statement and direct paths into relevant service architecture.
-- **Mobile Mode:** Semantic, accessible `<details>` / `<summary>` accordion.
-
-### C. Physical Route Diversity Explorer (`RouteDiversityExplorer.astro`)
-An interactive technical exhibit demonstrating: *"Two carriers. Two contracts. One physical dependency."*
-- **State 1 (Logical Path):** Carrier A and Carrier B appear independent with separate ASNs and upstream paths.
-- **State 2 (Physical Path):** Reveals shared physical infrastructure (e.g. municipal bridge conduit, entrance facility) highlighted in Route Amber (`#B86B2B`).
-- **Educational Value:** Teaches buyers why carrier diversity does not automatically guarantee physical route survivability. Embedded on Network & Connectivity and Wavelengths pages with zero heavy 3D penalty on initial homepage load.
+Reading measures: lead 42–55ch, technical explanation 58–68ch, insight body 60–72ch, compact
+callouts 38–46ch.
 
 ---
 
-## 8. Motion & Microinteractions (Emil Kowalski Standard)
+## 4. Palette
 
-- **Purpose:** Response, state change, and explanation only. Never decorative distraction.
-- **Standard Curve:** `cubic-bezier(0.23, 1, 0.32, 1)` (ease-out).
-- **Duration:** 120ms to 240ms for all UI transitions.
-- **Button Feedback:** Subtle tactile press response (`transform: translateY(1px)`), no bouncy lift.
-- **Marquee:** Hardware-accelerated continuous linear scroll with pause-on-hover and `:focus-within`.
-- **Accessibility:** Instant layout state with `animation: none !important` under `@media (prefers-reduced-motion: reduce)`.
+| Name | Hex | Use |
+|:---|:---|:---|
+| Carbon | `#091118` | primary text, deep bands |
+| Deep navy | `#0B1120` | judgment chapter, closing CTA |
+| Paper | `#F4F5F1` | editorial ground |
+| Mist | `#E9ECE8` | grouping surfaces |
+| Structural grey | `#D2D7D3` | hairlines, dividers |
+| InfraHub cobalt | `#2854C7` | active route, interactive cue |
+| Signal teal | `#0D9488` | secondary route |
+| Route amber | `#D97706` | shared physical dependency, and nothing else |
 
----
-
-## 9. Partner Trust Governance (Fail-Closed)
-
-All partner records in `src/content/partners/*.md` enforce strict verification gates:
-- Only canonical partners with verified provenance display approved vector assets (FastNetMon, Gcore, StormWall, Zenlayer, IPXO, Vates, ITcare, Airframe).
-- Never render unverified third-party logos.
-- If an asset is pending, the system falls back to a clean typographic label.
-- Commercial pricing is fail-closed (`displayPrice: "Request current pricing"` when variable).
+Amber is reserved. If it appears, it means two things that looked separate are not.
 
 ---
 
-## 10. Prohibited Anti-Patterns
+## 5. Motion tokens
 
-1. **No Startup Template Slop:** No floating pastel blobs, no gradient borders, no 3-card equal bento boxes.
-2. **No Faux Terminal Widgets:** No artificial green-screen CLI simulators or fake terminal shell windows.
-3. **No Decorative 3D on Homepage:** Three.js is restricted to dedicated technical modules; the homepage relies on authentic documentary photography.
-4. **No Unearned Status Badges:** No fabricated "Top Provider" or "Official Partner" pills without empirical verification.
-5. **No Universal MSA Claims:** State clearly that services are contracted directly under each specialist's terms.
+```css
+--motion-fast: 140ms;     /* pressed states */
+--motion-ui: 200ms;       /* hover, focus, toggles */
+--motion-content: 420ms;  /* copy and panels */
+--motion-image: 650ms;    /* image transitions */
+--motion-scene: 850ms;    /* scene-level changes */
+--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+```
+
+`linear` is for the marquee only. `transition: all` is not used anywhere.
+
+---
+
+## 6. Scroll scenes
+
+Two scenes pin. Both are conditional:
+
+```css
+@media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)
+```
+
+All three conditions sit in one query, so no later rule can reinstate pinning for a reader who
+asked for less motion.
+
+| Scene | Height | Progression |
+|:---|:---|:---|
+| Discovery (`#discoveryScene`) | 260vh | 5 disciplines, ~1.8 viewports of travel |
+| Route diversity (`#routeScene`) | 300vh | 4 states, ~2.2 viewports of travel |
+
+Rules that make a pinned scene safe:
+
+- Scroll and click drive the same `activate()` / `setState()`. They cannot disagree.
+- Clicking a control scrolls to the position that represents that state, so the next wheel event
+  does not undo the click.
+- `resize`, breakpoint change and reduced-motion change recompute the mapping.
+- Native scrolling only: no wheel interception, no snap, no smooth-scroll library.
+- Nothing else pins — not the hero, the ribbon, the offers, the insight or the CTA.
+
+---
+
+## 7. Image transitions
+
+Three, site-wide:
+
+- **A. Horizontal clip reveal** — the discovery visual: `clip-path: inset(0 100% 0 0)` out, opposite
+  edge in, with a 1.5% scale change.
+- **B. Crossfade with crop change** — editorial imagery.
+- **C. Tonal wipe on the routing line** — where a chapter changes ground colour.
+
+No new transition per section.
+
+---
+
+## 8. The route diversity exhibit
+
+The signature scene, and the one that has to teach something.
+
+Four states: logical, physical, risk points, conclusion. Implemented in **SVG, not WebGL**.
+
+The Three.js option was built and measured before rejection: `three.module.js` is 263kb
+uncompressed, took 402ms to load and parse, and rendered the model at 57fps with 9 draw calls.
+It was rejected because the exhibit is labelled geometry — in GL the labels need extra libraries,
+the amber shared segment cannot take a usable stroke width without fat-line support, and every
+device tier then needs its own fallback. The SVG model carries real text, no bytes and no
+lifecycle, and renders identically on a phone.
+
+Rules for the exhibit:
+
+- Tilt is CSS: `rotateX(11deg) rotateZ(-1.5deg)` in the physical view, flat in the logical view.
+- Pointer response is at most 2.5°, only in the physical view, only with a fine pointer and only
+  when motion is allowed. The model is an exhibit, not a toy.
+- The inactive view is `visibility: hidden`, not transparent: nothing in it is reachable,
+  hoverable or announced.
+- Every point named on the model is also a list item in the document.
+- The model says it is illustrative, because it is.
+
+---
+
+## 9. Partner motion and governance
+
+- Marquee: 62s per cycle, linear, paused on hover and `:focus-within`, stopped entirely under
+  reduced motion. The duplicate track is `aria-hidden`.
+- Logos render at 30px tall, capped at 150px wide, with per-record `logoScale` for lockups whose
+  aspect ratio needs it.
+- Only official published assets. No recolouring, no cropping, no re-composition, no CSS
+  greyscale. Delivered copies may be resized (`scripts/optimize-partner-logos.mjs`); the
+  untouched originals live in `docs/brand-source/partners/`.
+- Publication is fail-closed: `logoApproved` requires `logoStatus: approved`, a real non-empty
+  file and a provenance entry, enforced by `tests/audit/partner-assets.test.mjs`.
+
+---
+
+## 10. Reduced motion
+
+Not a degraded page — a different, deliberate one.
+
+- No scene pins; both scenes become ordinary blocks.
+- No scroll-linked camera movement, no parallax, no route drawing; every route line renders drawn.
+- The marquee stops.
+- Both the route exhibit and the discipline navigator still switch by click.
+- Covered by `tests/e2e/progressive-enhancement.spec.ts`.
+
+---
+
+## 11. Without JavaScript
+
+Every chapter renders its content: headline, all eight partner logos, the first discipline and
+its routes, all four process steps, the exhibit's lesson as text, offers, industries and the
+closing CTA. The inquiry form is present markup. Covered by the same spec.
+
+---
+
+## 12. Performance budget
+
+Measured with `scripts/measure-perf.mjs` on a throttled profile (4× CPU, ~1.6Mbps):
+
+| Metric | Budget | Measured |
+|:---|:---|:---|
+| LCP | < 2.5s | 2.02s |
+| CLS | < 0.1 | 0.003 |
+| Long tasks | none over 200ms | 0 |
+| Page script | keep light | 0kb — Astro inlines the page's scripts into the document |
+| Fonts | same-origin | 76kb across three files |
+
+Rules: the hero goes through `astro:assets` (sized webp + srcset); fonts are preloaded from this
+origin; no library is loaded for animation; nothing is hotlinked.
+
+---
+
+## 13. Microinteractions
+
+- Buttons: press `scale(0.985)`, 100–130ms. No lift.
+- Hover: tonal or border response. **No `translateY` lift anywhere.**
+- Links: underline, or a 4px arrow movement — one, not both.
+- Tabs: the active indicator travels.
+- Header: compacts 12px and gains a hairline past the hero. No blur, no float, no colour change.
+
+---
+
+## 14. Prohibited
+
+1. Card grids where a list would do; three equal cards.
+2. Pills and badges for text that is not a status.
+3. Faux terminal windows, fake dashboards, status panels, telemetry read-outs.
+4. Uppercase mono as decoration, and `//` separators borrowed from code comments.
+5. Hover lift, glass, blur, glow, gradient borders, pastel blobs.
+6. Decorative 3D. WebGL must earn its bytes against an SVG alternative, in a measurement.
+7. Scroll hijacking, forced snap, smooth-scroll engines, custom cursors, magnetic buttons.
+8. Animation that makes an uncertain claim look more certain.
+
+---
+
+## 15. Commercial truth
+
+Motion never upgrades a claim. Prices stay fail-closed (`src/lib/offer-pricing.ts`); partner
+logos stay gated; the route model stays illustrative; banned-until-approved phrases fail the
+build (`tests/audit/content-truth-audit.mjs`, allowlist in `docs/approved-claims.json`).

@@ -27,7 +27,33 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 6
 partnerPageEnabled: true
-logoScale: 1
+logoScale: 1.3
+decisionLayer:
+  architectureTitle: "XCP-ng & Xen Orchestra Stack"
+  architectureSubtitle: "How the hypervisor, management, backup, replication, and support layers fit together"
+  steps:
+    - num: "01"
+      title: "XCP-ng"
+      desc: "Provides the open-source virtualization platform based on the Xen Project hypervisor."
+    - num: "02"
+      title: "Xen Orchestra"
+      desc: "Adds browser and API-based management across XCP-ng environments."
+    - num: "03"
+      title: "Backup & Replication"
+      desc: "Evaluate the backup, replication, metrics, and automation capabilities required by the operating model."
+    - num: "04"
+      title: "Support & Operations"
+      desc: "Define the commercial support, migration planning, hardware, storage, and operational requirements around the virtualization stack."
+  decisionQuestions:
+    - "Which VMware or virtualization features are actually in use today?"
+    - "What storage, networking, HA, backup, and recovery requirements must the target platform satisfy?"
+    - "What migration testing and operational training will be required?"
+  whenFits: "Enterprises, hosting providers, and cloud operators evaluating an open-source virtualization stack with commercial support options."
+  whenAlternative: "A KVM-based platform or another virtualization approach may fit better when existing skills, tooling, or workload dependencies point elsewhere."
+  commercialCaution: "Map feature dependencies, storage and network design, support scope, and migration testing before committing to a platform change."
+  sourceRefs:
+    - "https://vates.tech/en/virtualization-management-stack/"
+    - "https://vates.tech/en/virtualization-management-stack/xen-orchestra/"
 ---
 
 ## Vates + InfraHub

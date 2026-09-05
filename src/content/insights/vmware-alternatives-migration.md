@@ -1,30 +1,90 @@
 ---
-title: "VMware Exit Strategies: Evaluating KVM, Proxmox, and Vates XCP-ng"
+title: "VMware Alternatives: What to Evaluate Before a Hypervisor Migration"
 category: "Cloud"
 readTime: "10 min read"
 publishDate: 2026-08-18
-author: "InfraHub Virtualization Team"
-summary: "A practical evaluation of enterprise migration paths away from Broadcom licensing, focusing on storage multipathing, backup compatibility, and live migration."
+author: "InfraHub"
+summary: "A practical framework for comparing Vates XCP-ng and Xen Orchestra, Proxmox VE, KVM-based platforms, and other virtualization paths without reducing the decision to license price."
 featured: false
 ---
 
-## Navigating Broadcom's VMware Licensing Shock
+## A Hypervisor Migration Is an Operating-Model Decision
 
-The transition of VMware from perpetual licenses to mandatory per-core subscription bundles has increased virtualization licensing costs by 300% to 800% for many enterprise infrastructure teams. Consequently, evaluating alternative hypervisor platforms has become an immediate architectural priority.
+Changes in VMware licensing and product strategy have caused many infrastructure teams to reassess their virtualization platform. The useful question is not simply, “What is cheaper than VMware?”
 
-### The Top 3 Open-Source Contenders
+A migration affects:
 
-#### 1. Vates (XCP-ng & Xen Orchestra)
-- **Architecture:** Based on the battle-tested Xen hypervisor and managed via Xen Orchestra.
-- **Enterprise Strengths:** Robust live migration (vMotion equivalent), warm migration directly from VMware ESXi, delta backups, and enterprise SAN multipathing.
-- **Best For:** Enterprise IT teams seeking an identical operational model to vCenter with enterprise support contracts.
+- hypervisor operations;
+- storage;
+- networking;
+- high availability;
+- backup and recovery;
+- monitoring;
+- automation;
+- support;
+- hardware compatibility;
+- migration tooling;
+- staff skills.
 
-#### 2. Proxmox VE (KVM + Ceph)
-- **Architecture:** Debian-based KVM hypervisor with integrated Ceph software-defined storage.
-- **Enterprise Strengths:** Excellent web GUI, built-in backup server integration, and widespread community support.
-- **Best For:** Hosting providers and mid-sized businesses with strong Linux engineering capabilities.
+The right alternative depends on which of those capabilities are actually in use today.
 
-#### 3. Pure KVM / OpenStack
-- **Architecture:** Linux native kernel-based virtual machine with orchestration frameworks.
-- **Enterprise Strengths:** Maximum flexibility, zero licensing fees, and massive hyperscale deployments.
-- **Best For:** Large telecommunications providers and SaaS companies running dedicated platform engineering teams.
+## Vates: XCP-ng and Xen Orchestra
+
+Vates develops an open-source virtualization stack centered on XCP-ng and Xen Orchestra.
+
+**XCP-ng** provides the virtualization platform based on the Xen Project hypervisor.
+
+**Xen Orchestra** provides browser- and API-based management and includes capabilities around backup, replication, metrics, and automation.
+
+When evaluating the stack, establish:
+
+- current VMware feature dependencies;
+- storage and multipathing requirements;
+- virtual-network design;
+- HA and recovery objectives;
+- backup retention and off-site requirements;
+- supported migration path for each workload;
+- commercial support requirements.
+
+Do not assume that a VMware feature has a one-for-one equivalent simply because both platforms virtualize the same workload.
+
+## Proxmox VE
+
+Proxmox VE is a Linux-based virtualization platform using KVM for virtual machines and Linux containers. It is often evaluated where teams want integrated cluster management and are comfortable with a Linux-oriented operating model.
+
+The decision should still include:
+
+- storage architecture;
+- backup design;
+- network model;
+- clustering;
+- support expectations;
+- automation;
+- migration testing.
+
+Existing Linux skills can be an advantage, but they do not remove the need to validate workload-specific dependencies.
+
+## KVM-Based and Cloud-Oriented Approaches
+
+Some organizations prefer a more composable KVM-based platform, a private-cloud stack, or a redesign that reduces dependence on traditional VM management altogether.
+
+That can increase architectural flexibility, but it can also shift more integration and operational responsibility onto the internal platform team.
+
+## What to Inventory Before Selecting an Alternative
+
+Start with the current environment rather than a product shortlist.
+
+Document:
+
+1. hypervisor hosts and CPU generations;
+2. VM inventory and operating systems;
+3. storage protocols and multipathing;
+4. virtual switching, VLANs, overlays, and firewall dependencies;
+5. HA and live-migration requirements;
+6. backup and restore workflows;
+7. monitoring and automation integrations;
+8. licensing and support requirements;
+9. maintenance windows and acceptable migration downtime;
+10. applications with vendor certification or support constraints.
+
+The result may point toward Vates, Proxmox, another KVM/Xen platform, public or private cloud, or a mixed architecture. The purpose of the assessment is to make that decision explicit before moving production workloads.

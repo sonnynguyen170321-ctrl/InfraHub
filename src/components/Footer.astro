@@ -1,5 +1,7 @@
 ---
 // src/components/Footer.astro
+import BrandLogo from './BrandLogo.astro';
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -10,20 +12,13 @@ const currentYear = new Date().getFullYear();
       <!-- Brand & Concise Positioning -->
       <div class="footer-brand-col">
         <a href="/" class="footer-logo">
-          <span class="logo-mark">
-            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="28" height="28" rx="6" fill="#1E293B" />
-              <path d="M7 14H11M17 14H21M14 7V11M14 17V21" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" />
-              <circle cx="14" cy="14" r="3" fill="#0284C7" />
-            </svg>
-          </span>
-          <span class="brand-name">Infra<span class="brand-highlight">Hub</span></span>
+          <BrandLogo size={24} tone="light" />
         </a>
         <p class="footer-desc">
           The right infrastructure. The right partner. We evaluate technical requirements and connect engineering teams with specialist operators.
         </p>
         <p class="footer-transparency-note">
-          InfraHub acts as an independent sourcing advisor. Services are contracted and delivered directly with the selected specialist provider.
+          InfraHub provides infrastructure sourcing and advisory. Partner-delivered services are contracted and delivered directly with the selected specialist provider.
         </p>
       </div>
 
@@ -70,7 +65,7 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom Copyright -->
     <div class="footer-bottom">
       <p class="copyright">
-        &copy; {currentYear} InfraHub. All rights reserved. Independent infrastructure sourcing and partner network.
+        &copy; {currentYear} InfraHub. All rights reserved.
       </p>
     </div>
   </div>
@@ -78,10 +73,10 @@ const currentYear = new Date().getFullYear();
 
 <style>
   .site-footer {
-    background-color: #070b14;
+    background: linear-gradient(to top, #070b14 70%, #0a1120 100%);
     color: #94a3b8;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 72px 0 36px;
+    padding: 100px 0 44px;
   }
 
   .footer-container {
@@ -91,15 +86,15 @@ const currentYear = new Date().getFullYear();
   .footer-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 48px;
-    padding-bottom: 56px;
+    gap: 52px;
+    padding-bottom: 64px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   @media (min-width: 768px) {
     .footer-grid {
       grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 40px;
+      gap: 48px;
     }
   }
 
@@ -116,16 +111,6 @@ const currentYear = new Date().getFullYear();
     text-decoration: none;
   }
 
-  .brand-name {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-  }
-  .brand-highlight {
-    color: var(--accent-blue);
-  }
 
   .footer-desc {
     font-size: 0.9rem;
@@ -154,7 +139,7 @@ const currentYear = new Date().getFullYear();
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
   .footer-links a {

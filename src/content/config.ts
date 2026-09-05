@@ -45,6 +45,23 @@ const partners = defineCollection({
     shortRole: z.string().optional(),
     capabilities: z.array(z.string()),
     
+    // Buyer decision layer. Partner-specific architecture and decision guidance lives here,
+    // beside the sourceUrls that support it, rather than inside the page template.
+    decisionLayer: z
+      .object({
+        architectureTitle: z.string(),
+        architectureSubtitle: z.string(),
+        steps: z.array(
+          z.object({ num: z.string(), title: z.string(), desc: z.string() })
+        ),
+        decisionQuestions: z.array(z.string()),
+        whenFits: z.string(),
+        whenAlternative: z.string(),
+        commercialCaution: z.string(),
+        sourceRefs: z.array(z.string().url()).default([])
+      })
+      .optional(),
+
     // Business Verification & Approval States (Separated from Publication)
     relationshipStatus: z.enum(['unconfirmed', 'confirmed']).default('unconfirmed'),
     publicNamingStatus: z.enum(['unapproved', 'approved']).default('unapproved'),

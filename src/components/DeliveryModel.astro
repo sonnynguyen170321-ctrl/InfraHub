@@ -1,96 +1,161 @@
 ---
 // src/components/DeliveryModel.astro
-const steps = [
-  {
-    num: "01",
-    title: "Understand",
-    detail: "Clarify what actually needs to be achieved: workload, throughput, latency, physical routing, and commercial constraints."
-  },
-  {
-    num: "02",
-    title: "Match",
-    detail: "Evaluate architecture approaches and identify independent specialist providers matching your technical footprint."
-  },
-  {
-    num: "03",
-    title: "Introduce",
-    detail: "Connect your team directly to the engineering and commercial leadership of the selected specialist provider."
-  },
-  {
-    num: "04",
-    title: "Deliver",
-    detail: "The selected specialist contracts and delivers the partner service directly under their agreement with you."
-  }
-];
-
+// One observation per step. The note belongs to the step being read, so it changes as the
+// reader moves rather than on a timer nobody asked for.
 const annotations = [
   {
+    step: "understand",
     title: "Price isn't total cost.",
     detail: "A low rate per Mbps can cost significantly more once cross-connect fees, restrictive burst tiers, and regional eyeball hops are tallied."
   },
   {
-    title: "Logical diversity isn't physical diversity.",
-    detail: "Two separate carriers frequently share the same bridge crossing, rail conduit, or building entrance duct. Diversity requires physical path verification."
+    step: "match",
+    title: "Provider fit depends on the requirement.",
+    detail: "Provider fit changes with geography, technical scope, operating model and commercial terms."
   },
   {
-    title: "The strongest provider depends on the requirement.",
-    detail: "No single provider leads across every metro, route, and platform. Independent evaluation matches you with the specialist that excels in your exact location."
+    step: "introduce",
+    title: "Logical diversity isn't physical diversity.",
+    detail: "Two providers can still share building entrances, ducts, crossings, or long-haul segments. Where physical diversity matters, route evidence should be checked."
+  },
+  {
+    step: "deliver",
+    title: "The provider's agreement is the one that governs the service.",
+    detail: "Pricing, service commitments and support scope are set in the contract you sign with the selected provider, not in an introduction."
   }
 ];
 ---
 
-<section class="section section-delivery" id="how-it-works">
+<section class="section section-delivery" id="how-it-works" aria-label="Judgment: How InfraHub Works">
+  <!-- Subtle Route Line Entry Connector from Solutions -->
+  <div class="delivery-route-entry" aria-hidden="true">
+    <div class="route-line-stem"></div>
+  </div>
+
   <div class="container">
     <div class="delivery-asymmetric-split">
       
-      <!-- Left Column: Headline & Business Model Narrative -->
+      <!-- Left Column: Sticky Headline & Business Model Narrative (Directive 9) -->
       <div class="delivery-narrative-col">
-        <h2 class="delivery-title">
-          One requirement.<br />
-          A network of specialists.
-        </h2>
-        <p class="delivery-lead">
-          InfraHub qualifies requirements, compares architectural approaches, and introduces specialist providers.
-        </p>
-        <p class="delivery-body">
-          InfraHub acts as an independent sourcing advisor. Sourcing through InfraHub connects your team directly with specialist operators, contracting on direct service agreements with zero intermediary markup.
-        </p>
-        
-        <div class="delivery-action">
-          <a href="/how-we-work" class="delivery-link">
-            <span>Review how we work</span>
-            <span class="delivery-arrow" aria-hidden="true">&rarr;</span>
-          </a>
+        <div class="sticky-narrative-wrapper">
+          <div class="delivery-kicker-row">
+            <span class="routing-junction-light" aria-hidden="true"></span>
+            <span class="delivery-kicker">Operational model</span>
+          </div>
+          <h2 class="delivery-title">
+            One requirement.<br />
+            A network of specialists.
+          </h2>
+          <p class="delivery-lead">
+            InfraHub qualifies requirements, compares architectural approaches, and introduces specialist providers.
+          </p>
+          <p class="delivery-body">
+            InfraHub helps qualify requirements and connect your team with suitable specialist operators. For partner-delivered services, the selected provider confirms commercial terms, contracts directly, and delivers the service.
+          </p>
+          
+          <div class="delivery-action">
+            <a href="/how-we-work" class="delivery-link">
+              <span>Review how we work</span>
+              <span class="delivery-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+
+          <!-- One note at a time, rotating. Rendered from the annotations array above: the
+               same copy was previously duplicated here in markup, which is how the two drift. -->
+          <div class="single-annotation-card" id="deliveryAnnotationCard">
+            <span class="annotation-badge">What changes the answer</span>
+            <div class="annotation-rotator" id="annotationRotator">
+              {annotations.map((note, index) => (
+                <div class={`annotation-slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+                  <h3 class="annotation-title">{note.title}</h3>
+                  <p class="annotation-desc">{note.detail}</p>
+                </div>
+              ))}
+            </div>
+            <div class="annotation-stepper" aria-hidden="true">
+              {annotations.map((_, index) => (
+                <span class={`step-dot ${index === 0 ? 'active' : ''}`}></span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Right Column: 4-Step Sequence + Editorial Experience Annotations -->
+      <!-- Right Column: Progressive Vertical Routing Line Sequence (Directive 9) -->
       <div class="delivery-sequence-col">
         
-        <!-- Process Steps (Clean horizontal/vertical sequence, no cards) -->
-        <div class="process-flow">
-          {steps.map(step => (
-            <div class="process-step-item">
-              <span class="step-num">{step.num}</span>
-              <div class="step-text">
-                <h3 class="step-title">{step.title}</h3>
-                <p class="step-desc">{step.detail}</p>
+        <div class="vertical-process-track">
+          <!-- Step 01: Understand -->
+          <div class="process-node-block" id="step-understand" data-step="understand">
+            <div class="node-spine-col">
+              <span class="node-number">01</span>
+              <div class="spine-line"></div>
+            </div>
+            <div class="node-content-col">
+              <h3 class="node-title">Understand</h3>
+              <p class="node-desc">Clarify what actually needs to be achieved: workload, throughput, latency, physical routing, and commercial constraints.</p>
+              <!-- Input Tags with Thin Rules (Directive 9) -->
+              <div class="node-inputs-grid">
+                <span class="input-item">Location</span>
+                <span class="input-item">Traffic</span>
+                <span class="input-item">Capacity</span>
+                <span class="input-item">Resilience</span>
+                <span class="input-item">Timing</span>
+                <span class="input-item">Budget</span>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        <!-- Integrated Experience Annotations -->
-        <div class="experience-annotations-block">
-          <span class="annotations-heading">What changes the answer?</span>
-          
-          <div class="annotations-list">
-            {annotations.map(note => (
-              <div class="annotation-item">
-                <h4 class="annotation-title">{note.title}</h4>
-                <p class="annotation-desc">{note.detail}</p>
+          <!-- Step 02: Match -->
+          <div class="process-node-block" id="step-match" data-step="match">
+            <div class="node-spine-col">
+              <span class="node-number">02</span>
+              <div class="spine-line"></div>
+            </div>
+            <div class="node-content-col">
+              <h3 class="node-title">Match</h3>
+              <p class="node-desc">Evaluate architecture approaches and identify suitable specialist providers matching your technical footprint.</p>
+              <!-- Architectural Branches (Directive 9) -->
+              <div class="node-branches-grid">
+                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Carrier route</div>
+                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Cloud approach</div>
+                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Hardware route</div>
+                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Security specialist</div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          <!-- Step 03: Introduce -->
+          <div class="process-node-block" id="step-introduce" data-step="introduce">
+            <div class="node-spine-col">
+              <span class="node-number">03</span>
+              <div class="spine-line"></div>
+            </div>
+            <div class="node-content-col">
+              <h3 class="node-title">Introduce</h3>
+              <p class="node-desc">Coordinate an introduction to the selected specialist provider, ensuring technical scope and prerequisites are established upfront.</p>
+              <p class="specialist-line">
+                <span class="specialist-rule" aria-hidden="true"></span>
+                <span>One route is selected and the rest are set aside</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 04: Deliver -->
+          <div class="process-node-block" id="step-deliver" data-step="deliver">
+            <div class="node-spine-col">
+              <span class="node-number">04</span>
+              <div class="spine-line spine-terminal"></div>
+            </div>
+            <div class="node-content-col">
+              <h3 class="node-title">Deliver</h3>
+              <p class="node-desc">The selected specialist contracts and delivers the partner service directly under their agreement with you. InfraHub remains upstream for advisory support.</p>
+              <div class="delivery-upstream-flow">
+                <span class="flow-party is-upstream">InfraHub, upstream</span>
+                <span class="flow-rule" aria-hidden="true"></span>
+                <span class="flow-party is-provider">Selected provider delivers</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -98,59 +163,121 @@ const annotations = [
 
     </div>
   </div>
+
+  <!-- Scene Transition Bridge: Process → Route Diversity (Directive 17) -->
+  <div class="process-to-route-bridge" aria-hidden="true">
+    <div class="bridge-stem"></div>
+    <div class="bridge-junction"></div>
+    <div class="bridge-fork">
+      <div class="fork-branch branch-a"></div>
+      <div class="fork-branch branch-b"></div>
+    </div>
+  </div>
 </section>
 
 <style>
   .section-delivery {
+    position: relative;
     background-color: #0b1120;
     color: #ffffff;
-    padding: 104px 0;
+    padding: 80px 0 88px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Infrastructure Route Line Entry (Directive 2, 9) */
+  .delivery-route-entry {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 32px;
+    z-index: 2;
+  }
+  .route-line-stem {
+    width: 1.5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), rgba(40, 84, 199, 0.4));
   }
 
   /* Asymmetric 40 / 60 Split */
   .delivery-asymmetric-split {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 64px;
   }
   @media (min-width: 960px) {
     .delivery-asymmetric-split {
       grid-template-columns: 1fr 1.35fr;
-      gap: 72px;
+      gap: 80px;
       align-items: start;
     }
   }
 
-  /* Left Narrative Column */
+  /* Left Narrative Column (Sticky on capable desktop per Directive 9) */
   .delivery-narrative-col {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 480px;
+    position: relative;
   }
+
+  @media (min-width: 960px) {
+    .sticky-narrative-wrapper {
+      position: sticky;
+      top: 110px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 480px;
+    }
+  }
+
+  .delivery-kicker-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .routing-junction-light {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+  }
+
+  .delivery-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #93c5fd;
+  }
+
   .delivery-title {
     font-size: clamp(2.2rem, 4vw, 3.2rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
     color: #ffffff;
+    margin: 0;
   }
+
   .delivery-lead {
     font-size: 1.15rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-    max-width: 44ch;
-  }
-  .delivery-body {
-    font-size: 0.95rem;
     line-height: 1.65;
     color: #cbd5e1;
-    max-width: 46ch;
+    margin: 0;
   }
+
+  .delivery-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin: 0;
+  }
+
   .delivery-action {
-    margin-top: 8px;
+    margin-top: 4px;
   }
+
   .delivery-link {
     display: inline-flex;
     align-items: center;
@@ -171,95 +298,397 @@ const annotations = [
     transform: translateX(3px);
   }
 
-  /* Right Sequence Column */
-  .delivery-sequence-col {
-    display: flex;
-    flex-direction: column;
-    gap: 56px;
+  /* Single Rotating Annotation Card (Directive 10) */
+  .single-annotation-card {
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 22px 0 0;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
   }
 
-  /* 4-Step Process Flow */
-  .process-flow {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding-top: 28px;
-  }
-  @media (min-width: 640px) {
-    .process-flow {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-  }
-  .process-step-item {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .step-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+  .annotation-badge {
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    color: #ffffff;
-    letter-spacing: normal;
-  }
-  .step-title {
-    font-size: 1.18rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.35;
-  }
-  .step-desc {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #cbd5e1;
-    max-width: 48ch;
+    letter-spacing: 0.06em;
+    color: #93c5fd;
+    display: block;
+    margin-bottom: 8px;
   }
 
-  /* Editorial Annotations (Woven beneath, constrained measure) */
-  .experience-annotations-block {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 36px;
-    max-width: 620px;
+  .annotation-rotator {
+    position: relative;
+    min-height: 84px;
   }
-  .annotations-heading {
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: #94a3b8;
-  }
-  .annotations-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .annotation-item {
-    display: flex;
+
+  .annotation-slide {
+    display: none;
     flex-direction: column;
     gap: 6px;
   }
+
+  .annotation-slide.active {
+    display: flex;
+    animation: slideFade var(--motion-content) var(--ease-out);
+  }
+
+  @keyframes slideFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .annotation-title {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     font-weight: 700;
     color: #ffffff;
-    max-width: 48ch;
+    margin: 0;
   }
+
   .annotation-desc {
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.88rem;
+    line-height: 1.55;
     color: #cbd5e1;
-    max-width: 58ch;
+    margin: 0;
+  }
+
+  .annotation-stepper {
+    display: flex;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .step-dot {
+    width: 16px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    transition: background 200ms ease;
+  }
+
+  .step-dot.active {
+    background: var(--accent-blue);
+  }
+
+  /* Right Column: Vertical Process Track (Directive 9) */
+  .vertical-process-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .process-node-block {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    padding-bottom: 48px;
+  }
+
+  .node-spine-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .node-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    flex-shrink: 0;
+  }
+
+  .spine-line {
+    position: relative;
+    width: 1.5px;
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.14);
+    margin-top: 8px;
+  }
+
+  /* The route itself: a cobalt line that draws down the spine as each step is reached. */
+  .spine-line::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent-blue);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--motion-scene) var(--ease-out);
+  }
+
+  .process-node-block.is-active .spine-line::after,
+  .process-node-block.is-passed .spine-line::after {
+    transform: scaleY(1);
+  }
+
+  .process-node-block .node-number {
+    transition: color var(--motion-content) var(--ease-out);
+  }
+
+  .process-node-block.is-active .node-number {
+    color: var(--accent-blue);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spine-line::after {
+      transform: scaleY(1);
+      transition: none;
+    }
+  }
+
+  .spine-terminal {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.14), var(--accent-blue));
+  }
+
+  .node-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .node-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .node-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #cbd5e1;
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  /* Input Tags with Thin Rules (Step 1) */
+  .node-inputs-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .input-item {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: #cbd5e1;
+    padding: 6px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Architectural Branches (Step 2) */
+  .node-branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .branch-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: #93c5fd;
+    padding: 7px 0;
+  }
+
+  .branch-rule {
+    width: 6px;
+    height: 1.5px;
+    background-color: var(--accent-blue);
+  }
+
+  /* Specialist Alignment (Step 3) */
+  .specialist-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+  }
+
+  .specialist-rule {
+    width: 40px;
+    height: 1.5px;
+    background: var(--accent-teal, #0d9488);
+    flex-shrink: 0;
+  }
+
+  .specialist-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-cyan);
+  }
+
+  .specialist-text {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #a7f3d0;
+  }
+
+  /* Delivery Upstream Flow (Step 4) */
+  .delivery-upstream-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+  }
+
+  .flow-party {
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .flow-party.is-upstream {
+    color: #93c5fd;
+  }
+
+  .flow-party.is-provider {
+    color: #ffffff;
+  }
+
+  .flow-rule {
+    flex: 1;
+    min-width: 32px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-blue), rgba(255, 255, 255, 0.4));
+  }
+
+  .flow-arrow {
+    color: #94a3b8;
+    font-weight: 700;
+  }
+
+
+
+  /* Scene Transition Bridge: Process → Route Diversity (Directive 17) */
+  .process-to-route-bridge {
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .bridge-stem {
+    width: 1.5px;
+    height: 24px;
+    background-color: var(--accent-blue);
+  }
+
+  .bridge-junction {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+  }
+
+  .bridge-fork {
+    display: flex;
+    justify-content: space-between;
+    width: 140px;
+    height: 18px;
+    border-bottom: 1.5px solid var(--border-color);
+  }
+
+  .fork-branch {
+    width: 1.5px;
+    height: 100%;
+  }
+
+  .branch-a {
+    background-color: var(--accent-blue);
+    margin-left: 20px;
+  }
+
+  .branch-b {
+    background-color: var(--accent-cyan);
+    margin-right: 20px;
   }
 </style>
+
+<script>
+  // The process story advances with the reader.
+  //
+  // Each step marks itself active as it reaches the reading line; the route line draws down to
+  // it, and the single annotation switches to the observation that belongs to that step. There
+  // is no timer: a note that changes on its own while you are reading a different step is
+  // noise, and a background interval that never stops is worse.
+  function initProcessStory() {
+    const steps = Array.from(
+      document.querySelectorAll<HTMLElement>('.process-node-block[data-step]')
+    );
+    const slides = Array.from(
+      document.querySelectorAll<HTMLElement>('#annotationRotator .annotation-slide')
+    );
+    const dots = Array.from(
+      document.querySelectorAll<HTMLElement>('.annotation-stepper .step-dot')
+    );
+
+    if (steps.length === 0) return;
+
+    let activeIndex = -1;
+
+    function showAnnotation(index: number) {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+
+    function setActiveStep(index: number) {
+      if (index === activeIndex) return;
+      activeIndex = index;
+
+      steps.forEach((step, i) => {
+        step.classList.toggle('is-active', i === index);
+        step.classList.toggle('is-passed', i < index);
+      });
+
+      if (index >= 0 && index < slides.length) showAnnotation(index);
+    }
+
+    // Reading line: a step becomes current once its top passes the upper third of the
+    // viewport, which is where a reader's attention actually sits.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const index = steps.indexOf(entry.target as HTMLElement);
+          if (index >= 0) setActiveStep(index);
+        }
+      },
+      { rootMargin: '-30% 0px -55% 0px', threshold: 0 }
+    );
+
+    steps.forEach((step) => observer.observe(step));
+
+    // Without JavaScript, or before the first step is reached, the first note is the one on
+    // show and every step reads normally.
+    setActiveStep(0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProcessStory);
+  } else {
+    initProcessStory();
+  }
+</script>

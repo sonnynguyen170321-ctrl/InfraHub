@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Carrier-Neutral IP Transit Sourcing — InfraHub"
-  description="Compare Tier-1 and regional IP Transit providers. Evaluate 95th percentile burst billing, committed data rates, BGP community feeds, and cross-connect costs."
+  title="IP Transit Sourcing & Comparison — InfraHub"
+  description="Compare IP Transit providers by port and commit, billing model, routing policy, BGP communities, cross-connect cost, resilience, and regional reach."
   canonicalPath="/ip-transit"
 >
   <div class="service-page-wrapper">
@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
         <span class="service-kicker">Network & Connectivity</span>
         <h1 class="service-title">Enterprise & Wholesale IP Transit</h1>
         <p class="service-lead">
-          Connect your Autonomous System (ASN) to global backbones and regional transit providers. We evaluate port commitments, 95th percentile burst ratios, BGP community controls, and meet-me room cross-connect fees to secure the optimal upstream mix.
+          Connect your Autonomous System (ASN) through suitable upstream providers. InfraHub helps compare port and commit, percentile billing, routing policy, BGP communities, facility costs, DDoS controls, and resilience requirements.
         </p>
         <div class="service-hero-actions">
           <a href="/lets-talk?service=ip-transit" class="btn btn-accent btn-lg">Request Transit Comparison</a>
@@ -28,7 +28,7 @@ import Layout from '../layouts/Layout.astro';
       <section class="service-section">
         <h2 class="section-headline">What IP Transit decision are you actually making?</h2>
         <p class="section-lead">
-          Selecting IP transit solely on price per megabit frequently creates operational issues: unexpected burst penalties, poor latency to specific regional eyeballs, or unexpected datacenter cross-connect charges. Network teams evaluate transit across three key realities:
+          Selecting IP transit solely on headline price per megabit can hide differences in burst billing, path quality, interconnection cost, support, and routing control. Three useful areas to compare are:
         </p>
         
         <div class="architectural-triad">
@@ -36,14 +36,14 @@ import Layout from '../layouts/Layout.astro';
             <span class="triad-num">01</span>
             <h3 class="triad-title">Eyeball Reachability</h3>
             <p class="triad-desc">
-              Direct, low-latency paths to residential and enterprise networks without traversing congested third-party peering fabrics or secondary settlement-free hops.
+              Routing quality to the residential, enterprise, cloud, and content networks that matter to your traffic, including the provider's regional peering and upstream relationships.
             </p>
           </div>
           <div class="triad-item">
             <span class="triad-num">02</span>
             <h3 class="triad-title">BGP Traffic Engineering</h3>
             <p class="triad-desc">
-              Granular BGP community support to deprioritize backup upstreams, trigger automated blackholing (RTBH), or steer outbound traffic on a per-region basis.
+              Provider-supported BGP communities can help with preference, prepending, blackholing, and other traffic-engineering actions. The exact community set must be confirmed per carrier.
             </p>
           </div>
           <div class="triad-item">
@@ -60,11 +60,11 @@ import Layout from '../layouts/Layout.astro';
       <section class="service-section">
         <h2 class="section-headline">Transit Architecture &amp; Upstream Topologies</h2>
         <p class="section-lead">
-          A resilient edge pairs diverse upstream transit carriers with local Internet Exchange peering and out-of-band DDoS diversion capabilities:
+          The diagram below is illustrative. A real design may combine multiple upstreams, Internet Exchange peering, and separate DDoS controls depending on the ASN and facilities involved:
         </p>
 
         <div class="topology-diagram-container">
-          <svg viewBox="0 0 900 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="topology-svg" role="img" aria-label="Network transit topology diagram showing Customer ASN connected to Upstream A, Upstream B, Regional IXP, and DDoS scrubbing network">
+          <svg viewBox="0 0 900 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="topology-svg" role="img" aria-label="Illustrative network transit topology showing a customer ASN connected to two transit providers, an Internet Exchange, and an external mitigation service">
             <rect width="900" height="360" rx="8" fill="#0b1120" />
             
             <!-- Grid Lines Background -->
@@ -74,25 +74,25 @@ import Layout from '../layouts/Layout.astro';
             <!-- Interconnect Lines -->
             <!-- Customer to Upstream A -->
             <path d="M220 180 C 320 180, 320 70, 440 70" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
-            <text x="310" y="105" fill="#93c5fd" font-family="monospace" font-size="11">BGP Session (Full Feed)</text>
+            <text x="310" y="105" fill="#93c5fd" font-family="monospace" font-size="11">BGP Session</text>
 
             <!-- Customer to Upstream B -->
             <path d="M220 180 C 320 180, 320 150, 440 150" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round" />
-            <text x="310" y="158" fill="#93c5fd" font-family="monospace" font-size="11">BGP Session (Diverse Path)</text>
+            <text x="310" y="158" fill="#93c5fd" font-family="monospace" font-size="11">Second Upstream</text>
 
             <!-- Customer to Regional IXP -->
             <path d="M220 180 C 320 180, 320 230, 440 230" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" />
-            <text x="310" y="215" fill="#6ee7b7" font-family="monospace" font-size="11">Settlement-Free Peering</text>
+            <text x="310" y="215" fill="#6ee7b7" font-family="monospace" font-size="11">IXP Peering</text>
 
             <!-- Customer to DDoS Diversion -->
             <path d="M220 180 C 320 180, 320 300, 440 300" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4" stroke-linecap="round" />
-            <text x="310" y="280" fill="#fcd34d" font-family="monospace" font-size="11">BGP FlowSpec / RTBH</text>
+            <text x="310" y="280" fill="#fcd34d" font-family="monospace" font-size="11">Mitigation Control</text>
 
             <!-- Customer Border Routers Node -->
             <g transform="translate(60, 130)">
               <rect width="160" height="100" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
               <text x="80" y="32" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">Customer Edge</text>
-              <text x="80" y="52" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Border ASNs</text>
+              <text x="80" y="52" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Customer ASN</text>
               <rect x="20" y="68" width="120" height="20" rx="3" fill="#0f172a" />
               <text x="80" y="82" fill="#38bdf8" font-family="monospace" font-size="10" text-anchor="middle">eBGP Border Routers</text>
             </g>
@@ -101,7 +101,7 @@ import Layout from '../layouts/Layout.astro';
             <g transform="translate(440, 45)">
               <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
               <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Upstream Carrier A</text>
-              <text x="100" y="40" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">Tier-1 Global Core Backbone</text>
+              <text x="100" y="40" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">Transit Provider A</text>
             </g>
             <path d="M640 70 H730" stroke="#475569" stroke-width="1.5" />
 
@@ -109,7 +109,7 @@ import Layout from '../layouts/Layout.astro';
             <g transform="translate(440, 125)">
               <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
               <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Upstream Carrier B</text>
-              <text x="100" y="40" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">Regional Low-Latency Fiber</text>
+              <text x="100" y="40" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">Transit Provider B</text>
             </g>
             <path d="M640 150 H730" stroke="#475569" stroke-width="1.5" />
 
@@ -117,15 +117,15 @@ import Layout from '../layouts/Layout.astro';
             <g transform="translate(440, 205)">
               <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1" />
               <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Metro Internet Exchange</text>
-              <text x="100" y="40" fill="#6ee7b7" font-family="monospace" font-size="10" text-anchor="middle">Public Bilateral Peering Fabric</text>
+              <text x="100" y="40" fill="#6ee7b7" font-family="monospace" font-size="10" text-anchor="middle">IXP / Bilateral Peering</text>
             </g>
             <path d="M640 230 H730" stroke="#475569" stroke-width="1.5" />
 
             <!-- Target 4: DDoS Scrubbing Center -->
             <g transform="translate(440, 280)">
               <rect width="200" height="50" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1" />
-              <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">Cloud Scrubbing Center</text>
-              <text x="100" y="40" fill="#fcd34d" font-family="monospace" font-size="10" text-anchor="middle">Automated Diversion Network</text>
+              <text x="100" y="24" fill="#ffffff" font-family="sans-serif" font-weight="700" font-size="13" text-anchor="middle">External Mitigation</text>
+              <text x="100" y="40" fill="#fcd34d" font-family="monospace" font-size="10" text-anchor="middle">Provider-Specific Handoff</text>
             </g>
             <path d="M640 305 H730" stroke="#475569" stroke-width="1.5" />
 
@@ -134,7 +134,7 @@ import Layout from '../layouts/Layout.astro';
               <rect width="130" height="280" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
               <text x="65" y="130" fill="#e2e8f0" font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">Global</text>
               <text x="65" y="150" fill="#e2e8f0" font-family="sans-serif" font-weight="700" font-size="14" text-anchor="middle">Internet</text>
-              <text x="65" y="175" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">All Eyeballs</text>
+              <text x="65" y="175" fill="#64748b" font-family="monospace" font-size="10" text-anchor="middle">Destination Networks</text>
             </g>
           </svg>
         </div>
@@ -148,7 +148,7 @@ import Layout from '../layouts/Layout.astro';
             <thead>
               <tr>
                 <th>Evaluation Parameter</th>
-                <th>Standard Configuration</th>
+                <th>Example / Detail to Confirm</th>
                 <th>Why It Matters to the Buyer</th>
               </tr>
             </thead>
@@ -161,7 +161,7 @@ import Layout from '../layouts/Layout.astro';
               <tr>
                 <td><strong>95th Percentile Billing</strong></td>
                 <td><span class="mono-text">Top 5% burst samples excluded</span></td>
-                <td>Industry-standard sampling formula protecting against transient traffic spikes.</td>
+                <td>A common burstable billing method; sampling interval and directional treatment remain contract-specific.</td>
               </tr>
               <tr>
                 <td><strong>BGP Route Feeds</strong></td>
@@ -171,7 +171,7 @@ import Layout from '../layouts/Layout.astro';
               <tr>
                 <td><strong>BGP Communities</strong></td>
                 <td><span class="mono-text">Blackhole (RTBH) &amp; prepending</span></td>
-                <td>Essential for rapid attack mitigation and fine-grained outbound traffic steering.</td>
+                <td>Can support blackholing, preference, prepending, or other policy controls where the provider exposes the required communities.</td>
               </tr>
               <tr>
                 <td><strong>MMR Cross-Connect Costs</strong></td>
@@ -198,15 +198,15 @@ import Layout from '../layouts/Layout.astro';
           <div class="approach-row">
             <div class="approach-col-title">
               <h3>Direct Dual Multi-Homing</h3>
-              <span class="approach-sub">Independent Autonomous System</span>
+              <span class="approach-sub">Customer ASN</span>
             </div>
             <div class="approach-col-desc">
               <p>Contract two distinct upstream carriers terminated on redundant customer BGP border routers.</p>
             </div>
             <div class="approach-col-points">
               <ul>
-                <li>Maximum resilience against carrier fiber cuts or routing incidents</li>
-                <li>Full control over local preference, AS prepending, and FlowSpec</li>
+                <li>Reduces dependency on a single upstream; physical-path diversity still needs separate evidence</li>
+                <li>More direct control over local preference and outbound policy; FlowSpec or RTBH depends on router and provider support</li>
                 <li>Requires ASN ownership and dual facility cross-connect fees</li>
               </ul>
             </div>
@@ -222,8 +222,8 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="approach-col-points">
               <ul>
-                <li>Automated upstream failover without managing complex border routing tables</li>
-                <li>Economical commitment thresholds for growing platforms</li>
+                <li>Can simplify upstream management when the blend operator handles carrier selection and failover</li>
+                <li>Commercial entry points may differ from contracting multiple carriers directly</li>
                 <li>Less granular control over individual upstream carrier communities</li>
               </ul>
             </div>
@@ -231,32 +231,32 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="approach-row">
             <div class="approach-col-title">
-              <h3>Single Tier-1 Core</h3>
-              <span class="approach-sub">Global Backbone</span>
+              <h3>Single Transit Provider</h3>
+              <span class="approach-sub">Simpler Upstream Model</span>
             </div>
             <div class="approach-col-desc">
-              <p>Connect directly to a global Tier-1 network with extensive international settlement-free peering.</p>
+              <p>Use one primary transit provider where operational simplicity matters more than provider-level redundancy.</p>
             </div>
             <div class="approach-col-points">
               <ul>
-                <li>Minimal hop count for long-haul enterprise traffic</li>
-                <li>Strict latency and availability service level agreements</li>
-                <li>Higher baseline commit thresholds</li>
+                <li>Simpler routing, support, and commercial management</li>
+                <li>Creates greater dependency on one provider and its network path</li>
+                <li>Compare routing quality, support, resilience, and contract terms rather than assuming a single-provider advantage</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 07 Current Relevant Offer (Frankfurt 100G) -->
+      <!-- Current opportunities are governed by the public offer registry. -->
       <section class="service-offer-card">
         <div class="offer-info">
-          <span class="offer-kicker">FEATURED COMMERCIAL OPPORTUNITY</span>
-          <h3 class="offer-title">100G IP Transit — Frankfurt</h3>
-          <p class="offer-desc">20G Committed Data Rate on 100G port, burstable 95th percentile billing, from €1,450/month across Equinix and Interxion Frankfurt campuses.</p>
+          <span class="offer-kicker">CURRENT OPPORTUNITIES</span>
+          <h3 class="offer-title">Review approved IP Transit offers</h3>
+          <p class="offer-desc">Public commercial terms appear only after the provider or supplier, price, validity, and publication status have been confirmed. If no transit allocation is currently public, InfraHub can still qualify the requirement and request current terms.</p>
         </div>
-        <a href="/offers/100g-transit-frankfurt" class="btn btn-primary">
-          <span>View Offer Details</span>
+        <a href="/offers" class="btn btn-primary">
+          <span>Review Featured Offers</span>
           <span class="link-arrow" aria-hidden="true">&rarr;</span>
         </a>
       </section>
@@ -315,7 +315,7 @@ import Layout from '../layouts/Layout.astro';
 
   .service-title {
     font-size: clamp(2.4rem, 4.5vw, 3.6rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.03em;
     color: var(--text-primary);
@@ -345,7 +345,7 @@ import Layout from '../layouts/Layout.astro';
 
   .section-headline {
     font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: -0.025em;
     color: var(--text-primary);
     line-height: 1.2;
@@ -602,7 +602,7 @@ import Layout from '../layouts/Layout.astro';
 
   .offer-title {
     font-size: 1.4rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-primary);
   }
 
@@ -642,7 +642,7 @@ import Layout from '../layouts/Layout.astro';
 
   .cta-headline {
     font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.2;
     color: #ffffff;
     letter-spacing: -0.02em;

@@ -2,13 +2,22 @@
 // src/pages/offers/[slug].astro
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { publicPriceLabel } from '../../lib/offer-pricing';
 
 export async function getStaticPaths() {
+  const now = new Date();
   const offers = await getCollection('offers');
-  return offers.map(offer => ({
-    params: { slug: offer.slug },
-    props: { offer }
-  }));
+  return offers
+    .filter(offer => {
+      if (!offer.data.publicApproved) return false;
+      if (offer.data.status !== 'active') return false;
+      if (offer.data.expiryDate && now > offer.data.expiryDate) return false;
+      return true;
+    })
+    .map(offer => ({
+      params: { slug: offer.slug },
+      props: { offer }
+    }));
 }
 
 const { offer } = Astro.props;
@@ -22,40 +31,26 @@ const offerUrl = `${SITE}/offers/${offer.slug}`;
 // rather than forcing everything into one shape.
 const isHardware = offer.data.category === 'hardware';
 
-// PRICE IS DELIBERATELY NOT EMITTED.
-//
-// Three separate reasons, any one of which is sufficient:
-//
-//   1. `verifiedPrice` is prose, not a number  -  "From €1,450/mo" is a lower bound and a
-//      billing period, not a price. Encoding it as schema.org `price` would be factually
-//      wrong even if the figure were confirmed.
-//   2. None of these figures is verified. docs/CLAIMS_REGISTER.md carries them as C-01 and
-//      C-06, state OWNER INPUT.
-//   3. Structured data is a machine-readable assertion that search engines may surface as a
-//      price. Publishing an unconfirmed figure in that form amplifies it rather than
-//      qualifying it.
-//
-// `availability` is omitted for the same class of reason: the project has no verified
-// inventory, and claiming stock is exactly what directive §22 forbids.
-//
-// When the owner confirms pricing, add `priceSpecification` here  -  the shape is small and the
-// data it needs is already on the offer.
-const offerNode = {
-  '@type': 'Offer',
-  url: offerUrl,
-  category: offer.data.category,
-  ...(offer.data.expiryDate && { validThrough: offer.data.expiryDate.toISOString().slice(0, 10) }),
-  seller: { '@type': 'Organization', name: 'InfraHub', url: SITE }
-};
+// Never render a record's price string directly. publicPriceLabel returns the exact price
+// only when the record carries owner approval, a confirmed price status, a display value and
+// a source reference; otherwise it returns the request label.
+const priceLabel = publicPriceLabel(offer.data);
 
+// Partner-delivered services are contracted by the provider; directly sourced hardware is
+// confirmed per quotation. The two are different transactions, so they say different things.
+const isPartnerDelivered = Boolean(offer.data.partner) && !isHardware;
+
+// Public offer pages deliberately keep structured data conservative.
+// InfraHub may source hardware directly, while partner-delivered services are contracted by
+// the selected provider. The content model does not yet encode enough verified contractual
+// detail to assert a universal seller/provider relationship in schema.org markup.
 const primaryNode = isHardware
   ? {
       '@type': 'Product',
       '@id': `${offerUrl}#product`,
       name: offer.data.title,
       description: offer.data.shortDescription,
-      category: offer.data.category,
-      offers: offerNode
+      category: offer.data.category
     }
   : {
       '@type': 'Service',
@@ -63,9 +58,7 @@ const primaryNode = isHardware
       name: offer.data.title,
       description: offer.data.shortDescription,
       serviceType: offer.data.category,
-      areaServed: offer.data.location,
-      provider: { '@type': 'Organization', name: 'InfraHub', url: SITE },
-      offers: offerNode
+      areaServed: offer.data.location
     };
 
 const structuredData = {
@@ -86,9 +79,11 @@ const structuredData = {
 ---
 
 <Layout 
-  title={`${offer.data.title}  -  Offer Details`}
+  title={`${offer.data.title} — Offer Details`}
   description={offer.data.shortDescription}
   canonicalPath={`/offers/${offer.slug}`}
+  ogImage="/images/og/offer.png"
+  ogImageAlt="InfraHub commercial sourcing board"
 >
   <div class="section section-hero network-overlay">
     <div class="container offer-detail-container">
@@ -112,7 +107,7 @@ const structuredData = {
             )}
             <div class="meta-item">
               <span class="meta-label">Pricing</span>
-              <span class="meta-val price-accent">{offer.data.verifiedPrice}</span>
+              <span class="meta-val price-accent">{priceLabel}</span>
             </div>
           </div>
         </div>
@@ -137,8 +132,18 @@ const structuredData = {
           <div class="what-happens-next">
             <h2>What happens after requesting this offer?</h2>
             <p>
-              When you submit an inquiry for this offer, our team confirms live stock and allocation availability with {offer.data.partner || "the delivering partner"}. You receive a detailed technical sheet and commercial quote within 1 business day.
+              InfraHub reviews the request and confirms current availability, technical conditions, and commercial terms with the relevant supplier or provider where applicable.
             </p>
+            {isPartnerDelivered && (
+              <p>
+                The selected provider confirms the applicable contract, service commitments, implementation and delivery terms.
+              </p>
+            )}
+            {isHardware && (
+              <p>
+                For directly sourced hardware, supply, warranty, testing and delivery terms are confirmed per quotation with the sourcing supplier.
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -147,8 +152,8 @@ const structuredData = {
       <aside class="offer-sidebar">
         <div class="request-card">
           <span class="request-price-label">Commercial Pricing</span>
-          <div class="request-price">{offer.data.verifiedPrice}</div>
-          <p class="request-terms">Subject to contractual term and port availability.</p>
+          <div class="request-price">{priceLabel}</div>
+          <p class="request-terms">Availability, technical conditions and commercial terms are confirmed per request.</p>
 
           <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-block btn-lg">
             <span>Request This Offer</span>
@@ -158,26 +163,9 @@ const structuredData = {
             </svg>
           </a>
 
-          <div class="request-assurances">
-            <div class="assurance-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Zero markups through InfraHub</span>
-            </div>
-            <div class="assurance-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Direct partner contract & SLA</span>
-            </div>
-            <div class="assurance-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              <span>Dedicated architect support</span>
-            </div>
-          </div>
+          <p class="request-note">
+            InfraHub confirms current availability and commercial terms with the relevant supplier or provider before anything is committed.
+          </p>
         </div>
       </aside>
     </div>
@@ -207,7 +195,7 @@ const structuredData = {
 
   .offer-main-title {
     font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.15;
     margin-bottom: 24px;
   }
@@ -215,18 +203,18 @@ const structuredData = {
   .offer-meta-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
-    padding: 18px 24px;
+    gap: 32px;
+    padding: 24px 32px;
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    margin-bottom: 40px;
+    margin-bottom: 48px;
   }
 
   .meta-item {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
   }
   .meta-label {
     font-size: 0.72rem;
@@ -277,21 +265,21 @@ const structuredData = {
   }
 
   .what-happens-next {
-    padding: 24px;
+    padding: 32px 36px;
     background-color: var(--accent-teal-light);
     border: 1px solid rgba(13, 148, 136, 0.25);
     border-radius: var(--radius-md);
   }
   .what-happens-next h2 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: #0f766e;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
   }
   .what-happens-next p {
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     color: #115e59;
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   /* Sticky Sidebar */
@@ -304,7 +292,7 @@ const structuredData = {
     background-color: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
-    padding: 32px;
+    padding: 36px;
     box-shadow: var(--shadow-lg);
   }
 
@@ -318,7 +306,7 @@ const structuredData = {
   .request-price {
     font-family: var(--font-heading);
     font-size: 2rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-primary);
     margin: 6px 0 10px;
   }
@@ -329,20 +317,12 @@ const structuredData = {
     line-height: 1.4;
   }
 
-  .request-assurances {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  .request-note {
     margin-top: 24px;
     padding-top: 20px;
     border-top: 1px solid var(--border-color);
-  }
-  .assurance-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     font-size: 0.85rem;
-    font-weight: 500;
+    line-height: 1.5;
     color: var(--text-secondary);
   }
 </style>

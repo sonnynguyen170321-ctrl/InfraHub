@@ -1,0 +1,79 @@
+---
+// src/components/BrandLogo.astro
+//
+// The single InfraHub lockup. Header, footer and any future surface render this component
+// rather than their own copy of the mark: three hand-maintained inline SVGs had already
+// drifted apart (different container fill, different accent dot) and the schema.org logo
+// pointed at a fourth. One component, one palette, one wordmark.
+//
+// public/logo.svg is the standalone file for external consumers (schema.org, social,
+// partners) and must be kept in the same palette as this component.
+
+interface Props {
+  /** Pixel size of the square mark. */
+  size?: number;
+  /** Wordmark colour context: dark UI surfaces need the light wordmark. */
+  tone?: 'dark' | 'light';
+}
+
+const { size = 28, tone = 'dark' } = Astro.props;
+---
+
+<span class="brand-lockup" data-tone={tone}>
+  <span class="brand-mark">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect width="28" height="28" rx="6" fill="#0F172A" />
+      <path d="M7 14H11M17 14H21M14 7V11M14 17V21" stroke="#2563EB" stroke-width="2.2" stroke-linecap="round" />
+      <circle cx="14" cy="14" r="3" fill="#0284C7" />
+    </svg>
+  </span>
+  <span class="brand-wordmark">Infra<span class="brand-accent">Hub</span></span>
+</span>
+
+<style>
+  .brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .brand-mark svg {
+    display: block;
+  }
+
+  .brand-wordmark {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+
+  .brand-lockup[data-tone='light'] .brand-wordmark {
+    color: #ffffff;
+  }
+
+  .brand-accent {
+    color: var(--accent-blue);
+  }
+</style>

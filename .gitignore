@@ -13,3 +13,14 @@ dist/
 # OS / editor cruft
 Thumbs.db
 .DS_Store
+
+# Playwright
+test-results/
+playwright-report/
+
+# Local design references (kept off the deployed site)
+*.reference.png
+packetfabric.com_.png
+
+# Screenshot evidence (regenerate with scripts/capture-matrix.mjs)
+screenshots/
