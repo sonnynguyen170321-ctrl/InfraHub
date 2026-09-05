@@ -492,7 +492,9 @@ const riskPoints = [
     /* The inactive view is genuinely inert rather than transparent: nothing in it is
        reachable, hoverable or announced while the other view is the subject. */
     visibility: hidden;
-    transition: opacity var(--motion-image) var(--ease-out), visibility 0s linear var(--motion-image);
+    /* Out quickly, in at image pace. Two line drawings occupying the same space read as mud
+       if they cross-fade symmetrically. */
+    transition: opacity var(--motion-ui) var(--ease-out), visibility 0s linear var(--motion-ui);
   }
 
   .schematic-svg.is-showing {
