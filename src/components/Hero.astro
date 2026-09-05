@@ -4,24 +4,46 @@
 // The hero photograph is the LCP element of the site. It goes through astro:assets so the
 // build emits sized, modern-format variants and a srcset, rather than shipping one 1920px
 // JPEG to every device.
+//
+// Lighting model. The photograph used to be darkened twice — brightness(0.65) on the image
+// AND a 94%→65% black scrim over it — which flattened a genuinely detailed facility into an
+// unreadable dark rectangle. It is now lit locally instead of uniformly: the left third is
+// held dark enough to carry the copy, and the right two thirds are left open so the racks,
+// cable trays and aisle depth are actually visible. Exposure and scrim were chosen from
+// screenshot comparisons at three settings, not from taste alone.
+//
+// Layer order inside the backdrop, bottom to top:
+//   .hero-camera      scroll + pointer transform (the only moving layer)
+//     .hero-bg-img    the photograph, carrying the one-time exposure reveal
+//   .hero-scrim       localized readability + depth gradients
+//   .hero-light-field restrained radial lift around the rack architecture
+//   .hero-light-trace one-time highlight across the overhead cable geometry
+//   .hero-exit-veil   a 10% exposure drop, applied only in the last third of the exit
+//   .hero-paper-rise  the partner surface pushing up into the frame as the hero leaves
 import { Image } from 'astro:assets';
 import heroImage from '../assets/hero-datacenter.jpg';
 ---
 
 <section class="hero-section" id="hero">
   <div class="hero-backdrop" aria-hidden="true">
-    <Image
-      src={heroImage}
-      alt=""
-      class="hero-bg-img"
-      loading="eager"
-      fetchpriority="high"
-      widths={[900, 1280, 1600]}
-      sizes="100vw"
-      quality={76}
-      format="webp"
-    />
+    <div class="hero-camera">
+      <Image
+        src={heroImage}
+        alt=""
+        class="hero-bg-img"
+        loading="eager"
+        fetchpriority="high"
+        widths={[640, 960, 1376]}
+        sizes="100vw"
+        quality={78}
+        format="webp"
+      />
+    </div>
     <div class="hero-scrim"></div>
+    <div class="hero-light-field"></div>
+    <div class="hero-light-trace"></div>
+    <div class="hero-exit-veil"></div>
+    <div class="hero-paper-rise"></div>
   </div>
 
   <div class="container hero-container">
@@ -36,7 +58,7 @@ import heroImage from '../assets/hero-datacenter.jpg';
       </p>
 
       <div class="hero-actions">
-        <a href="#solutions-ecosystem" class="btn btn-accent btn-lg">
+        <a href="#solutions-ecosystem" class="btn btn-accent hero-primary-action">
           Explore Solutions
         </a>
         <a href="/lets-talk" class="hero-text-action">
@@ -47,7 +69,7 @@ import heroImage from '../assets/hero-datacenter.jpg';
     </div>
   </div>
 
-  <!-- Central Infrastructure Routing Line Exit (Directive 2, 3, 6) -->
+  <!-- The route motif starts here, after the environment has established itself. -->
   <div class="hero-routing-exit" aria-hidden="true">
     <div class="routing-line-stem"></div>
     <div class="routing-line-junction"></div>
@@ -57,48 +79,187 @@ import heroImage from '../assets/hero-datacenter.jpg';
 <style>
   .hero-section {
     position: relative;
-    min-height: 68dvh;
-    max-height: 720px;
+    /*
+     * min-height beats max-height in CSS, so the two cannot simply be stated side by side:
+     * at 1080px tall, 76dvh is 821px and a max-height of 780px would never apply.
+     */
+    min-height: min(76dvh, 780px);
     display: flex;
     align-items: center;
-    background-color: #070b14;
+    background-color: #070c14;
     color: #ffffff;
     overflow: hidden;
     padding: 96px 0 88px;
   }
 
-  /* Authentic Photography Backdrop */
   .hero-backdrop {
     position: absolute;
     inset: 0;
     z-index: 1;
     overflow: hidden;
   }
+
+  /*
+   * The camera is a separate layer from the photograph because the two move for different
+   * reasons: the image carries the one-time exposure reveal, the camera carries the scroll
+   * push and the pointer offset. Putting both on one element means one transform overwriting
+   * the other, which is what the previous inline-style approach did.
+   */
+  .hero-camera {
+    position: absolute;
+    inset: 0;
+    transform:
+      scale(calc(1 + var(--hero-progress, 0) * 0.045))
+      translate3d(
+        calc(var(--hero-progress, 0) * -5px + var(--hero-pointer-x, 0px)),
+        calc(var(--hero-progress, 0) * -8px + var(--hero-pointer-y, 0px)),
+        0
+      );
+    transition: transform 220ms var(--ease-out);
+    will-change: transform;
+  }
+
   .hero-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 30%;
-    filter: brightness(0.65) contrast(1.1);
-    transform: scale(1);
-    transition: transform 600ms cubic-bezier(0.23, 1, 0.32, 1), filter 600ms ease;
-    will-change: transform;
+    /*
+     * At desktop widths the hero box is wider than the photograph's 1.79 aspect ratio, so
+     * object-fit crops vertically and the horizontal half of this value has no effect there.
+     * It is decisive on mobile, where the crop is horizontal — see the 768px block.
+     */
+    object-position: center 42%;
+    filter: brightness(0.92) contrast(1.06) saturate(0.92);
+    animation: heroAwaken 1200ms var(--ease-out) both;
   }
+
+  /*
+   * The eye adapting to a real technical environment: the facility starts slightly closed
+   * down and opens to its final exposure. One time, no loop, no flash.
+   */
+  @keyframes heroAwaken {
+    0% {
+      filter: brightness(0.72) contrast(1) saturate(0.9);
+      transform: scale(1.018);
+    }
+    100% {
+      filter: brightness(0.92) contrast(1.06) saturate(0.92);
+      transform: scale(1);
+    }
+  }
+
+  /*
+   * Layer A is the left-side readability gradient, layer B the bottom atmospheric settle.
+   * The relationship that matters is left dark enough for copy, right open enough to inspect.
+   */
   .hero-scrim {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      105deg,
-      rgba(7, 11, 20, 0.94) 0%,
-      rgba(7, 11, 20, 0.85) 45%,
-      rgba(7, 11, 20, 0.65) 100%
+    background:
+      linear-gradient(
+        90deg,
+        rgba(7, 12, 20, 0.8) 0%,
+        rgba(7, 12, 20, 0.7) 26%,
+        rgba(7, 12, 20, 0.44) 46%,
+        rgba(7, 12, 20, 0.14) 68%,
+        rgba(7, 12, 20, 0.02) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(7, 12, 20, 0.1) 0%,
+        rgba(7, 12, 20, 0) 44%,
+        rgba(7, 12, 20, 0.24) 80%,
+        rgba(7, 12, 20, 0.52) 100%
+      );
+  }
+
+  /* Dimension around the rack architecture. If this ever reads as a blue glow, it is too strong. */
+  .hero-light-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at 76% 44%,
+      rgba(67, 112, 160, 0.13) 0%,
+      rgba(40, 84, 199, 0.045) 28%,
+      transparent 58%
     );
+  }
+
+  /*
+   * One highlight passing through the overhead cable geometry as the image reaches exposure.
+   * Masked to the upper part of the frame so it tracks the trays rather than sweeping the
+   * whole hero like a UI effect. Peak opacity 0.08 — if a viewer can describe it, reduce it.
+   */
+  .hero-light-trace {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(
+      102deg,
+      transparent 38%,
+      rgba(198, 216, 238, 0.5) 50%,
+      transparent 62%
+    );
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 26%, transparent 48%);
+    mask-image: linear-gradient(180deg, #000 0%, #000 26%, transparent 48%);
+    animation: heroTrace 1500ms var(--ease-out) 260ms 1 forwards;
+  }
+
+  @keyframes heroTrace {
+    0% {
+      opacity: 0;
+      transform: translateX(26%);
+    }
+    45% {
+      opacity: 0.08;
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-14%);
+    }
+  }
+
+  /*
+   * Exposure drops only in the last third of the exit, so the photograph stays worth looking
+   * at while the visitor is still leaving it. Negative opacity clamps to 0 on its own.
+   */
+  .hero-exit-veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-color: #070c14;
+    opacity: calc((var(--hero-progress, 0) - 0.65) / 3.5);
+  }
+
+  /*
+   * The partner surface physically enters from below rather than the hero cross-fading out.
+   * It completes by 60% of the exit, so the route line leaves the photograph and continues
+   * into the ecosystem on a light ground.
+   */
+  .hero-paper-rise {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.86) 42%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateY(calc(100% - min(var(--hero-progress, 0) * 1.667, 1) * 100%));
   }
 
   .hero-container {
     position: relative;
     z-index: 2;
     max-width: 1240px;
+    transform: translateY(calc(var(--hero-progress, 0) * -28px));
+    opacity: calc(max(0, 1 - var(--hero-progress, 0) * 1.5));
     will-change: transform, opacity;
   }
 
@@ -109,7 +270,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     gap: 24px;
   }
 
-  /* Vertical Mask Revealing (Directive 6: Line-by-line independent reveals) */
   .hero-title {
     font-size: clamp(2.6rem, 5.2vw, 4.2rem);
     font-weight: 700;
@@ -132,12 +292,13 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   .hero-line-1 {
-    animation-delay: 40ms;
+    animation-delay: 80ms;
   }
 
+  /* The second line is quieter than the first, not disabled. */
   .hero-line-2 {
-    color: #e2e8f0;
-    animation-delay: 180ms;
+    color: #e8ecea;
+    animation-delay: 200ms;
   }
 
   @keyframes heroLineReveal {
@@ -154,11 +315,17 @@ import heroImage from '../assets/hero-datacenter.jpg';
   .hero-description {
     font-size: clamp(1.1rem, 1.4vw, 1.25rem);
     line-height: 1.65;
-    color: #cbd5e1;
-    max-width: 700px;
+    color: #d4dade;
+    /*
+     * 700px ran to about 95 characters a line, and it pushed the last words of each line out
+     * past the middle of the frame where the scrim has already opened up — one specular
+     * highlight on a rack edge landed behind live glyphs at 2.7:1. A shorter measure keeps
+     * the copy inside the zone that is actually lit for it, and reads better besides.
+     */
+    max-width: 620px;
     opacity: 0;
     transform: translateY(16px);
-    animation: heroFadeUp var(--motion-content) var(--ease-out) 320ms forwards;
+    animation: heroFadeUp var(--motion-content) var(--ease-out) 360ms forwards;
   }
 
   .hero-actions {
@@ -169,7 +336,7 @@ import heroImage from '../assets/hero-datacenter.jpg';
     margin-top: 16px;
     opacity: 0;
     transform: translateY(16px);
-    animation: heroFadeUp var(--motion-content) var(--ease-out) 460ms forwards;
+    animation: heroFadeUp var(--motion-content) var(--ease-out) 480ms forwards;
   }
 
   @keyframes heroFadeUp {
@@ -183,12 +350,31 @@ import heroImage from '../assets/hero-datacenter.jpg';
     }
   }
 
-  /* Quiet, confident secondary text action */
+  /*
+   * A deeper cobalt than the shared button token, because this one sits on a photograph
+   * rather than on paper. No glow, no gradient, and no hover lift: the global .btn-accent
+   * rule raises the button by 1px, which reads as a widget floating over the facility.
+   */
+  .hero-primary-action {
+    background-color: #2450bd;
+    padding: 15px 26px;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .hero-primary-action:hover {
+    background-color: #2d5cd6;
+    transform: none;
+  }
+  .hero-primary-action:active {
+    transform: scale(0.99);
+  }
+
+  /* The secondary action stays a text action; the route continues under it on hover. */
   .hero-text-action {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #e2e8f0;
+    color: rgba(232, 236, 234, 0.82);
     font-size: 1.02rem;
     font-weight: 600;
     padding: 8px 0;
@@ -197,7 +383,7 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
   .hero-text-action:hover {
     color: #ffffff;
-    border-bottom-color: rgba(255, 255, 255, 0.6);
+    border-bottom-color: rgba(255, 255, 255, 0.55);
   }
   .action-arrow {
     transition: transform 160ms ease;
@@ -207,7 +393,10 @@ import heroImage from '../assets/hero-datacenter.jpg';
     transform: translateX(3px);
   }
 
-  /* Infrastructure Route Line Exit (Directive 6: Routing line emerges from bottom edge) */
+  /*
+   * The route belongs to the journey, so it arrives once the environment and the copy have
+   * both landed, then extends downward as the visitor scrolls.
+   */
   .hero-routing-exit {
     position: absolute;
     bottom: 0;
@@ -219,12 +408,28 @@ import heroImage from '../assets/hero-datacenter.jpg';
     display: flex;
     flex-direction: column;
     align-items: center;
+    opacity: 0;
+    animation: heroRouteArrive 520ms var(--ease-out) 1000ms forwards;
+  }
+
+  @keyframes heroRouteArrive {
+    to {
+      opacity: 1;
+    }
   }
 
   .routing-line-stem {
     width: 1.5px;
     height: 100%;
     background: linear-gradient(to bottom, rgba(40, 84, 199, 0), var(--accent-blue));
+    /*
+     * Anchored at the hero's bottom edge so it is continuous with the ribbon's entry line at
+     * rest; scaling from the top instead left a 21px gap between the two segments, which read
+     * as two unrelated marks rather than one route. On scroll it extends up out of the
+     * photograph, which is where the route comes from.
+     */
+    transform-origin: bottom center;
+    transform: scaleY(calc(0.45 + min(var(--hero-progress, 0) * 2, 1) * 0.55));
   }
 
   .routing-line-junction {
@@ -233,12 +438,52 @@ import heroImage from '../assets/hero-datacenter.jpg';
     background-color: var(--accent-blue);
     border-radius: 50%;
     margin-top: -2px;
+    opacity: calc(var(--hero-progress, 0) * 4);
   }
 
+  /*
+   * Mobile is a different photograph. The crop is horizontal here, so object-position picks
+   * which part of the room is on screen; dead centre is the dark vanishing point, which is
+   * the least legible part of the frame at 390px. The scrim is a top-to-bottom/left-to-right
+   * hybrid rather than the desktop 90deg gradient, which would leave the copy on open image.
+   */
   @media (max-width: 768px) {
     .hero-section {
       min-height: auto;
-      padding: 88px 0 56px;
+      max-height: none;
+      padding: 88px 0 64px;
+    }
+    .hero-bg-img {
+      /*
+       * 36% of the frame is on screen at 390px. Centre lands on the aisle's vanishing point,
+       * which is the darkest and least legible part of the room; 86% lands on the right-hand
+       * rack wall, where there is equipment, cabling and an aisle sign to actually see.
+       */
+      object-position: 86% 44%;
+    }
+    .hero-scrim {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(7, 12, 20, 0.66) 0%,
+          rgba(7, 12, 20, 0.5) 34%,
+          rgba(7, 12, 20, 0.26) 68%,
+          rgba(7, 12, 20, 0.58) 100%
+        ),
+        linear-gradient(
+          90deg,
+          rgba(7, 12, 20, 0.34) 0%,
+          rgba(7, 12, 20, 0.1) 62%,
+          rgba(7, 12, 20, 0) 100%
+        );
+    }
+    .hero-light-field {
+      background: radial-gradient(
+        ellipse at 62% 40%,
+        rgba(67, 112, 160, 0.12) 0%,
+        rgba(40, 84, 199, 0.04) 30%,
+        transparent 60%
+      );
     }
     .hero-actions {
       flex-direction: column;
@@ -247,55 +492,139 @@ import heroImage from '../assets/hero-datacenter.jpg';
     }
   }
 
+  /*
+   * Reduced motion gets the finished composition immediately, at the same exposure. It must
+   * not be handed a darker or otherwise inferior hero as the price of holding still.
+   */
   @media (prefers-reduced-motion: reduce) {
+    .hero-bg-img {
+      animation: none;
+      filter: brightness(0.92) contrast(1.06) saturate(0.92);
+      transform: none;
+    }
+    .hero-camera {
+      transform: none;
+      transition: none;
+      will-change: auto;
+    }
+    .hero-light-trace {
+      display: none;
+    }
     .hero-line,
     .hero-description,
-    .hero-actions {
+    .hero-actions,
+    .hero-routing-exit {
       animation: none !important;
       transform: none !important;
       opacity: 1 !important;
+    }
+    .hero-container {
+      transform: none;
+      opacity: 1;
+      will-change: auto;
+    }
+    .routing-line-stem {
+      transform: none;
+    }
+    .routing-line-junction {
+      opacity: 1;
     }
   }
 </style>
 
 <script>
-  // Hero Scroll Camera Push & Exit Transition (Directive 6)
+  /**
+   * The hero writes one number. Everything the scroll drives — camera push, content exit,
+   * the exit exposure, the route extending, the partner surface rising — is expressed in CSS
+   * against --hero-progress. The previous version mutated four inline styles directly, one of
+   * which set scrim opacity above 1 (meaningless, and it darkened the photograph precisely
+   * where the point is to keep it visible).
+   */
   function initHeroScroll() {
-    const heroBg = document.querySelector('.hero-bg-img') as HTMLElement;
-    const heroContainer = document.querySelector('.hero-container') as HTMLElement;
     const heroSection = document.getElementById('hero');
-    const heroScrim = document.querySelector('.hero-scrim') as HTMLElement;
-
-    if (!heroBg || !heroContainer || !heroSection || !heroScrim) return;
+    if (!heroSection) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-          const heroHeight = heroSection.offsetHeight;
-          if (scrollY <= heroHeight) {
-            const progress = Math.min(scrollY / heroHeight, 1);
-            // Camera push 1.00 -> 1.035
-            const scale = 1.0 + progress * 0.035;
-            heroBg.style.transform = `scale(${scale.toFixed(4)})`;
-            // Headline rises slightly (20-30px) and fades smoothly
-            heroContainer.style.transform = `translateY(-${(progress * 28).toFixed(1)}px)`;
-            heroContainer.style.opacity = `${(1 - progress * 0.6).toFixed(2)}`;
-            // The photograph recedes rather than simply scrolling away.
-            heroScrim.style.opacity = `${(1 + progress * 0.45).toFixed(2)}`;
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
+
+    const write = () => {
+      const heroHeight = heroSection.offsetHeight || 1;
+      const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
+      heroSection.style.setProperty('--hero-progress', progress.toFixed(4));
+      ticking = false;
+    };
+
+    write();
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(write);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', write, { passive: true });
+  }
+
+  /**
+   * A few pixels of crop response to the pointer, so the frame feels like a window onto a
+   * room rather than a flat plate. Finishing detail only: ±3px horizontal, ±2px vertical,
+   * and never on touch, coarse pointers, narrow viewports or reduced motion.
+   */
+  function initHeroPointerDepth() {
+    const heroSection = document.getElementById('hero');
+    if (!heroSection) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)').matches) return;
+
+    let ticking = false;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const write = () => {
+      heroSection.style.setProperty('--hero-pointer-x', `${pointerX.toFixed(2)}px`);
+      heroSection.style.setProperty('--hero-pointer-y', `${pointerY.toFixed(2)}px`);
+      ticking = false;
+    };
+
+    heroSection.addEventListener(
+      'pointermove',
+      (event) => {
+        if (event.pointerType !== 'mouse') return;
+        const rect = heroSection.getBoundingClientRect();
+        pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * -6;
+        pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * -4;
+        if (!ticking) {
+          window.requestAnimationFrame(write);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+
+    heroSection.addEventListener(
+      'pointerleave',
+      () => {
+        pointerX = 0;
+        pointerY = 0;
+        write();
+      },
+      { passive: true }
+    );
+  }
+
+  function initHero() {
+    initHeroScroll();
+    initHeroPointerDepth();
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroScroll);
+    document.addEventListener('DOMContentLoaded', initHero);
   } else {
-    initHeroScroll();
+    initHero();
   }
 </script>

@@ -519,13 +519,17 @@ import BrandLogo from './BrandLogo.astro';
     const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
     const drawerFocusables = () =>
-      drawer ? Array.from(drawer.querySelectorAll(FOCUSABLE)).filter((el) => el.offsetParent !== null) : [];
+      drawer
+        ? Array.from(drawer.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+            (el) => el.offsetParent !== null
+          )
+        : [];
 
     const firstDrawerControl = () => drawerFocusables()[0] || null;
 
     const isDrawerOpen = () => Boolean(drawer && drawer.classList.contains('is-open'));
 
-    const setDrawerState = (open, options) => {
+    const setDrawerState = (open: boolean, options?: { restoreFocus?: boolean }) => {
       if (!toggle || !drawer) return;
       const wasOpen = isDrawerOpen();
       const restoreFocus = !options || options.restoreFocus !== false;
@@ -572,7 +576,7 @@ import BrandLogo from './BrandLogo.astro';
       const trigger = item.querySelector('.menu-trigger, .dropdown-trigger');
       if (!trigger) return;
 
-      const setExpanded = (expanded) => {
+      const setExpanded = (expanded: boolean) => {
         trigger.setAttribute('aria-expanded', String(expanded));
       };
 
@@ -580,14 +584,15 @@ import BrandLogo from './BrandLogo.astro';
       item.addEventListener('mouseleave', () => setExpanded(false));
       item.addEventListener('focusin', () => setExpanded(true));
       item.addEventListener('focusout', (event) => {
-        if (!item.contains(event.relatedTarget)) setExpanded(false);
+        const next = (event as FocusEvent).relatedTarget;
+        if (!(next instanceof Node) || !item.contains(next)) setExpanded(false);
       });
     });
 
     // While the drawer is open the rest of the page is aria-hidden, so Tab must not walk into
     // it. Wrap focus at both ends of the drawer instead.
     document.addEventListener('keydown', (event) => {
-      if (event.key !== 'Tab' || !isDrawerOpen()) return;
+      if (event.key !== 'Tab' || !isDrawerOpen() || !drawer) return;
 
       const focusables = drawerFocusables();
       if (focusables.length === 0) return;
@@ -613,7 +618,7 @@ import BrandLogo from './BrandLogo.astro';
         return;
       }
 
-      const expandedDesktopTrigger = document.querySelector(
+      const expandedDesktopTrigger = document.querySelector<HTMLElement>(
         '.menu-trigger[aria-expanded="true"], .dropdown-trigger[aria-expanded="true"]'
       );
       if (expandedDesktopTrigger) {

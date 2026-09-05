@@ -180,7 +180,8 @@ const RIBBON_LOGO_HEIGHT = 32;
   /* Composition: dedicated full-width horizontal geometry */
   .ribbon-inner {
     width: 100%;
-    max-width: none;
+    max-width: 100vw;
+    overflow: hidden;
     margin: 0;
     padding-left: clamp(20px, 2vw, 28px);
     padding-right: 0;
@@ -238,6 +239,8 @@ const RIBBON_LOGO_HEIGHT = 32;
     overflow: hidden;
     position: relative;
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     padding-left: clamp(16px, 1.5vw, 24px);
     mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 36px), transparent 100%);
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 36px), transparent 100%);

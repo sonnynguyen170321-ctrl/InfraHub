@@ -72,6 +72,18 @@ surfaces that show a logo, and held by tests in `tests/e2e/partners.spec.ts`.
 | `/images/managed-noc.jpg` | Network Operations Center engineering desk | Operator Facility Photography | Approved for illustrative use | Active (Band 2 Solutions) | Illustrates 24/7 proactive monitoring and escalation workflows. |
 | `/images/physical-route-diversity.jpg` | Optical conduit & sub-duct route layout | Technical Network Engineering | Approved for illustrative use | Active (Wavelengths / Insights) | Illustrates physical conduit separation and bridge/rail diversity. |
 
+### Hero source resolution
+
+The hero file on record is 1376x768. The build requests 640 / 960 / 1376 widths, which is
+every pixel the source actually has: asking for 1600 produced a 1376 file, so the extra
+variant was bytes for nothing. On a 1920px display the photograph is therefore upscaled by
+about 1.4x and is measurably soft. Its content is not the problem -- real facility, real
+aisle signage, genuine overhead cable architecture, no third-party branding and none of the
+blue-LED cliche -- so it was kept rather than replaced. Sharpening this at 1920 needs a
+licensed higher-resolution original of the same frame, which is an owner decision: no source
+URL, licence or EXIF is recorded for this asset, so a larger copy cannot be sourced or
+claimed from here.
+
 ---
 
 ## 4. Governance & Review Schedule

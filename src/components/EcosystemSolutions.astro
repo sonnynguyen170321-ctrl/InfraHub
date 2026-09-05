@@ -6,7 +6,7 @@ import networkVisual from '../assets/network-fiber.jpg';
 import securityVisual from '../assets/security-operations.jpg';
 import managedVisual from '../assets/managed-noc.jpg';
 
-// src/components/EcosystemSolutions.astro — Solution Discovery (Master Art Direction Directives 06–16)
+// src/components/EcosystemSolutions.astro — Final Solution Discovery (Master Directives 01–36)
 const solutionFamilies = [
   {
     id: "infrastructure",
@@ -15,14 +15,14 @@ const solutionFamilies = [
     discipline: "Hardware & facilities",
     summary: "Dedicated compute, colocation, GPU infrastructure, and enterprise hardware sourcing matched to workload, facility, and commercial requirements.",
     image: infrastructureVisual,
-    imageAlt: "Enterprise datacenter server racks with precision cooling",
+    imageAlt: "Datacenter compute environment with high-density server racks",
     ctaLink: "/solutions/infrastructure",
     services: [
-      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "High-spec bare metal with custom NVMe storage and ECC RAM" },
-      { name: "Custom IaaS", url: "/custom-iaas", desc: "Tailored bare-metal clusters and dedicated private hypervisors" },
-      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "GPU infrastructure for training, inference, and accelerator-heavy workloads" },
-      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Enterprise routing, switching, server, and optical hardware sourcing" },
-      { name: "Colocation", url: "/colocation", desc: "Rack, cage, power, and interconnection options matched to facility requirements" }
+      { name: "Dedicated Servers", url: "/dedicated-servers", desc: "Bare-metal compute and custom configurations." },
+      { name: "Custom IaaS", url: "/custom-iaas", desc: "Dedicated clusters and private hypervisors." },
+      { name: "GPU & AI Infrastructure", url: "/gpu-ai-infrastructure", desc: "Accelerator-heavy workloads." },
+      { name: "Enterprise Hardware", url: "/enterprise-hardware", desc: "Routing, switching and server sourcing." },
+      { name: "Colocation", url: "/colocation", desc: "Rack, cage, power and interconnection." }
     ]
   },
   {
@@ -35,10 +35,10 @@ const solutionFamilies = [
     imageAlt: "Clustered compute hypervisors and private cloud infrastructure",
     ctaLink: "/solutions/cloud-virtualization",
     services: [
-      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable operational economics" },
-      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates migration architectures" },
-      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Private connectivity and cloud on-ramps to major public cloud platforms" },
-      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and failover architectures, delivered by the selected provider" }
+      { name: "Private Cloud", url: "/private-cloud", desc: "Dedicated hypervisors with predictable economics." },
+      { name: "VMware Alternatives", url: "/vmware-alternatives", desc: "Proxmox VE and XCP-ng / Vates architectures." },
+      { name: "Public Cloud Integration", url: "/solutions/cloud-virtualization", desc: "Private direct-connect to major clouds." },
+      { name: "Disaster Recovery", url: "/solutions/cloud-virtualization", desc: "Off-site replication and failover architectures." }
     ]
   },
   {
@@ -51,11 +51,11 @@ const solutionFamilies = [
     imageAlt: "High-density optical fiber patch panel and LC transceivers",
     ctaLink: "/solutions/network-connectivity",
     services: [
-      { name: "IP Transit", url: "/ip-transit", desc: "Upstream BGP connectivity; commit levels and billing model are confirmed per provider" },
-      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths across major metros" },
-      { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro DCI interconnects" },
-      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Private direct-connect bypass to cloud access points" },
-      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "IPv4 leasing, sourcing, reputation, authorization, and routing considerations" }
+      { name: "IP Transit", url: "/ip-transit", desc: "Upstream BGP connectivity and committed data rates." },
+      { name: "Wavelengths", url: "/wavelengths", desc: "Dedicated point-to-point lit optical wavelengths." },
+      { name: "Layer 2 Connectivity", url: "/layer-2-connectivity", desc: "Private Ethernet circuits and metro interconnects." },
+      { name: "Cloud Connectivity", url: "/cloud-connectivity", desc: "Direct cloud bypass to major access points." },
+      { name: "IPv4 Subnet Leasing", url: "/ipv4", desc: "Verified address space and routing authorization." }
     ]
   },
   {
@@ -68,10 +68,10 @@ const solutionFamilies = [
     imageAlt: "Network operations security monitoring console and BGP telemetry",
     ctaLink: "/solutions/security",
     services: [
-      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing through provider scrubbing networks" },
-      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "FastNetMon near-real-time FlowSpec and automated diversion triggers" },
-      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "BGP visibility, route analysis, and operational routing decision support" },
-      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter and managed security options available through specialist providers" }
+      { name: "DDoS Mitigation", url: "/ddos-protection", desc: "Always-on and on-demand traffic scrubbing." },
+      { name: "Detection Automation", url: "/ddos-detection-automation", desc: "Near-real-time FlowSpec and automated diversion." },
+      { name: "Routing Intelligence", url: "/bgp-routing-intelligence", desc: "BGP visibility and route analysis support." },
+      { name: "Cybersecurity Desk", url: "/cybersecurity", desc: "Perimeter protection through specialist providers." }
     ]
   },
   {
@@ -84,15 +84,15 @@ const solutionFamilies = [
     imageAlt: "Network operations control room with infrastructure monitoring displays",
     ctaLink: "/solutions/managed-services",
     services: [
-      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and incident escalation, available through specialist providers" },
-      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated incident dispatch, available through specialist providers" },
-      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP, peering, routing and network architecture support, available through specialist providers" },
-      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Infrastructure-as-code and network automation, available through specialist providers" }
+      { name: "24/7 Managed NOC", url: "/managed-noc", desc: "Continuous monitoring and incident escalation." },
+      { name: "AI Network Operations", url: "/ai-network-operations", desc: "Telemetry correlation and automated dispatch." },
+      { name: "Network Engineering", url: "/solutions/managed-services", desc: "BGP routing and network architecture support." },
+      { name: "Infrastructure Automation", url: "/solutions/managed-services", desc: "Infrastructure-as-code and configuration." }
     ]
   }
 ];
 
-// The routing line branches by discipline (Directive 11)
+// The routing line branches by discipline (Directive 11, 18, 19)
 const routeBranches: Record<string, string[]> = {
   infrastructure: ['Compute', 'Hardware', 'Colocation'],
   cloud: ['Private cloud', 'Virtualization', 'Hybrid', 'Backup'],
@@ -101,11 +101,11 @@ const routeBranches: Record<string, string[]> = {
   managed: ['Monitor', 'Triage', 'Engineer', 'Escalate']
 };
 
-const BRANCH_TOP = 14;
-const BRANCH_GAP = 26;
+const BRANCH_TOP = 16;
+const BRANCH_GAP = 28;
 const TRUNK_X = 10;
-const ELBOW_X = 30;
-const LABEL_X = 40;
+const ELBOW_X = 32;
+const LABEL_X = 42;
 
 const branchSets = solutionFamilies.map((family) => {
   const labels = routeBranches[family.id] ?? [];
@@ -115,10 +115,11 @@ const branchSets = solutionFamilies.map((family) => {
       label,
       y,
       d: `M ${TRUNK_X} ${y - BRANCH_GAP / 2} V ${y} H ${ELBOW_X}`,
-      isRisk: family.id === 'security' && label === 'Mitigation'
+      isRisk: family.id === 'security' && label === 'Mitigation',
+      connectsToPhoto: i === 0
     };
   });
-  const height = BRANCH_TOP + Math.max(labels.length - 1, 0) * BRANCH_GAP + 18;
+  const height = BRANCH_TOP + Math.max(labels.length - 1, 0) * BRANCH_GAP + 20;
   return { id: family.id, rows, height };
 });
 
@@ -128,15 +129,39 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 <section class="section section-solutions" id="discovery-stage" aria-label="Solutions by Discipline">
   <div class="container solutions-container">
     
-    <!-- Section Header (Directive 10: Quiet opening without generic badge) -->
-    <div class="solutions-header">
-      <h2 class="solutions-title">Start with the requirement.</h2>
-      <p class="solutions-subhead measure-lead">
-        Start with the workload, location, capacity and constraints. The provider usually comes later. InfraHub helps map those requirements to suitable infrastructure approaches and specialist providers.
-      </p>
+    <div class="discovery-header-split">
+      <div class="header-editorial-left">
+        <h2 class="solutions-title">Start with the requirement.</h2>
+        <div class="solutions-lead-rhythm">
+          <p class="lead-primary">
+            Start with the workload, location, capacity and constraints. The provider usually comes later.
+          </p>
+          <p class="lead-secondary">
+            InfraHub helps turn those requirements into a practical infrastructure approach and a shortlist of suitable specialists.
+          </p>
+        </div>
+      </div>
+
+      <div class="header-qualification-right" aria-label="Qualification parameters">
+        <div class="qualification-top-rule" aria-hidden="true"></div>
+        <span class="qualification-kicker">What we establish first</span>
+        <div class="qualification-grid">
+          <span class="qual-item">Workload</span>
+          <span class="qual-item">Location</span>
+          <span class="qual-item">Capacity</span>
+          <span class="qual-item">Resilience</span>
+          <span class="qual-item">Timing</span>
+          <span class="qual-item">Commercial constraints</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Continuous Scene Progress Rail (Directives 13 & 14) -->
+    <div class="qualification-route-connector" aria-hidden="true">
+      <div class="connector-track">
+        <div class="connector-line"></div>
+      </div>
+    </div>
+
     <div class="discovery-progress-rail" aria-hidden="true">
       <span class="progress-step-num">01</span>
       <div class="progress-track">
@@ -145,12 +170,10 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       <span class="progress-step-num">05</span>
     </div>
 
-    <!-- The discovery scene pins on desktop where room permits -->
-    <div class="discovery-scene" id="discoveryScene" data-scene-steps={solutionFamilies.length}>
+    <div class="discovery-scene" id="discoveryScene">
       <div class="discovery-sticky">
         <div class="discovery-triad-desktop" id="solutionDiscovery">
           
-          <!-- Column 1: Editorial Discipline Navigation (Directive 07: Single moving indicator, no cards) -->
           <nav class="triad-col-disciplines" role="tablist" aria-label="Infrastructure Disciplines">
             {solutionFamilies.map((family, idx) => (
               <button 
@@ -171,7 +194,6 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
               </button>
             ))}
 
-            <!-- The branch fan: routing lines specific to discipline (Directive 11) -->
             <div class="discipline-route" aria-hidden="true">
               <svg
                 class="route-svg"
@@ -184,9 +206,12 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                   <g class={`route-set ${idx === 0 ? 'active' : ''}`} data-route-set={set.id}>
                     <path class="route-trunk" d={`M ${TRUNK_X} 0 V ${set.height - 18}`} />
                     {set.rows.map((row) => (
-                      <g class="branch-item" data-branch-label={row.label}>
+                      <g class="branch-item">
                         <path class={`route-branch ${row.isRisk ? 'is-risk' : ''}`} d={row.d} />
                         <text class="route-label" x={LABEL_X} y={row.y + 3}>{row.label}</text>
+                        {row.connectsToPhoto && (
+                          <path class="route-connector-to-photo" d={`M ${ELBOW_X} ${row.y} H 238`} />
+                        )}
                       </g>
                     ))}
                   </g>
@@ -195,7 +220,6 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
             </div>
           </nav>
 
-          <!-- Column 2: Architectural Environment Visual (Directives 06 & 08: 54% width, large photograph) -->
           <div class="triad-col-visual">
             {solutionFamilies.map((family, idx) => (
               <div 
@@ -204,6 +228,8 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                 data-discipline={family.id}
                 aria-hidden={idx !== 0 ? "true" : "false"}
               >
+                <div class={`visual-ambient-tint tint-${family.id}`} aria-hidden="true"></div>
+
                 <div class="visual-img-wrapper">
                   <Image
                     src={family.image}
@@ -211,34 +237,34 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                     class="visual-img"
                     loading="lazy"
                     widths={[640, 1080]}
-                    sizes="(min-width: 1080px) 54vw, 92vw"
+                    sizes="(min-width: 1080px) 52vw, 92vw"
                     quality={74}
                     format="webp"
                   />
-                  <!-- Discipline specific route geometry overlay (Directive 16) -->
                   <div class="discipline-geometry-overlay" aria-hidden="true"></div>
                 </div>
-                <div class="visual-caption">
-                  <span class="caption-marker"></span>
-                  <span class="caption-text">{family.imageAlt}</span>
+                <div class="visual-meta-bar">
+                  <span class="visual-caption">Datacenter compute environment</span>
+                  <span class="visual-index">{family.index} / 05</span>
                 </div>
               </div>
             ))}
           </div>
 
-          <!-- Column 3: Service Detail Interlock (Directive 09: Hairline interlock, no floating card) -->
           <div class="triad-col-services">
             {solutionFamilies.map((family, idx) => (
               <div 
                 role="tabpanel"
                 class={`services-panel ${idx === 0 ? 'active' : ''}`}
                 id={`panel-${family.id}`}
+                data-discipline={family.id}
                 aria-labelledby={`tab-${family.id}`}
                 hidden={idx !== 0}
               >
-                <div class="panel-header">
-                  <h3 class="panel-title">{family.name}</h3>
-                  <p class="panel-summary measure-compact">{family.summary}</p>
+                <div class="services-panel-header">
+                  <span class="panel-category-title">{family.name}</span>
+                  <p class="panel-summary">{family.summary}</p>
+                  <div class="panel-anchor-hairline" aria-hidden="true"></div>
                 </div>
 
                 <div class="service-routes-list">
@@ -256,7 +282,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
                 <div class="panel-footer">
                   <a href={family.ctaLink} class="panel-overview-link">
                     <span>{family.name} overview</span>
-                    <span class="route-arrow" aria-hidden="true">&rarr;</span>
+                    <span class="link-arrow" aria-hidden="true">&rarr;</span>
                   </a>
                 </div>
               </div>
@@ -271,9 +297,10 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 </section>
 
 <style>
+  /* Material warmth surface (Directive 25) */
   .section-solutions {
-    background-color: var(--bg-primary);
-    padding: 72px 0 64px;
+    background-color: var(--bg-subtle-paper, #F7F7F5);
+    padding: 80px 0 72px;
     border-bottom: 1px solid var(--border-color);
   }
 
@@ -281,30 +308,145 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     max-width: var(--max-width);
   }
 
-  /* Quiet Header (Directive 10) */
-  .solutions-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 28px;
-    margin-bottom: 36px;
+  @media (min-width: 1440px) {
+    .solutions-container {
+      max-width: 1460px;
+    }
   }
 
+  /* Editorial Header Split (Directives 04–07) */
+  .discovery-header-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+  }
+
+  @media (min-width: 980px) {
+    .discovery-header-split {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .discovery-header-split {
+      grid-template-columns: 1.55fr 0.95fr;
+      gap: 72px;
+    }
+  }
+
+  .header-editorial-left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Authoritative editorial headline (Directive 04) */
   .solutions-title {
-    font-size: clamp(2rem, 3.5vw, 2.75rem);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.6rem, 4vw, 4.2rem);
+    font-weight: 550;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
     color: var(--text-primary);
-    margin: 0 0 14px;
+    margin: 0 0 16px;
+    text-wrap: balance;
   }
 
-  .solutions-subhead {
-    font-size: 1.05rem;
+  /* Copy rhythm (Directive 05) */
+  .solutions-lead-rhythm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lead-primary {
+    font-size: clamp(1.08rem, 1.3vw, 1.18rem);
+    font-weight: 450;
+    line-height: 1.48;
+    color: var(--text-primary);
+    max-width: 50ch;
+  }
+
+  .lead-secondary {
+    font-size: 0.94rem;
+    font-weight: 400;
+    line-height: 1.58;
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin: 0;
+    max-width: 52ch;
   }
 
-  /* Continuous Scene Progress Rail (Directives 13 & 14) */
+  /* Compact Qualification Block (Directive 06) */
+  .header-qualification-right {
+    display: flex;
+    flex-direction: column;
+    padding-top: 4px;
+  }
+
+  .qualification-top-rule {
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    margin-bottom: 12px;
+  }
+
+  .qualification-kicker {
+    font-family: var(--font-heading);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .qualification-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 24px;
+  }
+
+  .qual-item {
+    font-size: 0.88rem;
+    font-weight: 450;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* Qualification Route Connector (Directive 08) */
+  .qualification-route-connector {
+    display: none;
+  }
+
+  @media (min-width: 980px) {
+    .qualification-route-connector {
+      display: block;
+      width: 100%;
+      height: 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .connector-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--border-color);
+    }
+
+    .connector-line {
+      position: absolute;
+      left: 0;
+      width: 120px;
+      height: 1.5px;
+      background-color: var(--color-cobalt);
+    }
+  }
+
+  /* Continuous Scene Progress Rail (Directives 13, 28, 29) */
   .discovery-progress-rail {
     display: none;
   }
@@ -314,8 +456,8 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 32px;
-      max-width: 280px;
+      margin-bottom: 28px;
+      max-width: 260px;
     }
 
     .progress-step-num {
@@ -341,7 +483,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     }
   }
 
-  /* Desktop 3-Column Triad (Directive 06: 20% Nav / 54% Photo / 26% Detail) */
+  /* Desktop Stage (Directives 09 & 10: 20% Nav / 52% Photo / 28% Detail) */
   .discovery-scene {
     position: relative;
   }
@@ -357,7 +499,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
     .discovery-sticky {
       position: sticky;
-      top: calc(var(--header-height) + 20px);
+      top: calc(var(--header-height) + 16px);
     }
   }
 
@@ -379,18 +521,17 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   @media (min-width: 1080px) {
     .discovery-triad-desktop {
-      grid-template-columns: minmax(190px, 20%) minmax(540px, 54%) minmax(260px, 26%);
+      grid-template-columns: minmax(180px, 20%) minmax(520px, 52%) minmax(280px, 28%);
       gap: 0;
       align-items: start;
-      min-height: 540px;
+      min-height: 520px;
     }
   }
 
-  /* Column 1: Editorial Navigation & Route Branches (Directive 07) */
+  /* Column 1: Discipline Rail (Directives 14–17) */
   .triad-col-disciplines {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
   }
@@ -400,40 +541,45 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       padding-bottom: 0;
       border-bottom: none;
       border-right: 1px solid var(--border-color);
-      padding-right: 28px;
+      padding-right: 24px;
     }
   }
 
-  /* Single moving editorial route indicator — NO PALE CARDS (Directive 07) */
+  /* Uneven content-led spacing (Directive 17) */
   .discipline-tab-btn {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 14px 0;
+    padding: 10px 0;
     background: transparent;
     border: none;
     text-align: left;
     cursor: pointer;
     position: relative;
     border-radius: 0;
-    transition: color 160ms var(--ease-out);
+    transition: padding 180ms var(--ease-out);
+  }
+
+  .discipline-tab-btn.active {
+    padding: 16px 0 20px;
   }
 
   .discipline-tab-btn:hover .tab-name {
     color: var(--color-cobalt);
   }
 
+  /* Single moving cobalt active route indicator (Directive 16) */
   .active-route-indicator {
     position: absolute;
-    right: -28px;
+    right: -24px;
     top: 50%;
-    width: 28px;
+    width: 24px;
     height: 1.5px;
     background-color: var(--color-cobalt);
     opacity: 0;
     transform: scaleX(0);
     transform-origin: left;
-    transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+    transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out);
   }
 
   .discipline-tab-btn.active .active-route-indicator {
@@ -443,39 +589,46 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   .tab-index-row {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 8px;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
   }
 
+  /* Mono ONLY for 01..05 (Directive 14) */
   .tab-num {
     font-family: var(--font-mono);
     font-size: 0.74rem;
-    color: var(--color-cobalt);
+    color: var(--text-muted);
     font-weight: 600;
   }
 
+  .discipline-tab-btn.active .tab-num {
+    color: var(--color-cobalt);
+  }
+
+  /* Descriptors in main sans (Directive 14) */
   .tab-discipline-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-family: var(--font-heading);
+    font-size: 0.76rem;
+    font-weight: 450;
     color: var(--text-muted);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
   }
 
   .tab-name {
     font-size: 1.02rem;
-    font-weight: 600;
+    font-weight: 550;
     color: var(--text-primary);
     line-height: 1.3;
-    transition: color 160ms var(--ease-out);
+    transition: color 140ms var(--ease-out);
   }
 
   .discipline-tab-btn.active .tab-name {
-    color: var(--color-cobalt);
-    font-weight: 700;
+    color: var(--text-primary);
+    font-weight: 600;
   }
 
-  /* Routing Branches SVG */
+  /* Routing Branches SVG (Directives 18 & 19) */
   .discipline-route {
     display: none;
   }
@@ -483,8 +636,8 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   @media (min-width: 1080px) {
     .discipline-route {
       display: block;
-      margin-top: 24px;
-      padding-top: 20px;
+      margin-top: 18px;
+      padding-top: 16px;
       border-top: 1px solid var(--border-color);
     }
   }
@@ -511,7 +664,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   .route-branch {
     stroke: var(--color-cobalt);
-    stroke-width: 1.5;
+    stroke-width: 1.2;
     stroke-linecap: round;
   }
 
@@ -519,17 +672,24 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     stroke: var(--color-route-amber);
   }
 
+  .route-connector-to-photo {
+    stroke: rgba(40, 84, 199, 0.4);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+
   .route-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 450;
     fill: var(--text-secondary);
   }
 
-  /* Column 2: Architectural Environment Visual (Directive 08) */
+  /* Column 2: Architectural Environment Visual (Directives 10–13) */
   .triad-col-visual {
     position: relative;
     height: 100%;
-    min-height: clamp(260px, 52vw, 560px);
+    min-height: clamp(260px, 48vw, 540px);
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -547,7 +707,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     inset: 0;
     opacity: 0;
     clip-path: inset(0 100% 0 0);
-    transform: scale(0.99);
+    transform: scale(0.995);
     transition: clip-path 460ms var(--ease-out), opacity 320ms var(--ease-out), transform 460ms var(--ease-out);
     pointer-events: none;
     display: flex;
@@ -564,7 +724,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   .visual-frame.active {
     opacity: 1;
     clip-path: inset(0 0 0 0);
-    transform: scale(1);
+    transform: scale(1.012);
     pointer-events: auto;
     z-index: 2;
   }
@@ -581,40 +741,34 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     position: relative;
     width: 100%;
     overflow: hidden;
+    border-radius: 2px;
   }
 
   .visual-img {
     width: 100%;
-    height: clamp(260px, 50vh, 520px);
+    height: clamp(260px, 46vh, 520px);
     object-fit: cover;
-    border-radius: 0;
-    border: none;
+    border-radius: 2px;
     display: block;
     filter: contrast(1.02);
   }
 
+  /* Quiet editorial caption in main sans (Directive 12) */
   .visual-caption {
     margin-top: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .caption-marker {
-    width: 5px;
-    height: 5px;
-    background-color: var(--color-cobalt);
-    flex-shrink: 0;
   }
 
   .caption-text {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 450;
     color: var(--text-muted);
     letter-spacing: 0.01em;
   }
 
-  /* Column 3: Service Detail Interlock (Directive 09: Hairline interlock, no card) */
+  /* Column 3: Service Detail & Index (Directives 20–23) */
   .triad-col-services {
     position: relative;
     padding: 0;
@@ -629,12 +783,12 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   .services-panel {
     display: none;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
   }
 
   .services-panel.active {
     display: flex;
-    animation: panelReveal 320ms var(--ease-out);
+    animation: panelReveal 300ms var(--ease-out);
   }
 
   @keyframes panelReveal {
@@ -642,41 +796,48 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* Visual Anchor at top of right column (Directive 21) */
   .panel-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 16px;
+    padding-bottom: 6px;
   }
 
   .panel-title {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+    font-weight: 550;
     color: var(--text-primary);
     margin: 0 0 4px;
+    line-height: 1.35;
   }
 
   .panel-summary {
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     color: var(--text-secondary);
     line-height: 1.5;
-    margin: 0;
+    margin: 0 0 10px;
+  }
+
+  .panel-anchor-hairline {
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--color-cobalt);
   }
 
   .service-routes-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
-  /* Service row interaction (Directive 12) */
+  /* Service row interaction: clean hairlines, arrow on hover only (Directive 20, 23) */
   .service-route-link {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 16px;
-    padding: 12px 0;
+    gap: 12px;
+    padding: 10px 0;
     border-bottom: 1px solid var(--border-color);
     text-decoration: none;
-    transition: color 140ms var(--ease-out), border-color 140ms var(--ease-out);
+    transition: border-color 140ms var(--ease-out);
   }
 
   .service-route-link:hover,
@@ -689,11 +850,6 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     color: var(--color-cobalt);
   }
 
-  .service-route-link:hover .route-arrow,
-  .service-route-link:focus-visible .route-arrow {
-    transform: translateX(3px);
-  }
-
   .route-info {
     display: flex;
     flex-direction: column;
@@ -702,7 +858,7 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   .route-name {
     font-size: 0.92rem;
-    font-weight: 600;
+    font-weight: 550;
     color: var(--text-primary);
     transition: color 140ms var(--ease-out);
   }
@@ -713,23 +869,32 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     line-height: 1.4;
   }
 
+  /* Arrow visible on hover/focus only (Directive 20) */
   .route-arrow {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--color-cobalt);
-    transition: transform 140ms var(--ease-out);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: transform 140ms var(--ease-out), opacity 140ms var(--ease-out);
     flex-shrink: 0;
   }
 
+  .service-route-link:hover .route-arrow,
+  .service-route-link:focus-visible .route-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
   .panel-footer {
-    margin-top: 14px;
+    margin-top: 10px;
   }
 
   .panel-overview-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 550;
     color: var(--text-primary);
     text-decoration: none;
     border-bottom: 1px solid var(--color-cobalt);
@@ -740,6 +905,15 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
   .panel-overview-link:hover,
   .panel-overview-link:focus-visible {
     color: var(--color-cobalt);
+  }
+
+  .link-arrow {
+    transition: transform 140ms var(--ease-out);
+  }
+
+  .panel-overview-link:hover .link-arrow,
+  .panel-overview-link:focus-visible .link-arrow {
+    transform: translateX(3px);
   }
 </style>
 
@@ -879,3 +1053,4 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     setupSolutionDiscovery();
   }
 </script>
+
