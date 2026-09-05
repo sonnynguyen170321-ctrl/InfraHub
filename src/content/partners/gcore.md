@@ -27,7 +27,7 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 2
 partnerPageEnabled: true
-logoScale: 1
+logoScale: 0.96
 decisionLayer:
   architectureTitle: "Cloud, Edge & Security Service Map"
   architectureSubtitle: "How Gcore's compute, AI, delivery, networking, and security services can relate to one requirement"

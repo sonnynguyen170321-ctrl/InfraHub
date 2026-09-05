@@ -88,3 +88,35 @@ test.describe('responsive layout', () => {
     });
   }
 });
+
+test.describe('drawer focus containment', () => {
+  test('Tab cycles inside the open drawer instead of walking into hidden content', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#mobile-toggle').click();
+    await page.waitForTimeout(200);
+
+    // Twenty tabs is more than the drawer holds; every stop must still be inside it, because
+    // everything behind the drawer is aria-hidden while it is open.
+    for (let i = 0; i < 20; i++) {
+      await page.keyboard.press('Tab');
+      const inside = await page.evaluate(() => {
+        const drawer = document.getElementById('mobile-drawer');
+        return Boolean(drawer && document.activeElement && drawer.contains(document.activeElement));
+      });
+      expect(inside, `focus left the drawer on tab ${i + 1}`).toBe(true);
+    }
+  });
+
+  test('Shift+Tab wraps to the last control rather than leaving', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('#mobile-toggle').click();
+    await page.waitForTimeout(200);
+
+    await page.keyboard.press('Shift+Tab');
+    const inside = await page.evaluate(() => {
+      const drawer = document.getElementById('mobile-drawer');
+      return Boolean(drawer && document.activeElement && drawer.contains(document.activeElement));
+    });
+    expect(inside).toBe(true);
+  });
+});
