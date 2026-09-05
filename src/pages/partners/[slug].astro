@@ -36,7 +36,7 @@ const sourceRefs = signature.sourceRefs ?? [];
       <!-- Profile Header / Identity Ribbon -->
       <header class="profile-header">
         <div class="header-breadcrumb-row">
-          <a href="/partners" class="breadcrumb-link">&larr; Partner Ecosystem Ledger</a>
+          <a href="/partners" class="breadcrumb-link">&larr; Partner ecosystem</a>
           <span class="breadcrumb-sep">/</span>
           <span class="breadcrumb-current">{partner.data.name}</span>
         </div>
@@ -83,10 +83,7 @@ const sourceRefs = signature.sourceRefs ?? [];
       <!-- Signature Technical Architecture Block (Part XVII: Subject-Specific Architecture) -->
       <section class="signature-architecture-section">
         <div class="sig-header">
-          <div class="sig-kicker-row">
-            <span class="routing-junction" aria-hidden="true"></span>
-            <span class="sig-kicker">Technical architecture</span>
-          </div>
+          <span class="sig-kicker">Technical architecture</span>
           <h2 class="sig-title">{signature.architectureTitle}</h2>
           <p class="sig-subtitle measure-technical">{signature.architectureSubtitle}</p>
         </div>
@@ -106,7 +103,7 @@ const sourceRefs = signature.sourceRefs ?? [];
       <section class="buyer-decision-layer">
         <div class="decision-header">
           <span class="decision-kicker">Buyer decision criteria</span>
-          <h2 class="decision-title">What Changes the Answer</h2>
+          <h2 class="decision-title">What changes the answer</h2>
           <p class="decision-subhead measure-lead">
             We evaluate specialist providers based on operational constraints rather than marketing catalogs. Consider these criteria before contracting.
           </p>
@@ -348,11 +345,8 @@ const sourceRefs = signature.sourceRefs ?? [];
 
   /* Signature Architecture Section */
   .signature-architecture-section {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 48px;
-    margin-bottom: 64px;
+    padding: 0 0 8px;
+    margin-bottom: 56px;
   }
 
   .sig-header {
@@ -367,12 +361,12 @@ const sourceRefs = signature.sourceRefs ?? [];
   }
 
   .sig-kicker {
+    display: block;
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
     color: var(--accent-blue);
-    text-transform: uppercase;
+    margin-bottom: 8px;
   }
 
   .sig-title {
@@ -401,10 +395,8 @@ const sourceRefs = signature.sourceRefs ?? [];
   }
 
   .sig-step-card {
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 20px;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -435,7 +427,7 @@ const sourceRefs = signature.sourceRefs ?? [];
   /* Buyer Decision Layer */
   .buyer-decision-layer {
     margin-bottom: 64px;
-    border-top: 2px solid var(--text-primary);
+    border-top: 1px solid var(--border-color);
     padding-top: 36px;
   }
 
@@ -445,11 +437,9 @@ const sourceRefs = signature.sourceRefs ?? [];
 
   .decision-kicker {
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
     color: var(--accent-blue);
-    text-transform: uppercase;
     display: block;
     margin-bottom: 8px;
   }
