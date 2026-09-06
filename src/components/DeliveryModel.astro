@@ -120,10 +120,22 @@ const annotations = [
               <h3 class="node-title">Match</h3>
               <p class="node-desc">Evaluate architecture approaches and identify suitable specialist providers matching your technical footprint.</p>
               <div class="node-branches-grid">
-                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Carrier route</div>
-                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Cloud approach</div>
-                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Hardware route</div>
-                <div class="branch-item"><span class="branch-rule" aria-hidden="true"></span>Security specialist</div>
+                <div class="match-branch-chip" data-discipline="carrier">
+                  <div class="branch-top"><span class="branch-rule" aria-hidden="true"></span><span class="branch-name">Carrier route</span></div>
+                  <span class="branch-specialist">Transit &amp; Wavelengths &middot; Zenlayer / IPXO</span>
+                </div>
+                <div class="match-branch-chip" data-discipline="cloud">
+                  <div class="branch-top"><span class="branch-rule" aria-hidden="true"></span><span class="branch-name">Cloud approach</span></div>
+                  <span class="branch-specialist">Virtualization &amp; Direct-Connect &middot; Gcore / Vates</span>
+                </div>
+                <div class="match-branch-chip" data-discipline="hardware">
+                  <div class="branch-top"><span class="branch-rule" aria-hidden="true"></span><span class="branch-name">Hardware route</span></div>
+                  <span class="branch-specialist">High-Density Compute &middot; ITcare</span>
+                </div>
+                <div class="match-branch-chip" data-discipline="security">
+                  <div class="branch-top"><span class="branch-rule" aria-hidden="true"></span><span class="branch-name">Security specialist</span></div>
+                  <span class="branch-specialist">FlowSpec &amp; DDoS Scrubbing &middot; FastNetMon / StormWall</span>
+                </div>
               </div>
             </div>
           </div>
@@ -213,7 +225,7 @@ const annotations = [
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 4px;
     cursor: pointer;
-    transition: all 140ms ease;
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
   }
 
   .factor-btn:hover,
@@ -556,24 +568,50 @@ const annotations = [
   /* Architectural Branches (Step 2) */
   .node-branches-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 8px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
   }
 
-  .branch-item {
+  .match-branch-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .match-branch-chip:hover {
+    background: rgba(37, 99, 235, 0.08);
+    border-color: rgba(37, 99, 235, 0.4);
+  }
+
+  .branch-top {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 0.84rem;
-    color: #93c5fd;
-    padding: 7px 0;
+    gap: 8px;
   }
 
   .branch-rule {
     width: 6px;
     height: 1.5px;
     background-color: var(--accent-blue);
+  }
+
+  .branch-name {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #93c5fd;
+  }
+
+  .branch-specialist {
+    font-family: var(--font-mono);
+    font-size: 0.70rem;
+    color: #94a3b8;
+    line-height: 1.35;
   }
 
   /* Specialist Alignment (Step 3) */
@@ -691,6 +729,13 @@ const annotations = [
     factorBtns.forEach((btn, idx) => {
       btn.addEventListener('click', () => {
         setActiveStep(idx);
+        if (idx === 3) {
+          const explorer = document.getElementById('route-explorer');
+          if (explorer) {
+            explorer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+          }
+        }
         steps[idx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
       btn.addEventListener('mouseenter', () => setActiveStep(idx));

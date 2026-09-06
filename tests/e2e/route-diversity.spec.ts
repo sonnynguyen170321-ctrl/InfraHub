@@ -136,4 +136,52 @@ test.describe('route diversity states', () => {
     await expect(page.locator('#route-explorer canvas')).toHaveCount(0);
     await expect(page.locator('#route-explorer svg')).not.toHaveCount(0);
   });
+
+  test('optical transmission pulses render along carrier paths in both views', async ({ page }) => {
+    await page.goto('/');
+
+    const logicalPulses = page.locator('#svgLogical .route-path-pulse');
+    await expect(logicalPulses).toHaveCount(2);
+
+    await page.locator('[data-view="physical"]').click();
+    const physicalPulses = page.locator('#svgPhysical .route-path-pulse');
+    await expect(physicalPulses).toHaveCount(3);
+  });
+
+  test('hotspot hover and focus updates the engineering telemetry card', async ({ page }) => {
+    await page.goto('/wavelengths');
+
+    await page.locator('[data-view="physical"]').click();
+    const bridgeItem = page.locator('.verify-item[data-risk-target="bridge-or-rail-crossing"]');
+    await bridgeItem.click();
+
+    const title = page.locator('#telemetryPointName');
+    const desc = page.locator('#telemetryDesc');
+    await expect(title).toContainText('Civil Bridge or Rail Crossing');
+    await expect(desc).toContainText('River, highway, or railway barriers');
+  });
+
+  test('simulate crossing sever button triggers common-mode failure state', async ({ page }) => {
+    await page.goto('/');
+
+    const severBtn = page.locator('#btnSeverSim');
+    await expect(severBtn).toBeVisible();
+
+    await severBtn.click();
+    await expect(severBtn).toHaveClass(/is-active/);
+    await expect(severBtn).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#route-explorer')).toHaveClass(/is-severed/);
+
+    const statusTag = page.locator('#statusTag');
+    await expect(statusTag).toContainText('Common-mode failure');
+
+    const desc = page.locator('#telemetryDesc');
+    await expect(desc).toContainText('severed event');
+
+    // Toggle back off
+    await severBtn.click();
+    await expect(severBtn).not.toHaveClass(/is-active/);
+    await expect(page.locator('#route-explorer')).not.toHaveClass(/is-severed/);
+  });
 });
+
