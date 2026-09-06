@@ -66,6 +66,15 @@ test.describe('inquiry form validation', () => {
 });
 
 test.describe('inquiry form context and submission', () => {
+  test('a solution CTA preselects its matching infrastructure scope', async ({ page }) => {
+    await page.goto('/solutions/network-connectivity');
+    await page.getByRole('link', { name: 'Consult a Network Architect' }).click();
+
+    await expect(page).toHaveURL(/\/lets-talk\?service=connectivity$/);
+    await expect(page.locator('#context-service')).toHaveValue('connectivity');
+    await expect(page.locator('#lookingFor')).toHaveValue('connectivity');
+  });
+
   test('URL context and attribution reach the hidden inputs', async ({ page }) => {
     await page.goto(
       '/lets-talk?service=ip-transit&industry=hosting&utm_source=linkedin&utm_medium=social&utm_campaign=q3&utm_term=transit&utm_content=variant-a'

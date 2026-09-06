@@ -136,7 +136,12 @@ const branchSets = solutionFamilies.map((family) => {
 const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 ---
 
-<section class="section section-solutions" id="discovery-stage" aria-label="Solutions by Discipline">
+<section
+  class="section section-solutions"
+  id="discovery-stage"
+  aria-label="Solutions by Discipline"
+  tabindex="-1"
+>
   <div class="container solutions-container">
     
     <div class="discovery-header-split">
@@ -326,6 +331,16 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 </section>
 
 <style>
+  /*
+   * tabindex="-1" makes the section a focus target so that activating the hero's call to
+   * action moves a screen reader into the stage rather than leaving it announced back on the
+   * link. The ring is suppressed because this is a scroll destination, not a control: the
+   * affordance is that the viewport moved.
+   */
+  .section-solutions:focus {
+    outline: none;
+  }
+
   /* Material warmth surface (Directive 25) */
   .section-solutions {
     background-color: var(--bg-subtle-paper, #F7F7F5);

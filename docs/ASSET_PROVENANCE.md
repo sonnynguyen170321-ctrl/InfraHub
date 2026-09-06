@@ -51,11 +51,29 @@ height each wordmark occupies differs widely — StormWall 98%, Zenlayer 69%, Fa
 because its lightning bolt overshoots the name above and below. Sizing every file to one pixel
 height therefore renders some brands at half the size of others.
 
-`logoScale` on the partner record raises or lowers the delivered height cap so the *names* match.
+`logoScale` on the partner record raises or lowers the delivered height so the *names* match.
 It is an optical correction to presentation size, never a change to artwork: no cropping, no
-recolouring, no re-composition. Current values: FastNetMon 1.5, Vates 1.08, Airframe 0.98,
-Gcore 0.96, everything else 1. The rule is applied by `src/lib/partner-logo.ts` on all three
-surfaces that show a logo, and held by tests in `tests/e2e/partners.spec.ts`.
+recolouring, no re-composition. Current values: FastNetMon 1.5, IPXO 1.2, Vates 1.08,
+Airframe 0.98, Gcore 0.96, everything else 1. The rule is applied by `src/lib/partner-logo.ts`
+on all three surfaces that show a logo, and held by tests in `tests/e2e/partners.spec.ts`.
+
+IPXO is 1.2 because its lockup is nearly square (303x131) where its neighbours are long: held at
+the same height it drew 83px wide against ITcare's 120px and Zenlayer's 176px, and read as the
+smallest brand in the ecosystem. At 1.2 it draws 100px.
+
+Two things this correction is *not*, both found by measuring rather than by eye:
+
+- It is not a height **cap**. A cap only ever scales a lockup down, so any asset already smaller
+  than it renders at intrinsic size and never reaches the height it was assigned. stormwall.svg
+  is 174x29 against a 36px base and was delivered a quarter under-size until the ribbon began
+  setting height rather than max-height. It now draws 185x36.
+- It is not per-surface. Measured across all eight marks, the vertical offset inside the slot is
+  0px for every one, and width is governed by one clamp, so neither a per-brand offset nor a
+  per-brand max width has any evidence to justify it yet.
+
+Run `node scripts/logo-qa.mjs` against a dev server to regenerate the calibration sheet and the
+per-brand measurements. It is a script rather than a route because this project builds static:
+anything under `src/pages` would be published.
 
 ---
 

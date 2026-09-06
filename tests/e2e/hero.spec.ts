@@ -150,12 +150,33 @@ test.describe('hero art direction', () => {
     expect(veil).toBeLessThanOrEqual(0.11);
   });
 
-  test('the hero stays short enough that the partner ecosystem is discoverable', async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 1200 });
-    await page.goto('/');
-    const heroHeight = await page.locator('#hero').evaluate((el: HTMLElement) => el.offsetHeight);
-    // min-height beats max-height in CSS, so this guards the min(76dvh, 780px) form.
-    expect(heroHeight).toBeLessThanOrEqual(780);
+  /*
+   * This asserted heroHeight <= 780 as a stand-in for "the ecosystem is discoverable". The two
+   * came apart: the hero is now sized as the viewport less the header less the reveal, so on a
+   * 1200px-tall window it is 1020px and still leaves the whole partner band above the fold,
+   * while the old 780px cap left 220px of bare paper under that band at 1080. Assert the thing
+   * the test is named after — what the visitor can see without scrolling — at several heights.
+   */
+  test('the partner ecosystem is above the fold, and sits tight to it', async ({ page }) => {
+    for (const height of [768, 900, 1080, 1200]) {
+      await page.setViewportSize({ width: 1440, height });
+      await page.goto('/');
+
+      const seen = await page.evaluate(() => {
+        const ribbon = document.querySelector('.partner-trust-ribbon')!.getBoundingClientRect();
+        return {
+          visible: Math.max(0, Math.min(ribbon.bottom, innerHeight) - Math.max(ribbon.top, 0)),
+          band: ribbon.height,
+          gapBeneath: innerHeight - ribbon.bottom,
+        };
+      });
+
+      // Essentially the whole band, not a token sliver of it.
+      expect(seen.visible, `ribbon visible at ${height}px`).toBeGreaterThanOrEqual(seen.band - 4);
+      // And no expanse of empty ground beneath it, which is the failure the old cap produced.
+      expect(seen.gapBeneath, `gap beneath ribbon at ${height}px`).toBeLessThanOrEqual(48);
+      expect(seen.gapBeneath, `gap beneath ribbon at ${height}px`).toBeGreaterThanOrEqual(0);
+    }
   });
 
   test('reduced motion gets the finished composition, not a lesser one', async ({ page }) => {
@@ -202,5 +223,107 @@ test.describe('hero art direction', () => {
     const objectPosition = await page.locator('.hero-bg-img').evaluate((el) => getComputedStyle(el).objectPosition);
     // Dead centre lands on the aisle's vanishing point, the darkest part of the room.
     expect(objectPosition).not.toContain('50%');
+  });
+});
+
+/**
+ * The hero's primary call to action pointed at #solutions-ecosystem, an id that exists nowhere
+ * in the source. Clicking it did nothing at all: no scroll, no navigation, no error. The
+ * discovery section it was meant to reach is #discovery-stage.
+ *
+ * These assertions are deliberately about where the visitor ends up rather than about the
+ * attribute alone, because a correct href that lands the reader under the sticky header, or
+ * above the controls, is still a call to action that did not work.
+ */
+/**
+ * Smooth scrolling has no completion event, so these tests used a fixed 900ms wait. That is
+ * exactly the flake the project's testing rules warn about: it passed alone and failed under
+ * two workers, where the scroll simply had not finished. Wait for the position to stop moving
+ * instead of guessing how long it takes.
+ */
+async function scrollSettled(page: Page) {
+  let last = -1;
+  let stable = 0;
+  for (let i = 0; i < 80; i++) {
+    const y = await page.evaluate(() => window.scrollY);
+    if (y === last) {
+      if (++stable >= 3) return;
+    } else {
+      stable = 0;
+      last = y;
+    }
+    await page.waitForTimeout(50);
+  }
+  throw new Error('scroll never settled');
+}
+
+test.describe('hero primary action', () => {
+  test('Explore Solutions targets a section that exists', async ({ page }) => {
+    await page.goto('/');
+    const targets = await page.locator('.hero-primary-action').getAttribute('href');
+    expect(targets).toBe('#discovery-stage');
+    await expect(page.locator(String(targets))).toHaveCount(1);
+  });
+
+  test('clicking it lands on the discovery stage, clear of the sticky header', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.hero-primary-action').click();
+    await scrollSettled(page);
+
+    /*
+     * Measured from the header as rendered, not from --header-height. The header shrinks to
+     * 68px once .is-scrolled is applied while the token stays at 80px, so asserting against
+     * the token fails a landing that is in fact flush with the header's real bottom edge.
+     */
+    const headerBottom = await page.evaluate(() =>
+      document.querySelector('header')!.getBoundingClientRect().bottom);
+
+    const stage = await page.locator('#discovery-stage').boundingBox();
+    expect(stage, 'discovery stage should be laid out').not.toBeNull();
+
+    // Below the header rather than tucked under it, and actually arrived at rather than
+    // left somewhere down the page.
+    expect(stage!.y).toBeGreaterThanOrEqual(headerBottom - 4);
+    expect(stage!.y).toBeLessThan(headerBottom + 120);
+  });
+
+  test('keyboard activation moves focus into the discovery stage', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.hero-primary-action').focus();
+    await page.keyboard.press('Enter');
+    await scrollSettled(page);
+
+    /*
+     * Without a focusable target, fragment navigation only moves the sequential focus starting
+     * point: focus stays on the link, so a screen reader user who activates the call to action
+     * is still announced back in the hero while the viewport has moved on.
+     */
+    const landed = await page.evaluate(() => {
+      const stage = document.querySelector('#discovery-stage');
+      const active = document.activeElement;
+      return !!(stage && active && (stage === active || stage.contains(active)));
+    });
+    expect(landed, 'focus should be inside #discovery-stage').toBe(true);
+  });
+
+  test('that focus does not paint a ring for pointer users', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.hero-primary-action').click();
+    await scrollSettled(page);
+    const outline = await page.evaluate(() => {
+      const stage = document.querySelector('#discovery-stage') as HTMLElement;
+      const cs = getComputedStyle(stage);
+      return { width: cs.outlineWidth, style: cs.outlineStyle };
+    });
+    expect(outline.style === 'none' || outline.width === '0px').toBe(true);
+  });
+
+  test('the landing frame shows the controls, not just a heading', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.hero-primary-action').click();
+    await scrollSettled(page);
+
+    await expect(page.locator('#discovery-stage .solutions-title')).toBeInViewport();
+    await expect(page.locator('#solutionDiscovery .discipline-tab-btn').first()).toBeInViewport();
   });
 });

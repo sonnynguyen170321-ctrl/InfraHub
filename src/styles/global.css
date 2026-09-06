@@ -135,9 +135,20 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /*
+   * scroll-padding-top is what keeps an in-page anchor clear of the sticky header, so targets
+   * do not need their own scroll-margin: the two compound, and setting both lands the reader
+   * a full header-height too low.
+   */
   scroll-padding-top: var(--header-height);
   font-size: 16px;
+}
+
+/* Smooth scrolling is motion, and it is the one kind a visitor cannot opt out of mid-gesture. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

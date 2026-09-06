@@ -1,7 +1,7 @@
 ---
 // src/components/PartnerTrustRibbon.astro | InfraHub Partner Ecosystem Ribbon — Premium Marquee Pass
 import { getCollection } from 'astro:content';
-import { logoMaxHeightStyle } from '../lib/partner-logo';
+import { logoScaleStyle } from '../lib/partner-logo';
 
 const allPartners = await getCollection('partners');
 
@@ -16,10 +16,11 @@ const approvedPartners = allPartners
 
 // Optical scale is a property of the artwork, so it lives with the partner record rather
 // than in a second table here. A lockup whose wordmark is outlined or whose aspect ratio is
-// unusual needs a nudge to carry the same visual weight as the others in a 156x48 slot.
-// Optical sizing lives in src/lib/partner-logo.ts, because the ribbon, the catalogue and
-// the profile header all need the same correction and had three different fixed heights.
-const RIBBON_LOGO_HEIGHT = 32;
+// unusual needs a nudge to carry the same visual weight as the others in its slot.
+//
+// The base height it multiplies is --ribbon-logo-height in this component's stylesheet, not a
+// constant here: the base differs between the wide and narrow layouts, and only CSS can answer
+// a media query. Each record contributes --logo-scale and the stylesheet resolves the rest.
 
 ---
 
@@ -46,7 +47,7 @@ const RIBBON_LOGO_HEIGHT = 32;
                     src={partner.data.logo} 
                     alt={`${partner.data.name} logo`} 
                     class="partner-logo-img"
-                    style={logoMaxHeightStyle(partner.data.logoScale, RIBBON_LOGO_HEIGHT)}
+                    style={logoScaleStyle(partner.data.logoScale)}
                     loading={index < 2 ? "eager" : "lazy"}
                     width="140"
                     height="32"
@@ -71,7 +72,7 @@ const RIBBON_LOGO_HEIGHT = 32;
                   src={partner.data.logo} 
                   alt="" 
                   class="partner-logo-img"
-                  style={logoMaxHeightStyle(partner.data.logoScale, RIBBON_LOGO_HEIGHT)}
+                  style={logoScaleStyle(partner.data.logoScale)}
                   loading="lazy"
                   width="140"
                   height="32"
@@ -90,7 +91,7 @@ const RIBBON_LOGO_HEIGHT = 32;
                   src={partner.data.logo} 
                   alt="" 
                   class="partner-logo-img"
-                  style={logoMaxHeightStyle(partner.data.logoScale, RIBBON_LOGO_HEIGHT)}
+                  style={logoScaleStyle(partner.data.logoScale)}
                   loading="lazy"
                   width="140"
                   height="32"
@@ -103,8 +104,6 @@ const RIBBON_LOGO_HEIGHT = 32;
     </div>
   </div>
 
-  <!-- The route flattens into the structural axis of the partner ecosystem (Directives 10 & 11) -->
-  <div class="ribbon-structural-axis" aria-hidden="true"></div>
 </section>
 
 <script>
@@ -114,16 +113,73 @@ const RIBBON_LOGO_HEIGHT = 32;
     const primaryTrack = wrapper.querySelector('.primary-track') as HTMLElement | null;
     if (!primaryTrack) return;
 
-    const SPEED_PPS = 28; // Constant speed: 28 CSS px per second
+    // Larger marks travelling slightly slower read as institutional rather than busy.
+    const SPEED_PPS = 26;
+
+    // One cycle must be wider than the rail, or a second copy of the sequence is on screen
+    // before the first has left and the same brand appears at both edges at once.
+    const DESKTOP_POSITIONS = 7.35;
+    const MOBILE_POSITIONS = 2.4;
+
+    // Entering part-way through a slot means no mark is ever aligned as the first one.
+    const ENTRY_FRACTION = 0.3;
+
+    const section = wrapper.closest('.partner-trust-ribbon') as HTMLElement | null;
+
+    // One cycle has to stay wider than the rail. Two copies of a mark are exactly one cycle
+    // apart, so while the cycle exceeds the rail they cannot both be on screen.
+    const CYCLE_MARGIN = 1.08;
+
+    function slotFor(railWidth: number, count: number, gap: number): number {
+      const wide = window.matchMedia('(min-width: 900px)').matches;
+      const preferred = railWidth / (wide ? DESKTOP_POSITIONS : MOBILE_POSITIONS);
+      /*
+       * The floor is tiered because one value cannot serve both ends. Held at 190 it starves
+       * 1024 of its fourth identity; held at 178 it caps mid-width logos around 142px, short of
+       * the 155-185 the marks are meant to read at. The rail decides which constraint binds.
+       */
+      const min = wide ? (railWidth >= 1150 ? 190 : 178) : 132;
+      const max = wide ? 245 : 168;
+      const slot = Math.min(Math.max(preferred, min), max);
+
+      /*
+       * Above roughly 2100px the preferred slot hits its ceiling while the rail keeps growing,
+       * and eight marks no longer span it: measured at 2560 the cycle came to 0.93 of the rail
+       * and the duplicate returned. With a fixed number of partners the only remaining variable
+       * is the slot, so it is allowed past its ceiling only as far as the rail actually forces.
+       */
+      const forced = (railWidth * CYCLE_MARGIN) / Math.max(count, 1) - gap;
+      return Math.min(Math.max(slot, forced), 320);
+    }
 
     function measure() {
       if (!primaryTrack || !wrapper) return;
-      const rect = primaryTrack.getBoundingClientRect();
-      const width = rect.width;
+
+      const railWidth = wrapper.clientWidth;
+      if (railWidth <= 0) return;
+
+      const gap = parseFloat(getComputedStyle(wrapper).getPropertyValue('--ribbon-gap')) || 28;
+      const count = primaryTrack.children.length;
+
+      // Sized from the rail first, because the group width below depends on it.
+      const slot = Math.round(slotFor(railWidth, count, gap));
+      (section ?? wrapper).style.setProperty('--ribbon-slot', `${slot}px`);
+
+      const width = primaryTrack.getBoundingClientRect().width;
       if (width <= 0) return;
+
       const duration = Math.max(40, width / SPEED_PPS);
       wrapper.style.setProperty('--marquee-distance', `${width.toFixed(2)}px`);
       wrapper.style.setProperty('--marquee-duration', `${duration.toFixed(2)}s`);
+
+      /*
+       * A negative delay starts the animation part-way through rather than translating the
+       * strip separately: same phase shift, no extra transform on the composited layer.
+       */
+      const strip = wrapper.querySelector('.marquee-strip') as HTMLElement | null;
+      if (strip) {
+        strip.style.animationDelay = `${(-((slot + gap) * ENTRY_FRACTION) / SPEED_PPS).toFixed(2)}s`;
+      }
     }
 
     measure();
@@ -225,28 +281,21 @@ const RIBBON_LOGO_HEIGHT = 32;
   .partner-trust-ribbon {
     position: relative;
     background-color: var(--bg-subtle-paper, #F7F7F5);
-    padding: 26px 0;
+    padding: 13px 0;
     overflow: hidden;
     z-index: 10;
     --ribbon-land: 1;
+    --ribbon-gap: 28px;
+    --ribbon-logo-height: 36px;
   }
 
-  /* Structural axis: the route flattens into the marquee axis (Directives 10 & 11) */
-  .ribbon-structural-axis {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent 0,
-      rgba(37, 99, 235, 0.45) clamp(178px, 13vw, 196px),
-      rgba(37, 99, 235, 0.25) 50%,
-      transparent 100%
-    );
-    pointer-events: none;
-  }
+  /*
+   * The structural axis is gone. It was a 1px cobalt rule along the ribbon's bottom edge,
+   * justified as the hero route flattening into the ecosystem. Measured against the new ground
+   * it rendered 164,189,241 on 247,247,245 — plainly visible, and sitting between two surfaces
+   * that now carry the identical colour, where the only thing it can read as is a divider. The
+   * route it claimed to continue terminates on the plane above, not here.
+   */
 
   /* Composition: dedicated full-width horizontal geometry */
   .ribbon-inner {
@@ -276,7 +325,7 @@ const RIBBON_LOGO_HEIGHT = 32;
   @media (min-width: 900px) {
     .ribbon-inner {
       display: grid;
-      grid-template-columns: clamp(178px, 13vw, 196px) minmax(0, 1fr);
+      grid-template-columns: clamp(172px, 12vw, 188px) minmax(0, 1fr);
       align-items: center;
       column-gap: clamp(20px, 2vw, 28px);
       gap: 0;
@@ -324,8 +373,12 @@ const RIBBON_LOGO_HEIGHT = 32;
     min-width: 0;
     max-width: 100%;
     padding-left: clamp(16px, 1.5vw, 24px);
-    mask-image: linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+    /*
+     * Retuned after the slot grew: 64px on both edges started dissolving a logo while it still
+     * occupied most of its slot. A mark should pass through the edge, not fade in place.
+     */
+    mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 56px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40px, #000 calc(100% - 56px), transparent 100%);
   }
 
   /* Parent strip: only this element translates */
@@ -351,23 +404,32 @@ const RIBBON_LOGO_HEIGHT = 32;
     animation-play-state: paused;
   }
 
-  /* Groups: exact 28px gap & 28px right padding guarantees seamless loop */
+  /*
+   * The seam is the whole loop: group-to-group spacing is the group's padding-right and
+   * logo-to-logo spacing is its gap, so the two must be the same value. One custom property
+   * holds it, and the marquee script reads that same property rather than repeating the number.
+   */
   .primary-track,
   .duplicate-track {
     display: flex;
     align-items: center;
-    gap: 28px;
-    padding-right: 28px;
+    gap: var(--ribbon-gap);
+    padding-right: var(--ribbon-gap);
     list-style: none;
     margin: 0;
     padding-left: 0;
     flex-shrink: 0;
   }
 
-  /* Optical Slot: 156px wide x 48px high architectural rhythm */
+  /*
+   * The slot is measured from the rail rather than fixed at 156px. Eight fixed 156px slots plus
+   * their gaps came to 1472px, and the visible rail at 1920 is about 1652px, so a whole second
+   * group entered before the first had left and the same brand showed at both edges. Sizing the
+   * slot from the rail keeps one cycle wider than the window at every width.
+   */
   .partner-item {
-    flex: 0 0 156px;
-    height: 54px;
+    flex: 0 0 var(--ribbon-slot, 200px);
+    height: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,8 +438,13 @@ const RIBBON_LOGO_HEIGHT = 32;
 
   @media (max-width: 899px) {
     .partner-item {
-      flex: 0 0 140px;
-      height: 50px;
+      flex: 0 0 var(--ribbon-slot, 148px);
+      height: 46px;
+    }
+
+    /* 28 x 1.5 = 42, which still clears the 46px slot the narrow layout uses. */
+    .partner-trust-ribbon {
+      --ribbon-logo-height: 28px;
     }
   }
 
@@ -409,10 +476,21 @@ const RIBBON_LOGO_HEIGHT = 32;
 
   /* Logos: opacity 1, natural aspect ratio contained in 142x32 box */
   .partner-logo-img {
+    /*
+     * Height is set, not capped. A max-height only ever scales a lockup down, so any asset
+     * whose intrinsic size is already under the cap renders at its natural size and never
+     * reaches the optical height it was assigned: stormwall.svg is 174x29 against a 36px cap
+     * and was being delivered a quarter smaller than intended. Width stays automatic and is
+     * clamped below, and object-fit keeps a wide mark from distorting when that clamp binds.
+     */
     width: auto;
-    height: auto;
-    max-width: 142px;
-    max-height: 32px;
+    height: calc(var(--ribbon-logo-height, 36px) * var(--logo-scale, 1));
+    /*
+     * The slot grew for separation and loop length; the artwork must not grow to fill it. The
+     * cap is the slot minus its optical margins, so a lockup can reach roughly 155-185px at
+     * desktop widths and never stretches.
+     */
+    max-width: min(calc(var(--ribbon-slot, 200px) - 36px), 185px);
     object-fit: contain;
     display: block;
     user-select: none;

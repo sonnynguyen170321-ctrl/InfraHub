@@ -61,6 +61,33 @@ test.describe('Partner Ecosystem Ribbon — Premium Marquee Architecture', () =>
     }
   });
 
+  test('keyboard focus never pauses on a clipped partner link', async ({ page }) => {
+    await page.goto('/');
+
+    const wrapper = page.locator('.partner-trust-ribbon .ribbon-track-wrapper');
+    const links = page.locator('.partner-trust-ribbon .primary-track a.partner-logo-link');
+    await links.first().focus();
+
+    for (let index = 0; index < CANONICAL_PARTNERS.length; index++) {
+      await expect(links.nth(index)).toBeFocused();
+
+      const [wrapperBox, linkBox] = await Promise.all([
+        wrapper.boundingBox(),
+        links.nth(index).boundingBox()
+      ]);
+
+      expect(wrapperBox, 'ribbon viewport should be laid out').not.toBeNull();
+      expect(linkBox, `${CANONICAL_PARTNERS[index]} should be laid out`).not.toBeNull();
+      expect(
+        linkBox!.x + linkBox!.width > wrapperBox!.x &&
+          linkBox!.x < wrapperBox!.x + wrapperBox!.width,
+        `${CANONICAL_PARTNERS[index]} focus should remain visible inside the ribbon`
+      ).toBe(true);
+
+      if (index < CANONICAL_PARTNERS.length - 1) await page.keyboard.press('Tab');
+    }
+  });
+
   test('parent marquee strip exists, animates infinite, and measures distance', async ({ page }) => {
     await page.goto('/');
 
@@ -107,6 +134,31 @@ test.describe('Partner Ecosystem Ribbon — Premium Marquee Architecture', () =>
     for (const url of imgUrls) {
       const res = await request.get(url);
       expect(res.status(), `Logo ${url} should return 200`).toBe(200);
+    }
+  });
+
+  test('lazy partner logos finish loading before the marquee reveals them', async ({ page }) => {
+    await page.goto('/');
+
+    const wrapper = page.locator('.partner-trust-ribbon .ribbon-track-wrapper');
+
+    for (const partnerName of ['ITcare', 'Airframe']) {
+      const image = page.locator('.partner-trust-ribbon .primary-track')
+        .getByAltText(`${partnerName} logo`);
+
+      await expect.poll(async () => {
+        const [wrapperBox, imageBox] = await Promise.all([
+          wrapper.boundingBox(),
+          image.boundingBox()
+        ]);
+        if (!wrapperBox || !imageBox) return false;
+        return imageBox.x + imageBox.width > wrapperBox.x &&
+          imageBox.x < wrapperBox.x + wrapperBox.width;
+      }, { timeout: 20_000 }).toBe(true);
+
+      await expect.poll(async () =>
+        image.evaluate((element) => (element as HTMLImageElement).naturalWidth)
+      ).toBeGreaterThan(0);
     }
   });
 

@@ -60,11 +60,11 @@ import heroImage from '../assets/hero-datacenter.jpg';
       </h1>
 
       <p class="hero-description">
-        InfraHub helps businesses evaluate infrastructure requirements and connect with specialist providers across networking, cloud, security, hardware and managed operations.
+        InfraHub helps businesses define infrastructure requirements, compare suitable approaches and connect with specialist providers across networking, cloud, security, hardware and managed operations.
       </p>
 
       <div class="hero-actions">
-        <a href="#solutions-ecosystem" class="btn btn-accent hero-primary-action">
+        <a href="#discovery-stage" class="btn btn-accent hero-primary-action">
           Explore Solutions
         </a>
         <a href="/lets-talk" class="hero-text-action">
@@ -110,8 +110,20 @@ import heroImage from '../assets/hero-datacenter.jpg';
     /*
      * min-height beats max-height in CSS, so the two cannot simply be stated side by side:
      * at 1080px tall, 76dvh is 821px and a max-height of 780px would never apply.
+     *
+     * The height is expressed as "the viewport, less the header, less what should show beneath"
+     * rather than as a share of the viewport, because a share does not hold what matters
+     * constant. At 76dvh capped to 780px the gap under the hero measured 220px at 1080, 136px at
+     * 900 and 104px at 768: the partner band is 84px, so the tall displays were showing it plus
+     * up to 136px of bare paper — the empty band the first screen is meant to avoid. Cutting the
+     * hero toward 72dvh widens that gap rather than closing it.
+     *
+     * 100px leaves the whole band plus roughly 16px of the ground beneath it at every size, so
+     * the ecosystem is proven above the fold and the next section is only hinted at. The cap
+     * matters above ~1180px of viewport height, where the subtraction would otherwise let the
+     * photograph grow without limit.
      */
-    min-height: min(76dvh, 780px);
+    min-height: min(calc(100dvh - var(--header-height) - 100px), 1100px);
     display: flex;
     align-items: center;
     background-color: #070c14;
@@ -196,12 +208,19 @@ import heroImage from '../assets/hero-datacenter.jpg';
     position: absolute;
     inset: 0;
     background:
+      /*
+       * The copy column reaches to roughly 46% of the frame, and that stop is what carries it.
+       * A taller hero re-crops the photograph behind the text and the revised description
+       * rewraps across different pixels, which took the first description line to 4.37:1 —
+       * under the 4.5:1 AA floor. Raised only where the copy sits; the open right-hand side is
+       * untouched so the facility stays visible.
+       */
       linear-gradient(
         90deg,
-        rgba(7, 12, 20, 0.8) 0%,
-        rgba(7, 12, 20, 0.7) 26%,
-        rgba(7, 12, 20, 0.44) 46%,
-        rgba(7, 12, 20, 0.14) 68%,
+        rgba(7, 12, 20, 0.86) 0%,
+        rgba(7, 12, 20, 0.78) 26%,
+        rgba(7, 12, 20, 0.54) 46%,
+        rgba(7, 12, 20, 0.16) 68%,
         rgba(7, 12, 20, 0.02) 100%
       ),
       linear-gradient(
@@ -447,6 +466,10 @@ import heroImage from '../assets/hero-datacenter.jpg';
     pointer-events: none;
     opacity: calc(min(max((var(--hero-progress, 0) - 0.5) * 3, 0), 1));
     transition: opacity 180ms ease-out;
+  }
+
+  .hero-spatial-transition[data-enhanced='true'] .hero-spatial-fallback {
+    opacity: 0;
   }
 
   .spatial-route-path {

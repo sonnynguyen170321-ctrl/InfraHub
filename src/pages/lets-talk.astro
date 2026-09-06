@@ -522,6 +522,13 @@ import Layout from '../layouts/Layout.astro';
     setHidden('context-utm-term', params.get('utm_term'));
     setHidden('context-utm-content', params.get('utm_content'));
 
+    const lookingForSelect = document.getElementById('lookingFor');
+    if (service && lookingForSelect instanceof HTMLSelectElement) {
+      const hasMatchingScope = Array.from(lookingForSelect.options)
+        .some((option) => option.value === service);
+      if (hasMatchingScope) lookingForSelect.value = service;
+    }
+
     const badgeWrap = document.getElementById('context-badge-wrap');
     const badgeText = document.getElementById('context-badge-text');
     let context = null;

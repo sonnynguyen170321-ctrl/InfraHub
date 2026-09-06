@@ -26,10 +26,12 @@ export function logoHeightStyle(scale: number | undefined, base: number): string
 }
 
 /**
- * Inline style for a surface that lets the logo find its own height inside a cap (the ribbon,
- * where every slot is the same size and the image is contained within it).
+ * The ribbon's base logo height changes with the breakpoint, so the optical correction has to
+ * reach CSS as a multiplier rather than as an already-resolved pixel value. A resolved inline
+ * max-height cannot answer a media query, which is how a 1.5-scaled lockup came to be 54px tall
+ * inside a 50px slot: the base moved and the inline value could not follow.
  */
-export function logoMaxHeightStyle(scale: number | undefined, base: number): string | undefined {
+export function logoScaleStyle(scale: number | undefined): string | undefined {
   if (!scale || scale === 1) return undefined;
-  return `max-height: ${logoHeight(scale, base)}px;`;
+  return `--logo-scale: ${scale};`;
 }

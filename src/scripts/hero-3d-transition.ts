@@ -37,6 +37,7 @@ export class Hero3DTransitionController {
   private targetProgress: number = 0;
   private rafId: number | null = null;
   private resizeObserver: ResizeObserver | null = null;
+  private motionQuery: MediaQueryList | null = null;
 
   // 3D spline definition (Directives 03, 04, 05)
   private splinePoints: Vec3[] = [
@@ -57,8 +58,10 @@ export class Hero3DTransitionController {
   public async init(): Promise<boolean> {
     if (typeof window === 'undefined') return false;
 
+    this.motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     // Gate: reduced motion preference (Directive 34)
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (this.motionQuery.matches) {
       return false;
     }
 
@@ -79,13 +82,11 @@ export class Hero3DTransitionController {
     this.ctx = this.canvas.getContext('2d', { alpha: true });
     if (!this.ctx) return false;
 
+    this.isInitialized = true;
+    this.canvas.style.transition = 'opacity 280ms ease-out';
     this.setupObservers();
     this.onResize();
     this.onScroll();
-
-    this.isInitialized = true;
-    this.canvas.style.transition = 'opacity 280ms ease-out';
-    this.canvas.style.opacity = '1';
     return true;
   }
 
@@ -99,6 +100,7 @@ export class Hero3DTransitionController {
 
     window.addEventListener('scroll', this.handleScroll, { passive: true });
     window.addEventListener('resize', this.handleResize, { passive: true });
+    this.motionQuery?.addEventListener('change', this.handleCapabilityChange);
   }
 
   private handleScroll = () => {
@@ -107,6 +109,12 @@ export class Hero3DTransitionController {
 
   private handleResize = () => {
     this.onResize();
+    this.onScroll();
+  };
+
+  private handleCapabilityChange = () => {
+    this.onResize();
+    this.onScroll();
   };
 
   public updateProgress(progress: number) {
@@ -117,7 +125,7 @@ export class Hero3DTransitionController {
   }
 
   private onScroll() {
-    if (!this.heroEl) return;
+    if (!this.heroEl || !this.canEnhance()) return;
     const heroHeight = this.heroEl.offsetHeight || 1;
     const scrollY = window.scrollY;
 
@@ -128,6 +136,18 @@ export class Hero3DTransitionController {
 
   private onResize() {
     if (!this.canvas || !this.container) return;
+
+    if (!this.canEnhance()) {
+      delete this.container.dataset.enhanced;
+      this.canvas.style.opacity = '0';
+      if (this.rafId) cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+      this.isRendering = false;
+      return;
+    }
+
+    this.container.dataset.enhanced = 'true';
+    this.canvas.style.opacity = '1';
     const width = this.container.clientWidth || window.innerWidth;
     const height = this.container.clientHeight || (window.innerHeight * 0.75);
 
@@ -138,6 +158,10 @@ export class Hero3DTransitionController {
     this.canvas.style.height = `${height}px`;
 
     this.requestRender();
+  }
+
+  private canEnhance(): boolean {
+    return window.innerWidth >= 1024 && !(this.motionQuery?.matches ?? false);
   }
 
   private requestRender() {
@@ -350,6 +374,7 @@ export class Hero3DTransitionController {
 
     window.removeEventListener('scroll', this.handleScroll);
     window.removeEventListener('resize', this.handleResize);
+    this.motionQuery?.removeEventListener('change', this.handleCapabilityChange);
 
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
@@ -360,7 +385,12 @@ export class Hero3DTransitionController {
       this.canvas.style.opacity = '0';
     }
 
+    if (this.container) {
+      delete this.container.dataset.enhanced;
+    }
+
     this.ctx = null;
+    this.motionQuery = null;
   }
 }
 

@@ -27,7 +27,7 @@ publicNameApproved: true
 homepageMarqueeEnabled: true
 homepagePriority: 5
 partnerPageEnabled: true
-logoScale: 1
+logoScale: 1.2
 decisionLayer:
   architectureTitle: "IPv4 Sourcing & Governance Flow"
   architectureSubtitle: "From address requirements through authorization, routing preparation, reputation, and abuse management"
