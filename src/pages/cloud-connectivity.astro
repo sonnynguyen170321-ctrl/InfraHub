@@ -17,7 +17,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <h1 class="service-title">Direct Cloud Interconnect</h1>
         <p class="service-lead">
-          Bypass the public internet and connect on-premise colocation or bare-metal clusters directly to AWS, Microsoft Azure, and Google Cloud with private Layer 2 VLANs, deterministic latency, and 60%+ cloud egress fee savings.
+          Bypass the public internet and connect on-premise colocation or bare-metal clusters directly to AWS, Microsoft Azure, and Google Cloud over private Layer 2 VLANs, with a latency profile set by the physical path rather than by internet routing.
         </p>
         <div class="service-hero-actions">
           <a href="/lets-talk?service=cloud-connectivity" class="btn btn-accent btn-lg">Request Cloud Interconnect</a>
@@ -34,16 +34,16 @@ import Layout from '../layouts/Layout.astro';
         </p>
         <div class="problem-grid">
           <div class="problem-card">
-            <h3>60%-80% Egress Cost Reduction</h3>
-            <p>Significant cost reduction on heavy database synchronization, analytics pipelines, and backup streams moving out of AWS/Azure.</p>
+            <h3>Egress Cost Modelling</h3>
+            <p>Hyperscaler egress is billed differently over a dedicated interconnect than over the public internet. The saving depends on volume and direction, so it is modelled against your actual traffic before commitment.</p>
           </div>
           <div class="problem-card">
             <h3>Predictable Network Latency</h3>
             <p>Direct fiber cross-connect into the hyperscaler availability zone eliminates public internet hops and route flappings.</p>
           </div>
           <div class="problem-card">
-            <h3>Zero Attack Surface Exposure</h3>
-            <p>Private RFC 1918 IP addresses over encrypted Layer 2 802.1Q VLAN tags without opening public internet endpoints.</p>
+            <h3>No Public Internet Exposure</h3>
+            <p>Private RFC 1918 addressing over 802.1Q Layer 2 VLAN tags, carrying this traffic without opening a public internet endpoint for it.</p>
           </div>
         </div>
       </div>

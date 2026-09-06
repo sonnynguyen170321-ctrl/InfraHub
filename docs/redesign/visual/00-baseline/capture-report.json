@@ -1,0 +1,365 @@
+[
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "loadMs": 1733,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1440x900",
+    "loadMs": 1445,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "loadMs": 1240,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1280x800",
+    "loadMs": 1159,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "loadMs": 1217,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "loadMs": 1658,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "430x932",
+    "loadMs": 1170,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "390x844",
+    "loadMs": 1276,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "360x800",
+    "loadMs": 1273,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/wavelengths",
+    "viewport": "1440x900",
+    "loadMs": 932,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/wavelengths",
+    "viewport": "768x1024",
+    "loadMs": 833,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/wavelengths",
+    "viewport": "390x844",
+    "loadMs": 867,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/partners",
+    "viewport": "1440x900",
+    "loadMs": 1041,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/partners",
+    "viewport": "768x1024",
+    "loadMs": 773,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/partners",
+    "viewport": "390x844",
+    "loadMs": 723,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/partners/fastnetmon",
+    "viewport": "1440x900",
+    "loadMs": 859,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/partners/fastnetmon",
+    "viewport": "768x1024",
+    "loadMs": 797,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/partners/fastnetmon",
+    "viewport": "390x844",
+    "loadMs": 739,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "1440x900",
+    "loadMs": 762,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "768x1024",
+    "loadMs": 736,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/about",
+    "viewport": "390x844",
+    "loadMs": 696,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/how-we-work",
+    "viewport": "1440x900",
+    "loadMs": 783,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/how-we-work",
+    "viewport": "768x1024",
+    "loadMs": 723,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/how-we-work",
+    "viewport": "390x844",
+    "loadMs": 739,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/lets-talk",
+    "viewport": "1440x900",
+    "loadMs": 797,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/lets-talk",
+    "viewport": "768x1024",
+    "loadMs": 744,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/lets-talk",
+    "viewport": "390x844",
+    "loadMs": 679,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/solutions/network-connectivity",
+    "viewport": "1440x900",
+    "loadMs": 867,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/solutions/network-connectivity",
+    "viewport": "768x1024",
+    "loadMs": 716,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/solutions/network-connectivity",
+    "viewport": "390x844",
+    "loadMs": 805,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/insights",
+    "viewport": "1440x900",
+    "loadMs": 782,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/insights",
+    "viewport": "768x1024",
+    "loadMs": 736,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/insights",
+    "viewport": "390x844",
+    "loadMs": 714,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  }
+]

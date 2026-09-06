@@ -24,3 +24,7 @@ packetfabric.com_.png
 
 # Screenshot evidence (regenerate with scripts/capture-matrix.mjs)
 screenshots/
+
+# Redesign visual captures: regenerable from scripts/visual-baseline.mjs at the recorded
+# SHA. The JSON report is committed; the PNGs (~49MB per phase) are not.
+docs/redesign/visual/**/*.png
