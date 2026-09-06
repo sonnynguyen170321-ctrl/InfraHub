@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Phase 5: Proof & Evaluation Matrix', () => {
-  test('sector evaluation scorecard renders and switches dynamically on click', async ({ page }) => {
+test.describe('Phase 5: Sector Evaluation', () => {
+  test('sector evaluation detail renders and switches dynamically on click', async ({ page }) => {
     await page.goto('/');
 
-    const card = page.locator('#sectorEvaluationCard');
+    const card = page.locator('#sectorDetailPanel');
     await expect(card).toBeVisible();
 
     // Default sector 01: ISPs
@@ -21,22 +21,22 @@ test.describe('Phase 5: Proof & Evaluation Matrix', () => {
     await expect(evalKicker).toContainText('Virtualization Economics');
 
     const evalChallenge = page.locator('#evalChallenge');
-    await expect(evalChallenge).toContainText('VMware Broadcom');
+    await expect(evalChallenge).toContainText('Licensing changes');
 
     const metricsGrid = page.locator('#evalMetricsGrid');
-    await expect(metricsGrid).toContainText('Hypervisor TCO');
+    await expect(metricsGrid).toContainText('Platform migration');
 
     // Switch to Sector 03: SaaS & Technology
     const saasTab = page.locator('#sector-tab-saas');
     await saasTab.click();
     await expect(evalKicker).toContainText('Edge Latency');
-    await expect(metricsGrid).toContainText('Egress Cost Reduction');
+    await expect(metricsGrid).toContainText('Egress model');
 
     // Switch to Sector 04: Enterprise
     const enterpriseTab = page.locator('#sector-tab-enterprise');
     await enterpriseTab.click();
     await expect(evalKicker).toContainText('Physical Redundancy');
-    await expect(metricsGrid).toContainText('Conduit Separation');
+    await expect(metricsGrid).toContainText('Building entry');
   });
 
   test('sector tabs support keyboard navigation', async ({ page }) => {
@@ -60,33 +60,5 @@ test.describe('Phase 5: Proof & Evaluation Matrix', () => {
     // Press ArrowUp to move back to Hosting
     await page.keyboard.press('ArrowUp');
     await expect(hostingTab).toHaveClass(/is-active/);
-  });
-
-  test('featured offer commit terms and technical specs are interactive', async ({ page }) => {
-    await page.goto('/');
-
-    const offersSection = page.locator('#featured-offers');
-    if ((await offersSection.count()) === 0) return;
-
-    // Check commit terms
-    const term24 = page.locator('.term-btn[data-term="24"]');
-    await expect(term24).toBeVisible();
-    await term24.click();
-    await expect(term24).toHaveClass(/is-active/);
-
-    const note = page.locator('#allocationCommitNote');
-    await expect(note).toContainText('7-day port activation SLA');
-
-    // Check tech spec inspector tabs
-    const handoverTab = page.locator('.spec-tab[data-spec-key="handover"]');
-    await handoverTab.click();
-    await expect(handoverTab).toHaveClass(/is-active/);
-
-    const specDetail = page.locator('#specDetailView');
-    await expect(specDetail).toContainText('Equinix FR5');
-
-    const slaTab = page.locator('.spec-tab[data-spec-key="sla"]');
-    await slaTab.click();
-    await expect(specDetail).toContainText('99.99% availability SLA');
   });
 });

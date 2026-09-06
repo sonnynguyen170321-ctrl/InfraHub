@@ -95,21 +95,21 @@ const riskPoints = [
                 <span class="toggle-label">Physical path</span>
               </button>
             </div>
-            <button type="button" class="sever-sim-btn" id="btnSeverSim" aria-pressed="false" title="Simulate civil bridge crossing failure">
+            <button type="button" class="sever-sim-btn" id="btnSeverSim" aria-pressed="false" title="Show the effect of a shared civil crossing failure">
               <span class="sever-sim-dot" aria-hidden="true"></span>
-              <span class="sever-sim-label">Simulate Crossing Sever</span>
+              <span class="sever-sim-label">Show shared-segment failure</span>
             </button>
             <span class="status-tag" id="statusTag">Illustrative: logical view</span>
           </div>
 
-          <!-- Hotspot Telemetry Inspection Card -->
-          <div class="hotspot-telemetry-card" id="hotspotTelemetry" aria-live="polite">
-            <div class="telemetry-header">
-              <span class="telemetry-tag">PHYSICAL DIVERSITY AUDIT</span>
-              <span class="telemetry-point-name" id="telemetryPointName">Select a convergence point</span>
+          <!-- Plain-language detail for the selected route point -->
+          <div class="route-point-detail" id="routePointDetail" aria-live="polite">
+            <div class="route-point-header">
+              <span class="route-point-label">Point detail</span>
+              <span class="route-point-name" id="routePointName">Select a convergence point</span>
             </div>
-            <p class="telemetry-desc" id="telemetryDesc">
-              Click or hover on any of the 6 physical points to evaluate common-mode civil convergence risk.
+            <p class="route-point-desc" id="routePointDesc">
+              Select any physical point to inspect where separate circuits may share a dependency.
             </p>
           </div>
 
@@ -460,14 +460,14 @@ const riskPoints = [
   }
 
   .sever-sim-btn:hover {
-    border-color: #ef4444;
-    color: #ef4444;
-    background: rgba(239, 68, 68, 0.04);
+    border-color: var(--accent-amber, #d97706);
+    color: var(--accent-amber-text, #8a4d1c);
+    background: rgba(217, 119, 6, 0.04);
   }
 
   .sever-sim-btn.is-active {
-    background: #ef4444;
-    border-color: #dc2626;
+    background: var(--accent-amber-text, #8a4d1c);
+    border-color: var(--accent-amber-text, #8a4d1c);
     color: #ffffff;
   }
 
@@ -475,59 +475,51 @@ const riskPoints = [
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #ef4444;
+    background: var(--accent-amber, #d97706);
   }
 
   .sever-sim-btn.is-active .sever-sim-dot {
     background: #ffffff;
-    box-shadow: 0 0 6px #ffffff;
   }
 
-  .hotspot-telemetry-card {
+  .route-point-detail {
     margin-top: 16px;
-    padding: 12px 14px;
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-left: 3px solid var(--color-cobalt, #2563eb);
-    border-radius: 4px;
+    padding: 12px 0 0;
+    border-top: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     gap: 4px;
-    transition: border-left-color 180ms ease, background-color 180ms ease;
+    transition: border-color 180ms ease;
   }
 
-  .hotspot-telemetry-card.is-warning {
-    border-left-color: #ef4444;
-    background: rgba(254, 242, 242, 0.6);
+  .route-point-detail.is-warning {
+    border-top-color: var(--accent-amber, #d97706);
   }
 
-  .telemetry-header {
+  .route-point-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
   }
 
-  .telemetry-tag {
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
+  .route-point-label {
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: var(--color-cobalt, #2563eb);
   }
 
-  .hotspot-telemetry-card.is-warning .telemetry-tag {
-    color: #dc2626;
+  .route-point-detail.is-warning .route-point-label {
+    color: var(--accent-amber-text, #8a4d1c);
   }
 
-  .telemetry-point-name {
+  .route-point-name {
     font-size: 0.84rem;
     font-weight: 600;
     color: var(--text-primary);
   }
 
-  .telemetry-desc {
+  .route-point-desc {
     font-size: 0.82rem;
     line-height: 1.5;
     color: var(--text-secondary);
@@ -540,23 +532,23 @@ const riskPoints = [
     stroke-width: 2.2;
     stroke-linecap: round;
     stroke-dasharray: 20 180;
-    animation: circuitPulse 3.5s linear infinite;
+    animation: circuitPulse 3.5s var(--ease-in-out) infinite;
     pointer-events: none;
     opacity: 0.85;
   }
 
   .pulse-alpha {
-    stroke: #3b82f6;
+    stroke: var(--accent-blue, #2854c7);
   }
 
   .pulse-bravo {
-    stroke: #0284c7;
+    stroke: var(--accent-teal, #0d9488);
     animation-delay: -1.75s;
   }
 
   .pulse-shared {
-    stroke: #f59e0b;
-    animation: sharedPulse 2.2s linear infinite;
+    stroke: var(--accent-amber, #d97706);
+    animation: sharedPulse 2.2s var(--ease-in-out) infinite;
   }
 
   @keyframes circuitPulse {
@@ -571,7 +563,7 @@ const riskPoints = [
 
   /* Severed Simulation State */
   .route-diversity-explorer.is-severed .shared-segment {
-    stroke: #ef4444 !important;
+    stroke: var(--accent-amber, #d97706) !important;
     stroke-width: 3.5 !important;
     stroke-dasharray: 4 3 !important;
     animation: flashSever 1.2s ease-in-out infinite alternate;
@@ -969,7 +961,7 @@ const riskPoints = [
 
       if (statusTag) {
         statusTag.textContent = isSevered
-          ? 'Common-mode failure: Both circuits interrupted at civil crossing.'
+          ? 'Illustrative — Common-mode failure at the shared civil crossing.'
           : statusFor[clamped];
       }
     }
@@ -1041,18 +1033,18 @@ const riskPoints = [
     }
 
     // ── Interactive Hotspot Inspection (Directives 18 & 19) ─────────────────
-    // ── Interactive Hotspot Inspection & Telemetry (Phase 4) ─────────────
     const markers = Array.from(section!.querySelectorAll<HTMLElement>('.risk-marker'));
     const verifyItems = Array.from(section!.querySelectorAll<HTMLElement>('.verify-item'));
-    const telemetryCard = document.getElementById('hotspotTelemetry');
-    const telemetryPointName = document.getElementById('telemetryPointName');
-    const telemetryDesc = document.getElementById('telemetryDesc');
+    const pointDetail = document.getElementById('routePointDetail');
+    const pointName = document.getElementById('routePointName');
+    const pointDesc = document.getElementById('routePointDesc');
     const btnSeverSim = document.getElementById('btnSeverSim') as HTMLButtonElement | null;
 
     const defaultPointName = 'Select a convergence point';
-    const defaultDesc = 'Click or hover on any of the 6 physical points to evaluate common-mode civil convergence risk.';
+    const defaultDesc = 'Select any physical point to inspect where separate circuits may share a dependency.';
+    let selectedPointId: string | null = null;
 
-    const telemetryData: Record<string, { name: string; detail: string }> = {
+    const pointDetails: Record<string, { name: string; detail: string }> = {
       'building-entry': {
         name: 'Building Entry & Handhole',
         detail: 'Both carrier circuits enter through a single exterior utility sleeve or handhole. Trench work or perimeter civil excavation risks severing both feeds simultaneously.'
@@ -1092,27 +1084,28 @@ const riskPoints = [
 
       if (isSevered) return; // Preserve severed simulation status if active
 
-      if (targetId && telemetryData[targetId]) {
-        if (telemetryPointName) telemetryPointName.textContent = telemetryData[targetId].name;
-        if (telemetryDesc) telemetryDesc.textContent = telemetryData[targetId].detail;
-        if (telemetryCard) telemetryCard.classList.add('is-warning');
+      if (targetId && pointDetails[targetId]) {
+        if (pointName) pointName.textContent = pointDetails[targetId].name;
+        if (pointDesc) pointDesc.textContent = pointDetails[targetId].detail;
+        if (pointDetail) pointDetail.classList.add('is-warning');
       } else {
-        if (telemetryPointName) telemetryPointName.textContent = defaultPointName;
-        if (telemetryDesc) telemetryDesc.textContent = defaultDesc;
-        if (telemetryCard) telemetryCard.classList.remove('is-warning');
+        if (pointName) pointName.textContent = defaultPointName;
+        if (pointDesc) pointDesc.textContent = defaultDesc;
+        if (pointDetail) pointDetail.classList.remove('is-warning');
       }
     }
 
     markers.forEach((marker) => {
       const targetId = marker.getAttribute('data-risk-point');
       marker.addEventListener('mouseenter', () => highlightPoint(targetId));
-      marker.addEventListener('mouseleave', () => highlightPoint(null));
+      marker.addEventListener('mouseleave', () => highlightPoint(selectedPointId));
       marker.addEventListener('focus', () => {
         setState(2);
         highlightPoint(targetId);
       });
-      marker.addEventListener('blur', () => highlightPoint(null));
+      marker.addEventListener('blur', () => highlightPoint(selectedPointId));
       marker.addEventListener('click', () => {
+        selectedPointId = targetId;
         setState(2);
         highlightPoint(targetId);
       });
@@ -1121,13 +1114,14 @@ const riskPoints = [
     verifyItems.forEach((item) => {
       const targetId = item.getAttribute('data-risk-target');
       item.addEventListener('mouseenter', () => highlightPoint(targetId));
-      item.addEventListener('mouseleave', () => highlightPoint(null));
+      item.addEventListener('mouseleave', () => highlightPoint(selectedPointId));
       item.addEventListener('focus', () => {
         setState(2);
         highlightPoint(targetId);
       });
-      item.addEventListener('blur', () => highlightPoint(null));
+      item.addEventListener('blur', () => highlightPoint(selectedPointId));
       item.addEventListener('click', () => {
+        selectedPointId = targetId;
         setState(2);
         highlightPoint(targetId);
       });
@@ -1146,15 +1140,13 @@ const riskPoints = [
             setState(2);
             scrollToState(2);
           }
-          if (statusTag) statusTag.textContent = 'Common-mode failure: Both circuits interrupted at civil crossing.';
-          if (telemetryPointName) telemetryPointName.textContent = 'Civil Crossing Severed (Common-Mode Fault)';
-          if (telemetryDesc) telemetryDesc.textContent = 'A physical severed event at the shared bridge crossing halts both Carrier Alpha and Carrier Bravo simultaneously, proving that contract diversity fails without physical route verification.';
-          if (telemetryCard) telemetryCard.classList.add('is-warning');
+          if (statusTag) statusTag.textContent = 'Illustrative failure: both circuits use the shared civil crossing.';
+          if (pointName) pointName.textContent = 'Shared civil crossing unavailable';
+          if (pointDesc) pointDesc.textContent = 'In this illustrative model, loss of the shared crossing interrupts both circuits. Real route diversity must be established from evidence for the specific paths.';
+          if (pointDetail) pointDetail.classList.add('is-warning');
         } else {
           if (statusTag) statusTag.textContent = statusFor[state];
-          if (telemetryPointName) telemetryPointName.textContent = defaultPointName;
-          if (telemetryDesc) telemetryDesc.textContent = defaultDesc;
-          if (telemetryCard) telemetryCard.classList.remove('is-warning');
+          highlightPoint(selectedPointId);
         }
       });
     }

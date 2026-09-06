@@ -5,6 +5,14 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'static',
   compressHTML: true,
+  build: {
+    inlineStylesheets: 'never'
+  },
+  vite: {
+    build: {
+      assetsInlineLimit: 0
+    }
+  },
   adapter: vercel({
     // Vercel Analytics serves /_vercel/insights/script.js, which only exists on Vercel.
     // Injecting it into a local build makes every page request a URL that 404s, which buries

@@ -1,67 +1,6 @@
 ---
 // src/components/AudienceAndEditorial.astro  -  Technical Journal Editorial & Evaluation Matrix (Directives 28-30)
-const industries = [
-  {
-    id: "isps",
-    name: "ISPs & Network Operators",
-    summary: "Transit, optical connectivity, routing and DDoS requirements.",
-    url: "/industries/isps-network-operators",
-    kicker: "Carrier Peering & DDoS Filtering",
-    challenge: "Upstream transit monopolization & BGP route hijack exposure during high-volume volumetric attacks.",
-    solution: "Multi-homed carrier mesh with automated BGP FlowSpec diversion and verified diverse fiber ingress.",
-    metrics: [
-      { label: "BGP Diversion SLA", value: "< 3s automated FlowSpec", verified: true },
-      { label: "Transit Diversity", value: "Dual Tier-1 + IX peering", verified: true },
-      { label: "Burst Economics", value: "95th percentile commit", verified: true }
-    ],
-    recommendedDisciplines: ["Network & Connectivity", "Security & Telemetry"]
-  },
-  {
-    id: "hosting",
-    name: "Hosting & Cloud Providers",
-    summary: "Compute, colocation, IPv4 and network capacity.",
-    url: "/industries/hosting-cloud-providers",
-    kicker: "Virtualization Economics & Sourcing",
-    challenge: "Enterprise hypervisor licensing inflation (VMware Broadcom) & protracted hardware supply chain lead times.",
-    solution: "Open-source hypervisor migration (XCP-ng / Proxmox) on burn-in certified refurbished high-density compute.",
-    metrics: [
-      { label: "Hypervisor TCO", value: "40–60% license savings", verified: true },
-      { label: "IPv4 Allocation", value: "Leased /24 to /20 subnets", verified: true },
-      { label: "Hardware Delivery", value: "7–14 day facility rack-in", verified: true }
-    ],
-    recommendedDisciplines: ["Infrastructure & Compute", "Cloud & Virtualization"]
-  },
-  {
-    id: "saas",
-    name: "SaaS & Technology",
-    summary: "Regional connectivity, cloud economics and private infrastructure.",
-    url: "/industries/saas-technology",
-    kicker: "Edge Latency & Cloud Repatriation",
-    challenge: "Compound hyperscaler egress tolling and cross-regional latency variance impacting real-time user experiences.",
-    solution: "Hybrid architecture routing compute to low-latency edge nodes and private inter-datacenter wavelengths.",
-    metrics: [
-      { label: "Egress Cost Reduction", value: "Up to 65% vs public cloud", verified: true },
-      { label: "Edge Latency Target", value: "Sub-20ms regional PoP", verified: true },
-      { label: "Direct-Connect Mesh", value: "Zero-public egress routing", verified: true }
-    ],
-    recommendedDisciplines: ["Cloud & Virtualization", "Network & Connectivity"]
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    summary: "Private cloud, connectivity, hardware and managed operations.",
-    url: "/industries/enterprise",
-    kicker: "Physical Redundancy & Cutover Integrity",
-    challenge: "Contract diversity masking common-mode trench failure; multi-facility migrations stalling on NOC operations.",
-    solution: "Physically audited route diversity with 24/7 proactive telemetry and hands-on cutover execution.",
-    metrics: [
-      { label: "Conduit Separation", value: "Dual utility entry verified", verified: true },
-      { label: "Operational Guard", value: "24/7/365 proactive NOC", verified: true },
-      { label: "Cutover Downtime", value: "Zero unscheduled disruption", verified: true }
-    ],
-    recommendedDisciplines: ["Managed Operations", "Infrastructure & Compute"]
-  }
-];
+import { industries } from '../data/industry-evaluations';
 
 const initialSector = industries[0];
 ---
@@ -74,9 +13,6 @@ const initialSector = industries[0];
   <div class="container">
     <!-- Chapter Opening Statement (Quiet Authority) -->
     <div class="practice-header">
-      <div class="practice-tag-row">
-        <span class="practice-chapter-tag">Chapter 07 / Practice & Proof</span>
-      </div>
       <h2 class="practice-headline">Infrastructure in practice</h2>
       <p class="practice-subline">
         How technical, physical and commercial constraints change the infrastructure decision.
@@ -97,9 +33,6 @@ const initialSector = industries[0];
             width="800"
             height="450"
           />
-          <div class="analysis-image-overlay">
-            <span class="analysis-overlay-badge" id="analysisContextBadge">Case Study: Optical Path Diversity</span>
-          </div>
         </a>
 
         <div class="analysis-editorial-body">
@@ -130,24 +63,23 @@ const initialSector = industries[0];
         </div>
       </article>
 
-      <!-- Supporting Right Column: Industry Index & Evaluation Scorecard (~42%) -->
-      <aside class="journal-industries-sidebar" aria-label="Target Industries and Sector Matrix">
+      <!-- Supporting Right Column: Industry Index & Evaluation Detail (~42%) -->
+      <aside class="journal-industries-sidebar" aria-label="Target industries and evaluation details">
         <div class="sidebar-header">
-          <div class="sidebar-kicker">Operational Sectors</div>
           <h3 class="sidebar-title">Who we work with</h3>
           <p class="sidebar-desc">
-            Select a sector to evaluate architectural challenges, verified deliverables, and failure mitigations.
+            Select a sector to compare the constraints and evidence that shape an infrastructure decision.
           </p>
         </div>
 
         <div class="industries-nav-list" role="tablist" aria-label="Industry Sector Profiles">
           {industries.map((ind, idx) => (
-            <button 
+            <button
               type="button"
               role="tab"
               id={`sector-tab-${ind.id}`}
               aria-selected={idx === 0 ? "true" : "false"}
-              aria-controls="sectorEvaluationCard"
+              aria-controls="sectorDetailPanel"
               class={`industry-nav-item ${idx === 0 ? 'is-active' : ''}`}
               data-sector-index={idx}
               data-sector-id={ind.id}
@@ -162,30 +94,26 @@ const initialSector = industries[0];
           ))}
         </div>
 
-        <!-- Sector Architecture & Evaluation Scorecard HUD (Phase 5) -->
-        <div 
-          class="sector-evaluation-card" 
-          id="sectorEvaluationCard" 
-          role="tabpanel" 
+        <!-- Sector-specific evaluation detail -->
+        <div
+          class="sector-detail-panel"
+          id="sectorDetailPanel"
+          role="tabpanel"
           aria-labelledby="sector-tab-isps"
           aria-live="polite"
         >
           <div class="card-header-bar">
             <span class="eval-tag" id="evalKicker">{initialSector.kicker}</span>
-            <span class="eval-status-pill">
-              <span class="eval-status-dot" aria-hidden="true"></span>
-              <span>Audited Model</span>
-            </span>
           </div>
 
           <div class="eval-body">
             <div class="eval-block">
-              <div class="eval-label">Operational Challenge</div>
+              <div class="eval-label">Typical constraint</div>
               <p class="eval-challenge" id="evalChallenge">{initialSector.challenge}</p>
             </div>
 
             <div class="eval-block">
-              <div class="eval-label">Verified Architecture Solution</div>
+              <div class="eval-label">What to compare</div>
               <p class="eval-solution" id="evalSolution">{initialSector.solution}</p>
             </div>
 
@@ -201,7 +129,7 @@ const initialSector = industries[0];
 
           <div class="eval-footer">
             <a href={initialSector.url} class="btn-sector-deepdive" id="evalDeepdiveLink">
-              <span id="evalDeepdiveText">View {initialSector.name} Architecture</span>
+              <span id="evalDeepdiveText">View {initialSector.name} guidance</span>
               <span class="link-arrow" aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -218,9 +146,6 @@ const initialSector = industries[0];
     </div>
   </div>
 </section>
-
-<!-- JSON Data for dynamic sector evaluation switching -->
-<script is:inline id="sectorDataScript" type="application/json" set:html={JSON.stringify(industries)} />
 
 <style>
   .section-audience-editorial {
@@ -244,18 +169,6 @@ const initialSector = industries[0];
   .practice-header {
     margin-bottom: 44px;
     max-width: 800px;
-  }
-
-  .practice-tag-row {
-    margin-bottom: 8px;
-  }
-  .practice-chapter-tag {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
   }
 
   .practice-headline {
@@ -306,25 +219,6 @@ const initialSector = industries[0];
   .analysis-image-frame:hover .analysis-lead-img,
   .analysis-lead-img.shift-crop {
     transform: scale(1.025) translate3d(2px, -2px, 0);
-  }
-  .analysis-image-overlay {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-  }
-  .analysis-overlay-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 600;
-    color: #ffffff;
-    background: rgba(11, 17, 32, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-    backdrop-filter: blur(4px);
-    letter-spacing: 0.02em;
-    transition: color 160ms ease, border-color 160ms ease;
   }
   .analysis-editorial-body {
     padding-top: 24px;
@@ -404,22 +298,13 @@ const initialSector = industries[0];
     transition: transform 160ms ease;
   }
 
-  /* Right Column: Sidebar & Sector HUD */
+  /* Right Column: Sidebar & Sector Detail */
   .journal-industries-sidebar {
     display: flex;
     flex-direction: column;
   }
   .sidebar-header {
     margin-bottom: 16px;
-  }
-  .sidebar-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent-blue);
-    margin-bottom: 4px;
   }
   .sidebar-title {
     font-size: 1.35rem;
@@ -500,8 +385,8 @@ const initialSector = industries[0];
     transform: translateX(3px);
   }
 
-  /* Sector Architecture & Evaluation Scorecard HUD (Phase 5) */
-  .sector-evaluation-card {
+  /* Sector-specific evaluation detail */
+  .sector-detail-panel {
     margin-top: 20px;
     background: #f8fafc;
     border: 1px solid var(--border-color);
@@ -521,32 +406,9 @@ const initialSector = industries[0];
     padding-bottom: 10px;
   }
   .eval-tag {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--accent-blue);
-  }
-  .eval-status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
+    font-size: 0.84rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: #15803d;
-    background: #dcfce7;
-    padding: 2px 8px;
-    border-radius: 9999px;
-  }
-  .eval-status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #16a34a;
+    color: var(--accent-blue);
   }
   .eval-body {
     display: flex;
@@ -559,11 +421,8 @@ const initialSector = industries[0];
     gap: 4px;
   }
   .eval-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
     color: #64748b;
   }
   .eval-challenge {
@@ -600,16 +459,12 @@ const initialSector = industries[0];
     gap: 2px;
   }
   .metric-label {
-    font-family: var(--font-mono);
     font-size: 0.68rem;
     color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
   }
   .metric-value {
-    font-family: var(--font-mono);
     font-size: 0.8rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #0f172a;
   }
   .eval-footer {
@@ -656,7 +511,7 @@ const initialSector = industries[0];
     .ind-name,
     .ind-arrow,
     .link-arrow,
-    .sector-evaluation-card {
+    .sector-detail-panel {
       transition: none !important;
       transform: none !important;
     }
@@ -664,34 +519,25 @@ const initialSector = industries[0];
 </style>
 
 <script>
+  import { industries } from '../data/industry-evaluations';
+
   function initPracticeInteractions() {
     const leadImg = document.getElementById('analysisLeadImg');
-    const badge = document.getElementById('analysisContextBadge');
     const hint = document.getElementById('articleSectorHint');
     const items = Array.from(document.querySelectorAll<HTMLButtonElement>('.industry-nav-item'));
     
-    // Evaluation HUD elements
+    // Sector detail elements
     const kickerEl = document.getElementById('evalKicker');
     const challengeEl = document.getElementById('evalChallenge');
     const solutionEl = document.getElementById('evalSolution');
     const metricsGridEl = document.getElementById('evalMetricsGrid');
     const deepdiveLink = document.getElementById('evalDeepdiveLink') as HTMLAnchorElement | null;
     const deepdiveText = document.getElementById('evalDeepdiveText');
-    const card = document.getElementById('sectorEvaluationCard');
-
-    const dataEl = document.getElementById('sectorDataScript');
-    if (!dataEl) return;
-    
-    let industriesData: any[] = [];
-    try {
-      industriesData = JSON.parse(dataEl.textContent || '[]');
-    } catch {
-      return;
-    }
+    const card = document.getElementById('sectorDetailPanel');
 
     function selectSector(index: number, focusTab = false) {
-      if (index < 0 || index >= industriesData.length) return;
-      const sec = industriesData[index];
+      if (index < 0 || index >= industries.length) return;
+      const sec = industries[index];
 
       // Update button active state
       items.forEach((item, idx) => {
@@ -704,14 +550,13 @@ const initialSector = industries[0];
         }
       });
 
-      // Update Scorecard HUD
+      // Update the selected sector detail
       if (kickerEl) kickerEl.textContent = sec.kicker;
       if (challengeEl) challengeEl.textContent = sec.challenge;
       if (solutionEl) solutionEl.textContent = sec.solution;
       if (deepdiveLink) deepdiveLink.href = sec.url;
-      if (deepdiveText) deepdiveText.textContent = `View ${sec.name} Architecture`;
+      if (deepdiveText) deepdiveText.textContent = `View ${sec.name} guidance`;
       if (hint) hint.textContent = `Relevant to ${sec.name}`;
-      if (badge) badge.textContent = `Case Study: ${sec.kicker}`;
 
       // Update metrics
       if (metricsGridEl && Array.isArray(sec.metrics)) {

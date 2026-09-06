@@ -13,7 +13,6 @@ import { test, expect, type Page } from '@playwright/test';
  * they are a design target, not an accident of the current slot value.
  */
 
-const RAIL = '.ribbon-track-wrapper';
 
 type Geometry = {
   rail: number;

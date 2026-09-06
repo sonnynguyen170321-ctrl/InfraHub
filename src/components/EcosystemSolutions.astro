@@ -144,7 +144,7 @@ const qualificationParameters = [
     criterion: "Compute profile & density",
     disciplines: ["infrastructure", "cloud"],
     branches: ["Compute", "Hardware", "Private cloud", "Virtualization"],
-    impact: "Defines bare-metal vs hypervisor architecture, GPU accelerator density, and cooling/power constraints."
+    impact: "Helps compare bare metal, virtualization, accelerator density, and facility power and cooling requirements."
   },
   {
     id: "location",
@@ -153,7 +153,7 @@ const qualificationParameters = [
     criterion: "Metro presence & latency",
     disciplines: ["infrastructure", "network"],
     branches: ["Colocation", "Transit", "Wavelengths", "Layer 2"],
-    impact: "Determines datacenter metro proximity, physical path diversity, and optical cross-connect reach."
+    impact: "Sets the metros, latency targets, interconnection options, and route-evidence questions to compare."
   },
   {
     id: "capacity",
@@ -162,7 +162,7 @@ const qualificationParameters = [
     criterion: "Commit & scale",
     disciplines: ["infrastructure", "network"],
     branches: ["Compute", "Transit", "Wavelengths", "IPv4"],
-    impact: "Scales dedicated compute nodes, committed IP transit bandwidth, and lit wavelength channels."
+    impact: "Sets compute, bandwidth, optical channel, and address-space requirements."
   },
   {
     id: "resilience",
@@ -171,7 +171,7 @@ const qualificationParameters = [
     criterion: "Mitigation & failover SLA",
     disciplines: ["security", "cloud"],
     branches: ["Mitigation", "Detection", "Diversion", "Backup"],
-    impact: "Dictates always-on BGP DDoS scrubbing, automated FlowSpec diversion, and multi-facility failover."
+    impact: "Defines recovery objectives, mitigation options, failover design, and the evidence to request."
   },
   {
     id: "timing",
@@ -180,7 +180,7 @@ const qualificationParameters = [
     criterion: "Lead time & window",
     disciplines: ["infrastructure", "managed"],
     branches: ["Hardware", "Triage", "Escalate"],
-    impact: "Governs server sourcing lead times, migration cutover windows, and 24/7 triage dispatch SLAs."
+    impact: "Sets sourcing lead times, cutover windows, and operational handoff requirements."
   },
   {
     id: "commercial",
@@ -189,7 +189,7 @@ const qualificationParameters = [
     criterion: "CapEx/OpEx & licensing",
     disciplines: ["cloud", "managed"],
     branches: ["Virtualization", "Engineer", "Monitor"],
-    impact: "Balances VMware alternative licensing economics (XCP-ng/Proxmox), commit durations, and managed NOC OpEx."
+    impact: "Frames licensing, contract duration, and operating-cost trade-offs."
   }
 ];
 ---
@@ -243,8 +243,8 @@ const qualificationParameters = [
           ))}
         </div>
         <div class="qualification-readout" id="qualReadout" aria-live="polite">
-          <span class="readout-tag">Architectural Causality</span>
-          <p class="readout-text" id="qualReadoutText">Select or hover a requirement to evaluate infrastructure causality and associated provider disciplines.</p>
+          <span class="readout-tag">What this changes</span>
+          <p class="readout-text" id="qualReadoutText">Select or hover a requirement to compare the infrastructure decisions it affects.</p>
         </div>
       </div>
     </div>
@@ -556,16 +556,12 @@ const qualificationParameters = [
     cursor: pointer;
     font-family: inherit;
     transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 160ms cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 160ms cubic-bezier(0.22, 1, 0.36, 1),
-                transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
+                border-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .qual-item:hover {
     background: #ffffff;
     border-color: rgba(37, 99, 235, 0.5);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    transform: translateY(-1px);
   }
 
   .qual-item:focus-visible {
@@ -576,13 +572,11 @@ const qualificationParameters = [
   .qual-item.is-driver {
     background: #ffffff;
     border-color: var(--color-cobalt, #2563eb);
-    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.12);
   }
 
   .qual-item.is-active-inspect {
     background: #ffffff;
     border-color: var(--color-cobalt, #2563eb);
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
   }
 
   .qual-item-header {
@@ -606,13 +600,12 @@ const qualificationParameters = [
     height: 6px;
     border-radius: 50%;
     background-color: transparent;
-    transition: background-color 160ms ease, box-shadow 160ms ease;
+    transition: background-color 160ms ease;
   }
 
   .qual-item.is-driver .qual-driver-dot,
   .qual-item.is-active-inspect .qual-driver-dot {
     background-color: var(--color-cobalt, #2563eb);
-    box-shadow: 0 0 5px rgba(37, 99, 235, 0.6);
   }
 
   .qual-name {
@@ -651,11 +644,8 @@ const qualificationParameters = [
   }
 
   .readout-tag {
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
     color: var(--color-cobalt, #2563eb);
   }
 
@@ -1381,7 +1371,7 @@ const qualificationParameters = [
     });
 
     // ── Qualification Parameter Interaction (Phase 3) ──────────────────────
-    const defaultReadoutText = 'Select or hover a requirement to evaluate infrastructure causality and associated provider disciplines.';
+    const defaultReadoutText = 'Select or hover a requirement to compare the infrastructure decisions it affects.';
 
     qualItems.forEach((item) => {
       const disciplines = (item.getAttribute('data-disciplines') || '').split(',').map((s) => s.trim()).filter(Boolean);

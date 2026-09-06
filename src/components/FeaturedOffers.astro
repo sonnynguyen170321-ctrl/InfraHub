@@ -48,48 +48,11 @@ const secondaryOffers = primaryOffer
 
             <p class="primary-desc">{primaryOffer.data.shortDescription}</p>
 
-            <!-- Interactive Commit Term Selector (Phase 5) -->
-            <div class="commit-term-box">
-              <div class="commit-term-label">Term & Allocation Model</div>
-              <div class="commit-term-options" role="group" aria-label="Commit term options">
-                <button type="button" class="term-btn is-active" data-term="12" aria-pressed="true">
-                  12-Month Flex
-                </button>
-                <button type="button" class="term-btn" data-term="24" aria-pressed="false">
-                  24-Month Standard
-                </button>
-                <button type="button" class="term-btn" data-term="36" aria-pressed="false">
-                  36-Month Strategic
-                </button>
-              </div>
-              <p class="commit-note" id="allocationCommitNote" aria-live="polite">
-                Flexible 95th percentile burstable commit · 14-day port activation SLA.
-              </p>
-            </div>
-
             <ul class="primary-specs-list">
               {primaryOffer.data.specifications.slice(0, 3).map(spec => (
                 <li>{spec}</li>
               ))}
             </ul>
-
-            <!-- Interactive Technical Specification Detail (Phase 5) -->
-            <div class="tech-spec-inspector">
-              <div class="spec-tab-row" role="tablist" aria-label="Technical specifications">
-                <button type="button" role="tab" class="spec-tab is-active" data-spec-key="routing" aria-selected="true">
-                  Routing & BGP
-                </button>
-                <button type="button" role="tab" class="spec-tab" data-spec-key="handover" aria-selected="false">
-                  Facility Handover
-                </button>
-                <button type="button" role="tab" class="spec-tab" data-spec-key="sla" aria-selected="false">
-                  Resilience SLA
-                </button>
-              </div>
-              <div class="spec-detail-content" id="specDetailView" aria-live="polite">
-                Dual 100Gbps LR4 optical interfaces with full BGP routing table support and FlowSpec DDoS diversion.
-              </div>
-            </div>
 
             <div class="primary-card-bottom">
               <div class="primary-price">
@@ -253,57 +216,6 @@ const secondaryOffers = primaryOffer
     max-width: 54ch;
   }
 
-  /* Commit Term Selector (Phase 5) */
-  .commit-term-box {
-    background: #f8fafc;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .commit-term-label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #64748b;
-  }
-  .commit-term-options {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .term-btn {
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 600;
-    padding: 5px 12px;
-    border: 1px solid var(--border-color);
-    background: #ffffff;
-    color: var(--text-secondary);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
-  }
-  .term-btn:hover {
-    border-color: var(--accent-blue);
-    color: var(--text-primary);
-  }
-  .term-btn.is-active {
-    background: var(--accent-blue);
-    color: #ffffff;
-    border-color: var(--accent-blue);
-  }
-  .commit-note {
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #334155;
-    margin: 2px 0 0;
-  }
-
   .primary-specs-list {
     list-style: disc;
     padding-left: 20px;
@@ -312,50 +224,6 @@ const secondaryOffers = primaryOffer
     gap: 6px;
     font-size: 0.88rem;
     color: var(--text-secondary);
-  }
-
-  /* Technical Specification Inspector (Phase 5) */
-  .tech-spec-inspector {
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-  }
-  .spec-tab-row {
-    display: flex;
-    background: #f1f5f9;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .spec-tab {
-    flex: 1;
-    padding: 8px 10px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    border: none;
-    background: transparent;
-    color: #64748b;
-    cursor: pointer;
-    text-align: center;
-    border-right: 1px solid var(--border-color);
-    transition: background-color 160ms ease, color 160ms ease;
-  }
-  .spec-tab:last-child {
-    border-right: none;
-  }
-  .spec-tab:hover {
-    color: var(--text-primary);
-  }
-  .spec-tab.is-active {
-    background: #ffffff;
-    color: var(--accent-blue);
-    font-weight: 700;
-  }
-  .spec-detail-content {
-    padding: 10px 14px;
-    font-size: 0.82rem;
-    line-height: 1.45;
-    color: #1e293b;
-    background: #ffffff;
   }
 
   .primary-card-bottom {
@@ -480,69 +348,9 @@ const secondaryOffers = primaryOffer
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .term-btn,
-    .spec-tab,
     .link-arrow {
       transition: none !important;
       transform: none !important;
     }
   }
 </style>
-
-<script>
-  function initOfferInteractions() {
-    // Commit term toggling
-    const termBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.term-btn'));
-    const noteEl = document.getElementById('allocationCommitNote');
-
-    const termNotes: Record<string, string> = {
-      '12': 'Flexible 95th percentile burstable commit · 14-day port activation SLA.',
-      '24': 'Optimized baseline commit with bundled cross-connect · 7-day port activation SLA.',
-      '36': 'Maximum unit bandwidth efficiency · Dedicated redundant port pair · 24/7 proactive NOC.'
-    };
-
-    termBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const term = btn.getAttribute('data-term') || '12';
-        termBtns.forEach(b => {
-          const isActive = b === btn;
-          b.classList.toggle('is-active', isActive);
-          b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-        });
-        if (noteEl && termNotes[term]) {
-          noteEl.textContent = termNotes[term];
-        }
-      });
-    });
-
-    // Technical spec tab toggling
-    const specTabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.spec-tab'));
-    const detailEl = document.getElementById('specDetailView');
-
-    const specDetails: Record<string, string> = {
-      'routing': 'Dual 100Gbps LR4 optical interfaces with full BGP routing table support and FlowSpec DDoS diversion.',
-      'handover': 'Meet-Me Room cross-connect inside Equinix FR5 (Frankfurt) or metro DWDM interconnect to Interxion FRA1-FRA16.',
-      'sla': '99.99% availability SLA with sub-15ms European transit latency guarantee and 15-minute emergency NOC MTTR.'
-    };
-
-    specTabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const key = tab.getAttribute('data-spec-key') || 'routing';
-        specTabs.forEach(t => {
-          const isActive = t === tab;
-          t.classList.toggle('is-active', isActive);
-          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        });
-        if (detailEl && specDetails[key]) {
-          detailEl.textContent = specDetails[key];
-        }
-      });
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initOfferInteractions);
-  } else {
-    initOfferInteractions();
-  }
-</script>

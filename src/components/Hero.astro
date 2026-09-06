@@ -363,9 +363,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
 
   /*
    * A deeper cobalt than the shared button token, because this one sits on a photograph
-   * rather than on paper. No glow, no gradient, and no hover lift: the global .btn-accent
-  /*
-   * Primary Action: engineered cobalt CTA with crisp tactile border and subtle directional feedback
+   * rather than on paper. No glow, gradient, or hover lift, so it stays anchored to the
+   * facility composition.
    */
   .hero-primary-action {
     background-color: #2450bd;
@@ -373,20 +372,15 @@ import heroImage from '../assets/hero-datacenter.jpg';
     border-radius: 4px;
     font-size: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
     transition: background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 180ms cubic-bezier(0.22, 1, 0.36, 1),
-                transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+                border-color 180ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .hero-primary-action:hover {
     background-color: #2d5cd6;
     border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 4px 14px rgba(7, 12, 20, 0.4), 0 0 10px rgba(40, 84, 199, 0.2);
-    transform: translateY(-1px);
   }
   .hero-primary-action:active {
-    transform: translateY(0) scale(0.99);
+    transform: scale(0.99);
   }
 
   /* The secondary action stays a text action; the route continues under it on hover. */
@@ -461,7 +455,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     stroke-dasharray: 600;
     stroke-dashoffset: calc(320 - min(max(var(--hero-progress, 0) * 1.5, 0), 1) * 320);
     stroke-linecap: round;
-    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.4));
   }
 
   .spatial-route-branch {
@@ -475,7 +468,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
   .spatial-route-junction {
     fill: #3b82f6;
     opacity: calc(0.5 + min(max(var(--hero-progress, 0) * 1.8, 0), 0.5));
-    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.6));
   }
 
   .hero-bottom-shelf {

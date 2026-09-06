@@ -1,16 +1,13 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Phase 6: Final CTA & Inquiry Orchestration', () => {
-  test('final CTA section renders headline, engineering commitments, and fast-track chips', async ({ page }) => {
+  test('final CTA section renders the headline and technical inquiry routes', async ({ page }) => {
     await page.goto('/');
 
     const ctaSection = page.locator('#contact');
     await expect(ctaSection).toBeVisible();
 
     await expect(ctaSection.locator('.conversion-headline')).toContainText("Tell us what you're");
-    await expect(ctaSection.locator('.engineering-commitments-grid')).toBeVisible();
-    await expect(ctaSection.locator('.commitment-item')).toHaveCount(2);
-
     const fastTrackGrid = ctaSection.locator('.fast-track-grid');
     await expect(fastTrackGrid).toBeVisible();
     await expect(fastTrackGrid.locator('.fast-track-chip')).toHaveCount(4);

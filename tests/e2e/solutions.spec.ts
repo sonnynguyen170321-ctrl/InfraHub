@@ -148,7 +148,7 @@ test.describe('qualification parameters and architectural causality', () => {
 
     // Hover parameter updates readout
     await resilienceParam.hover();
-    await expect(readout).toContainText('always-on BGP DDoS scrubbing');
+    await expect(readout).toContainText('recovery objectives');
 
     // Clicking resilience switches active discipline to Security
     await resilienceParam.click();

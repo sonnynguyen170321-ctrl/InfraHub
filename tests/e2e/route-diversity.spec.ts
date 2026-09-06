@@ -148,20 +148,44 @@ test.describe('route diversity states', () => {
     await expect(physicalPulses).toHaveCount(3);
   });
 
-  test('hotspot hover and focus updates the engineering telemetry card', async ({ page }) => {
+  test('hotspot interaction updates the route-point explanation', async ({ page }) => {
     await page.goto('/wavelengths');
 
-    await page.locator('[data-view="physical"]').click();
+    const physical = page.locator('[data-view="physical"]');
+    await physical.click();
+    // aria-pressed is only set by the explorer script, so waiting on it keeps the hotspot
+    // click below from landing before that script's listeners attach.
+    await expect(physical).toHaveAttribute('aria-pressed', 'true');
+
     const bridgeItem = page.locator('.verify-item[data-risk-target="bridge-or-rail-crossing"]');
     await bridgeItem.click();
 
-    const title = page.locator('#telemetryPointName');
-    const desc = page.locator('#telemetryDesc');
+    const title = page.locator('#routePointName');
+    const desc = page.locator('#routePointDesc');
     await expect(title).toContainText('Civil Bridge or Rail Crossing');
     await expect(desc).toContainText('River, highway, or railway barriers');
   });
 
-  test('simulate crossing sever button triggers common-mode failure state', async ({ page }) => {
+  test('selected route point returns after closing the failure illustration', async ({ page }) => {
+    await page.goto('/wavelengths');
+
+    const physical = page.locator('[data-view="physical"]');
+    await physical.click();
+    await expect(physical).toHaveAttribute('aria-pressed', 'true');
+
+    await page.locator('.verify-item[data-risk-target="bridge-or-rail-crossing"]').click();
+    const pointName = page.locator('#routePointName');
+    await expect(pointName).toContainText('Civil Bridge or Rail Crossing');
+
+    const failureControl = page.locator('#btnSeverSim');
+    await failureControl.click();
+    await expect(pointName).toContainText('Shared civil crossing unavailable');
+
+    await failureControl.click();
+    await expect(pointName).toContainText('Civil Bridge or Rail Crossing');
+  });
+
+  test('shared-segment failure control explains the common-mode state', async ({ page }) => {
     await page.goto('/');
 
     const severBtn = page.locator('#btnSeverSim');
@@ -175,8 +199,8 @@ test.describe('route diversity states', () => {
     const statusTag = page.locator('#statusTag');
     await expect(statusTag).toContainText('Common-mode failure');
 
-    const desc = page.locator('#telemetryDesc');
-    await expect(desc).toContainText('severed event');
+    const desc = page.locator('#routePointDesc');
+    await expect(desc).toContainText('illustrative model');
 
     // Toggle back off
     await severBtn.click();

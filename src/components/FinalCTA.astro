@@ -27,46 +27,25 @@ const technicalScopes = [
 <section class="section-conversion-band" id="contact" aria-label="Final Conversation">
   <div class="container conversion-container">
     <div class="conversion-left">
-      <div class="conversion-tag-row">
-        <span class="conversion-chapter-tag">Chapter 08 / Direct Engagement</span>
-      </div>
       <h2 class="conversion-headline">
         Tell us what you're<br />trying to build.
       </h2>
       <p class="conversion-copy">
         Start with the requirement, location constraints, and timing. InfraHub evaluates the approach and coordinates an introduction to specialist providers across our ecosystem.
       </p>
-
-      <!-- Principal Engineering Commitments (Phase 6) -->
-      <div class="engineering-commitments-grid">
-        <div class="commitment-item">
-          <span class="commitment-dot" aria-hidden="true"></span>
-          <div class="commitment-text">
-            <strong>Principal Engineer Review</strong>
-            <span>Every brief evaluated directly by senior network and systems architects.</span>
-          </div>
-        </div>
-        <div class="commitment-item">
-          <span class="commitment-dot" aria-hidden="true"></span>
-          <div class="commitment-text">
-            <strong>1 Business Day SLA</strong>
-            <span>Written architecture feedback and provider capability matching within 24 hours.</span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="conversion-right">
-      <!-- Fast-Track Technical Scope Selection (Phase 6) -->
+      <!-- Technical scope selection -->
       <div class="fast-track-box">
         <div class="fast-track-header">
-          <span class="fast-track-kicker">Fast-Track Scope Selection</span>
-          <span class="fast-track-hint">Select a domain to pre-populate your inquiry</span>
+          <strong class="fast-track-kicker">Choose a starting point</strong>
+          <span class="fast-track-hint">Select a domain to pre-fill your inquiry.</span>
         </div>
-        <div class="fast-track-grid" role="group" aria-label="Fast-track technical inquiry routes">
+        <div class="fast-track-grid" role="group" aria-label="Technical inquiry routes">
           {technicalScopes.map((scope) => (
-            <a 
-              href={`/lets-talk?service=${scope.param}`} 
+            <a
+              href={`/lets-talk?service=${scope.param}`}
               class="fast-track-chip"
               title={`Inquire about ${scope.label}`}
             >
@@ -97,18 +76,6 @@ const technicalScopes = [
     padding: 84px 0 88px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
-  }
-
-  .conversion-tag-row {
-    margin-bottom: 8px;
-  }
-  .conversion-chapter-tag {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #94a3b8;
   }
 
   .conversion-container {
@@ -150,50 +117,6 @@ const technicalScopes = [
     margin: 0;
   }
 
-  /* Engineering Commitments Grid */
-  .engineering-commitments-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin-top: 12px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  @media (min-width: 640px) {
-    .engineering-commitments-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-  }
-  .commitment-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-  .commitment-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--accent-blue);
-    margin-top: 6px;
-    flex-shrink: 0;
-  }
-  .commitment-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .commitment-text strong {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: #f1f5f9;
-  }
-  .commitment-text span {
-    font-size: 0.8rem;
-    line-height: 1.4;
-    color: #94a3b8;
-  }
-
   /* Right Column: Fast-Track Scope Ingress */
   .conversion-right {
     display: flex;
@@ -216,11 +139,8 @@ const technicalScopes = [
     gap: 2px;
   }
   .fast-track-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 0.84rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
     color: #60a5fa;
   }
   .fast-track-hint {

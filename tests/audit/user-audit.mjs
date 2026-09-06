@@ -122,6 +122,13 @@ try {
 
   // 2. Audit Partner Trust Ribbon on Homepage
   console.log('\n--- 2. Auditing Partner Trust Ribbon ---');
+  const ribbonElem = page.locator('.partner-trust-ribbon');
+  await ribbonElem.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => {
+    const logos = Array.from(document.querySelectorAll('.primary-track .partner-item img'));
+    return logos.length > 0 && logos.every(img => img.complete && img.naturalWidth > 0);
+  }, undefined, { timeout: 20_000 });
+
   const ribbonPartners = await page.$$eval('.primary-track .partner-item', items => {
     return items.map(item => {
       const img = item.querySelector('img');
@@ -146,7 +153,6 @@ try {
     console.log(`Ribbon item: ${p.name || p.href} | Img: ${p.hasImg} (${p.naturalWidth}x${p.naturalHeight}) | Rendered: ${p.renderedWidth.toFixed(1)}x${p.renderedHeight.toFixed(1)}px`);
   });
 
-  const ribbonElem = page.locator('.partner-trust-ribbon');
   const ribbonScreenshotPath = path.join(ARTIFACTS_DIR, 'audit_ribbon.png');
   await ribbonElem.screenshot({ path: ribbonScreenshotPath , timeout: 15000 });
   auditResults.screenshotsTaken.push(ribbonScreenshotPath);

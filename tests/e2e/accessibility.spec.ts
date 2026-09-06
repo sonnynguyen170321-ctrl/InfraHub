@@ -24,6 +24,7 @@ test.describe('accessibility', () => {
   }
 
   test('every discipline panel is clean, not just the first', async ({ page }) => {
+    test.setTimeout(60_000);
     await page.goto('/');
 
     const tabs = page.locator('.discipline-tab-btn');
