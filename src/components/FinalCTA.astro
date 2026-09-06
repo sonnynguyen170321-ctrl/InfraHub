@@ -1,26 +1,91 @@
 ---
-// src/components/FinalCTA.astro
+// src/components/FinalCTA.astro — Chapter 08: Direct Technical Engagement
+const technicalScopes = [
+  {
+    label: "Connectivity & Transit",
+    param: "connectivity",
+    spec: "10G/100G IP Transit, Metro Wavelengths, BGP Peering"
+  },
+  {
+    label: "Cloud & Virtualization",
+    param: "cloud",
+    spec: "Private Cloud Hypervisors, VMware Migration, Edge Compute"
+  },
+  {
+    label: "High-Density Compute",
+    param: "dedicated-infrastructure",
+    spec: "Bare-Metal Clusters, Refurbished Enterprise Hardware"
+  },
+  {
+    label: "DDoS & FlowSpec Security",
+    param: "ddos-security",
+    spec: "Volumetric Scrubbing, Automated BGP Diversion, WAF"
+  }
+];
 ---
 
 <section class="section-conversion-band" id="contact" aria-label="Final Conversation">
   <div class="container conversion-container">
     <div class="conversion-left">
+      <div class="conversion-tag-row">
+        <span class="conversion-chapter-tag">Chapter 08 / Direct Engagement</span>
+      </div>
       <h2 class="conversion-headline">
         Tell us what you're<br />trying to build.
       </h2>
       <p class="conversion-copy">
         Start with the requirement, location constraints, and timing. InfraHub evaluates the approach and coordinates an introduction to specialist providers across our ecosystem.
       </p>
+
+      <!-- Principal Engineering Commitments (Phase 6) -->
+      <div class="engineering-commitments-grid">
+        <div class="commitment-item">
+          <span class="commitment-dot" aria-hidden="true"></span>
+          <div class="commitment-text">
+            <strong>Principal Engineer Review</strong>
+            <span>Every brief evaluated directly by senior network and systems architects.</span>
+          </div>
+        </div>
+        <div class="commitment-item">
+          <span class="commitment-dot" aria-hidden="true"></span>
+          <div class="commitment-text">
+            <strong>1 Business Day SLA</strong>
+            <span>Written architecture feedback and provider capability matching within 24 hours.</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="conversion-right">
-      <a href="/lets-talk" class="btn btn-accent btn-lg">
-        Discuss your requirement
-      </a>
-      <a href="/how-we-work" class="conversion-text-link">
-        <span>How InfraHub works</span>
-        <span class="link-arrow" aria-hidden="true">&rarr;</span>
-      </a>
+      <!-- Fast-Track Technical Scope Selection (Phase 6) -->
+      <div class="fast-track-box">
+        <div class="fast-track-header">
+          <span class="fast-track-kicker">Fast-Track Scope Selection</span>
+          <span class="fast-track-hint">Select a domain to pre-populate your inquiry</span>
+        </div>
+        <div class="fast-track-grid" role="group" aria-label="Fast-track technical inquiry routes">
+          {technicalScopes.map((scope) => (
+            <a 
+              href={`/lets-talk?service=${scope.param}`} 
+              class="fast-track-chip"
+              title={`Inquire about ${scope.label}`}
+            >
+              <span class="chip-name">{scope.label}</span>
+              <span class="chip-spec">{scope.spec}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="conversion-actions-row">
+        <a href="/lets-talk" class="btn btn-accent btn-lg" id="mainCtaButton">
+          Discuss your requirement
+        </a>
+        <a href="/how-we-work" class="conversion-text-link">
+          <span>How InfraHub works</span>
+          <span class="link-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -29,37 +94,35 @@
   .section-conversion-band {
     position: relative;
     background-color: #0b1120;
-    padding: 84px 0 76px;
+    padding: 84px 0 88px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #ffffff;
   }
 
-  .kicker-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .conversion-tag-row {
     margin-bottom: 8px;
   }
-
-  .routing-junction-light {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--accent-blue);
+  .conversion-chapter-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #94a3b8;
   }
-
 
   .conversion-container {
     display: grid;
     grid-template-columns: 1fr;
     gap: 56px;
-    align-items: center;
+    align-items: start;
   }
 
   @media (min-width: 960px) {
     .conversion-container {
-      grid-template-columns: 1.35fr 1fr;
-      gap: 80px;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+      align-items: center;
     }
   }
 
@@ -73,7 +136,7 @@
   .conversion-headline {
     font-size: clamp(2.4rem, 4.4vw, 3.6rem);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.03em;
     color: #ffffff;
     margin: 0;
@@ -87,18 +150,124 @@
     margin: 0;
   }
 
+  /* Engineering Commitments Grid */
+  .engineering-commitments-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 12px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  @media (min-width: 640px) {
+    .engineering-commitments-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  }
+  .commitment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .commitment-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-blue);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .commitment-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .commitment-text strong {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #f1f5f9;
+  }
+  .commitment-text span {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #94a3b8;
+  }
+
+  /* Right Column: Fast-Track Scope Ingress */
   .conversion-right {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 24px;
   }
 
-  @media (min-width: 960px) {
-    .conversion-right {
-      align-items: flex-start;
-      padding-left: 32px;
+  .fast-track-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .fast-track-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .fast-track-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-blue);
+  }
+  .fast-track-hint {
+    font-size: 0.82rem;
+    color: #94a3b8;
+  }
+  .fast-track-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  @media (min-width: 640px) {
+    .fast-track-grid {
+      grid-template-columns: 1fr 1fr;
     }
+  }
+  .fast-track-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+  .fast-track-chip:hover {
+    background: rgba(37, 99, 235, 0.12);
+    border-color: rgba(37, 99, 235, 0.4);
+  }
+  .chip-name {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  .chip-spec {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    line-height: 1.35;
+  }
+
+  .conversion-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
   .conversion-text-link {
@@ -120,5 +289,14 @@
   }
   .conversion-text-link:hover .link-arrow {
     transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fast-track-chip,
+    .conversion-text-link,
+    .link-arrow {
+      transition: none !important;
+      transform: none !important;
+    }
   }
 </style>
