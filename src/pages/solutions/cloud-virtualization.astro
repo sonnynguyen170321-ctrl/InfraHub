@@ -2,6 +2,142 @@
 // src/pages/solutions/cloud-virtualization.astro
 // Phase 8: Solution Family Architecture — Cloud & Virtualization
 import Layout from '../../layouts/Layout.astro';
+import DecisionNavigator, { type DecisionStep } from '../../components/DecisionNavigator.astro';
+import CloudTopologyExplorer from '../../components/CloudTopologyExplorer.astro';
+
+const cloudDecisionSteps: DecisionStep[] = [
+  {
+    id: "workload",
+    number: "01",
+    title: "Workload Profile",
+    lead: "What primary infrastructure challenge are you addressing?",
+    options: [
+      {
+        id: "vmware-exit",
+        label: "VMware Migration",
+        summary: "Broadcom licensing increases making renewal economically untenable.",
+        tradeOff: "Requires hypervisor driver parity and VMDK conversion window.",
+        spec: "Target: Vates XCP-ng with warm live migration delta replication."
+      },
+      {
+        id: "sovereign-vpc",
+        label: "Sovereign Private Cloud",
+        summary: "Regulatory mandates requiring physical single-tenancy and EU jurisdiction.",
+        tradeOff: "Slightly higher initial commitment vs pay-as-you-go multi-tenant hyperscalers.",
+        spec: "Target: ISO27001/Tier-III facility, zero US CLOUD Act exposure."
+      },
+      {
+        id: "custom-iaas",
+        label: "Custom IaaS Stack",
+        summary: "Tailored bare-metal hypervisors with dedicated NVMe SAN storage.",
+        tradeOff: "Requires capacity planning vs automatic elastic burst.",
+        spec: "Target: AMD EPYC 96-core nodes, 100G RoCEv2 storage networking."
+      }
+    ]
+  },
+  {
+    id: "hypervisor",
+    number: "02",
+    title: "Hypervisor",
+    lead: "Which virtualization engine fits your operational tooling?",
+    options: [
+      {
+        id: "xcp-ng",
+        label: "Vates XCP-ng / Xen Orchestra",
+        summary: "Turnkey enterprise open-source hypervisor with mature backup/replication.",
+        tradeOff: "Replaces vCenter UI with Xen Orchestra management plane.",
+        spec: "Support: Enterprise upstream SLA backed directly by Vates maintainers."
+      },
+      {
+        id: "kvm-proxmox",
+        label: "KVM / Proxmox VE",
+        summary: "Lightweight Linux kernel-based virtualization with native ZFS and Ceph.",
+        tradeOff: "Requires Linux systems engineering depth for multi-site clustering.",
+        spec: "Storage: Native Ceph hyperconverged storage and Corosync quorum."
+      },
+      {
+        id: "dedicated-vmware",
+        label: "Dedicated Single-Tenant VMware",
+        summary: "Retains VMware ESXi stack on dedicated hardware to avoid migration.",
+        tradeOff: "Subject to Broadcom per-core core-licensing fee schedules.",
+        spec: "Compliance: Preserves existing VMware vSphere operational runbooks."
+      }
+    ]
+  },
+  {
+    id: "storage",
+    number: "03",
+    title: "Storage Fabric",
+    lead: "What IOPS and storage latency does your workload demand?",
+    options: [
+      {
+        id: "all-nvme",
+        label: "Dedicated All-NVMe Fabric",
+        summary: "Sub-millisecond access for transactional relational and NoSQL databases.",
+        tradeOff: "Higher initial storage cost per usable TB than hybrid arrays.",
+        spec: "Latency: < 0.25 ms RTT over dedicated 100G NVMe-oF RoCE fabric."
+      },
+      {
+        id: "distributed-ceph",
+        label: "Distributed Ceph Cluster",
+        summary: "Resilient scale-out block and object storage with self-healing replication.",
+        tradeOff: "Requires dedicated network bandwidth and 3+ storage nodes minimum.",
+        spec: "Resilience: 3x replication factor with zero single points of failure."
+      },
+      {
+        id: "tiered-storage",
+        label: "Tiered NVMe + Capacity Pool",
+        summary: "High-speed NVMe tier for hot VM cache with dense SAS pool for cold data.",
+        tradeOff: "Cold data tier has lower throughput during bulk retrieval.",
+        spec: "Economics: Lowest cost per TB for multi-hundred terabyte footprints."
+      }
+    ]
+  },
+  {
+    id: "tenancy",
+    number: "04",
+    title: "Tenancy & Boundary",
+    lead: "What hardware isolation level does compliance require?",
+    options: [
+      {
+        id: "single-tenant",
+        label: "100% Dedicated Hardware",
+        summary: "Entire chassis, CPU sockets, RAM, and NICs assigned exclusively to your organization.",
+        tradeOff: "No shared pool pooling; sizing must account for peak headroom.",
+        spec: "Security: Physical air-gap between physical hypervisors; zero CPU cache contention."
+      },
+      {
+        id: "private-vlan",
+        label: "Private Isolated VLAN / Cluster",
+        summary: "Dedicated VLANs and storage LUNs on shared compute nodes with reservation guarantees.",
+        tradeOff: "Shared underlying physical chassis; requires trust in hypervisor isolation.",
+        spec: "Isolation: Dedicated Layer 2 VXLAN encapsulation and guaranteed RAM reservation."
+      }
+    ]
+  },
+  {
+    id: "dr",
+    number: "05",
+    title: "Disaster Recovery",
+    lead: "What are your RPO and RTO continuity requirements?",
+    options: [
+      {
+        id: "delta-replication",
+        label: "Continuous Delta Replication (RPO < 15m)",
+        summary: "Automated incremental block replication to a secondary Tier-III facility.",
+        tradeOff: "Requires secondary capacity and dedicated inter-datacenter bandwidth.",
+        spec: "RPO: < 15 minutes; automated one-click failover via Xen Orchestra."
+      },
+      {
+        id: "immutable-backup",
+        label: "Air-Gapped Immutable Snapshots",
+        summary: "Daily encrypted VM backups with retention lock against ransomware modification.",
+        tradeOff: "RTO involves boot time from remote backup storage repository.",
+        spec: "Security: Write-Once-Read-Many (WORM) S3 object-lock compliance."
+      }
+    ]
+  }
+];
 
 const situations = [
   {
@@ -160,6 +296,15 @@ const partners = [
         <p class="section-desc">From full VMware replacement to bespoke sovereign private clouds on single-tenant bare metal.</p>
       </div>
 
+      <DecisionNavigator
+        disciplineId="cloud"
+        kicker="Interactive Architecture Decision Map"
+        heading="Navigate Cloud & Hypervisor Trade-offs"
+        subheading="Step through workload sizing, hypervisor selection, and storage fabrics to assemble an exact infrastructure specification."
+        serviceParam="cloud"
+        steps={cloudDecisionSteps}
+      />
+
       <div class="architectural-ledger">
         {approaches.map((item) => (
           <div class="ledger-row solution-approach-row">
@@ -204,8 +349,23 @@ const partners = [
     </div>
   </section>
 
-  <!-- Chapter 05: Verified Ecosystem Specialists -->
-  <section class="section section-bedrock" aria-label="Verified Ecosystem Specialists">
+  <!-- Chapter 05: Signature Proof Artifact (Sovereign Cloud Architecture) -->
+  <section class="section section-bedrock" aria-label="Sovereign Cloud Topology Proof">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Signature Proof</div>
+        <h2 class="editorial-h2">Sovereign vs. multi-tenant hypervisor topology</h2>
+        <p class="section-desc">Inspect physical hardware isolation, unmetered storage fabrics, and sovereign legal boundaries.</p>
+      </div>
+
+      <div class="embedded-exhibit-wrap">
+        <CloudTopologyExplorer />
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 06: Verified Ecosystem Specialists -->
+  <section class="section section-midnight" aria-label="Verified Ecosystem Specialists">
     <div class="container solution-container">
       <div class="section-label-row">
         <div class="technical-kicker">Ecosystem Specialists</div>

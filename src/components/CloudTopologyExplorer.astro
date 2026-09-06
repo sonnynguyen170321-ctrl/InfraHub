@@ -1,0 +1,516 @@
+---
+// src/components/CloudTopologyExplorer.astro
+// Directive §§25, 28: Interactive Hypervisor & Sovereign Cloud Architecture Explorer
+// Demonstrates physical isolation, warm migration pipelines, and sovereign boundaries.
+---
+
+<div class="cloud-topology-exhibit" id="cloudTopologyExhibit" aria-label="Interactive Sovereign Private Cloud Architecture">
+  <div class="exhibit-header">
+    <div class="header-text">
+      <span class="exhibit-kicker">Architectural Proof Artifact</span>
+      <h3 class="exhibit-title">Dedicated Sovereign vs. Multi-Tenant Hyperscaler Architecture</h3>
+      <p class="exhibit-desc">
+        Compare physical hardware isolation, storage fabric latency, and data sovereignty boundaries before contracting virtualization infrastructure.
+      </p>
+    </div>
+
+    <!-- Interactive Mode Toggle -->
+    <div class="view-toggle-wrap" role="group" aria-label="Architecture Comparison Mode">
+      <button
+        type="button"
+        class="view-toggle-btn is-active"
+        id="toggle-sovereign"
+        data-mode="sovereign"
+        aria-pressed="true"
+      >
+        <span class="toggle-indicator" aria-hidden="true"></span>
+        Dedicated Sovereign Cloud
+      </button>
+      <button
+        type="button"
+        class="view-toggle-btn"
+        id="toggle-hyperscaler"
+        data-mode="hyperscaler"
+        aria-pressed="false"
+      >
+        <span class="toggle-indicator" aria-hidden="true"></span>
+        Hyperscaler Multi-Tenant
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Schematic Canvas -->
+  <div class="schematic-viewport" id="schematicViewport">
+    <div class="schematic-board">
+      
+      <!-- Layer 1: Workload & Application Tier -->
+      <div class="topology-layer layer-workloads">
+        <div class="layer-meta">
+          <span class="layer-tag">Tier 01</span>
+          <h4 class="layer-heading">Enterprise Workload Plane</h4>
+        </div>
+        <div class="nodes-row">
+          <div class="tech-node node-vm">
+            <span class="node-badge">VM-01</span>
+            <span class="node-title">Production Database</span>
+            <span class="node-metric" data-metric="db">64 vCPU · 256GB RAM</span>
+          </div>
+          <div class="tech-node node-vm">
+            <span class="node-badge">VM-02</span>
+            <span class="node-title">Application Cluster</span>
+            <span class="node-metric" data-metric="app">32 vCPU · 128GB RAM</span>
+          </div>
+          <div class="tech-node node-vm">
+            <span class="node-badge">VM-03</span>
+            <span class="node-title">API Gateways</span>
+            <span class="node-metric" data-metric="api">16 vCPU · 64GB RAM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connector Lines -->
+      <div class="topology-bus bus-workload-hypervisor" aria-hidden="true">
+        <span class="bus-line"></span>
+        <span class="bus-line"></span>
+        <span class="bus-line"></span>
+      </div>
+
+      <!-- Layer 2: Hypervisor & Isolation Tier -->
+      <div class="topology-layer layer-hypervisor" id="layerHypervisor">
+        <div class="layer-meta">
+          <span class="layer-tag">Tier 02</span>
+          <h4 class="layer-heading" id="hypervisorHeading">Dedicated Hypervisors (XCP-ng / KVM)</h4>
+        </div>
+        <div class="nodes-row">
+          <div class="tech-node node-host" id="hostNode1">
+            <span class="node-badge node-badge-cobalt">HOST-NODE 01</span>
+            <span class="node-title">AMD EPYC 9654 (96-Core)</span>
+            <span class="node-status status-isolated">Hardware Isolated</span>
+          </div>
+          <div class="tech-node node-host" id="hostNode2">
+            <span class="node-badge node-badge-cobalt">HOST-NODE 02</span>
+            <span class="node-title">AMD EPYC 9654 (96-Core)</span>
+            <span class="node-status status-isolated">Hardware Isolated</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connector Lines -->
+      <div class="topology-bus bus-hypervisor-storage" aria-hidden="true">
+        <span class="bus-line"></span>
+        <span class="bus-line"></span>
+      </div>
+
+      <!-- Layer 3: Storage Fabric & Sovereignty Boundary -->
+      <div class="topology-layer layer-storage" id="layerStorage">
+        <div class="layer-meta">
+          <span class="layer-tag">Tier 03</span>
+          <h4 class="layer-heading" id="storageHeading">All-NVMe Storage Fabric (NVMe-oF / Ceph)</h4>
+        </div>
+        <div class="storage-details">
+          <div class="storage-metric-card">
+            <span class="storage-key">Storage Latency</span>
+            <strong class="storage-val" id="valLatency">&lt; 0.25 ms (Sub-Millisecond)</strong>
+          </div>
+          <div class="storage-metric-card">
+            <span class="storage-key">Egress Metering</span>
+            <strong class="storage-val" id="valEgress">Unmetered (0 EUR Overage)</strong>
+          </div>
+          <div class="storage-metric-card">
+            <span class="storage-key">Jurisdiction Boundary</span>
+            <strong class="storage-val" id="valJurisdiction">Strict EU Sovereignty (No CLOUD Act)</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Explanatory Insight Footer -->
+  <div class="exhibit-insight-panel" id="exhibitInsightPanel" role="status" aria-live="polite">
+    <div class="insight-badge" id="insightBadge">Sovereign Architecture Analysis</div>
+    <p class="insight-text" id="insightText">
+      Workloads run on physically dedicated bare-metal hypervisors with zero shared tenancy. Storage IOPS are delivered across dedicated NVMe fabrics without noisy-neighbor contention or metered egress penalties.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initCloudTopologyExhibit() {
+    const exhibit = document.getElementById('cloudTopologyExhibit');
+    if (!exhibit) return;
+
+    const btnSovereign = exhibit.querySelector<HTMLButtonElement>('#toggle-sovereign');
+    const btnHyperscaler = exhibit.querySelector<HTMLButtonElement>('#toggle-hyperscaler');
+    const hypervisorHeading = exhibit.querySelector<HTMLElement>('#hypervisorHeading');
+    const hostNode1 = exhibit.querySelector<HTMLElement>('#hostNode1');
+    const hostNode2 = exhibit.querySelector<HTMLElement>('#hostNode2');
+    const valLatency = exhibit.querySelector<HTMLElement>('#valLatency');
+    const valEgress = exhibit.querySelector<HTMLElement>('#valEgress');
+    const valJurisdiction = exhibit.querySelector<HTMLElement>('#valJurisdiction');
+    const insightBadge = exhibit.querySelector<HTMLElement>('#insightBadge');
+    const insightText = exhibit.querySelector<HTMLElement>('#insightText');
+    const layerHypervisor = exhibit.querySelector<HTMLElement>('#layerHypervisor');
+
+    function setMode(mode: 'sovereign' | 'hyperscaler') {
+      const isSovereign = mode === 'sovereign';
+
+      btnSovereign?.setAttribute('aria-pressed', String(isSovereign));
+      btnSovereign?.classList.toggle('is-active', isSovereign);
+
+      btnHyperscaler?.setAttribute('aria-pressed', String(!isSovereign));
+      btnHyperscaler?.classList.toggle('is-active', !isSovereign);
+
+      if (isSovereign) {
+        layerHypervisor?.classList.remove('is-shared');
+        if (hypervisorHeading) hypervisorHeading.textContent = 'Dedicated Hypervisors (Vates XCP-ng / KVM)';
+        if (hostNode1) {
+          hostNode1.innerHTML = `
+            <span class="node-badge node-badge-cobalt">HOST-NODE 01</span>
+            <span class="node-title">AMD EPYC 9654 (96-Core)</span>
+            <span class="node-status status-isolated">100% Dedicated Physical</span>
+          `;
+        }
+        if (hostNode2) {
+          hostNode2.innerHTML = `
+            <span class="node-badge node-badge-cobalt">HOST-NODE 02</span>
+            <span class="node-title">AMD EPYC 9654 (96-Core)</span>
+            <span class="node-status status-isolated">100% Dedicated Physical</span>
+          `;
+        }
+        if (valLatency) valLatency.textContent = '< 0.25 ms (NVMe-oF Fabric)';
+        if (valEgress) valEgress.textContent = 'Unmetered (0 EUR Overage)';
+        if (valJurisdiction) valJurisdiction.textContent = 'Strict EU Sovereignty (No CLOUD Act)';
+        if (insightBadge) insightBadge.textContent = 'Sovereign Architecture Analysis';
+        if (insightText) {
+          insightText.textContent = 'Workloads run on physically dedicated bare-metal hypervisors with zero shared tenancy. Storage IOPS are delivered across dedicated NVMe fabrics without noisy-neighbor contention or metered egress penalties.';
+        }
+      } else {
+        layerHypervisor?.classList.add('is-shared');
+        if (hypervisorHeading) hypervisorHeading.textContent = 'Multi-Tenant Virtualization Pool';
+        if (hostNode1) {
+          hostNode1.innerHTML = `
+            <span class="node-badge node-badge-amber">SHARED HYPERVISOR</span>
+            <span class="node-title">Co-located Unrelated Tenants</span>
+            <span class="node-status status-shared">Noisy-Neighbor Contention</span>
+          `;
+        }
+        if (hostNode2) {
+          hostNode2.innerHTML = `
+            <span class="node-badge node-badge-amber">SHARED HYPERVISOR</span>
+            <span class="node-title">Oversubscribed vCPU Scheduling</span>
+            <span class="node-status status-shared">CPU Ready-Time Spikes</span>
+          `;
+        }
+        if (valLatency) valLatency.textContent = 'Variable: 2.5 ms – 18 ms';
+        if (valEgress) valEgress.textContent = 'Metered ($0.08 – $0.12 per GB egress)';
+        if (valJurisdiction) valJurisdiction.textContent = 'Extraterritorial US CLOUD Act Exposure';
+        if (insightBadge) insightBadge.textContent = 'Hyperscaler Risk Diligence';
+        if (insightText) {
+          insightText.textContent = 'Shared hypervisors introduce vCPU scheduling contention and metered data transfer penalties. Extraterritorial legal exposure can violate sovereign compliance mandates.';
+        }
+      }
+    }
+
+    btnSovereign?.addEventListener('click', () => setMode('sovereign'));
+    btnHyperscaler?.addEventListener('click', () => setMode('hyperscaler'));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCloudTopologyExhibit);
+  } else {
+    initCloudTopologyExhibit();
+  }
+</script>
+
+<style>
+  .cloud-topology-exhibit {
+    margin: 40px auto;
+    padding: 28px;
+    background: #0b1120;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    color: var(--text-on-dark, #f8fafc);
+  }
+
+  .exhibit-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 20px;
+  }
+
+  .header-text {
+    max-width: 620px;
+  }
+
+  .exhibit-kicker {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    margin-bottom: 6px;
+  }
+
+  .exhibit-title {
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin: 0 0 8px;
+  }
+
+  .exhibit-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text-on-dark-muted, #94a3b8);
+    margin: 0;
+  }
+
+  /* Mode Toggle */
+  .view-toggle-wrap {
+    display: inline-flex;
+    gap: 6px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+  }
+
+  .view-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-on-dark-muted, #94a3b8);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .view-toggle-btn:hover {
+    color: #ffffff;
+  }
+
+  .view-toggle-btn.is-active {
+    background: #1e293b;
+    color: #ffffff;
+  }
+
+  .toggle-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .view-toggle-btn.is-active .toggle-indicator {
+    background: var(--accent-cyan, #38bdf8);
+  }
+
+  /* Schematic Board */
+  .schematic-viewport {
+    padding: 20px 0;
+  }
+
+  .schematic-board {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .topology-layer {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+  }
+
+  .layer-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .layer-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .layer-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .nodes-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .tech-node {
+    padding: 14px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .node-badge {
+    align-self: flex-start;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-on-dark-muted, #94a3b8);
+  }
+
+  .node-badge-cobalt {
+    background: rgba(37, 99, 235, 0.35);
+    color: #bfdbfe;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  .node-badge-amber {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fde68a;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+  }
+
+  .node-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 2px;
+  }
+
+  .node-metric {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.74rem;
+    color: var(--text-on-dark-muted, #94a3b8);
+  }
+
+  .node-status {
+    font-size: 0.74rem;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .status-isolated {
+    color: #34d399;
+  }
+
+  .status-shared {
+    color: #fbbf24;
+  }
+
+  /* Topology Bus Lines */
+  .topology-bus {
+    display: flex;
+    justify-content: space-around;
+    padding: 2px 20%;
+  }
+
+  .bus-line {
+    width: 2px;
+    height: 18px;
+    background: rgba(56, 189, 248, 0.4);
+  }
+
+  /* Layer 3 Storage */
+  .storage-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .storage-metric-card {
+    padding: 12px 14px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .storage-key {
+    font-size: 0.72rem;
+    color: var(--text-on-dark-muted, #94a3b8);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .storage-val {
+    font-size: 0.88rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  /* Insight Panel */
+  .exhibit-insight-panel {
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: rgba(30, 41, 59, 0.5);
+    border-left: 3px solid var(--accent-blue-on-dark, #93c5fd);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .insight-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    margin-bottom: 4px;
+  }
+
+  .insight-text {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-on-dark, #f8fafc);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .cloud-topology-exhibit {
+      padding: 18px 14px;
+    }
+
+    .view-toggle-wrap {
+      width: 100%;
+    }
+
+    .view-toggle-btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.76rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .view-toggle-btn {
+      transition: none !important;
+    }
+  }
+</style>

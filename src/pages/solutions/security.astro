@@ -2,6 +2,106 @@
 // src/pages/solutions/security.astro
 // Phase 8: Solution Family Architecture — Security & Network Defense
 import Layout from '../../layouts/Layout.astro';
+import DecisionNavigator, { type DecisionStep } from '../../components/DecisionNavigator.astro';
+import SecurityScrubbingExplorer from '../../components/SecurityScrubbingExplorer.astro';
+
+const securityDecisionSteps: DecisionStep[] = [
+  {
+    id: "threat",
+    number: "01",
+    title: "Threat Vector",
+    lead: "What attack patterns present the highest risk to your infrastructure?",
+    options: [
+      {
+        id: "volumetric-flood",
+        label: "Volumetric Uplink Saturation",
+        summary: "Multi-hundred Gbps UDP reflection and SYN floods saturating transit circuits.",
+        tradeOff: "On-premise firewalls cannot stop link saturation; requires upstream diversion.",
+        spec: "Target: 3.5+ Tbps global scrubbing capacity with multi-homed BGP edge."
+      },
+      {
+        id: "layer7-app",
+        label: "Application & API (L7) Floods",
+        summary: "Complex HTTP/2 rapid reset, credential stuffing, and bot attacks on application backends.",
+        tradeOff: "Requires TLS certificate offloading or proxy inspection at the perimeter.",
+        spec: "Target: Behavioral WAF, rate-limiting, and synthetic browser challenge."
+      },
+      {
+        id: "bgp-hijack",
+        label: "BGP Hijacking & Route Leaks",
+        summary: "Unauthorized prefix announcements diverting enterprise IP traffic.",
+        tradeOff: "Requires strict RPKI ROA publication and upstream carrier enforcement.",
+        spec: "Target: RPKI validation, IRR database cleanup, and BGP route monitoring."
+      }
+    ]
+  },
+  {
+    id: "mode",
+    number: "02",
+    title: "Mitigation Mode",
+    lead: "What operational mode fits your tolerance for latency and diversion time?",
+    options: [
+      {
+        id: "always-on",
+        label: "Always-On Inline Scrubbing",
+        summary: "Continuous inline traffic inspection with zero diversion cutover delay.",
+        tradeOff: "Adds continuous proxy latency (+3ms to 10ms depending on scrubbing distance).",
+        spec: "Latency: Transparent BGP Anycast routing through closest regional scrubbing center."
+      },
+      {
+        id: "on-demand",
+        label: "On-Demand BGP Diversion",
+        summary: "Clean direct transit during normal operations; BGP prefix diverted only when attacked.",
+        tradeOff: "Takes 30–90 seconds for BGP routing propagation across global transit providers.",
+        spec: "Diversion: Triggered via BGP FlowSpec or community announcement within 1 second."
+      }
+    ]
+  },
+  {
+    id: "return",
+    number: "03",
+    title: "Return Path",
+    lead: "How should cleaned traffic return from scrubbing centers to your origin?",
+    options: [
+      {
+        id: "gre-tunnel",
+        label: "GRE Encapsulated Tunnels",
+        summary: "Virtual point-to-point tunnels routed over the public Internet to origin routers.",
+        tradeOff: "Slight MTU overhead (clamped to 1476 bytes) to prevent packet fragmentation.",
+        spec: "Overhead: IP-in-IP or GRE encapsulation over dual redundant edge endpoints."
+      },
+      {
+        id: "direct-cross-connect",
+        label: "Direct L2 VLAN / Cross-Connect",
+        summary: "Private optical cross-connect or dedicated VLAN directly from scrubbing MMR.",
+        tradeOff: "Requires physical colocation presence in carrier-neutral scrubbing exchange.",
+        spec: "Performance: Standard 1500 byte MTU with deterministic jitter and zero jitter."
+      }
+    ]
+  },
+  {
+    id: "detection",
+    number: "04",
+    title: "Detection Plane",
+    lead: "How are traffic anomalies identified and escalated?",
+    options: [
+      {
+        id: "fastnetmon-flow",
+        label: "Autonomous Flow Telemetry (FastNetMon)",
+        summary: "Local telemetry collector analyzing sFlow / NetFlow with sub-second rule generation.",
+        tradeOff: "Requires NetFlow export configuration on origin border routers.",
+        spec: "Trigger: Autonomous BGP FlowSpec generation in < 1 second from threshold."
+      },
+      {
+        id: "managed-soc",
+        label: "24/7 Managed SOC Escalation",
+        summary: "Specialist security engineers monitor and tune mitigation rules during attacks.",
+        tradeOff: "Higher monthly service fee for dedicated security operations personnel.",
+        spec: "SLA: 15-minute emergency response SLA with direct engineer phone bridge."
+      }
+    ]
+  }
+];
 
 const situations = [
   {
@@ -153,6 +253,15 @@ const partners = [
         <p class="section-desc">From autonomous on-premise flow detection to cloud-scale upstream volumetric filtering.</p>
       </div>
 
+      <DecisionNavigator
+        disciplineId="security"
+        kicker="Interactive Architecture Decision Map"
+        heading="Navigate DDoS Defense & Scrubbing Trade-offs"
+        subheading="Step through threat vectors, mitigation modes, return paths, and telemetry triggers to configure your network defense specification."
+        serviceParam="security"
+        steps={securityDecisionSteps}
+      />
+
       <div class="architectural-ledger">
         {approaches.map((item) => (
           <div class="ledger-row solution-approach-row">
@@ -197,8 +306,23 @@ const partners = [
     </div>
   </section>
 
-  <!-- Chapter 05: Verified Ecosystem Specialists -->
-  <section class="section section-bedrock" aria-label="Verified Ecosystem Specialists">
+  <!-- Chapter 05: Signature Proof Artifact (DDoS Mitigation & Clean Pipes Architecture) -->
+  <section class="section section-bedrock" aria-label="DDoS Mitigation Proof">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Signature Proof</div>
+        <h2 class="editorial-h2">BGP FlowSpec &amp; Clean Pipes scrubbing architecture</h2>
+        <p class="section-desc">Observe automated volumetric traffic diversion and sub-millisecond clean pipe return topology.</p>
+      </div>
+
+      <div class="embedded-exhibit-wrap">
+        <SecurityScrubbingExplorer />
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 06: Verified Ecosystem Specialists -->
+  <section class="section section-midnight" aria-label="Verified Ecosystem Specialists">
     <div class="container solution-container">
       <div class="section-label-row">
         <div class="technical-kicker">Ecosystem Specialists</div>

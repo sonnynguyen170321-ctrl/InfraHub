@@ -201,7 +201,7 @@ function auditPage(file) {
 
   // ── Duplicate ids ─────────────────────────────────────────────────────────
   // Duplicates silently break label[for], aria-labelledby and in-page anchors.
-  const ids = [...html.matchAll(/\bid\s*=\s*"([^"]+)"/gi)].map((m) => m[1]);
+  const ids = [...html.matchAll(/(?<![a-zA-Z0-9_-])id\s*=\s*"([^"]+)"/gi)].map((m) => m[1]);
   const seen = new Set();
   const dupes = new Set();
   for (const id of ids) {

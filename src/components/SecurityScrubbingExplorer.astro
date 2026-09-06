@@ -1,0 +1,512 @@
+---
+// src/components/SecurityScrubbingExplorer.astro
+// Directive §§25, 28: Interactive DDoS Mitigation & Clean Pipes Architecture Explorer
+// Demonstrates BGP FlowSpec diversion, global scrubbing centers, and clean pipe return path.
+---
+
+<div class="security-scrubbing-exhibit" id="securityScrubbingExhibit" aria-label="Interactive DDoS Mitigation Architecture">
+  <div class="exhibit-header">
+    <div class="header-text">
+      <span class="exhibit-kicker">Architectural Proof Artifact</span>
+      <h3 class="exhibit-title">BGP FlowSpec &amp; Clean Pipes Scrubbing Architecture</h3>
+      <p class="exhibit-desc">
+        Observe how volumetric attack traffic is diverted autonomously at the BGP edge while legitimate transactions continue flowing with sub-millisecond return latency.
+      </p>
+    </div>
+
+    <!-- Interactive Mode Toggle -->
+    <div class="view-toggle-wrap" role="group" aria-label="Mitigation Status View">
+      <button
+        type="button"
+        class="view-toggle-btn is-active"
+        id="toggle-normal"
+        data-mode="normal"
+        aria-pressed="true"
+      >
+        <span class="toggle-indicator status-green" aria-hidden="true"></span>
+        Normal Baseline Flow
+      </button>
+      <button
+        type="button"
+        class="view-toggle-btn"
+        id="toggle-attack"
+        data-mode="attack"
+        aria-pressed="false"
+      >
+        <span class="toggle-indicator status-red" aria-hidden="true"></span>
+        Active Volumetric Attack
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Schematic Canvas -->
+  <div class="schematic-viewport">
+    <div class="schematic-board">
+      
+      <!-- Tier 01: Inbound Internet Traffic -->
+      <div class="topology-tier tier-traffic">
+        <div class="tier-meta">
+          <span class="tier-tag">Zone 01</span>
+          <h4 class="tier-heading" id="trafficTierHeading">Clean Enterprise Transit Ingress</h4>
+        </div>
+        <div class="traffic-nodes">
+          <div class="traffic-packet-stream" id="trafficStream">
+            <span class="stream-pill pill-clean">Legitimate User Requests (HTTPS)</span>
+            <span class="stream-pill pill-clean">B2B API Integrations</span>
+            <span class="stream-pill pill-attack" id="attackPill" hidden>540 Gbps Volumetric UDP Amplification Attack</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Route Path Lines -->
+      <div class="route-vector" aria-hidden="true">
+        <span class="vector-path path-primary"></span>
+      </div>
+
+      <!-- Tier 02: BGP Control & Scrubbing Center -->
+      <div class="topology-tier tier-scrubbing" id="tierScrubbing">
+        <div class="tier-meta">
+          <span class="tier-tag">Zone 02</span>
+          <h4 class="tier-heading" id="scrubbingTierHeading">Upstream BGP Edge Routers (FastNetMon / StormWall)</h4>
+        </div>
+        <div class="scrubbing-nodes">
+          <div class="tech-node" id="nodeDetection">
+            <span class="node-badge">BGP TELEMETRY</span>
+            <strong class="node-title">FlowSpec Detection Plane</strong>
+            <span class="node-metric" id="metricDetection">Flow Rate: 4.2 Gbps (Normal)</span>
+          </div>
+          <div class="tech-node" id="nodeScrubbing">
+            <span class="node-badge node-badge-cobalt">SCRUBBING ENGINE</span>
+            <strong class="node-title" id="scrubbingTitle">Global Scrubbing Centers (3.5+ Tbps)</strong>
+            <span class="node-metric" id="metricScrubbing">State: Standby Monitoring</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Route Path Lines -->
+      <div class="route-vector" aria-hidden="true">
+        <span class="vector-path path-secondary"></span>
+      </div>
+
+      <!-- Tier 03: Protected Customer Origin -->
+      <div class="topology-tier tier-origin">
+        <div class="tier-meta">
+          <span class="tier-tag">Zone 03</span>
+          <h4 class="tier-heading">Customer Data Center Edge (Clean Pipes Return)</h4>
+        </div>
+        <div class="origin-metrics">
+          <div class="origin-card">
+            <span class="origin-key">Origin Ingress Health</span>
+            <strong class="origin-val status-green-text" id="valOriginHealth">100% Legitimate Traffic</strong>
+          </div>
+          <div class="origin-card">
+            <span class="origin-key">Scrubbing Delay Overhead</span>
+            <strong class="origin-val" id="valLatency">&lt; 3.2 ms Return RTT</strong>
+          </div>
+          <div class="origin-card">
+            <span class="origin-key">Collateral Impact</span>
+            <strong class="origin-val status-green-text" id="valCollateral">Zero Packet Drops</strong>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Explanatory Insight Footer -->
+  <div class="exhibit-insight-panel" id="securityInsightPanel" role="status" aria-live="polite">
+    <div class="insight-badge" id="securityInsightBadge">Standard Clean Operation</div>
+    <p class="insight-text" id="securityInsightText">
+      All ingress traffic routes normally across multi-homed Tier-1 transit paths. FlowSpec telemetry monitors sFlow and IPFIX telemetry at line rate without inline latency penalties.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initSecurityScrubbingExhibit() {
+    const exhibit = document.getElementById('securityScrubbingExhibit');
+    if (!exhibit) return;
+
+    const btnNormal = exhibit.querySelector<HTMLButtonElement>('#toggle-normal');
+    const btnAttack = exhibit.querySelector<HTMLButtonElement>('#toggle-attack');
+    const attackPill = exhibit.querySelector<HTMLElement>('#attackPill');
+    const trafficTierHeading = exhibit.querySelector<HTMLElement>('#trafficTierHeading');
+    const metricDetection = exhibit.querySelector<HTMLElement>('#metricDetection');
+    const metricScrubbing = exhibit.querySelector<HTMLElement>('#metricScrubbing');
+    const scrubbingTitle = exhibit.querySelector<HTMLElement>('#scrubbingTitle');
+    const valOriginHealth = exhibit.querySelector<HTMLElement>('#valOriginHealth');
+    const valLatency = exhibit.querySelector<HTMLElement>('#valLatency');
+    const valCollateral = exhibit.querySelector<HTMLElement>('#valCollateral');
+    const securityInsightBadge = exhibit.querySelector<HTMLElement>('#securityInsightBadge');
+    const securityInsightText = exhibit.querySelector<HTMLElement>('#securityInsightText');
+    const tierScrubbing = exhibit.querySelector<HTMLElement>('#tierScrubbing');
+
+    function setMode(mode: 'normal' | 'attack') {
+      const isNormal = mode === 'normal';
+
+      btnNormal?.setAttribute('aria-pressed', String(isNormal));
+      btnNormal?.classList.toggle('is-active', isNormal);
+
+      btnAttack?.setAttribute('aria-pressed', String(!isNormal));
+      btnAttack?.classList.toggle('is-active', !isNormal);
+
+      if (isNormal) {
+        tierScrubbing?.classList.remove('is-mitigating');
+        if (attackPill) attackPill.hidden = true;
+        if (trafficTierHeading) trafficTierHeading.textContent = 'Clean Enterprise Transit Ingress';
+        if (metricDetection) metricDetection.textContent = 'Flow Rate: 4.2 Gbps (Normal)';
+        if (scrubbingTitle) scrubbingTitle.textContent = 'Global Scrubbing Centers (3.5+ Tbps)';
+        if (metricScrubbing) metricScrubbing.textContent = 'State: Standby Monitoring';
+        if (valOriginHealth) {
+          valOriginHealth.textContent = '100% Legitimate Traffic';
+          valOriginHealth.className = 'origin-val status-green-text';
+        }
+        if (valLatency) valLatency.textContent = '< 3.2 ms Return RTT';
+        if (valCollateral) {
+          valCollateral.textContent = 'Zero Packet Drops';
+          valCollateral.className = 'origin-val status-green-text';
+        }
+        if (securityInsightBadge) securityInsightBadge.textContent = 'Standard Clean Operation';
+        if (securityInsightText) {
+          securityInsightText.textContent = 'All ingress traffic routes normally across multi-homed Tier-1 transit paths. FlowSpec telemetry monitors sFlow and IPFIX telemetry at line rate without inline latency penalties.';
+        }
+      } else {
+        tierScrubbing?.classList.add('is-mitigating');
+        if (attackPill) attackPill.hidden = false;
+        if (trafficTierHeading) trafficTierHeading.textContent = 'Attack Event: Volumetric Amplification Ingress';
+        if (metricDetection) metricDetection.textContent = 'Diverted: BGP FlowSpec Prefix /24 Active';
+        if (scrubbingTitle) scrubbingTitle.textContent = 'Active Hardware Filtering & Packet Inspection';
+        if (metricScrubbing) metricScrubbing.textContent = 'Dropped: 536 Gbps Malicious Traffic Filtered';
+        if (valOriginHealth) {
+          valOriginHealth.textContent = 'Clean Return via GRE/VLAN';
+          valOriginHealth.className = 'origin-val status-green-text';
+        }
+        if (valLatency) valLatency.textContent = 'Clean Return: +4.8 ms Scrubbing Delay';
+        if (valCollateral) {
+          valCollateral.textContent = 'Legitimate Traffic Protected';
+          valCollateral.className = 'origin-val status-green-text';
+        }
+        if (securityInsightBadge) securityInsightBadge.textContent = 'BGP FlowSpec Automated Mitigation Active';
+        if (securityInsightText) {
+          securityInsightText.textContent = 'FastNetMon detects the flood within 800ms and announces BGP FlowSpec rules. Upstream routers divert the attack to scrubbing centers, dropping malicious packets while clean application traffic arrives safely at origin.';
+        }
+      }
+    }
+
+    btnNormal?.addEventListener('click', () => setMode('normal'));
+    btnAttack?.addEventListener('click', () => setMode('attack'));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSecurityScrubbingExhibit);
+  } else {
+    initSecurityScrubbingExhibit();
+  }
+</script>
+
+<style>
+  .security-scrubbing-exhibit {
+    margin: 40px auto;
+    padding: 28px;
+    background: #0b1120;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    color: var(--text-on-dark, #f8fafc);
+  }
+
+  .exhibit-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 20px;
+  }
+
+  .header-text {
+    max-width: 620px;
+  }
+
+  .exhibit-kicker {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    margin-bottom: 6px;
+  }
+
+  .exhibit-title {
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin: 0 0 8px;
+  }
+
+  .exhibit-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text-on-dark-muted, #94a3b8);
+    margin: 0;
+  }
+
+  /* Mode Toggle */
+  .view-toggle-wrap {
+    display: inline-flex;
+    gap: 6px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+  }
+
+  .view-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-on-dark-muted, #94a3b8);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .view-toggle-btn:hover {
+    color: #ffffff;
+  }
+
+  .view-toggle-btn.is-active {
+    background: #1e293b;
+    color: #ffffff;
+  }
+
+  .toggle-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .status-green {
+    background: #10b981;
+  }
+
+  .status-red {
+    background: #ef4444;
+  }
+
+  /* Schematic Board */
+  .schematic-viewport {
+    padding: 20px 0;
+  }
+
+  .schematic-board {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .topology-tier {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+  }
+
+  .tier-scrubbing.is-mitigating {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.04);
+  }
+
+  .tier-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .tier-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tier-heading {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .traffic-packet-stream {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stream-pill {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .pill-clean {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #6ee7b7;
+  }
+
+  .pill-attack {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    color: #fca5a5;
+  }
+
+  .route-vector {
+    display: flex;
+    justify-content: center;
+    padding: 2px 0;
+  }
+
+  .vector-path {
+    width: 2px;
+    height: 18px;
+    background: rgba(56, 189, 248, 0.4);
+  }
+
+  .scrubbing-nodes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .tech-node {
+    padding: 14px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .node-badge {
+    align-self: flex-start;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-on-dark-muted, #94a3b8);
+  }
+
+  .node-badge-cobalt {
+    background: rgba(37, 99, 235, 0.35);
+    color: #bfdbfe;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  .node-title {
+    font-size: 0.88rem;
+    color: #ffffff;
+    margin-top: 2px;
+  }
+
+  .node-metric {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.74rem;
+    color: var(--text-on-dark-muted, #94a3b8);
+  }
+
+  /* Origin Metrics */
+  .origin-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .origin-card {
+    padding: 12px 14px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .origin-key {
+    font-size: 0.72rem;
+    color: var(--text-on-dark-muted, #94a3b8);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .origin-val {
+    font-size: 0.88rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  .status-green-text {
+    color: #34d399;
+  }
+
+  /* Insight Panel */
+  .exhibit-insight-panel {
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: rgba(30, 41, 59, 0.5);
+    border-left: 3px solid var(--accent-blue-on-dark, #93c5fd);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .insight-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    margin-bottom: 4px;
+  }
+
+  .insight-text {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-on-dark, #f8fafc);
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .security-scrubbing-exhibit {
+      padding: 18px 14px;
+    }
+
+    .view-toggle-wrap {
+      width: 100%;
+    }
+
+    .view-toggle-btn {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.76rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .view-toggle-btn {
+      transition: none !important;
+    }
+  }
+</style>

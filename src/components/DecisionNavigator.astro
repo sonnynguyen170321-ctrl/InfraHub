@@ -1,0 +1,725 @@
+---
+// src/components/DecisionNavigator.astro
+// Directive §§25–27: Progressive Architectural Decision Navigator
+// Replaces static text walls with an interactive decision sequence:
+// Layer 1 (Recognize) → Layer 2 (Decide) → Layer 3 (Inspect).
+// Seamlessly bridges configured technical parameters into InfraHub Desk.
+
+export interface DecisionOption {
+  id: string;
+  label: string;
+  summary: string;
+  tradeOff: string;
+  spec: string;
+}
+
+export interface DecisionStep {
+  id: string;
+  number: string;
+  title: string;
+  lead: string;
+  options: DecisionOption[];
+}
+
+interface Props {
+  disciplineId: string;
+  kicker: string;
+  heading: string;
+  subheading: string;
+  serviceParam: string;
+  steps: DecisionStep[];
+}
+
+const {
+  disciplineId,
+  kicker,
+  heading,
+  subheading,
+  serviceParam,
+  steps
+} = Astro.props;
+---
+
+<div
+  class="decision-navigator"
+  id={`decision-navigator-${disciplineId}`}
+  data-discipline={disciplineId}
+  data-service={serviceParam}
+  aria-label={`${heading} architectural decision sequence`}
+>
+  <div class="navigator-header">
+    <span class="navigator-kicker">{kicker}</span>
+    <h3 class="navigator-heading">{heading}</h3>
+    <p class="navigator-subheading">{subheading}</p>
+  </div>
+
+  <!-- Stepper Navigation Bar -->
+  <nav class="stepper-bar" aria-label="Architecture decision steps">
+    <ol class="stepper-list" role="tablist">
+      {steps.map((step, idx) => (
+        <li class="stepper-item" role="presentation">
+          <button
+            type="button"
+            class="stepper-btn"
+            role="tab"
+            id={`tab-${disciplineId}-${step.id}`}
+            aria-selected={idx === 0 ? "true" : "false"}
+            aria-controls={`panel-${disciplineId}-${step.id}`}
+            data-step-index={idx}
+            data-step-key={step.id}
+          >
+            <span class="step-num">{step.number}</span>
+            <span class="step-title">{step.title}</span>
+            <span class="step-status" id={`status-${disciplineId}-${step.id}`}>Pending</span>
+          </button>
+        </li>
+      ))}
+    </ol>
+  </nav>
+
+  <!-- Step Panels -->
+  <div class="panels-container">
+    {steps.map((step, idx) => (
+      <section
+        class="step-panel"
+        id={`panel-${disciplineId}-${step.id}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${disciplineId}-${step.id}`}
+        data-step-index={idx}
+        hidden={idx !== 0}
+      >
+        <div class="step-context">
+          <span class="step-counter">Step {step.number} of 0{steps.length}</span>
+          <h4 class="step-lead">{step.lead}</h4>
+        </div>
+
+        <div class="options-grid" role="radiogroup" aria-label={step.lead}>
+          {step.options.map((opt) => (
+            <div
+              class="option-card"
+              role="radio"
+              aria-checked="false"
+              tabindex="0"
+              data-option-key={opt.id}
+              data-option-label={opt.label}
+              data-step-key={step.id}
+            >
+              <div class="option-header">
+                <span class="option-indicator" aria-hidden="true"></span>
+                <strong class="option-label">{opt.label}</strong>
+              </div>
+
+              <!-- Layer 1: Plain language recognize -->
+              <p class="option-summary">{opt.summary}</p>
+
+              <!-- Layer 2: Architectural Trade-off -->
+              <div class="tradeoff-block">
+                <span class="tradeoff-kicker">Architectural Trade-off</span>
+                <p class="tradeoff-text">{opt.tradeOff}</p>
+              </div>
+
+              <!-- Layer 3: Technical Diligence Spec -->
+              <div class="spec-block">
+                <span class="spec-kicker">Diligence Criteria</span>
+                <code class="spec-code">{opt.spec}</code>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="step-actions">
+          {idx > 0 && (
+            <button type="button" class="btn-step-prev" data-prev-step>
+              &larr; Previous Step
+            </button>
+          )}
+          {idx < steps.length - 1 ? (
+            <button type="button" class="btn-step-next" data-next-step>
+              Next Step &rarr;
+            </button>
+          ) : (
+            <span class="step-final-hint">All technical parameters selected. Review below.</span>
+          )}
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <!-- Live Decision Blueprint Strip -->
+  <footer class="decision-blueprint-bar" aria-label="Selected architecture blueprint">
+    <div class="blueprint-summary">
+      <span class="blueprint-kicker">Configured Blueprint</span>
+      <div class="blueprint-tokens" id={`blueprint-tokens-${disciplineId}`}>
+        <span class="token-placeholder">Select parameters above to assemble your architecture specification</span>
+      </div>
+    </div>
+
+    <div class="blueprint-actions">
+      <a
+        href={`/lets-talk?service=${serviceParam}`}
+        class="btn-structure-desk"
+        id={`desk-link-${disciplineId}`}
+      >
+        Structure in InfraHub Desk &rarr;
+      </a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  function initDecisionNavigators() {
+    const navigators = document.querySelectorAll<HTMLElement>('.decision-navigator');
+
+    navigators.forEach((nav) => {
+      const discipline = nav.dataset.discipline || '';
+      const serviceParam = nav.dataset.service || 'connectivity';
+      const tabs = Array.from(nav.querySelectorAll<HTMLButtonElement>('.stepper-btn'));
+      const panels = Array.from(nav.querySelectorAll<HTMLElement>('.step-panel'));
+      const tokenContainer = nav.querySelector<HTMLElement>(`#blueprint-tokens-${discipline}`);
+      const deskLink = nav.querySelector<HTMLAnchorElement>(`#desk-link-${discipline}`);
+
+      // State: Record selected option per step
+      const selections: Record<string, { label: string; spec: string }> = {};
+
+      function activateStep(index: number) {
+        if (index < 0 || index >= tabs.length) return;
+
+        tabs.forEach((tab, i) => {
+          const isSelected = i === index;
+          tab.setAttribute('aria-selected', String(isSelected));
+          tab.classList.toggle('is-active', isSelected);
+        });
+
+        panels.forEach((panel, i) => {
+          panel.hidden = i !== index;
+        });
+      }
+
+      function updateBlueprint() {
+        if (!tokenContainer || !deskLink) return;
+
+        const keys = Object.keys(selections);
+        if (keys.length === 0) {
+          tokenContainer.innerHTML = '<span class="token-placeholder">Select parameters above to assemble your architecture specification</span>';
+          deskLink.href = `/lets-talk?service=${encodeURIComponent(serviceParam)}`;
+          return;
+        }
+
+        tokenContainer.innerHTML = '';
+        const summaryTokens: string[] = [];
+
+        keys.forEach((stepId) => {
+          const item = selections[stepId];
+          summaryTokens.push(`${stepId}: ${item.label}`);
+
+          const badge = document.createElement('span');
+          badge.className = 'blueprint-badge';
+          badge.textContent = item.label;
+          tokenContainer.appendChild(badge);
+        });
+
+        const briefSummary = summaryTokens.join(' · ');
+        deskLink.href = `/lets-talk?service=${encodeURIComponent(serviceParam)}&offer=${encodeURIComponent(briefSummary)}`;
+      }
+
+      // Step button clicks
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activateStep(index));
+      });
+
+      // Next / Previous buttons
+      nav.querySelectorAll<HTMLButtonElement>('[data-next-step]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const currentPanel = btn.closest<HTMLElement>('.step-panel');
+          const currentIndex = Number(currentPanel?.dataset.stepIndex || 0);
+          activateStep(currentIndex + 1);
+        });
+      });
+
+      nav.querySelectorAll<HTMLButtonElement>('[data-prev-step]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const currentPanel = btn.closest<HTMLElement>('.step-panel');
+          const currentIndex = Number(currentPanel?.dataset.stepIndex || 0);
+          activateStep(currentIndex - 1);
+        });
+      });
+
+      // Option card selection
+      nav.querySelectorAll<HTMLElement>('.option-card').forEach((card) => {
+        const selectCard = () => {
+          const stepId = card.dataset.stepKey || '';
+          const label = card.dataset.optionLabel || '';
+          const spec = card.querySelector<HTMLElement>('.spec-code')?.textContent?.trim() || '';
+
+          // Uncheck siblings in same panel
+          const panel = card.closest<HTMLElement>('.step-panel');
+          panel?.querySelectorAll<HTMLElement>('.option-card').forEach((sibling) => {
+            sibling.setAttribute('aria-checked', 'false');
+            sibling.classList.remove('is-selected');
+          });
+
+          card.setAttribute('aria-checked', 'true');
+          card.classList.add('is-selected');
+
+          // Store selection
+          selections[stepId] = { label, spec };
+
+          // Update status in stepper
+          const statusNode = nav.querySelector<HTMLElement>(`#status-${discipline}-${stepId}`);
+          if (statusNode) {
+            statusNode.textContent = label;
+            statusNode.classList.add('is-configured');
+          }
+
+          updateBlueprint();
+
+          // Smoothly advance to next step if not last
+          const currentIndex = Number(panel?.dataset.stepIndex || 0);
+          if (currentIndex < tabs.length - 1) {
+            window.setTimeout(() => {
+              activateStep(currentIndex + 1);
+            }, 240);
+          }
+        };
+
+        card.addEventListener('click', selectCard);
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectCard();
+          }
+        });
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDecisionNavigators);
+  } else {
+    initDecisionNavigators();
+  }
+</script>
+
+<style>
+  .decision-navigator {
+    margin: 48px auto;
+    padding: 32px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px -4px rgba(11, 17, 32, 0.06);
+  }
+
+  .navigator-header {
+    max-width: 680px;
+    margin-bottom: 28px;
+  }
+
+  .navigator-kicker {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-blue);
+    margin-bottom: 8px;
+  }
+
+  .navigator-heading {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+
+  .navigator-subheading {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* Stepper Navigation */
+  .stepper-bar {
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 28px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .stepper-list {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    padding: 0 0 12px 0;
+    margin: 0;
+    min-width: max-content;
+  }
+
+  .stepper-item {
+    margin: 0;
+  }
+
+  .stepper-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .stepper-btn:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+  }
+
+  .stepper-btn.is-active,
+  .stepper-btn[aria-selected="true"] {
+    border-color: var(--accent-blue);
+    background: #eef3ff;
+    color: var(--accent-blue);
+    font-weight: 600;
+  }
+
+  .step-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .stepper-btn.is-active .step-num {
+    color: var(--accent-blue);
+  }
+
+  .step-title {
+    font-size: 0.92rem;
+    margin: 2px 0 4px;
+    color: var(--text-primary);
+  }
+
+  .step-status {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+
+  .step-status.is-configured {
+    color: #047857;
+    font-weight: 600;
+  }
+
+  /* Step Panels */
+  .step-panel[hidden] {
+    display: none !important;
+  }
+
+  .step-context {
+    margin-bottom: 20px;
+  }
+
+  .step-counter {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .step-lead {
+    font-size: 1.22rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  /* Options Grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .option-card {
+    padding: 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  .option-card:hover {
+    border-color: #94a3b8;
+    background: #f8fafc;
+  }
+
+  .option-card:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+  }
+
+  .option-card.is-selected,
+  .option-card[aria-checked="true"] {
+    border-color: var(--accent-blue);
+    background: #f0f5ff;
+    box-shadow: inset 0 0 0 1px var(--accent-blue);
+  }
+
+  .option-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .option-indicator {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background: #ffffff;
+    flex-shrink: 0;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .option-card.is-selected .option-indicator {
+    border-color: var(--accent-blue);
+    background: var(--accent-blue);
+  }
+
+  .option-label {
+    font-size: 1.02rem;
+    color: var(--text-primary);
+  }
+
+  .option-summary {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin: 0 0 14px;
+  }
+
+  .tradeoff-block {
+    padding: 10px 12px;
+    background: rgba(11, 17, 32, 0.03);
+    border-left: 2px solid var(--border-color);
+    margin-bottom: 10px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .option-card.is-selected .tradeoff-block {
+    border-left-color: var(--accent-blue);
+    background: rgba(37, 99, 235, 0.05);
+  }
+
+  .tradeoff-kicker {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .tradeoff-text {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .spec-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .spec-kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+  }
+
+  .spec-code {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.78rem;
+    color: #1e293b;
+    background: #e2e8f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    word-break: break-all;
+  }
+
+  /* Step Actions */
+  .step-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .btn-step-prev,
+  .btn-step-next {
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .btn-step-prev {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+
+  .btn-step-prev:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+  }
+
+  .btn-step-next {
+    background: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    color: #ffffff;
+  }
+
+  .btn-step-next:hover {
+    background: var(--accent-blue-hover, #1d4ed8);
+  }
+
+  .step-final-hint {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* Blueprint Footer */
+  .decision-blueprint-bar {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: #0b1120;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--text-on-dark, #f8fafc);
+  }
+
+  .blueprint-summary {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .blueprint-kicker {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-blue-on-dark, #93c5fd);
+    margin-bottom: 6px;
+  }
+
+  .blueprint-tokens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .token-placeholder {
+    font-size: 0.84rem;
+    color: var(--text-on-dark-muted, #94a3b8);
+  }
+
+  .blueprint-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(37, 99, 235, 0.22);
+    border: 1px solid rgba(147, 197, 253, 0.35);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #ffffff;
+  }
+
+  .btn-structure-desk {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 18px;
+    background: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 160ms ease, border-color 160ms ease;
+    white-space: nowrap;
+  }
+
+  .btn-structure-desk:hover {
+    background: var(--accent-blue-hover, #1d4ed8);
+    border-color: var(--accent-blue-hover, #1d4ed8);
+  }
+
+  .btn-structure-desk:focus-visible {
+    outline: 2px solid var(--accent-blue-on-dark, #93c5fd);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 768px) {
+    .decision-navigator {
+      padding: 20px 16px;
+      margin: 32px auto;
+    }
+
+    .options-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .decision-blueprint-bar {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 18px 16px;
+    }
+
+    .btn-structure-desk {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stepper-btn,
+    .option-card,
+    .btn-step-prev,
+    .btn-step-next,
+    .btn-structure-desk {
+      transition: none !important;
+    }
+  }
+</style>

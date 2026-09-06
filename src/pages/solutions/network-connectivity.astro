@@ -3,6 +3,134 @@
 // Phase 8: Solution Family Architecture — Network & Connectivity
 import Layout from '../../layouts/Layout.astro';
 import RouteDiversityExplorer from '../../components/RouteDiversityExplorer.astro';
+import DecisionNavigator, { type DecisionStep } from '../../components/DecisionNavigator.astro';
+
+const networkDecisionSteps: DecisionStep[] = [
+  {
+    id: "metro",
+    number: "01",
+    title: "Metro & Hub",
+    lead: "Where is your primary infrastructure or interconnection point?",
+    options: [
+      {
+        id: "frankfurt-fra",
+        label: "Frankfurt (FRA)",
+        summary: "Central European routing hub with dense Tier-1 peering and low latency to DACH.",
+        tradeOff: "High MMR cross-connect fees in prime facilities (Equinix FR5, Interxion FRA1).",
+        spec: "Latency: < 4ms to Amsterdam/Paris; dense DE-CIX peering access."
+      },
+      {
+        id: "amsterdam-ams",
+        label: "Amsterdam (AMS)",
+        summary: "Continental transit gateway with subsea cable landings and AMS-IX density.",
+        tradeOff: "Power constraints in certain Science Park data centers.",
+        spec: "Peering: Over 800 networks on AMS-IX; extensive transatlantic diversity."
+      },
+      {
+        id: "london-lon",
+        label: "London (LON)",
+        summary: "UK and transatlantic financial routing core with diverse Docklands landing stations.",
+        tradeOff: "Post-Brexit regulatory separation for certain telecommunications services.",
+        spec: "Connectivity: Direct dark fiber links to Slough and City carrier hotels."
+      }
+    ]
+  },
+  {
+    id: "capacity",
+    number: "02",
+    title: "Port Capacity",
+    lead: "What interface speed does your traffic volume require?",
+    options: [
+      {
+        id: "cap-10g",
+        label: "10G LR / ER Interface",
+        summary: "Standard high-reliability uplink for mid-sized hosting and SaaS platforms.",
+        tradeOff: "Lower throughput ceiling during unexpected traffic spikes.",
+        spec: "Optics: 10GBASE-LR 1310nm Single-Mode Fiber or ER for campus loops."
+      },
+      {
+        id: "cap-100g",
+        label: "100G LR4 / CWDM4",
+        summary: "Enterprise backbone capacity with significant burst headroom and volume pricing.",
+        tradeOff: "Requires 100G-capable switch ports (QSFP28).",
+        spec: "Optics: 100GBASE-LR4 / CWDM4 with 95th percentile billing options."
+      },
+      {
+        id: "cap-400g",
+        label: "400G Optical Wavelength",
+        summary: "Hyperscale optical transport for heavy AI training, CDN, or core DCI routing.",
+        tradeOff: "Higher initial optics and cross-connect setup cost.",
+        spec: "Optics: 400G QSFP-DD coherent optics or lit DWDM transponder handoff."
+      }
+    ]
+  },
+  {
+    id: "commit",
+    number: "03",
+    title: "Commit Model",
+    lead: "What billing structure aligns with your utilization curve?",
+    options: [
+      {
+        id: "burstable-95th",
+        label: "Burstable (95th Percentile)",
+        summary: "Pay for a baseline commit (e.g. 20G on 100G port) with headroom for peaks.",
+        tradeOff: "Sustained spikes exceeding commit incur burst rate multiplier charges.",
+        spec: "Billing: Top 5% of monthly 5-minute traffic samples discarded."
+      },
+      {
+        id: "flat-unmetered",
+        label: "Flat-Rate Unmetered",
+        summary: "Fixed monthly port fee with 100% continuous line-rate saturation allowed.",
+        tradeOff: "No credit if port utilization stays low; best for predictable streaming/DCI.",
+        spec: "Predictability: 100% fixed OPEX with zero variable billing meters."
+      }
+    ]
+  },
+  {
+    id: "diversity",
+    number: "04",
+    title: "Conduit Diversity",
+    lead: "How must secondary backup paths be routed in the ground?",
+    options: [
+      {
+        id: "physically-diverse",
+        label: "Strict Physical Conduit Diversity",
+        summary: "Dual carrier paths verified against subterranean conduit maps with zero shared manholes.",
+        tradeOff: "Longer delivery lead time (4–8 weeks) to verify GIS conduit routing.",
+        spec: "Verification: Zero common bridge crossings, manholes, or building entry points."
+      },
+      {
+        id: "carrier-diverse",
+        label: "Dual Carrier BGP Multi-homing",
+        summary: "Two distinct ASNs delivered to the MMR with autonomous failover.",
+        tradeOff: "Risk of subterranean common-mode failure if carriers share metro rights-of-way.",
+        spec: "Protocol: Dual eBGP sessions with BGP community traffic steering."
+      }
+    ]
+  },
+  {
+    id: "protection",
+    number: "05",
+    title: "DDoS Mitigation",
+    lead: "What DDoS threat protection does your upstream require?",
+    options: [
+      {
+        id: "inline-scrubbed",
+        label: "Inline Clean Pipes Protection",
+        summary: "Continuous traffic filtering with sub-second volumetric attack diversion.",
+        tradeOff: "Slight latency overhead (~2–5ms) through scrubbing inspection centers.",
+        spec: "Mitigation: Automated BGP FlowSpec diversion with 2+ Tbps edge capacity."
+      },
+      {
+        id: "clean-transit",
+        label: "Unfiltered High-Performance Transit",
+        summary: "Direct raw IP transit without inline proxy inspection for latency-critical traffic.",
+        tradeOff: "Requires upstream blackholing (RTBH) or edge appliance during attacks.",
+        spec: "Routing: Native BGP communities for remote-triggered blackholing (RTBH)."
+      }
+    ]
+  }
+];
 
 const situations = [
   {
@@ -160,6 +288,15 @@ const partners = [
         <h2 class="editorial-h2">Available connectivity disciplines</h2>
         <p class="section-desc">Each circuit and allocation is structured with explicit technical specifications and verified delivery parameters.</p>
       </div>
+
+      <DecisionNavigator
+        disciplineId="network"
+        kicker="Interactive Architecture Decision Map"
+        heading="Navigate Carrier & Transit Sourcing Trade-offs"
+        subheading="Step through metro hubs, interface capacities, commit models, and physical route diversity to configure your connectivity specification."
+        serviceParam="connectivity"
+        steps={networkDecisionSteps}
+      />
 
       <div class="architectural-ledger">
         {approaches.map((item) => (
