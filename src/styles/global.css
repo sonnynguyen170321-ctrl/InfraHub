@@ -41,7 +41,7 @@
   --color-paper: #f8fafc;
   --color-amber: #f59e0b;
   --color-amber-hover: #d97706;
-  --color-amber-text: #d97706;
+  --color-amber-text: #b45309;
   --color-hairline: rgba(255, 255, 255, 0.08);
   --color-hairline-light: rgba(11, 17, 32, 0.08);
   --color-slate-border: #1e293b;
@@ -64,7 +64,7 @@
   
   --text-primary: #0b1120;        /* Midnight slate */
   --text-secondary: #334155;      /* Slate 700 */
-  --text-muted: #64748b;          /* Slate 500 - WCAG AA compliant */
+  --text-muted: #475569;          /* Slate 600 - WCAG AA compliant on all paper and white surfaces */
   --text-on-dark: #f8fafc;
   --text-on-dark-muted: #94a3b8;
   
