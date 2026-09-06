@@ -1,0 +1,101 @@
+[
+  {
+    "route": "/",
+    "viewport": "1920x1080",
+    "loadMs": 1304,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1440x900",
+    "loadMs": 1300,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1366x768",
+    "loadMs": 956,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1280x800",
+    "loadMs": 1416,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "1024x768",
+    "loadMs": 1296,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "768x1024",
+    "loadMs": 1323,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "430x932",
+    "loadMs": 966,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "390x844",
+    "loadMs": 1204,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  },
+  {
+    "route": "/",
+    "viewport": "360x800",
+    "loadMs": 1200,
+    "consoleErrors": 0,
+    "failedRequests": 0,
+    "details": {
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  }
+]

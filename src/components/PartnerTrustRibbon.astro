@@ -217,9 +217,10 @@ const approvedPartners = allPartners
       frame = 0;
 
       /*
-       * Keyed to the hero's exit, using the identical mapping hero-3d-transition.ts feeds the
-       * canvas, so the ribbon and the plane it lands on settle in lockstep instead of drifting
-       * against each other. Tying this to the ribbon's own entry did not work: under a hero
+       * Keyed to the hero's exit via --hero-progress, so the ribbon and the frame above it
+       * settle in lockstep instead of drifting against each other. (This mapping was shared
+       * with a hero canvas that has since been removed as decorative; the hero still writes
+       * the same progress value.) Tying this to the ribbon's own entry did not work: under a hero
        * shorter than the viewport the ribbon is already on screen at first paint, so the whole
        * motion was spent inside the first hundred pixels of scroll and never actually read.
        */

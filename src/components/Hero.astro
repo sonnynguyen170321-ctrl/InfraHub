@@ -19,11 +19,11 @@
 //   .hero-light-field restrained radial lift around the rack architecture
 //   .hero-exit-veil   a 10% exposure drop, applied only in the last third of the exit
 //
-// The partner surface that rises into the frame is drawn by the 3D canvas
-// (hero-3d-transition.ts, "Architectural Partner Plane"), not by a CSS layer here. A second
-// CSS gradient used to sit in this stack doing the same job. Its transform mixed a unitless
-// 0 with a deg value inside max(), so the declaration was invalid, it never animated, and it
-// washed the bottom of the photograph out at every scroll position.
+// The bottom of the frame is landed by one gradient shelf. A canvas used to draw an
+// "Architectural Partner Plane" and a route spline here; both were removed because they
+// carried no information. An earlier CSS gradient in this stack did the same job with an
+// invalid transform (a unitless 0 mixed with a deg value inside max()), so it never
+// animated and washed out the bottom of the photograph at every scroll position.
 import { Image } from 'astro:assets';
 import heroImage from '../assets/hero-datacenter.jpg';
 ---
@@ -73,32 +73,13 @@ import heroImage from '../assets/hero-datacenter.jpg';
     </div>
   </div>
 
-  <!-- Signature Hero → Partner Ecosystem 3D Spatial Transition (Directives 01–63) -->
-  <div class="hero-spatial-transition hero-routing-exit" id="heroSpatialTransition" aria-hidden="true">
-    <canvas class="hero-3d-canvas" id="hero3dCanvas"></canvas>
-
-    <svg class="hero-spatial-fallback" viewBox="0 0 1000 600" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="routeSplineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="rgba(164, 185, 212, 0.4)" />
-          <stop offset="50%" stop-color="rgba(70, 120, 220, 0.85)" />
-          <stop offset="100%" stop-color="#2563eb" />
-        </linearGradient>
-      </defs>
-      <path
-        class="spatial-route-path"
-        d="M 640 120 Q 580 300, 480 430 T 420 600"
-      />
-      <path
-        class="spatial-route-branch branch-left"
-        d="M 480 430 Q 450 520, 360 600"
-      />
-      <path
-        class="spatial-route-branch branch-right"
-        d="M 480 430 Q 510 520, 500 600"
-      />
-      <circle class="spatial-route-junction" cx="480" cy="430" r="3.5" />
-    </svg>
+  <!--
+    The photograph is grounded into the partner ribbon by a single gradient shelf. A
+    decorative route spline and its canvas used to sit here; both were removed because
+    they carried no information (master plan sections 20, 21, 32). The signature
+    identity motion is authored in Phase 7, from geometry the identity actually owns.
+  -->
+  <div class="hero-base-shelf hero-routing-exit" aria-hidden="true">
     <div class="hero-bottom-shelf"></div>
   </div>
 </section>
@@ -408,11 +389,11 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   /*
-   * Signature Hero → Partner Ecosystem 3D Spatial Transition (Directives 01–63)
-   * A true spatial path emerging from the physical datacenter cable tray geometry,
-   * curving forward in 3D space, landing onto the architectural partner plane.
+   * The shelf wrapper only positions the gradient that lands the photograph onto the
+   * partner ribbon. It keeps .hero-routing-exit so the reduced-motion override below
+   * still has a target.
    */
-  .hero-spatial-transition {
+  .hero-base-shelf {
     position: absolute;
     left: 0;
     right: 0;
@@ -420,54 +401,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     height: 380px;
     pointer-events: none;
     z-index: 8;
-    overflow: visible;
-  }
-
-  .hero-3d-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  .hero-spatial-fallback {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-    opacity: calc(0.4 + min(max(var(--hero-progress, 0) * 1.5, 0), 0.6));
-    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .hero-spatial-transition[data-enhanced='true'] .hero-spatial-fallback {
-    opacity: 0;
-  }
-
-  .spatial-route-path {
-    fill: none;
-    stroke: url(#routeSplineGradient);
-    stroke-width: 1.5;
-    stroke-dasharray: 600;
-    stroke-dashoffset: calc(320 - min(max(var(--hero-progress, 0) * 1.5, 0), 1) * 320);
-    stroke-linecap: round;
-  }
-
-  .spatial-route-branch {
-    fill: none;
-    stroke: rgba(70, 120, 220, 0.45);
-    stroke-width: 1;
-    stroke-dasharray: 200;
-    stroke-dashoffset: calc(140 - min(max((var(--hero-progress, 0) - 0.1) * 2, 0), 1) * 140);
-  }
-
-  .spatial-route-junction {
-    fill: #3b82f6;
-    opacity: calc(0.5 + min(max(var(--hero-progress, 0) * 1.8, 0), 0.5));
   }
 
   .hero-bottom-shelf {
@@ -556,12 +489,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
       transform: none !important;
       opacity: 1 !important;
     }
-    .hero-3d-canvas {
-      display: none !important;
-    }
-    .hero-spatial-fallback {
-      opacity: 1 !important;
-    }
     .hero-container {
       transform: none;
       opacity: 1;
@@ -648,21 +575,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
   function initHero() {
     initHeroScroll();
     initHeroPointerDepth();
-
-    // Lazy load the 3D spatial transition on desktop after initial paint (Directives 12, 28, 47)
-    if (window.innerWidth >= 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const load3D = () => {
-        import('../scripts/hero-3d-transition').then(({ initHero3DTransition }) => {
-          initHero3DTransition();
-        }).catch(() => {});
-      };
-
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(load3D, { timeout: 2500 });
-      } else {
-        setTimeout(load3D, 1500);
-      }
-    }
   }
 
   if (document.readyState === 'loading') {
