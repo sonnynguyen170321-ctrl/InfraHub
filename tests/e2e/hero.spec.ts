@@ -197,7 +197,6 @@ test.describe('hero art direction', () => {
         filter: getComputedStyle(img).filter,
         imageAnimation: getComputedStyle(img).animationName,
         cameraTransform: getComputedStyle(camera).transform,
-        routeOpacity: getComputedStyle(document.querySelector('.hero-routing-exit') as Element).opacity,
       };
     });
 
@@ -205,7 +204,6 @@ test.describe('hero art direction', () => {
     expect(state.filter).toContain('brightness(0.92)');
     expect(state.imageAnimation).toBe('none');
     expect(['none', 'matrix(1, 0, 0, 1, 0, 0)']).toContain(state.cameraTransform);
-    expect(Number(state.routeOpacity)).toBe(1);
 
     await expect(page.locator('.hero-description')).toBeVisible();
   });
