@@ -1,58 +1,38 @@
 # InfraHub $50K Redesign — Agent Master Handoff Checkpoint
 
 **Date:** 2026-09-06  
-**Active Phase:** Phase 8 (Service Architecture & Solution Dossiers) — **COMPLETE**  
-**Next Active Phase:** Phase 9 (Quality Gates, Cross-Browser Certification & Launch Polish)  
-**Branch:** `redesign/phase8-inner-pages`  
-**Base Commit at Handoff:** `0062a46` (Phase 7 completion & verification)  
+**Active Phase:** Phase 9 (Partner Ecosystem & Decision Layer Architecture) — **COMPLETE**  
+**Next Active Phase:** Phase 10 (Insights, About, How We Work & Inquiry Architecture)  
+**Branch:** `redesign/phase9-partners`  
+**Base Commit at Handoff:** `7105f34` (Phase 8 completion & verification)  
 **Classification:** CURRENT_CANONICAL  
 
 ---
 
-## 1. Exact Work Completed in Phase 8
+## 1. Exact Work Completed in Phase 9
 
 1. **Branch Setup & Traceability:**
-   - Created and checked out branch `redesign/phase8-inner-pages` from `redesign/phase7-homepage`.
-   - Verified clean working tree and full test baseline.
+   - Created and checked out branch `redesign/phase9-partners` from `redesign/phase8-inner-pages`.
+   - Verified clean baseline across all 157 Playwright tests.
 
-2. **Discipline 01: Network & Global Connectivity (`src/pages/solutions/network-connectivity.astro`):**
-   - Refactored to full 9-part editorial architecture with monospace telemetry badges (`DIVERSITY: TRUE DUAL PATH`, `LATENCY: SLA-BACKED`, `TRANSIT: TIER-1 MULTI-HOMED`).
-   - Trigger scenarios for optical path convergence, route flapping, and cross-border latency.
-   - Architectural ledger detailing Wavelengths, Dark Fiber, IP Transit, and Layer 2 Interconnects.
-   - Embedded interactive `RouteDiversityExplorer` highlighting physical vs logical pathing.
-   - Verified specialists: **Zenlayer**, **Gcore**.
-   - Consultation CTA: `Consult a Network Architect` &rarr; `/lets-talk?service=connectivity`.
+2. **Partner Directory Ledger (`src/pages/partners/index.astro`):**
+   - Curated specialist ecosystem structure across 6 authoritative disciplines (Infrastructure & Cloud, Defensive & Routing Security, Network & IP Resources, Virtualization Architecture, Managed Operations, Technology Decision Support).
+   - Integrated **Partner Selection & Diligence Framework** (Master Plan §17): 4-stage qualification workflow (01 Technical Diligence &rarr; 02 Workload Qualification &rarr; 03 Commercial Transparency &rarr; 04 Direct Provider Introductions).
+   - Integrated **Commercial Role & Governance Disclosure**: Explicit statement that InfraHub is an independent infrastructure advisory, does not mark up pricing, and commercial MSAs/SLAs are held directly with the provider.
+   - Preserved all required test selectors (`.ledger-row-item`, `.partner-title`, `.partner-short-role`, `.ledger-partner-logo`, `.ledger-text-logo`, `.partner-ext-link`, `.ledger-profile-btn`).
 
-3. **Discipline 02: Cloud & Virtualization Architecture (`src/pages/solutions/cloud-virtualization.astro`):**
-   - Architectural alternatives to Broadcom VMware lock-in (Vates / XCP-ng), sovereign private cloud, custom IaaS, and cloud direct connects.
-   - Diligence standards for live Xen migration, vCPU oversubscription limits, and direct NVMe storage throughput.
-   - Verified specialists: **Vates**, **Gcore**, **Zenlayer**.
-   - Consultation CTA: `Consult a Cloud Architect` &rarr; `/lets-talk?service=cloud`.
+3. **Partner Decision Dossiers (`src/pages/partners/[slug].astro`):**
+   - Verified and maintained all 8 canonical partner dossiers (FastNetMon, Gcore, StormWall, Zenlayer, IPXO, Vates, ITcare, Airframe).
+   - Full Buyer-Decision Layer: Subject-specific architecture flow (Steps 01–04), Questions We Ask First, Workload Suitability (*When this fits* vs *When an alternative fits*), Commercial & Sourcing Caution, and verified external source citations.
+   - Sourced capability scopes and direct principal consultation callouts (`/lets-talk?partner=[slug]`).
 
-4. **Discipline 03: Dedicated Infrastructure & Compute (`src/pages/solutions/infrastructure.astro`):**
-   - High-density bare metal fleets, liquid-cooled GPU AI training clusters, and enterprise hardware brokerage.
-   - Diligence standards for dual-corded ATS feeds, IPMI out-of-band security, and carrier-neutral meet-me rooms.
-   - Verified specialists: **Zenlayer**, **Gcore**, **Airframe**.
-   - Consultation CTA: `Consult an Infrastructure Architect` &rarr; `/lets-talk?service=dedicated-infrastructure`.
+4. **Optical Sizing & Trademark Provenance:**
+   - Enforced `logoScale: 1.5` optical sizing on FastNetMon to counterbalance vertical mark proportions against horizontal wordmarks.
+   - Verified asset existence, non-emptiness, and disk provenance in `docs/ASSET_PROVENANCE.md` for all 8 canonical partner marks.
+   - Zero unapproved candidate marks or forbidden marketing labels ("Trusted by", "Strategic Partner").
 
-5. **Discipline 04: Security & Network Defense (`src/pages/solutions/security.astro`):**
-   - Cloud scrubbing networks, FastNetMon flow telemetry, automated FlowSpec diversion, and RPKI route hygiene.
-   - Diligence standards for clean-traffic GRE return topologies, detection sampling rates, and mitigation SLAs.
-   - Verified specialists: **FastNetMon**, **StormWall**, **Gcore**, **ITcare**.
-   - Consultation CTA: `Discuss Security Requirements` &rarr; `/lets-talk?service=ddos-security`.
-
-6. **Discipline 05: Managed Operations & 24/7 NOC (`src/pages/solutions/managed-services.astro`):**
-   - Round-the-clock incident monitoring, syslog event clustering, HORA AIOps telemetry, BGP routing advisory, and network automation pipelines.
-   - Diligence standards for direct L2/L3 escalation access, monitoring runbook fidelity, and Tier-1 carrier coordination.
-   - Verified specialists: **ITcare**, **FastNetMon**, **Airframe**.
-   - Consultation CTA: `Consult an Operations Architect` &rarr; `/lets-talk?service=managed-services`.
-
-7. **Hero Section Fold Geometry Calibration (`src/components/Hero.astro`):**
-   - Calibrated vertical hero padding to `clamp(72px, 8vh, 96px) 0 clamp(64px, 7vh, 88px)`.
-   - Guaranteed that the Partner Trust Ribbon sits snugly above the fold across all desktop viewports (768px, 900px, 1080px, 1200px), passing `hero.spec.ts` 100%.
-
-8. **Documentation:**
-   - Authored `docs/redesign/08-service-architecture.md` detailing the five solution family dossiers, 9-part editorial architecture, truth governance, and verification results.
+5. **Documentation:**
+   - Authored `docs/redesign/09-partner-ecosystem.md` detailing the Partner Ecosystem directory, decision layer architecture, optical sizing, governance disclosures, and test verification results.
 
 ---
 
@@ -70,23 +50,24 @@
 | `human-design-audit.test.mjs` | **PASS** | Design forensics passed; zero template anti-patterns or hover lifts |
 | `user-audit.mjs` (Playwright) | **PASS** | Mark vs Wordmark delta: 0.01px; 0 contrast violations |
 | `partner-assets.test.mjs` | **PASS** | 8 canonical partners validated against disk files and provenance |
-| Playwright E2E Suite (`test`) | **PASS** | **157/157 tests passing cleanly** across all test files and viewports |
+| Partner E2E Suites (`partners.spec.ts`, etc.) | **PASS** | **32/32 tests passing cleanly** across all partner test files |
+| Playwright Full Suite (`test`) | **PASS** | **157/157 tests passing cleanly** across all desktop and mobile specs |
 
 ---
 
-## 3. Work Definition for Phase 9 (Quality Gates, Cross-Browser Certification & Launch Readiness)
+## 3. Work Definition for Phase 10 (Insights, About, How We Work & Inquiry Architecture)
 
 - **Target Objective:**
-  Prepare the entire InfraHub platform for final sign-off and deployment:
-  - Verify complete visual integrity and responsiveness across Edge, Chrome, Safari/WebKit, and Firefox.
-  - Final audit of performance budgets, Core Web Vitals readiness, and metadata/social cards.
-  - Review all remaining inner pages (Offers, Industries, Insights) to ensure complete alignment with the Design System and Truth Governance rules.
-  - Conduct final certification run and generate comprehensive release report.
+  Elevate supporting editorial and narrative pages:
+  - **Insights Journal (`/insights` & `/insights/[slug]`):** Premium technical field guide journal styling for wholesale infrastructure and network architecture analyses.
+  - **About & Business Architecture (`/about`):** Grounded executive thesis on wholesale infrastructure advisory, operating model, and leadership.
+  - **How We Work (`/how-we-work`):** Diligence timeline and architectural qualification process.
+  - **Technical Inquiry Gateway (`/lets-talk`):** High-trust, low-friction scoping form with pre-populated parameters, serverless API health, and zero PII logging.
 
 ---
 
 ## 4. Next Recommended Action for Continuing Agent
 
-1. Review and commit Phase 8 changes on `redesign/phase8-inner-pages`.
-2. Push branch `redesign/phase8-inner-pages` to remote origin.
-3. Open PR or merge into main according to deployment strategy, and initiate **Phase 9: Quality Gates & Launch Readiness**.
+1. Stage and commit Phase 9 changes on `redesign/phase9-partners`.
+2. Push branch `redesign/phase9-partners` to remote origin.
+3. Branch `redesign/phase10-supporting-pages` and proceed to **Phase 10: Insights, About, How We Work & Inquiry Architecture**.
