@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" width="120" height="100" fill="none" role="img" aria-label="InfraHub">
+  <g transform="translate(36, 10)">
+    <path d="M11 6v13l8 8v17h5V27L14 17V6h-3zm20 0v13l-8 8v17h5V27l10-10V6h-7z" fill="#2563eb"/>
+    <rect x="19" y="30" width="13" height="4" fill="#38bdf8"/>
+  </g>
+  <text x="60" y="80" text-anchor="middle" font-family="'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.03em" fill="#0f172a">
+    Infra<tspan fill="#2563eb">Hub</tspan>
+  </text>
+</svg>
