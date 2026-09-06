@@ -31,56 +31,65 @@
    ========================================================================== */
 
 :root {
-  /* Bespoke Mineral / Telecom Infrastructure Palette (Part VIII) */
-  --color-carbon: #091118;
-  --color-deep-navy: #0C1722;
-  --color-ink: #17212A;
-  --color-paper: #F4F5F1;
-  --color-mist: #E9ECE8;
-  --color-structural-grey: #D2D7D3;
-  --color-cobalt: #2854C7;
-  --color-cobalt-hover: #1E44A8;
-  --color-signal-teal: #087D79;
-  --color-route-amber: #B86B2B;
+  /* Canonical InfraHub Master Tokens (Brand Guidelines 2.0 & Phase 5) */
+  --color-bedrock: #050811;
+  --color-midnight: #0b1120;
+  --color-cobalt: #2563eb;
+  --color-cobalt-hover: #1d4ed8;
+  --color-sky: #38bdf8;
+  --color-sky-hover: #0ea5e9;
+  --color-paper: #f8fafc;
+  --color-amber: #f59e0b;
+  --color-amber-hover: #d97706;
+  --color-amber-text: #d97706;
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-hairline-light: rgba(11, 17, 32, 0.08);
+  --color-slate-border: #1e293b;
+
+  /* Backward-compatible semantic mappings */
+  --color-carbon: var(--color-bedrock);
+  --color-deep-navy: var(--color-midnight);
+  --color-ink: #111827;
+  --color-mist: #e2e8f0;
+  --color-structural-grey: #cbd5e1;
+  --color-signal-teal: var(--color-sky);
+  --color-route-amber: var(--color-amber);
 
   --bg-primary: #ffffff;
-  --bg-secondary: #F4F5F1;        /* Paper light surface */
-  --bg-tertiary: #E9ECE8;         /* Mist */
-  --bg-dark: #091118;             /* Carbon */
-  --bg-dark-secondary: #0C1722;   /* Deep Navy */
-  --bg-dark-tertiary: #17212A;    /* Ink */
+  --bg-secondary: #f8fafc;        /* Mineral paper light surface */
+  --bg-tertiary: #f1f5f9;         /* Slate 100 */
+  --bg-dark: var(--color-bedrock);             /* Deep Bedrock #050811 */
+  --bg-dark-secondary: var(--color-midnight);   /* Midnight Slate #0b1120 */
+  --bg-dark-tertiary: #111827;
   
-  --text-primary: #091118;        /* Carbon black / deep ink */
-  --text-secondary: #2C3844;      /* High-contrast structural slate */
-  --text-muted: #5A6773;          /* Slate 500 - WCAG AA compliant */
-  --text-on-dark: #F4F5F1;
-  --text-on-dark-muted: #A6B4C0;
+  --text-primary: #0b1120;        /* Midnight slate */
+  --text-secondary: #334155;      /* Slate 700 */
+  --text-muted: #64748b;          /* Slate 500 - WCAG AA compliant */
+  --text-on-dark: #f8fafc;
+  --text-on-dark-muted: #94a3b8;
   
-  --accent-blue: #2854C7;         /* InfraHub Cobalt */
-  --accent-blue-hover: #1E44A8;
-  --accent-blue-light: #EEF2FC;
+  --accent-blue: var(--color-cobalt);         /* InfraHub Cobalt #2563eb */
+  --accent-blue-hover: var(--color-cobalt-hover);
+  --accent-blue-light: #eff6ff;
   
-  --accent-cyan: #087D79;         /* Signal Teal */
-  --accent-cyan-hover: #066562;
-  --accent-cyan-light: #E6F4F3;
-  --accent-cyan-glow: #087D79;
+  --accent-cyan: var(--color-sky);            /* Electric Sky #38bdf8 */
+  --accent-cyan-hover: var(--color-sky-hover);
+  --accent-cyan-light: #f0f9ff;
+  --accent-cyan-glow: var(--color-sky);
 
-  --accent-amber: #B86B2B;        /* Route Amber */
-  --accent-amber-light: #FBF4EE;
-  /* Route amber as TEXT fails AA on white at 4.06:1. This darker cut reads 6.65:1 on
-     white and 6.10:1 on the amber tint; the original stays for lines and fills. */
-  --accent-amber-text: #8A4D1C;
-  /* Cobalt on the dark chapters is 2.85:1. This is the on-dark cut, at 10.4:1. */
-  --accent-blue-on-dark: #93C5FD;
+  --accent-amber: var(--color-amber);        /* Metric Amber #f59e0b */
+  --accent-amber-light: #fffbeb;
+  --accent-amber-text: var(--color-amber-text);
+  --accent-blue-on-dark: #93c5fd;
 
-  --accent-teal: var(--accent-cyan);
-  --accent-teal-hover: var(--accent-cyan-hover);
-  --accent-teal-light: var(--accent-cyan-light);
+  --accent-teal: var(--color-sky);
+  --accent-teal-hover: var(--color-sky-hover);
+  --accent-teal-light: #f0f9ff;
   
-  --border-color: #D2D7D3;        /* Structural Grey */
-  --border-color-active: #B0B8B2;
-  --border-dark: rgba(210, 215, 211, 0.15);
-  --border-dark-highlight: rgba(40, 84, 199, 0.5);
+  --border-color: #cbd5e1;        /* Structural Grey */
+  --border-color-active: #94a3b8;
+  --border-dark: var(--color-hairline);
+  --border-dark-highlight: rgba(37, 99, 235, 0.4);
   
   /* Typography — Engineering Literate (Part VI) */
   --font-heading: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -91,18 +100,18 @@
   --max-width: 1280px;
   --header-height: 80px;
   
-  /* Restrained Radius Hierarchy (Part IX: 0px, 2px, 4px, 8px) */
+  /* Restrained Radius Hierarchy (0px, 2px, 4px, 8px) */
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 8px;
   --radius-xl: 8px;
   --radius-pill: 2px;
-  --shadow-sm: 0 1px 2px rgba(9, 17, 24, 0.04);
-  --shadow-md: 0 3px 8px rgba(9, 17, 24, 0.04);
-  --shadow-lg: 0 8px 20px rgba(9, 17, 24, 0.05);
-  --shadow-xl: 0 16px 32px rgba(9, 17, 24, 0.06);
+  --shadow-sm: 0 1px 2px rgba(5, 8, 17, 0.04);
+  --shadow-md: 0 3px 8px rgba(5, 8, 17, 0.04);
+  --shadow-lg: 0 8px 20px rgba(5, 8, 17, 0.05);
+  --shadow-xl: 0 16px 32px rgba(5, 8, 17, 0.06);
 
-  /* Emil Kowalski Motion Easing & Duration Tokens (Directive 25) */
+  /* Emil Kowalski Motion Easing & Duration Tokens */
   --motion-fast: 140ms;
   --motion-ui: 200ms;
   --motion-content: 420ms;
@@ -112,16 +121,16 @@
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --transition: background-color var(--motion-ui) var(--ease-out), color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out), transform var(--motion-ui) var(--ease-out), opacity var(--motion-ui) var(--ease-out);
 
-  /* The Infrastructure Route Line Art-Direction System (Directive 2 & 3) */
+  /* The Infrastructure Route Line Art-Direction System */
   --route-line-weight: 1.5px;
-  --route-line-neutral: #D2D7D3;
-  --route-line-neutral-dark: rgba(210, 215, 211, 0.25);
-  --route-line-active: #2854C7;
-  --route-line-secondary: #087D79;
-  --route-line-risk: #B86B2B;
+  --route-line-neutral: #cbd5e1;
+  --route-line-neutral-dark: rgba(203, 213, 225, 0.2);
+  --route-line-active: var(--color-cobalt);
+  --route-line-secondary: var(--color-sky);
+  --route-line-risk: var(--color-amber);
   --transition-fast: background-color 120ms var(--ease-out), color 120ms var(--ease-out), border-color 120ms var(--ease-out), transform 120ms var(--ease-out), opacity 120ms var(--ease-out);
 
-  /* Conceptual Depth Planes (Master Art Direction Directive 04) */
+  /* Conceptual Depth Planes */
   --plane-env: 1;      /* Environment: paper, carbon, surfaces */
   --plane-infra: 2;    /* Infrastructure: photography, technical cutaway model */
   --plane-route: 3;    /* Route: routing lines, decision branches, amber hazard */
@@ -313,6 +322,24 @@ img {
   background-color: rgba(255, 255, 255, 0.08);
 }
 
+.btn-cobalt {
+  background-color: var(--color-cobalt);
+  color: #ffffff;
+}
+.btn-cobalt:hover {
+  background-color: var(--color-cobalt-hover);
+}
+
+.btn-blueprint {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid var(--color-slate-border);
+}
+.btn-blueprint:hover {
+  border-color: var(--color-sky);
+  background-color: rgba(56, 189, 248, 0.06);
+}
+
 /* Badge / Tags */
 .pill-badge {
   display: inline-flex;
@@ -350,6 +377,75 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+/* Technical Kickers & Badges (Phase 5 & 6) */
+.technical-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-sky);
+  margin-bottom: 12px;
+}
+
+.technical-kicker-cobalt {
+  color: var(--color-cobalt);
+}
+
+.telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-paper);
+  border: 1px solid var(--color-hairline);
+}
+
+.telemetry-badge-amber {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--color-amber);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.telemetry-badge-sky {
+  background-color: rgba(56, 189, 248, 0.1);
+  color: var(--color-sky);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+/* Architectural Ledger Primitives */
+.architectural-ledger {
+  width: 100%;
+  border-top: 1px solid var(--color-slate-border);
+  border-bottom: 1px solid var(--color-slate-border);
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-hairline);
+  transition: var(--transition-fast);
+}
+
+.ledger-row:last-child {
+  border-bottom: none;
+}
+
+.ledger-row:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
 /* Section Rhythm Layouts */
 .section {
   padding: 104px 0;
@@ -385,6 +481,35 @@ img {
 }
 .section-dark p {
   color: var(--text-on-dark-muted);
+}
+
+.section-bedrock {
+  background-color: var(--color-bedrock);
+  color: var(--color-paper);
+}
+.section-bedrock h2, .section-bedrock h3 {
+  color: #ffffff;
+}
+.section-bedrock p {
+  color: var(--text-on-dark-muted);
+}
+
+.section-midnight {
+  background-color: var(--color-midnight);
+  color: var(--color-paper);
+}
+.section-midnight h2, .section-midnight h3 {
+  color: #ffffff;
+}
+.section-midnight p {
+  color: var(--text-on-dark-muted);
+}
+
+.blueprint-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 .section-header {
