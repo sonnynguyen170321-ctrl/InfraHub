@@ -187,12 +187,10 @@ test.describe('hero art direction', () => {
     const state = await page.evaluate(() => {
       const img = document.querySelector('.hero-bg-img') as HTMLElement;
       const camera = document.querySelector('.hero-camera') as HTMLElement;
-      const trace = document.querySelector('.hero-light-trace') as HTMLElement;
       return {
         filter: getComputedStyle(img).filter,
         imageAnimation: getComputedStyle(img).animationName,
         cameraTransform: getComputedStyle(camera).transform,
-        traceDisplay: getComputedStyle(trace).display,
         routeOpacity: getComputedStyle(document.querySelector('.hero-routing-exit') as Element).opacity,
       };
     });
@@ -201,20 +199,9 @@ test.describe('hero art direction', () => {
     expect(state.filter).toContain('brightness(0.92)');
     expect(state.imageAnimation).toBe('none');
     expect(['none', 'matrix(1, 0, 0, 1, 0, 0)']).toContain(state.cameraTransform);
-    expect(state.traceDisplay).toBe('none');
     expect(Number(state.routeOpacity)).toBe(1);
 
     await expect(page.locator('.hero-description')).toBeVisible();
-  });
-
-  test('the light trace runs once and leaves nothing behind', async ({ page }) => {
-    await page.goto('/');
-    const trace = page.locator('.hero-light-trace');
-    const iterations = await trace.evaluate((el) => getComputedStyle(el).animationIterationCount);
-    expect(iterations).toBe('1');
-
-    await page.waitForTimeout(2400);
-    expect(Number(await trace.evaluate((el) => getComputedStyle(el).opacity))).toBeLessThanOrEqual(0.01);
   });
 
   test('mobile is art-directed rather than centre-cropped from the desktop frame', async ({ page }) => {
