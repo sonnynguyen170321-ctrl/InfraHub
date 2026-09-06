@@ -123,3 +123,54 @@ test.describe('discovery scene progression', () => {
     expect(position).toBe('static');
   });
 });
+
+test.describe('qualification parameters and architectural causality', () => {
+  test('all 6 qualification parameters render with correct metadata', async ({ page }) => {
+    await page.goto('/');
+
+    const qualItems = page.locator('.qualification-grid .qual-item');
+    await expect(qualItems).toHaveCount(6);
+
+    const firstItem = qualItems.first();
+    await expect(firstItem.locator('.qual-name')).toHaveText('Workload');
+    await expect(firstItem.locator('.qual-criterion')).toHaveText('Compute profile & density');
+    await expect(firstItem).toHaveClass(/is-driver/);
+
+    const meta = page.locator('#qualMeta');
+    await expect(meta).toContainText('ACTIVE DRIVERS');
+  });
+
+  test('hovering and clicking a parameter updates architectural causality readout and branches', async ({ page }) => {
+    await page.goto('/');
+
+    const readout = page.locator('#qualReadoutText');
+    const resilienceParam = page.locator('#qual-resilience');
+
+    // Hover parameter updates readout
+    await resilienceParam.hover();
+    await expect(readout).toContainText('always-on BGP DDoS scrubbing');
+
+    // Clicking resilience switches active discipline to Security
+    await resilienceParam.click();
+    const activeTab = page.locator('.discipline-tab-btn.active');
+    await expect(activeTab).toHaveAttribute('data-target', 'security');
+    await expect(page.locator('#panel-security')).toBeVisible();
+
+    // Check SVG branch illumination
+    const highlightedBranches = page.locator('.branch-item.is-highlighted');
+    const count = await highlightedBranches.count();
+    expect(count).toBeGreaterThanOrEqual(1);
+  });
+
+  test('keyboard interaction allows activating qualification parameters', async ({ page }) => {
+    await page.goto('/');
+
+    const networkParam = page.locator('#qual-location');
+    await networkParam.focus();
+    await page.keyboard.press('Enter');
+
+    const activeTab = page.locator('.discipline-tab-btn.active');
+    await expect(activeTab).toHaveAttribute('data-target', 'network');
+    await expect(page.locator('#panel-network')).toBeVisible();
+  });
+});

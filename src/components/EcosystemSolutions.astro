@@ -134,6 +134,64 @@ const branchSets = solutionFamilies.map((family) => {
 });
 
 const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
+
+// The 6 core qualification parameters defining technical decision architecture (Phase 3)
+const qualificationParameters = [
+  {
+    id: "workload",
+    num: "01",
+    name: "Workload",
+    criterion: "Compute profile & density",
+    disciplines: ["infrastructure", "cloud"],
+    branches: ["Compute", "Hardware", "Private cloud", "Virtualization"],
+    impact: "Defines bare-metal vs hypervisor architecture, GPU accelerator density, and cooling/power constraints."
+  },
+  {
+    id: "location",
+    num: "02",
+    name: "Location",
+    criterion: "Metro presence & latency",
+    disciplines: ["infrastructure", "network"],
+    branches: ["Colocation", "Transit", "Wavelengths", "Layer 2"],
+    impact: "Determines datacenter metro proximity, physical path diversity, and optical cross-connect reach."
+  },
+  {
+    id: "capacity",
+    num: "03",
+    name: "Capacity",
+    criterion: "Commit & scale",
+    disciplines: ["infrastructure", "network"],
+    branches: ["Compute", "Transit", "Wavelengths", "IPv4"],
+    impact: "Scales dedicated compute nodes, committed IP transit bandwidth, and lit wavelength channels."
+  },
+  {
+    id: "resilience",
+    num: "04",
+    name: "Resilience",
+    criterion: "Mitigation & failover SLA",
+    disciplines: ["security", "cloud"],
+    branches: ["Mitigation", "Detection", "Diversion", "Backup"],
+    impact: "Dictates always-on BGP DDoS scrubbing, automated FlowSpec diversion, and multi-facility failover."
+  },
+  {
+    id: "timing",
+    num: "05",
+    name: "Timing",
+    criterion: "Lead time & window",
+    disciplines: ["infrastructure", "managed"],
+    branches: ["Hardware", "Triage", "Escalate"],
+    impact: "Governs server sourcing lead times, migration cutover windows, and 24/7 triage dispatch SLAs."
+  },
+  {
+    id: "commercial",
+    num: "06",
+    name: "Commercial constraints",
+    criterion: "CapEx/OpEx & licensing",
+    disciplines: ["cloud", "managed"],
+    branches: ["Virtualization", "Engineer", "Monitor"],
+    impact: "Balances VMware alternative licensing economics (XCP-ng/Proxmox), commit durations, and managed NOC OpEx."
+  }
+];
 ---
 
 <section
@@ -160,33 +218,33 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       <div class="header-qualification-right" aria-label="Qualification parameters">
         <div class="qualification-header-row">
           <span class="qualification-kicker">What we establish first</span>
-          <span class="qualification-meta" aria-hidden="true">06 Parameters</span>
+          <span class="qualification-meta" id="qualMeta">06 Parameters</span>
         </div>
-        <div class="qualification-grid">
-          <div class="qual-item">
-            <span class="qual-num">01</span>
-            <span class="qual-name">Workload</span>
-          </div>
-          <div class="qual-item">
-            <span class="qual-num">02</span>
-            <span class="qual-name">Location</span>
-          </div>
-          <div class="qual-item">
-            <span class="qual-num">03</span>
-            <span class="qual-name">Capacity</span>
-          </div>
-          <div class="qual-item">
-            <span class="qual-num">04</span>
-            <span class="qual-name">Resilience</span>
-          </div>
-          <div class="qual-item">
-            <span class="qual-num">05</span>
-            <span class="qual-name">Timing</span>
-          </div>
-          <div class="qual-item">
-            <span class="qual-num">06</span>
-            <span class="qual-name">Commercial constraints</span>
-          </div>
+        <div class="qualification-grid" role="group" aria-label="Infrastructure qualification parameters">
+          {qualificationParameters.map((param) => (
+            <button
+              type="button"
+              class="qual-item"
+              id={`qual-${param.id}`}
+              data-qual-id={param.id}
+              data-disciplines={param.disciplines.join(',')}
+              data-branches={param.branches.join(',')}
+              data-impact={param.impact}
+              aria-pressed="false"
+              title={`${param.name} — ${param.criterion}`}
+            >
+              <div class="qual-item-header">
+                <span class="qual-num">{param.num}</span>
+                <span class="qual-driver-dot" aria-hidden="true"></span>
+              </div>
+              <span class="qual-name">{param.name}</span>
+              <span class="qual-criterion">{param.criterion}</span>
+            </button>
+          ))}
+        </div>
+        <div class="qualification-readout" id="qualReadout" aria-live="polite">
+          <span class="readout-tag">Architectural Causality</span>
+          <p class="readout-text" id="qualReadoutText">Select or hover a requirement to evaluate infrastructure causality and associated provider disciplines.</p>
         </div>
       </div>
     </div>
@@ -486,13 +544,53 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
   .qual-item {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    padding: 8px 10px;
     border-radius: 4px;
     background: var(--bg-subtle-paper, #F7F7F5);
-    border: 1px solid rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(209, 213, 219, 0.85);
     min-width: 0;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 160ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 160ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .qual-item:hover {
+    background: #ffffff;
+    border-color: rgba(37, 99, 235, 0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
+
+  .qual-item:focus-visible {
+    outline: 2px solid var(--color-cobalt, #2563eb);
+    outline-offset: 2px;
+  }
+
+  .qual-item.is-driver {
+    background: #ffffff;
+    border-color: var(--color-cobalt, #2563eb);
+    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.12);
+  }
+
+  .qual-item.is-active-inspect {
+    background: #ffffff;
+    border-color: var(--color-cobalt, #2563eb);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+  }
+
+  .qual-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2px;
   }
 
   .qual-num {
@@ -503,14 +601,70 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     flex-shrink: 0;
   }
 
+  .qual-driver-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .qual-item.is-driver .qual-driver-dot,
+  .qual-item.is-active-inspect .qual-driver-dot {
+    background-color: var(--color-cobalt, #2563eb);
+    box-shadow: 0 0 5px rgba(37, 99, 235, 0.6);
+  }
+
   .qual-name {
     font-size: 0.82rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
+    line-height: 1.25;
+  }
+
+  .qual-criterion {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    line-height: 1.2;
+  }
+
+  .qualification-readout {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px solid rgba(209, 213, 219, 0.8);
+    border-left: 3px solid var(--color-cobalt, #2563eb);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .readout-tag {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-cobalt, #2563eb);
+  }
+
+  .readout-text {
+    font-size: 0.80rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.45;
+    margin: 0;
   }
 
   /* Continuous Scene Progress Rail (Directives 13, 28, 29) */
@@ -1081,6 +1235,9 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
     const visuals = Array.from(container.querySelectorAll<HTMLElement>('.visual-frame'));
     const panels = Array.from(container.querySelectorAll<HTMLElement>('.services-panel'));
     const routeSets = Array.from(container.querySelectorAll<SVGGElement>('.route-set'));
+    const qualItems = Array.from(document.querySelectorAll<HTMLElement>('.qual-item'));
+    const qualReadoutText = document.getElementById('qualReadoutText');
+    const qualMeta = document.getElementById('qualMeta');
     if (tabs.length === 0) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -1095,6 +1252,19 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
 
       const target = tabs[index].getAttribute('data-target') || 'infrastructure';
 
+      // Update qualification parameter states for this discipline
+      let activeDriverCount = 0;
+      qualItems.forEach((item) => {
+        const disciplines = (item.getAttribute('data-disciplines') || '').split(',');
+        const isDriver = disciplines.includes(target);
+        if (isDriver) activeDriverCount++;
+        item.classList.toggle('is-driver', isDriver);
+        item.setAttribute('aria-pressed', isDriver ? 'true' : 'false');
+      });
+
+      if (qualMeta) {
+        qualMeta.textContent = `${activeDriverCount.toString().padStart(2, '0')} ACTIVE DRIVERS`;
+      }
 
       tabs.forEach((tab, i) => {
         const isActive = i === index;
@@ -1207,6 +1377,63 @@ const branchViewHeight = Math.max(...branchSets.map((set) => set.height));
       });
       link.addEventListener('mouseleave', () => {
         container.querySelectorAll<SVGElement>('.branch-item.is-highlighted').forEach((b) => b.classList.remove('is-highlighted'));
+      });
+    });
+
+    // ── Qualification Parameter Interaction (Phase 3) ──────────────────────
+    const defaultReadoutText = 'Select or hover a requirement to evaluate infrastructure causality and associated provider disciplines.';
+
+    qualItems.forEach((item) => {
+      const disciplines = (item.getAttribute('data-disciplines') || '').split(',').map((s) => s.trim()).filter(Boolean);
+      const branches = (item.getAttribute('data-branches') || '').split(',').map((s) => s.trim()).filter(Boolean);
+      const impact = item.getAttribute('data-impact') || '';
+
+      const highlightBranches = (highlight: boolean) => {
+        branches.forEach((bLabel) => {
+          container.querySelectorAll<SVGElement>(`.branch-item[data-branch-label="${bLabel}"]`).forEach((b) => {
+            b.classList.toggle('is-highlighted', highlight);
+          });
+        });
+      };
+
+      item.addEventListener('mouseenter', () => {
+        if (qualReadoutText && impact) {
+          qualReadoutText.textContent = impact;
+        }
+        highlightBranches(true);
+      });
+
+      item.addEventListener('mouseleave', () => {
+        if (qualReadoutText) {
+          qualReadoutText.textContent = defaultReadoutText;
+        }
+        highlightBranches(false);
+      });
+
+      item.addEventListener('click', () => {
+        const currentTarget = tabs[activeIndex]?.getAttribute('data-target') || '';
+        let targetDiscipline = disciplines[0];
+        if (disciplines.includes(currentTarget)) {
+          const currentIdxInParam = disciplines.indexOf(currentTarget);
+          targetDiscipline = disciplines[(currentIdxInParam + 1) % disciplines.length];
+        }
+        if (targetDiscipline) {
+          const targetIndex = tabs.findIndex((t) => t.getAttribute('data-target') === targetDiscipline);
+          if (targetIndex !== -1 && targetIndex !== activeIndex) {
+            activate(targetIndex);
+          }
+        }
+        if (qualReadoutText && impact) {
+          qualReadoutText.textContent = impact;
+        }
+        highlightBranches(true);
+      });
+
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          item.click();
+        }
       });
     });
 
