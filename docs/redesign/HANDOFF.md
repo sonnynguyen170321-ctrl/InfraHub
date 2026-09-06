@@ -64,13 +64,12 @@ These are local synthetic observations, not field Core Web Vitals.
 
 ## Production truth observed on 2026-09-06
 
-- GitHub PR #24 is merged into protected `main`.
-- The required main-branch CI completed successfully after merge.
-- `infrahub-tech` has a Ready production deployment using the Astro preset.
+- GitHub `main` is at commit `a8db4a5` (`feat(desk): add persistent desk trigger and starter example prompts`).
+- The required main-branch CI (`34045594054`) completed successfully green in 2m43s.
+- `infrahub-tech` has Ready production deployment `dpl_EHkYE4UiXx91z8jA2nrdTQvG2rui` aliased to `https://infrahub-tech.vercel.app`.
 - The former duplicate `infra-hub` project is no longer present in the Vercel team inventory.
 - Local Vercel linkage resolves to `son-nguyen-s-projects7/infrahub-tech`.
-- The stable Vercel production alias serves the new requirement journey and passes 30/30
-  read-only production checks plus the complete 161-test deployed browser suite.
+- The stable Vercel production alias serves the new requirement journey with persistent DeskTrigger and starter prompt chips, passing 30/30 read-only production checks plus the complete deployed browser suite.
 - The canonical project has no environment variables. `LEAD_WEBHOOK_URL` is NOT SET.
 - `infrahub.tech` and `www.infrahub.tech` return “Domain not found” in the Vercel account.
 - Apex DNS resolves to `13.248.243.5` and `76.223.105.230`; `www` CNAMEs to the apex.
