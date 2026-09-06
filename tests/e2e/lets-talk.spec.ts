@@ -5,7 +5,7 @@ test.describe('InfraHub Desk progressive requirement builder', () => {
     await page.goto('/lets-talk');
 
     await expect(page.getByRole('heading', { name: 'What are you working on?' })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Network/ })).toBeVisible();
+    await expect(page.locator('[data-scope="connectivity"]')).toBeVisible();
     await expect(page.locator('#contactName')).toBeHidden();
   });
 
@@ -182,5 +182,27 @@ test.describe('InfraHub Desk context and submission', () => {
     await expect(page.locator('#form-error-alert')).toContainText('Dispatch unavailable.');
     await expect(page.locator('#submit-btn')).toBeEnabled();
     await expect(page.locator('#form-success-card')).toBeHidden();
+  });
+
+  test('starter example chips populate description and infer scope', async ({ page }) => {
+    await page.goto('/lets-talk');
+
+    const ddosChip = page.locator('.example-chip', { hasText: 'DDoS protection' });
+    await expect(ddosChip).toBeVisible();
+    await ddosChip.click();
+
+    await expect(page.locator('#requirementsDescription')).toHaveValue('Need volumetric DDoS protection and BGP FlowSpec diversion');
+    await expect(page.locator('#lookingFor')).toHaveValue('ddos-security');
+    await expect(page.locator('[data-service-set="ddos-security"]')).toBeVisible();
+    await expect(page.locator('#requirementsDescription')).toBeFocused();
+  });
+
+  test('persistent DeskTrigger exists on home and links to /lets-talk, hidden on /lets-talk', async ({ page }) => {
+    await page.goto('/');
+    const homeTrigger = page.locator('#deskTrigger');
+    await expect(homeTrigger).toHaveAttribute('href', '/lets-talk');
+
+    await page.goto('/lets-talk');
+    await expect(page.locator('#deskTriggerWrap')).toHaveCount(0);
   });
 });

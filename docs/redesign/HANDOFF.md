@@ -22,8 +22,8 @@ from pending external configuration; `BLOCKED_EXTERNAL` and `NOT_TESTED` are nev
 | Phases 0–11 redesign implementation | COMPLETE | Transformation is merged into protected `main` |
 | Homepage first-frame readability | COMPLETE | Hero value proposition is legible before entrance motion |
 | Primary information architecture | COMPLETE | Solutions · How We Work · Industries · Insights · About; Partners and Featured Offers removed from primary navigation |
-| Progressive requirement builder | COMPLETE | InfraHub Desk supports visual and natural-language starts, relevant disclosure, a live brief, advanced technical entry, attribution, and optional company |
-| Inbound service orchestration | COMPLETE | Every published `service=` value maps to a valid broad scope; changing scope clears internal and visible detail state together |
+| Progressive requirement builder | COMPLETE | InfraHub Desk supports visual and natural-language starts, starter prompt chips, rotating placeholder guidance, persistent Desk quick-access trigger, relevant disclosure, a live brief, advanced technical entry, attribution, and optional company |
+| Inbound service orchestration | COMPLETE | Every published `service=` value maps to a valid broad scope; changing scope clears internal and visible detail state together; priority inference correctly routes security/DDoS |
 | Accessibility and progressive enhancement | COMPLETE | WCAG A/AA browser scans pass; no-JavaScript form remains submittable; reduced-motion flow passes |
 | Responsive and visual polish | COMPLETE | No overflow from 320–1920 px; two Impeccable browser-polish passes completed |
 | Local release certification | COMPLETE | All local gates below observed green |
@@ -37,10 +37,10 @@ from pending external configuration; `BLOCKED_EXTERNAL` and `NOT_TESTED` are nev
 
 | Gate | Result | Evidence |
 |---|:---:|---|
-| `npm run check` | PASS | 107 files; 0 errors, 0 warnings, 0 hints |
+| `npm run check` | PASS | 108 files; 0 errors, 0 warnings, 0 hints |
 | `npm run build` | PASS | 51 routes, 18 optimized images, serverless bundle and sitemap complete |
 | `npm test` | PASS | 51 documents and 51 internal links; all static accessibility, content, performance, partner, provenance, and human-design audits green |
-| Local `npm run test:e2e` | PASS | 161/161 Playwright tests |
+| Local `npm run test:e2e` | PASS | 163/163 Playwright tests across desktop and mobile |
 | Protected-main CI | PASS | Node 22 check, build, repository audits, and full browser suite |
 | Vercel production smoke | PASS | 30/30 checks against `https://infrahub-tech.vercel.app` |
 | Deployed `npm run test:e2e` | PASS | 161/161 Playwright tests against the canonical production deployment |

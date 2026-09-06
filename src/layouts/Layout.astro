@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DeskTrigger from '../components/DeskTrigger.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -86,5 +87,6 @@ const ogImageURL = new URL(ogImage, "https://infrahub.tech").href;
       <slot />
     </main>
     <Footer />
+    <DeskTrigger currentPath={canonicalPath} />
   </body>
 </html>

@@ -1,0 +1,173 @@
+---
+// src/components/DeskTrigger.astro
+// Directive §17: Small persistent entry point to InfraHub Desk.
+// Quiet, bespoke engineering aesthetic. Reveals after initial scroll and avoids competing with footer CTA.
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = "" } = Astro.props;
+const isDeskPage = currentPath === "/lets-talk" || currentPath === "/lets-talk/";
+---
+
+{!isDeskPage && (
+  <aside class="desk-trigger-wrap" id="deskTriggerWrap" aria-label="InfraHub Desk quick access">
+    <a
+      href="/lets-talk"
+      class="desk-trigger-pill"
+      id="deskTrigger"
+      aria-label="Open InfraHub Desk to start an infrastructure requirement"
+    >
+      <span class="desk-pill-node" aria-hidden="true">
+        <span class="node-pulse"></span>
+        <span class="node-dot"></span>
+      </span>
+      <span class="desk-pill-label">InfraHub Desk</span>
+      <span class="desk-pill-hint" aria-hidden="true">&rarr;</span>
+    </a>
+  </aside>
+
+  <script>
+    function initDeskTrigger() {
+      const trigger = document.getElementById('deskTriggerWrap');
+      if (!trigger) return;
+
+      const onScroll = () => {
+        const scrolled = window.scrollY > 180;
+        const contactSection = document.getElementById('contact');
+        let nearContact = false;
+
+        if (contactSection) {
+          const rect = contactSection.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.75) {
+            nearContact = true;
+          }
+        }
+
+        if (scrolled && !nearContact) {
+          trigger.classList.add('is-visible');
+        } else {
+          trigger.classList.remove('is-visible');
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDeskTrigger);
+    } else {
+      initDeskTrigger();
+    }
+  </script>
+
+  <style>
+    .desk-trigger-wrap {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 85;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
+      pointer-events: none;
+    }
+
+    .desk-trigger-wrap.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .desk-trigger-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px 10px 14px;
+      min-height: 44px;
+      background: #0b1120;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 9999px;
+      color: var(--text-on-dark, #f8fafc);
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+      transition: border-color 160ms ease, background-color 160ms ease;
+    }
+
+    .desk-trigger-pill:hover {
+      border-color: var(--accent-blue-on-dark, #93c5fd);
+      background: rgba(15, 23, 42, 0.98);
+      color: #ffffff;
+    }
+
+    .desk-trigger-pill:focus-visible {
+      outline: 2px solid var(--accent-blue-on-dark, #93c5fd);
+      outline-offset: 3px;
+    }
+
+    .desk-pill-node {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .node-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-cyan, #38bdf8);
+    }
+
+    .node-pulse {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+    }
+
+    .desk-pill-label {
+      line-height: 1;
+    }
+
+    .desk-pill-hint {
+      color: var(--accent-blue-on-dark, #93c5fd);
+      font-size: 0.95rem;
+      line-height: 1;
+      transition: transform 160ms ease;
+    }
+
+    .desk-trigger-pill:hover .desk-pill-hint {
+      transform: translateX(2px);
+    }
+
+    @media (max-width: 640px) {
+      .desk-trigger-wrap {
+        bottom: 16px;
+        right: 16px;
+      }
+      .desk-trigger-pill {
+        padding: 9px 14px 9px 12px;
+        font-size: 0.82rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .desk-trigger-wrap,
+      .desk-pill-hint {
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+  </style>
+)}
