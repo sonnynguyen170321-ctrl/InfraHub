@@ -1,0 +1,474 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850" width="1200" height="850" style="background:#0b1120; font-family:'IBM Plex Sans', -apple-system, sans-serif;">
+    <!-- Sheet Title & Metadata -->
+    <text x="50" y="50" fill="#f8fafc" font-size="22" font-weight="600" letter-spacing="0.5">INFRAHUB — IDENTITY CONCEPT SPRINT</text>
+    <text x="50" y="74" fill="#94a3b8" font-size="13" font-weight="400">Phase 3 Exploratory Sketch Sheet: 24 Monochromatic Architectural Primitives (Unfiltered Rough Volume)</text>
+    
+    <!-- Legend / Territory Color Bars -->
+    <rect x="50" y="90" width="260" height="3" fill="#3b82f6"/>
+    <text x="50" y="106" fill="#60a5fa" font-size="11" font-weight="600">TERRITORY A: HIDDEN DEPENDENCY (01–06)</text>
+    
+    <rect x="330" y="90" width="260" height="3" fill="#0ea5e9"/>
+    <text x="330" y="106" fill="#38bdf8" font-size="11" font-weight="600">TERRITORY B: IH STRUCTURAL MONOGRAM (07–12)</text>
+    
+    <rect x="610" y="90" width="260" height="3" fill="#14b8a6"/>
+    <text x="610" y="106" fill="#2dd4bf" font-size="11" font-weight="600">TERRITORY C/E: INTERFACE &amp; DATUM (13–18)</text>
+    
+    <rect x="890" y="90" width="260" height="3" fill="#f59e0b"/>
+    <text x="890" y="106" fill="#fbbf24" font-size="11" font-weight="600">TERRITORY D: DUAL-LAYER STRATA (19–24)</text>
+  
+      <!-- Mark 01 Card -->
+      <g transform="translate(50, 130)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#01</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Convergence Pylon</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 02 Card -->
+      <g transform="translate(240, 130)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#02</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Conduit Root</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 10h8v18l10 12 10-12V10h8v18L36 44v10h-8V44L14 28V10z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 10h8v18l10 12 10-12V10h8v18L36 44v10h-8V44L14 28V10z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 03 Card -->
+      <g transform="translate(430, 130)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#03</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Fault Joint</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M16 10h12v18l-8 10h-4V10zm16 0h12v14l-12 14v16h-4V36l12-14V10z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M16 10h12v18l-8 10h-4V10zm16 0h12v14l-12 14v16h-4V36l12-14V10z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 04 Card -->
+      <g transform="translate(620, 130)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#04</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Shared Crossing</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 12c12 0 16 12 20 18s8 18 20 18v6c-16 0-22-14-26-20s-6-16-14-16v-6zm40 0c-12 0-16 12-20 18s-8 18-20 18v6c16 0 22-14 26-20s6-16 14-16v-6z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 12c12 0 16 12 20 18s8 18 20 18v6c-16 0-22-14-26-20s-6-16-14-16v-6zm40 0c-12 0-16 12-20 18s-8 18-20 18v6c16 0 22-14 26-20s6-16 14-16v-6z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 05 Card -->
+      <g transform="translate(810, 130)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#05</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Dual Prism</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 10l12 20v24h12V30l12-20h-8L32 26 22 10h-8z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 10l12 20v24h12V30l12-20h-8L32 26 22 10h-8z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 06 Card -->
+      <g transform="translate(1000, 130)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#06</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Monolithic Y-Truss</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M16 8h10l6 14 6-14h10L36 30v26h-8V30L16 8z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M16 8h10l6 14 6-14h10L36 30v26h-8V30L16 8z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 07 Card -->
+      <g transform="translate(50, 300)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#07</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Interlocking Truss</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 10h8v44h-8V10zm14 0h8v18h10V10h8v44h-8V34H36v20h-8V10z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 10h8v44h-8V10zm14 0h8v18h10V10h8v44h-8V34H36v20h-8V10z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 08 Card -->
+      <g transform="translate(240, 300)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#08</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Negative Channel IH</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M10 10h44v44H10V10zm8 8v28h6V18h-6zm14 0v11h6V18h-6zm12 0v28h-6V35h-6v11h-6V18h6v11h6V18h6z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M10 10h44v44H10V10zm8 8v28h6V18h-6zm14 0v11h6V18h-6zm12 0v28h-6V35h-6v11h-6V18h6v11h6V18h6z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 09 Card -->
+      <g transform="translate(430, 300)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#09</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Stepped Monogram</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 10h10v34h-10V10zm16 10h8v10h8V10h8v44h-8V36h-8v18h-8V20z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 10h10v34h-10V10zm16 10h8v10h8V10h8v44h-8V36h-8v18h-8V20z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 10 Card -->
+      <g transform="translate(620, 300)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#10</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Modular Grid IH</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 12h8v40h-8V12zm14 0h8v16h10V12h8v40h-8V34H34v18h-8V12z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 12h8v40h-8V12zm14 0h8v16h10V12h8v40h-8V34H34v18h-8V12z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 11 Card -->
+      <g transform="translate(810, 300)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#11</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Cantilever IH</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M16 12h10v20h12V12h10v40H38V38H26v14H16V12z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M16 12h10v20h12V12h10v40H38V38H26v14H16V12z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 12 Card -->
+      <g transform="translate(1000, 300)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#12</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Beveled Pier</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 14l6-4h6v44h-8V16l-4 2v-4zm18 0h8v16l8-4v-8h8v44h-8V34l-8 4v16h-8V14z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 14l6-4h6v44h-8V16l-4 2v-4zm18 0h8v16l8-4v-8h8v44h-8V34l-8 4v16h-8V14z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 13 Card -->
+      <g transform="translate(50, 470)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#13</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Tolerance Plane</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 12h20l-8 40H12V12zm28 0h12v40H32l8-40z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 12h20l-8 40H12V12zm28 0h12v40H32l8-40z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 14 Card -->
+      <g transform="translate(240, 470)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#14</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Datum Reticle</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M8 30h48v4H8v-4zm8-18h4v14h-4V12zm16-8h4v22h-4V4zm16 12h4v10h-4V16z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M8 30h48v4H8v-4zm8-18h4v14h-4V12zm16-8h4v22h-4V4zm16 12h4v10h-4V16z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 15 Card -->
+      <g transform="translate(430, 470)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#15</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Qualification Gate</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 12l16 20-16 20h8l16-20-16-20h-8zm24 0h8v40h-8V12z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 12l16 20-16 20h8l16-20-16-20h-8zm24 0h8v40h-8V12z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 16 Card -->
+      <g transform="translate(620, 470)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#16</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Caliper Joint</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 14h24v8H20v20h16v8H12V14zm28 14h12v8H40v-8z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 14h24v8H20v20h16v8H12V14zm28 14h12v8H40v-8z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 17 Card -->
+      <g transform="translate(810, 470)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#17</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Stepped Boundary</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 12h14v14h10v14h16v12H12V12zm30 0h10v18H42V12z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 12h14v14h10v14h16v12H12V12zm30 0h10v18H42V12z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 18 Card -->
+      <g transform="translate(1000, 470)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#18</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Vernier Scale</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M10 16h44v6H10v-6zm0 14h44v6H10v-6zm6-8h4v4h-4v-4zm12 0h4v4h-4v-4zm12 0h4v4h-4v-4zm-18 14h4v4h-4v-4zm12 0h4v4h-4v-4zm12 0h4v4h-4v-4z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M10 16h44v6H10v-6zm0 14h44v6H10v-6zm6-8h4v4h-4v-4zm12 0h4v4h-4v-4zm12 0h4v4h-4v-4zm-18 14h4v4h-4v-4zm12 0h4v4h-4v-4zm12 0h4v4h-4v-4z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 19 Card -->
+      <g transform="translate(50, 640)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#19</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Planar Offset</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 16h26l-8 16H12V16zm14 20h26v16H32l-6-16z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 16h26l-8 16H12V16zm14 20h26v16H32l-6-16z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 20 Card -->
+      <g transform="translate(240, 640)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#20</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Stratum Window</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M10 10h44v44H10V10zm8 8v28h28V18H18zm6 6h16v4H24v-4zm0 8h16v4H24v-4zm0 8h16v4H24v-4z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M10 10h44v44H10V10zm8 8v28h28V18H18zm6 6h16v4H24v-4zm0 8h16v4H24v-4zm0 8h16v4H24v-4z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 21 Card -->
+      <g transform="translate(430, 640)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#21</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Core Reveal</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M10 10h22v10H20v24H10V10zm22 14h22v30H24V44h8V24z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M10 10h22v10H20v24H10V10zm22 14h22v30H24V44h8V24z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 22 Card -->
+      <g transform="translate(620, 640)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#22</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Optical Slice</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M32 10a22 22 0 0 1 22 20H10a22 22 0 0 1 22-20zm-22 24h44a22 22 0 0 1-44 0z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M32 10a22 22 0 0 1 22 20H10a22 22 0 0 1 22-20zm-22 24h44a22 22 0 0 1-44 0z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 23 Card -->
+      <g transform="translate(810, 640)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#23</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Folded Plane</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M14 12h24l12 16v24H26L14 36V12zm12 16h16v16H26V28z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M14 12h24l12 16v24H26L14 36V12zm12 16h16v16H26V28z" fill="currentColor"/>
+        </g>
+      </g>
+    
+      <!-- Mark 24 Card -->
+      <g transform="translate(1000, 640)">
+        <rect width="180" height="160" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+        <text x="14" y="24" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace" font-weight="600">#24</text>
+        <text x="38" y="24" fill="#cbd5e1" font-size="11" font-weight="500">Infrastructure Substrate</text>
+        
+        <!-- Symbol Viewport (64x64 at center) -->
+        <g transform="translate(58, 42)" color="#f8fafc">
+          <rect width="64" height="64" rx="2" fill="#1e293b" opacity="0.4"/>
+          <path d="M12 14h40v8H12v-8zm0 14h10v22H12V28zm15 0h10v22H27V28zm15 0h10v22H42V28z" fill="currentColor"/>
+        </g>
+
+        <!-- 16px Favicon Micro Test (bottom right) -->
+        <text x="14" y="142" fill="#475569" font-size="9" font-family="'IBM Plex Mono', monospace">16px test:</text>
+        <g transform="translate(64, 130) scale(0.25)" color="#38bdf8">
+          <path d="M12 14h40v8H12v-8zm0 14h10v22H12V28zm15 0h10v22H27V28zm15 0h10v22H42V28z" fill="currentColor"/>
+        </g>
+      </g>
+    </svg>

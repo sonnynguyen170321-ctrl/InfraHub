@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" style="background:#090d16; font-family:'IBM Plex Sans', -apple-system, sans-serif;">
+    <!-- Canvas Header -->
+    <rect x="0" y="0" width="1600" height="70" fill="#0f172a" stroke-bottom="#1e293b"/>
+    <text x="60" y="42" fill="#ffffff" font-size="20" font-weight="600" letter-spacing="0.5">INFRAHUB BRAND SYSTEM — TERRITORY A</text>
+    <text x="480" y="42" fill="#38bdf8" font-size="14" font-family="'IBM Plex Mono', monospace" font-weight="500">THE CONVERGENCE PYLON [HIDDEN DEPENDENCY]</text>
+    <text x="1440" y="42" fill="#64748b" font-size="13" font-family="'IBM Plex Mono', monospace">BOARD 01 / 03</text>
+
+    <!-- Panel 1: Primary Architectural Mark (Left Hero, 500x500) -->
+    <g transform="translate(60, 110)">
+      <rect width="480" height="460" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="32" y="44" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" font-weight="600">01 / HERO GEOMETRIC FORM</text>
+      
+      <!-- High-Precision Geometry of Mark 01 -->
+      <g transform="translate(140, 90) scale(3.2)" color="#ffffff">
+        <!-- 45-degree convergence pylon -->
+        <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="#ffffff"/>
+        <!-- Convergence fault focal highlight (Cobalt) -->
+        <rect x="24" y="36" width="16" height="4" fill="#2563eb"/>
+      </g>
+      <text x="32" y="400" fill="#f8fafc" font-size="16" font-weight="600">The Convergence Pylon</text>
+      <text x="32" y="424" fill="#94a3b8" font-size="12">Two independent logical paths reveal their unified physical substrate.</text>
+    </g>
+
+    <!-- Panel 2: Wordmark & Signature Lockup (Center Top) -->
+    <g transform="translate(570, 110)">
+      <rect width="520" height="215" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="32" y="40" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" font-weight="600">02 / HORIZONTAL SIGNATURE LOCKUP</text>
+      
+      <!-- Lockup Container -->
+      <g transform="translate(36, 75)">
+        <!-- Symbol -->
+        <g transform="scale(1.2)" color="#ffffff">
+          <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="#ffffff"/>
+          <rect x="24" y="36" width="16" height="4" fill="#2563eb"/>
+        </g>
+        <!-- Custom Engineered Wordmark -->
+        <text x="86" y="48" fill="#ffffff" font-size="40" font-weight="600" letter-spacing="-0.5">Infra<tspan fill="#38bdf8">Hub</tspan></text>
+        <text x="250" y="48" fill="#64748b" font-size="18" font-weight="300" letter-spacing="2">|</text>
+        <text x="268" y="46" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" letter-spacing="1">EVALUATION</text>
+      </g>
+      <text x="32" y="185" fill="#64748b" font-size="11" font-family="'IBM Plex Mono', monospace">Custom 1px kerning cut on 'I' and 'H' stems; 1:1 symbol-to-cap-height alignment.</text>
+    </g>
+
+    <!-- Panel 3: Monochrome & Scale Stress-Testing (Right Top) -->
+    <g transform="translate(1120, 110)">
+      <rect width="420" height="215" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="32" y="40" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" font-weight="600">03 / SCALE &amp; CONTRAST GATES</text>
+      
+      <!-- 16px Favicon in browser tab context -->
+      <rect x="32" y="65" width="160" height="34" rx="4" fill="#1e293b"/>
+      <g transform="translate(42, 74) scale(0.25)">
+        <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="#38bdf8"/>
+      </g>
+      <text x="64" y="86" fill="#f8fafc" font-size="11">InfraHub | 16px</text>
+
+      <!-- Reverse 1-color laser mark (Light Paper context) -->
+      <rect x="210" y="65" width="175" height="120" rx="4" fill="#f8fafc"/>
+      <text x="224" y="88" fill="#0f172a" font-size="10" font-family="'IBM Plex Mono', monospace" font-weight="600">ENGRAVING / MONO</text>
+      <g transform="translate(265, 105) scale(0.9)">
+        <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="#0f172a"/>
+      </g>
+      
+      <text x="32" y="185" fill="#10b981" font-size="11" font-family="'IBM Plex Mono', monospace">✓ Zero container dependence · 100% 1-color viable</text>
+    </g>
+
+    <!-- Panel 4: System Application — Interactive Route Telemetry Stamp (Center Bottom) -->
+    <g transform="translate(570, 350)">
+      <rect width="520" height="220" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="32" y="36" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" font-weight="600">04 / SYSTEM APPLICATION: AUDITED CIRCUIT STAMP</text>
+      
+      <g transform="translate(32, 55)">
+        <rect width="456" height="135" rx="4" fill="#0b1120" stroke="#1e293b"/>
+        <!-- Route topology header -->
+        <text x="16" y="28" fill="#cbd5e1" font-size="12" font-weight="600">ROUTE CIRCUIT AUDIT — FRA-1 TO LHR-2</text>
+        <text x="360" y="28" fill="#10b981" font-size="11" font-family="'IBM Plex Mono', monospace">VERIFIED 24M</text>
+        
+        <!-- Interactive Convergence diagram using symbol geometry -->
+        <line x1="20" y1="60" x2="160" y2="60" stroke="#38bdf8" stroke-width="2"/>
+        <text x="20" y="52" fill="#94a3b8" font-size="10">Transit A (IPXO)</text>
+        
+        <line x1="20" y1="100" x2="160" y2="100" stroke="#60a5fa" stroke-width="2"/>
+        <text x="20" y="92" fill="#94a3b8" font-size="10">Transit B (Gcore)</text>
+        
+        <!-- Convergence point -->
+        <path d="M160 60 L240 80 L320 80" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2"/>
+        <path d="M160 100 L240 80" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2"/>
+        <circle cx="240" cy="80" r="4" fill="#f59e0b"/>
+        <text x="230" y="112" fill="#fbbf24" font-size="10" font-family="'IBM Plex Mono', monospace">SHARED MANHOLE</text>
+
+        <!-- Brand Stamp watermark -->
+        <g transform="translate(400, 50) scale(0.8)" opacity="0.3">
+          <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="#ffffff"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- Panel 5: Physical Sourcing Application — Server Chassis Badge (Right Bottom) -->
+    <g transform="translate(1120, 350)">
+      <rect width="420" height="220" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="32" y="36" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" font-weight="600">05 / HARDWARE EMBED: CHASSIS FACEPLATE</text>
+      
+      <!-- Anodized 1U Server Faceplate Mockup -->
+      <g transform="translate(32, 55)">
+        <rect width="356" height="135" rx="4" fill="#18181b" stroke="#27272a"/>
+        <!-- Brushed aluminum texture lines -->
+        <line x1="0" y1="40" x2="356" y2="40" stroke="#27272a" stroke-width="0.5"/>
+        <line x1="0" y1="80" x2="356" y2="80" stroke="#27272a" stroke-width="0.5"/>
+        
+        <!-- Metallic Screws -->
+        <circle cx="16" cy="16" r="4" fill="#3f3f46"/>
+        <circle cx="340" cy="16" r="4" fill="#3f3f46"/>
+        <circle cx="16" cy="119" r="4" fill="#3f3f46"/>
+        <circle cx="340" cy="119" r="4" fill="#3f3f46"/>
+
+        <!-- Laser Etched Lockup -->
+        <g transform="translate(110, 48) scale(0.7)">
+          <path d="M12 8v16l12 12v16h8V36L20 24V8h-8zm28 0v16L28 36v16h8V36l12-12V8h-8z" fill="#e4e4e7"/>
+          <text x="64" y="38" fill="#e4e4e7" font-size="28" font-weight="600" letter-spacing="-0.5">Infra<tspan fill="#60a5fa">Hub</tspan></text>
+          <text x="64" y="56" fill="#a1a1aa" font-size="10" font-family="'IBM Plex Mono', monospace">ENTERPRISE HARDWARE SOURCING</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Panel 6: Strategic Evaluation Summary (Full Bottom Width) -->
+    <g transform="translate(60, 600)">
+      <rect width="1480" height="340" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <text x="40" y="44" fill="#94a3b8" font-size="12" font-family="'IBM Plex Mono', monospace" font-weight="600">06 / STRATEGIC SUITABILITY &amp; SYSTEM EVALUATION</text>
+      
+      <g transform="translate(40, 70)">
+        <text x="0" y="24" fill="#38bdf8" font-size="18" font-weight="600">Key Strengths &amp; Ownability</text>
+        <text x="0" y="55" fill="#cbd5e1" font-size="14" width="440">
+          • Directly embodies the core thesis: logical divergence converging onto physical reality.
+        </text>
+        <text x="0" y="82" fill="#cbd5e1" font-size="14">
+          • Unmistakable architectural silhouette that requires zero border containers or rounded squares.
+        </text>
+        <text x="0" y="109" fill="#cbd5e1" font-size="14">
+          • Outstanding 16px favicon performance—reads as two prongs converging into a stable pier.
+        </text>
+        <text x="0" y="136" fill="#cbd5e1" font-size="14">
+          • Becomes the natural geometric framework for route-diversity diagnostics across the site.
+        </text>
+      </g>
+
+      <g transform="translate(520, 70)">
+        <text x="0" y="24" fill="#f59e0b" font-size="18" font-weight="600">Risks &amp; Calibration Rules</text>
+        <text x="0" y="55" fill="#cbd5e1" font-size="14">
+          • Must maintain minimum 1:2 stem-to-base proportion to prevent resembling a fork or tuning fork.
+        </text>
+        <text x="0" y="82" fill="#cbd5e1" font-size="14">
+          • Keep the convergence joint strictly rectangular and angled at 45° for high architectural tension.
+        </text>
+        <text x="0" y="109" fill="#cbd5e1" font-size="14">
+          • Avoid rounded stroke caps; use crisp 90° engineered terminations.
+        </text>
+      </g>
+
+      <g transform="translate(1040, 70)">
+        <text x="0" y="24" fill="#10b981" font-size="18" font-weight="600">16-Dimension Master Score</text>
+        <text x="0" y="70" fill="#ffffff" font-size="54" font-weight="700">74<tspan fill="#64748b" font-size="28">/80</tspan></text>
+        <text x="0" y="102" fill="#38bdf8" font-size="14" font-weight="600">92.5% — HIGHEST OVERALL RANK</text>
+        <text x="0" y="130" fill="#94a3b8" font-size="12">Recommended as Primary Winner Candidate for Phase 4 production.</text>
+      </g>
+    </g>
+  </svg>
