@@ -89,7 +89,7 @@ Measured at 1440x900 against the production build served locally, unthrottled. T
 *local* numbers — they establish relative regression detection, not the throttled field
 targets in §23.
 
-| Route | LCP | CLS | DCL | HTML |
+| Route | LCP | CLS | DCL | Serialized DOM |
 |---|---:|---:|---:|---:|
 | `/` | 832ms | 0.0002 | 648ms | 101 KiB |
 | `/wavelengths` | 260ms | 0.0061 | 232ms | 36 KiB |
@@ -100,10 +100,19 @@ Page load times across all 33 captures ranged **652ms to 1614ms** (networkidle, 
 **Against §23 targets:** CLS is far inside the 0.05 budget on every page. Local LCP is
 comfortable but says nothing about throttled field LCP — Phase 11 must measure that properly.
 
-**Homepage HTML is 101 KiB and is the number to watch.** The previous phase reduced it from
-108 KB to 97.9 KiB by externalising styles and generated scripts; it has drifted back up.
-The homepage is roughly 3x the weight of any other page, and §12 calls for it to become
-*shorter*. Treat 101 KiB as the ceiling, not the starting point.
+### Homepage payload — corrected
+
+The last column above is `page.content()`, the **serialized DOM after hydration**, not the
+transferred file. Those are different numbers and only the file is the payload budget.
+
+The shipped file is **`dist/client/index.html` at 100,226 bytes (97.9 KiB)** — byte-for-byte
+what the previous performance pass achieved. **It has not drifted.** An earlier revision of
+this document read the 101 KiB DOM figure as a regression against the 97.9 KiB file figure;
+that was comparing two different measurements, and the claim was wrong.
+
+The real standing constraint: the homepage is roughly 3x the weight of any other page, and
+§12 calls for it to become *shorter*. **97.9 KiB is the ceiling, not the starting point** —
+measured from the built file, not from the DOM.
 
 ---
 
