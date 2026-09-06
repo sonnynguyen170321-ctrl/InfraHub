@@ -56,6 +56,24 @@ test.describe('InfraHub Desk progressive requirement builder', () => {
     await expect(page.locator('#contactName')).toBeVisible();
     await expect(page.locator('#requirementsDescription')).toBeFocused();
   });
+
+  test('changing scope clears detail values and their pressed states', async ({ page }) => {
+    await page.goto('/lets-talk');
+    await page.locator('[data-scope="connectivity"]').click();
+    await page.getByRole('button', { name: 'IP Transit', exact: true }).click();
+    await page.getByRole('button', { name: '100G', exact: true }).click();
+    await page.getByRole('button', { name: 'Yes', exact: true }).click();
+
+    await page.locator('[data-scope="cloud"]').click();
+
+    await expect(page.locator('[data-service="IP Transit"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.getByRole('button', { name: '100G', exact: true })).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.getByRole('button', { name: 'Yes', exact: true })).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('[data-service-set="cloud"]')).toBeVisible();
+    await expect(page.locator('[data-service-set="cloud"] [data-service]').first()).toBeFocused();
+    await expect(page.locator('.requirement-card dd').nth(2)).toHaveText('To confirm');
+    await expect(page.locator('.requirement-card dd').nth(3)).toHaveText('To confirm');
+  });
 });
 
 test.describe('InfraHub Desk context and submission', () => {
@@ -67,6 +85,45 @@ test.describe('InfraHub Desk context and submission', () => {
     await expect(page.locator('#context-service')).toHaveValue('connectivity');
     await expect(page.locator('#lookingFor')).toHaveValue('connectivity');
     await expect(page.locator('[data-service-set="connectivity"]')).toBeVisible();
+  });
+
+  test('every published service parameter maps to a valid builder scope', async ({ page }) => {
+    test.setTimeout(60_000);
+    const expectedScopes: Record<string, string> = {
+      advisory: 'other',
+      'ai-netops': 'managed-services',
+      automation: 'managed-services',
+      bgp: 'connectivity',
+      cloud: 'cloud',
+      'cloud-connectivity': 'cloud',
+      colocation: 'dedicated-infrastructure',
+      connectivity: 'connectivity',
+      'custom-iaas': 'cloud',
+      cybersecurity: 'ddos-security',
+      'ddos-detection': 'ddos-security',
+      'ddos-protection': 'ddos-security',
+      'ddos-security': 'ddos-security',
+      'dedicated-infrastructure': 'dedicated-infrastructure',
+      'dedicated-servers': 'dedicated-infrastructure',
+      'gpu-ai': 'dedicated-infrastructure',
+      hardware: 'dedicated-infrastructure',
+      'ip-transit': 'connectivity',
+      ipv4: 'connectivity',
+      'layer-2': 'connectivity',
+      'managed-noc': 'managed-services',
+      'managed-services': 'managed-services',
+      'network-engineering': 'managed-services',
+      'private-cloud': 'cloud',
+      'route-audit': 'connectivity',
+      'vmware-alternatives': 'cloud',
+      wavelengths: 'connectivity'
+    };
+
+    for (const [service, scope] of Object.entries(expectedScopes)) {
+      await page.goto(`/lets-talk?service=${service}`);
+      await expect(page.locator('#lookingFor'), service).toHaveValue(scope);
+      await expect(page.locator(`[data-service-set="${scope}"]`), service).toBeVisible();
+    }
   });
 
   test('URL attribution reaches the hidden inputs', async ({ page }) => {

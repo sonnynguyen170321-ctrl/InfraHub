@@ -39,7 +39,7 @@ evidence from production state; `BLOCKED_EXTERNAL` and `NOT_TESTED` are never tr
 | `npm run check` | PASS | 106 files; 0 errors, 0 warnings, 0 hints |
 | `npm run build` | PASS | 51 routes, 18 optimized images, serverless bundle and sitemap complete |
 | `npm test` | PASS | 51 documents and 51 internal links; all static accessibility, content, performance, partner, provenance, and human-design audits green |
-| `npm run test:e2e` | PASS | 159/159 Playwright tests passed in the final run |
+| `npm run test:e2e` | PASS | 161/161 Playwright tests passed in the final run |
 | Impeccable detector | PASS | No prohibited UI patterns found in the changed UI (`[]`) |
 | `git diff --check` | PASS | No whitespace errors |
 

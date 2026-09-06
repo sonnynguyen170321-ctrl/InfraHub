@@ -284,12 +284,36 @@ const services: Record<string, string[]> = {
       'ddos-security': 'Security', 'managed-services': 'Operations', other: 'Requirement'
     };
     const serviceScope: Record<string, string> = {
-      'ip-transit': 'connectivity', wavelengths: 'connectivity', connectivity: 'connectivity',
-      'layer-2-connectivity': 'connectivity', 'cloud-connectivity': 'cloud', colocation: 'dedicated-infrastructure',
-      hardware: 'dedicated-infrastructure', 'dedicated-servers': 'dedicated-infrastructure',
-      'gpu-ai-infrastructure': 'dedicated-infrastructure', cloud: 'cloud', 'private-cloud': 'cloud',
-      'vmware-alternatives': 'cloud', security: 'ddos-security', 'ddos-security': 'ddos-security',
-      cybersecurity: 'ddos-security', 'managed-services': 'managed-services', 'managed-noc': 'managed-services'
+      advisory: 'other',
+      'ai-netops': 'managed-services',
+      automation: 'managed-services',
+      bgp: 'connectivity',
+      cloud: 'cloud',
+      'cloud-connectivity': 'cloud',
+      colocation: 'dedicated-infrastructure',
+      connectivity: 'connectivity',
+      'custom-iaas': 'cloud',
+      cybersecurity: 'ddos-security',
+      'ddos-detection': 'ddos-security',
+      'ddos-protection': 'ddos-security',
+      'ddos-security': 'ddos-security',
+      'dedicated-infrastructure': 'dedicated-infrastructure',
+      'dedicated-servers': 'dedicated-infrastructure',
+      'gpu-ai': 'dedicated-infrastructure',
+      'gpu-ai-infrastructure': 'dedicated-infrastructure',
+      hardware: 'dedicated-infrastructure',
+      'ip-transit': 'connectivity',
+      ipv4: 'connectivity',
+      'layer-2': 'connectivity',
+      'layer-2-connectivity': 'connectivity',
+      'managed-noc': 'managed-services',
+      'managed-services': 'managed-services',
+      'network-engineering': 'managed-services',
+      'private-cloud': 'cloud',
+      'route-audit': 'connectivity',
+      security: 'ddos-security',
+      'vmware-alternatives': 'cloud',
+      wavelengths: 'connectivity'
     };
 
     const inferScope = (value: string) => {
@@ -328,8 +352,13 @@ const services: Record<string, string[]> = {
       selectedService = '';
       selectedCapacity = '';
       selectedResilience = '';
+      setPressed('[data-service]', () => false);
+      setPressed('[data-capacity]', () => false);
+      setPressed('[data-resilience]', () => false);
       showDetails();
-      if (focusDetails) detailsStage?.querySelector<HTMLButtonElement>('[data-service]')?.focus();
+      if (focusDetails) {
+        form.querySelector<HTMLButtonElement>(`[data-service-set="${scope}"] [data-service]`)?.focus();
+      }
     };
 
     const updateSummary = () => {
@@ -429,7 +458,7 @@ const services: Record<string, string[]> = {
       contextBadge.hidden = false;
     }
     const incomingService = params.get('service');
-    if (incomingService) chooseScope(serviceScope[incomingService] || incomingService);
+    if (incomingService) chooseScope(serviceScope[incomingService] || inferScope(incomingService) || 'other');
 
     const showFieldError = (id: string, message: string) => {
       const field = byId<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(id);
