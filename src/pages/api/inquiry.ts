@@ -95,7 +95,7 @@ const InquiryPayloadSchema = z.object({
     .max(3000),
   timeline: z.enum(['immediate', 'under-30-days', '1-3-months', '3-plus-months', 'researching']),
   contactName: z.string().trim().min(2, 'Name is required.').max(100),
-  companyName: z.string().trim().min(2, 'Company name is required.').max(120),
+  companyName: optionalShortString(120),
   workEmail: z.string().trim().email('Valid work email is required.').max(254),
   phone: optionalShortString(40),
   sourcePage: optionalShortString(300),
@@ -198,7 +198,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       description: data.requirementsDescription,
       contact: {
         name: data.contactName,
-        company: data.companyName,
+        company: data.companyName || 'Not provided',
         email: data.workEmail,
         phone: data.phone || 'N/A'
       },

@@ -90,8 +90,7 @@ import BrandLogo from './BrandLogo.astro';
           </div>
         </li>
 
-        <li class="nav-item"><a href="/offers" class="nav-link">Featured Offers</a></li>
-        <li class="nav-item"><a href="/partners" class="nav-link">Partners</a></li>
+        <li class="nav-item"><a href="/how-we-work" class="nav-link">How We Work</a></li>
         <li class="nav-item"><a href="/industries" class="nav-link">Industries</a></li>
         <li class="nav-item"><a href="/insights" class="nav-link">Insights</a></li>
         
@@ -114,7 +113,7 @@ import BrandLogo from './BrandLogo.astro';
     <!-- Header Actions -->
     <div class="header-actions">
       <a href="/lets-talk" class="btn btn-accent btn-nav-cta">
-        <span>Let's Talk</span>
+        <span class="cta-full">Start a Requirement</span><span class="cta-short">Start</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
@@ -151,8 +150,7 @@ import BrandLogo from './BrandLogo.astro';
           </div>
         </div>
 
-        <a href="/offers" class="drawer-link">Featured Offers</a>
-        <a href="/partners" class="drawer-link">Partners</a>
+        <a href="/how-we-work" class="drawer-link">How We Work</a>
         <a href="/industries" class="drawer-link">Industries</a>
         <a href="/insights" class="drawer-link">Insights</a>
 
@@ -172,7 +170,7 @@ import BrandLogo from './BrandLogo.astro';
       </div>
 
       <div class="drawer-footer">
-        <a href="/lets-talk" class="btn btn-accent btn-block">Let's Talk Infrastructure</a>
+        <a href="/lets-talk" class="btn btn-accent btn-block">Start a Requirement</a>
       </div>
     </div>
   </div>
@@ -402,6 +400,12 @@ import BrandLogo from './BrandLogo.astro';
     display: inline-flex;
     align-items: center;
     gap: 6px;
+  }
+  .cta-short { display: none; }
+  @media (max-width: 520px) {
+    .btn-nav-cta { padding-inline: 13px; }
+    .btn-nav-cta svg, .cta-full { display: none; }
+    .cta-short { display: inline; }
   }
 
 

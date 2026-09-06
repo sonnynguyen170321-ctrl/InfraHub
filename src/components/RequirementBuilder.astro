@@ -1,0 +1,525 @@
+---
+const scopes = [
+  { value: 'connectivity', label: 'Network', detail: 'Transit, wavelengths, private connectivity' },
+  { value: 'dedicated-infrastructure', label: 'Compute', detail: 'Bare metal, GPU, colocation' },
+  { value: 'cloud', label: 'Cloud', detail: 'Private cloud, migration, connectivity' },
+  { value: 'ddos-security', label: 'Security', detail: 'DDoS, routing, perimeter defence' },
+  { value: 'managed-services', label: 'Operations', detail: 'NOC, engineering, automation' },
+  { value: 'other', label: 'Not sure', detail: 'Start with the problem' }
+];
+
+const services: Record<string, string[]> = {
+  connectivity: ['IP Transit', 'Wavelength', 'DIA', 'Private Connectivity', 'Cross-connect', 'Not sure'],
+  'dedicated-infrastructure': ['Bare Metal', 'GPU Infrastructure', 'Colocation', 'Enterprise Hardware', 'Custom IaaS', 'Not sure'],
+  cloud: ['Private Cloud', 'VMware Exit', 'Cloud Connectivity', 'Kubernetes', 'Backup & DR', 'Not sure'],
+  'ddos-security': ['DDoS Protection', 'FlowSpec Automation', 'Routing Security', 'Cybersecurity', 'WAF', 'Not sure'],
+  'managed-services': ['24/7 NOC', 'Network Engineering', 'Automation', 'Monitoring', 'Migration Support', 'Not sure'],
+  other: ['Connection failure', 'Capacity planning', 'Migration', 'Security concern', 'New location', 'Not sure']
+};
+---
+
+<section class="requirement-builder" aria-labelledby="builder-title">
+  <div class="builder-heading">
+    <p class="builder-index">InfraHub Desk</p>
+    <h2 id="builder-title">What are you working on?</h2>
+    <p>Choose a starting point or describe the requirement in one sentence. You can refine it before sharing contact details.</p>
+  </div>
+
+  <form id="inquiry-form" class="builder-form" novalidate>
+    <div id="form-error-alert" class="form-alert alert-error" role="alert" tabindex="-1" hidden></div>
+
+    <div class="scope-fallback">
+      <label for="lookingFor">Infrastructure area</label>
+      <select name="lookingFor" id="lookingFor" required>
+        <option value="" disabled selected>Select an area</option>
+        {scopes.map((scope) => <option value={scope.value}>{scope.label}</option>)}
+      </select>
+    </div>
+    <input type="hidden" name="sourcePage" id="context-source-page" value="/lets-talk" />
+    <input type="hidden" name="serviceParam" id="context-service" value="" />
+    <input type="hidden" name="partnerParam" id="context-partner" value="" />
+    <input type="hidden" name="offerSlug" id="context-offer" value="" />
+    <input type="hidden" name="industryParam" id="context-industry" value="" />
+    <input type="hidden" name="utmSource" id="context-utm-source" value="" />
+    <input type="hidden" name="utmCampaign" id="context-utm-campaign" value="" />
+    <input type="hidden" name="utmMedium" id="context-utm-medium" value="" />
+    <input type="hidden" name="utmTerm" id="context-utm-term" value="" />
+    <input type="hidden" name="utmContent" id="context-utm-content" value="" />
+
+    <div id="context-badge-wrap" class="context-note" hidden>
+      <p id="context-note"></p>
+    </div>
+
+    <fieldset class="builder-stage builder-start" data-stage="start">
+      <legend>Choose visually</legend>
+      <div class="scope-grid" role="group" aria-label="Infrastructure area">
+        {scopes.map((scope) => (
+          <button
+            type="button"
+            class="scope-option"
+            data-scope={scope.value}
+            aria-pressed="false"
+          >
+            <span class="scope-symbol" aria-hidden="true"><i></i><i></i><i></i></span>
+            <strong>{scope.label}</strong>
+            <small>{scope.detail}</small>
+          </button>
+        ))}
+      </div>
+
+      <div class="natural-entry">
+        <label for="requirementsDescription">Or describe it</label>
+        <textarea
+          name="requirementsDescription"
+          id="requirementsDescription"
+          rows="3"
+          placeholder="100G transit in Frankfurt, ideally physically diverse"
+          aria-describedby="requirementsDescription-hint requirementsDescription-error"
+          required
+        ></textarea>
+        <p id="requirementsDescription-hint" class="field-hint">Technical shorthand is welcome. If something is ambiguous, InfraHub will clarify it.</p>
+        <p class="field-error" id="requirementsDescription-error" hidden></p>
+      </div>
+    </fieldset>
+
+    <fieldset class="builder-stage builder-details" data-stage="details">
+      <legend>Shape the requirement</legend>
+      <p class="stage-prompt" id="service-prompt">What do you need?</p>
+      <div class="service-options" role="group" aria-labelledby="service-prompt">
+        {Object.entries(services).map(([scope, items]) => (
+          <div class="service-set" data-service-set={scope}>
+            {items.map((item) => (
+              <button type="button" class="detail-option" data-service={item} aria-pressed="false">{item}</button>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div class="detail-grid">
+        <div class="field-group">
+          <label for="targetLocation">Where?</label>
+          <input type="text" name="targetLocation" id="targetLocation" placeholder="Metro, facility, region, or not sure" />
+        </div>
+
+        <div class="field-group capacity-group">
+          <span class="field-label" id="capacity-label">Capacity</span>
+          <div class="choice-row" role="group" aria-labelledby="capacity-label">
+            {['1G', '10G', '100G', '400G', 'Other'].map((item) => (
+              <button type="button" class="detail-option" data-capacity={item} aria-pressed="false">{item}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="field-group resilience-group">
+          <span class="field-label" id="resilience-label">Need redundancy?</span>
+          <div class="choice-row" role="group" aria-labelledby="resilience-label">
+            {['No', 'Yes', 'Help me decide'].map((item) => (
+              <button type="button" class="detail-option" data-resilience={item} aria-pressed="false">{item}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="field-group timeline-group">
+          <label for="timeline">Timing</label>
+          <select name="timeline" id="timeline" required aria-describedby="timeline-error">
+            <option value="" disabled selected>Select timing</option>
+            <option value="immediate">Next 7–14 days</option>
+            <option value="under-30-days">Under 30 days</option>
+            <option value="1-3-months">1–3 months</option>
+            <option value="3-plus-months">3+ months</option>
+            <option value="researching">Still evaluating</option>
+          </select>
+          <p class="field-error" id="timeline-error" hidden></p>
+        </div>
+      </div>
+
+      <article class="requirement-card" aria-labelledby="requirement-summary-title" aria-live="polite">
+        <div>
+          <p>Your requirement</p>
+          <h3 id="requirement-summary-title">Start with an area or a short description</h3>
+        </div>
+        <dl id="requirement-summary"></dl>
+      </article>
+
+      <button type="button" class="btn btn-accent continue-button" id="continue-to-contact">Continue to contact</button>
+    </fieldset>
+
+    <fieldset class="builder-stage builder-contact" data-stage="contact">
+      <legend>Where should we continue this?</legend>
+      <p class="contact-intro">Name and email are enough to start. Organization and phone are optional.</p>
+      <div class="contact-grid">
+        <div class="field-group">
+          <label for="contactName">Your name</label>
+          <input type="text" name="contactName" id="contactName" autocomplete="name" required aria-describedby="contactName-error" />
+          <p class="field-error" id="contactName-error" hidden></p>
+        </div>
+        <div class="field-group">
+          <label for="workEmail">Work email</label>
+          <input type="email" name="workEmail" id="workEmail" autocomplete="email" required aria-describedby="workEmail-error" />
+          <p class="field-error" id="workEmail-error" hidden></p>
+        </div>
+        <div class="field-group">
+          <label for="companyName">Organization <span>Optional</span></label>
+          <input type="text" name="companyName" id="companyName" autocomplete="organization" />
+        </div>
+        <div class="field-group">
+          <label for="phone">Direct phone <span>Optional</span></label>
+          <input type="tel" name="phone" id="phone" autocomplete="tel" />
+        </div>
+      </div>
+
+      <div class="honeypot" aria-hidden="true">
+        <label for="website_trap_field">Do not fill this field</label>
+        <input type="text" name="website_trap_field" id="website_trap_field" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn btn-accent submit-button">Send requirement to InfraHub</button>
+      <p class="form-privacy-note">InfraHub uses these details to qualify your inquiry and may share them with relevant providers as described in the Privacy Policy.</p>
+    </fieldset>
+
+    <button type="button" class="advanced-toggle" id="advanced-toggle">Have a complete technical specification? Show every field →</button>
+  </form>
+
+  <div id="form-success-card" class="form-success-card" role="status" aria-live="polite" tabindex="-1" hidden>
+    <span class="success-route" aria-hidden="true"></span>
+    <h2>Requirement received</h2>
+    <p>Inquiry reference: <strong id="lead-id-display">#INQ-RECEIVED</strong></p>
+    <p>InfraHub will review the brief. The next step may be one useful clarification or a discussion of suitable routes.</p>
+    <a href="/" class="btn btn-secondary">Return to InfraHub</a>
+  </div>
+</section>
+
+<style>
+  .requirement-builder { max-width: 900px; margin: 0 auto; }
+  .builder-heading { max-width: 650px; margin-bottom: 36px; }
+  .builder-index { color: var(--accent-blue); font-weight: 700; margin-bottom: 10px; }
+  .builder-heading h2 { font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.04; letter-spacing: -0.035em; text-wrap: balance; }
+  .builder-heading > p:last-child { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.65; margin-top: 16px; max-width: 58ch; }
+  .builder-form { display: grid; gap: 24px; }
+  .builder-stage { border: 0; margin: 0; padding: 30px; background: var(--bg-primary); box-shadow: inset 0 0 0 1px var(--border-color); border-radius: 12px; }
+  .builder-stage > legend { float: left; width: 100%; font-size: 1.05rem; font-weight: 700; margin-bottom: 22px; }
+  .builder-stage > legend + * { clear: both; }
+  .builder-form.builder-enhanced .builder-stage:not([data-stage="start"]):not(.is-active) { display: none; }
+  .builder-form.builder-enhanced .scope-fallback { display: none; }
+  .scope-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .scope-option { min-height: 118px; padding: 18px; text-align: left; background: var(--bg-secondary); box-shadow: inset 0 0 0 1px var(--border-color); border-radius: 8px; transition: background-color var(--motion-ui) var(--ease-out), box-shadow var(--motion-ui) var(--ease-out); }
+  .scope-option:hover { background: var(--bg-tertiary); }
+  .scope-option[aria-pressed="true"] { background: #eef3ff; box-shadow: inset 0 0 0 2px var(--accent-blue); }
+  .scope-option strong, .scope-option small { display: block; }
+  .scope-option strong { margin: 12px 0 4px; font-size: 1rem; }
+  .scope-option small { color: var(--text-secondary); line-height: 1.35; }
+  .scope-symbol { display: inline-flex; align-items: center; gap: 3px; height: 14px; }
+  .scope-symbol i { display: block; width: 5px; height: 5px; background: var(--accent-blue); transform: rotate(45deg); }
+  .scope-symbol i:nth-child(2) { width: 18px; height: 1px; transform: none; background: var(--border-strong, #94a3b8); }
+  .natural-entry { margin-top: 28px; padding-top: 26px; border-top: 1px solid var(--border-color); }
+  .natural-entry label, .field-group label, .field-label { display: block; font-weight: 700; margin-bottom: 8px; }
+  textarea, input, select { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font: inherit; transition: border-color var(--motion-ui) var(--ease-out), background-color var(--motion-ui) var(--ease-out), box-shadow var(--motion-ui) var(--ease-out); }
+  textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+  textarea:focus, input:focus, select:focus { outline: none; border-color: var(--accent-blue); background: var(--bg-primary); box-shadow: 0 0 0 3px rgba(40, 84, 199, 0.14); }
+  .field-hint, .contact-intro, .form-privacy-note { color: var(--text-secondary); font-size: .86rem; line-height: 1.5; margin-top: 8px; }
+  .field-error { color: #a81717; font-size: .84rem; margin-top: 7px; }
+  [aria-invalid="true"] { border-color: #a81717; }
+  .stage-prompt { font-weight: 700; margin-bottom: 12px; }
+  .service-set, .choice-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .builder-form.builder-enhanced .service-set[hidden] { display: none !important; }
+  .detail-option { min-height: 44px; padding: 9px 14px; border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-secondary); background: var(--bg-secondary); transition: color var(--motion-ui) var(--ease-out), border-color var(--motion-ui) var(--ease-out), background-color var(--motion-ui) var(--ease-out); }
+  .detail-option:hover { color: var(--text-primary); border-color: #9aa8b5; }
+  .detail-option[aria-pressed="true"] { color: var(--accent-blue); border-color: var(--accent-blue); background: #eef3ff; font-weight: 700; }
+  .detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 26px; }
+  .requirement-card { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 24px; margin-top: 28px; padding: 22px; background: #0b1120; color: #fff; border-radius: 8px; }
+  .requirement-card p { color: #8fb3ff; font-size: .78rem; font-weight: 700; margin-bottom: 8px; }
+  .requirement-card h3 { color: #fff; font-size: 1.2rem; line-height: 1.35; }
+  .requirement-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
+  .requirement-card dt { color: #93a4bd; font-size: .72rem; margin-bottom: 2px; }
+  .requirement-card dd { margin: 0; font-weight: 600; }
+  .continue-button, .submit-button { margin-top: 22px; min-height: 48px; }
+  .contact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 22px; }
+  .field-group label span { color: var(--text-muted); font-size: .78rem; font-weight: 400; margin-left: 4px; }
+  .honeypot { display: none; }
+  .advanced-toggle { justify-self: start; color: var(--accent-blue); font-weight: 700; padding: 10px 0; text-align: left; text-decoration: underline; text-underline-offset: 4px; }
+  .context-note { padding: 12px 14px; background: #eef3ff; color: #173d99; border-radius: 6px; }
+  .context-note p { margin: 0; }
+  .form-alert { padding: 13px 15px; border-radius: 6px; }
+  .alert-error { color: #861414; background: #fff1f1; border: 1px solid #efb6b6; }
+  .form-alert[hidden], .form-success-card[hidden], .context-note[hidden] { display: none !important; }
+  .form-success-card { padding: 42px 30px; text-align: center; background: var(--bg-primary); box-shadow: inset 0 0 0 1px var(--border-color); border-radius: 12px; }
+  .form-success-card > * { margin-inline: auto; }
+  .form-success-card h2 { font-size: 2rem; margin: 18px 0 10px; }
+  .form-success-card p { max-width: 52ch; margin-bottom: 12px; }
+  .success-route { display: block; width: 96px; height: 2px; background: var(--accent-blue); transform-origin: left; animation: routeComplete 420ms var(--ease-out) both; }
+  @keyframes routeComplete { from { transform: scaleX(.2); } to { transform: scaleX(1); } }
+  @media (max-width: 720px) {
+    .builder-stage { padding: 22px 18px; }
+    .scope-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .scope-option { min-height: 108px; padding: 15px; }
+    .detail-grid, .contact-grid, .requirement-card { grid-template-columns: 1fr; }
+    .requirement-card dl { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .success-route { animation: none; transform: none; } }
+</style>
+
+<script>
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  if (form) {
+    form.classList.add('builder-enhanced');
+    const byId = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+    const scopeInput = byId<HTMLSelectElement>('lookingFor');
+    const description = byId<HTMLTextAreaElement>('requirementsDescription');
+    const location = byId<HTMLInputElement>('targetLocation');
+    const timeline = byId<HTMLSelectElement>('timeline');
+    const detailsStage = form.querySelector<HTMLElement>('[data-stage="details"]');
+    const contactStage = form.querySelector<HTMLElement>('[data-stage="contact"]');
+    const summaryTitle = byId<HTMLElement>('requirement-summary-title');
+    const summary = byId<HTMLElement>('requirement-summary');
+    const errorAlert = byId<HTMLElement>('form-error-alert');
+    const successCard = byId<HTMLElement>('form-success-card');
+    const submit = byId<HTMLButtonElement>('submit-btn');
+    let submitting = false;
+    let selectedService = '';
+    let selectedCapacity = '';
+    let selectedResilience = '';
+
+    const scopeLabels: Record<string, string> = {
+      connectivity: 'Network', 'dedicated-infrastructure': 'Compute', cloud: 'Cloud',
+      'ddos-security': 'Security', 'managed-services': 'Operations', other: 'Requirement'
+    };
+    const serviceScope: Record<string, string> = {
+      advisory: 'other',
+      'ai-netops': 'managed-services',
+      automation: 'managed-services',
+      bgp: 'connectivity',
+      cloud: 'cloud',
+      'cloud-connectivity': 'cloud',
+      colocation: 'dedicated-infrastructure',
+      connectivity: 'connectivity',
+      'custom-iaas': 'cloud',
+      cybersecurity: 'ddos-security',
+      'ddos-detection': 'ddos-security',
+      'ddos-protection': 'ddos-security',
+      'ddos-security': 'ddos-security',
+      'dedicated-infrastructure': 'dedicated-infrastructure',
+      'dedicated-servers': 'dedicated-infrastructure',
+      'gpu-ai': 'dedicated-infrastructure',
+      'gpu-ai-infrastructure': 'dedicated-infrastructure',
+      hardware: 'dedicated-infrastructure',
+      'ip-transit': 'connectivity',
+      ipv4: 'connectivity',
+      'layer-2': 'connectivity',
+      'layer-2-connectivity': 'connectivity',
+      'managed-noc': 'managed-services',
+      'managed-services': 'managed-services',
+      'network-engineering': 'managed-services',
+      'private-cloud': 'cloud',
+      'route-audit': 'connectivity',
+      security: 'ddos-security',
+      'vmware-alternatives': 'cloud',
+      wavelengths: 'connectivity'
+    };
+
+    const inferScope = (value: string) => {
+      const text = value.toLowerCase();
+      if (/transit|wavelength|circuit|bgp|asn|connect|latency|offline|network/.test(text)) return 'connectivity';
+      if (/vmware|cloud|kubernetes|hypervisor|backup/.test(text)) return 'cloud';
+      if (/ddos|flowspec|attack|firewall|security|waf/.test(text)) return 'ddos-security';
+      if (/server|bare metal|gpu|rack|colocation|hardware/.test(text)) return 'dedicated-infrastructure';
+      if (/noc|monitor|automation|operations/.test(text)) return 'managed-services';
+      return '';
+    };
+
+    const setPressed = (selector: string, match: (button: HTMLButtonElement) => boolean) => {
+      form.querySelectorAll<HTMLButtonElement>(selector).forEach((button) => {
+        button.setAttribute('aria-pressed', String(match(button)));
+      });
+    };
+
+    const showDetails = () => {
+      detailsStage?.classList.add('is-active');
+      const scope = scopeInput?.value || 'other';
+      form.querySelectorAll<HTMLElement>('[data-service-set]').forEach((set) => {
+        set.hidden = set.dataset.serviceSet !== scope;
+      });
+      const capacity = form.querySelector<HTMLElement>('.capacity-group');
+      const resilience = form.querySelector<HTMLElement>('.resilience-group');
+      if (capacity) capacity.hidden = !['connectivity', 'dedicated-infrastructure', 'cloud'].includes(scope);
+      if (resilience) resilience.hidden = !['connectivity', 'cloud'].includes(scope);
+      updateSummary();
+    };
+
+    const chooseScope = (scope: string, focusDetails = false) => {
+      if (!scopeInput) return;
+      scopeInput.value = scope;
+      setPressed('[data-scope]', (button) => button.dataset.scope === scope);
+      selectedService = '';
+      selectedCapacity = '';
+      selectedResilience = '';
+      setPressed('[data-service]', () => false);
+      setPressed('[data-capacity]', () => false);
+      setPressed('[data-resilience]', () => false);
+      showDetails();
+      if (focusDetails) {
+        form.querySelector<HTMLButtonElement>(`[data-service-set="${scope}"] [data-service]`)?.focus();
+      }
+    };
+
+    const updateSummary = () => {
+      if (!summaryTitle || !summary) return;
+      const scope = scopeInput?.value || '';
+      const freeText = description?.value.trim() || '';
+      summaryTitle.textContent = selectedService || (scope ? scopeLabels[scope] : '') || (freeText ? 'Requirement brief' : 'Start with an area or a short description');
+      const rows = [
+        ['Area', scope ? scopeLabels[scope] : 'Not set'],
+        ['Location', location?.value.trim() || 'To confirm'],
+        ['Capacity', selectedCapacity || 'To confirm'],
+        ['Resilience', selectedResilience || 'To confirm']
+      ];
+      summary.replaceChildren(...rows.map(([term, value]) => {
+        const wrap = document.createElement('div');
+        const dt = document.createElement('dt');
+        const dd = document.createElement('dd');
+        dt.textContent = term;
+        dd.textContent = value;
+        wrap.append(dt, dd);
+        return wrap;
+      }));
+    };
+
+    form.querySelectorAll<HTMLButtonElement>('[data-scope]').forEach((button) => {
+      button.addEventListener('click', () => chooseScope(button.dataset.scope || 'other', true));
+    });
+    form.querySelectorAll<HTMLButtonElement>('[data-service]').forEach((button) => {
+      button.addEventListener('click', () => {
+        selectedService = button.dataset.service || '';
+        setPressed('[data-service]', (candidate) => candidate === button);
+        updateSummary();
+      });
+    });
+    form.querySelectorAll<HTMLButtonElement>('[data-capacity]').forEach((button) => {
+      button.addEventListener('click', () => {
+        selectedCapacity = button.dataset.capacity || '';
+        setPressed('[data-capacity]', (candidate) => candidate === button);
+        updateSummary();
+      });
+    });
+    form.querySelectorAll<HTMLButtonElement>('[data-resilience]').forEach((button) => {
+      button.addEventListener('click', () => {
+        selectedResilience = button.dataset.resilience || '';
+        setPressed('[data-resilience]', (candidate) => candidate === button);
+        updateSummary();
+      });
+    });
+    location?.addEventListener('input', updateSummary);
+    description?.addEventListener('input', () => {
+      if (!scopeInput?.value && description.value.trim().length >= 10) {
+        chooseScope(inferScope(description.value) || 'other');
+      }
+      updateSummary();
+    });
+
+    byId<HTMLButtonElement>('continue-to-contact')?.addEventListener('click', () => {
+      const missingScope = !scopeInput?.value;
+      const missingDescription = (description?.value.trim().length || 0) < 10 && !selectedService;
+      const missingTimeline = !timeline?.value;
+      if (missingScope || missingDescription || missingTimeline) {
+        if (errorAlert) {
+          errorAlert.textContent = 'Choose an area, add a short requirement, and select timing before continuing.';
+          errorAlert.hidden = false;
+          errorAlert.focus();
+        }
+        if (missingScope) form.querySelector<HTMLButtonElement>('[data-scope]')?.focus();
+        else if (missingDescription) description?.focus();
+        else timeline?.focus();
+        return;
+      }
+      if (errorAlert) errorAlert.hidden = true;
+      contactStage?.classList.add('is-active');
+      byId<HTMLInputElement>('contactName')?.focus();
+    });
+
+    byId<HTMLButtonElement>('advanced-toggle')?.addEventListener('click', () => {
+      detailsStage?.classList.add('is-active');
+      contactStage?.classList.add('is-active');
+      description?.focus();
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const attribution: Record<string, string | null> = {
+      'context-service': params.get('service'), 'context-partner': params.get('partner'),
+      'context-offer': params.get('offer'), 'context-industry': params.get('industry'),
+      'context-utm-source': params.get('utm_source'), 'context-utm-campaign': params.get('utm_campaign'),
+      'context-utm-medium': params.get('utm_medium'), 'context-utm-term': params.get('utm_term'),
+      'context-utm-content': params.get('utm_content')
+    };
+    Object.entries(attribution).forEach(([id, value]) => { const input = byId<HTMLInputElement>(id); if (input && value) input.value = value; });
+    const contextValue = params.get('offer') || params.get('partner') || params.get('service') || params.get('industry');
+    const contextBadge = byId<HTMLElement>('context-badge-wrap');
+    const contextNote = byId<HTMLElement>('context-note');
+    if (contextValue && contextBadge && contextNote) {
+      contextNote.textContent = `Starting from: ${contextValue}`;
+      contextBadge.hidden = false;
+    }
+    const incomingService = params.get('service');
+    if (incomingService) chooseScope(serviceScope[incomingService] || inferScope(incomingService) || 'other');
+
+    const showFieldError = (id: string, message: string) => {
+      const field = byId<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(id);
+      const node = byId<HTMLElement>(`${id}-error`);
+      field?.setAttribute('aria-invalid', 'true');
+      if (node) { node.textContent = message; node.hidden = false; }
+    };
+    const clearFieldError = (id: string) => {
+      byId<HTMLElement>(id)?.removeAttribute('aria-invalid');
+      const node = byId<HTMLElement>(`${id}-error`);
+      if (node) { node.textContent = ''; node.hidden = true; }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submitting) return;
+      if (byId<HTMLInputElement>('website_trap_field')?.value) return;
+      const name = byId<HTMLInputElement>('contactName');
+      const email = byId<HTMLInputElement>('workEmail');
+      const checks = [
+        { id: 'requirementsDescription', valid: (description?.value.trim().length || 0) >= 10 || Boolean(selectedService), message: 'Describe the requirement in at least 10 characters.' },
+        { id: 'timeline', valid: Boolean(timeline?.value), message: 'Select the likely timing.' },
+        { id: 'contactName', valid: (name?.value.trim().length || 0) >= 2, message: 'Enter your name.' },
+        { id: 'workEmail', valid: /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email?.value.trim() || ''), message: 'Enter a valid work email.' }
+      ];
+      if (!scopeInput?.value) chooseScope(inferScope(description?.value || '') || 'other');
+      const invalid = checks.filter((check) => !check.valid);
+      checks.forEach((check) => check.valid ? clearFieldError(check.id) : showFieldError(check.id, check.message));
+      if (invalid.length) {
+        detailsStage?.classList.add('is-active');
+        contactStage?.classList.add('is-active');
+        if (errorAlert) { errorAlert.textContent = `${invalid.length} field${invalid.length === 1 ? '' : 's'} need attention.`; errorAlert.hidden = false; errorAlert.focus(); }
+        byId<HTMLElement>(invalid[0].id)?.focus();
+        return;
+      }
+
+      const originalDescription = description?.value.trim() || '';
+      const structured = [selectedService, selectedCapacity, selectedResilience ? `Redundancy: ${selectedResilience}` : ''].filter(Boolean).join(' · ');
+      const fallbackDescription = `${selectedService || scopeLabels[scopeInput?.value || 'other']} requirement`;
+      if (description) {
+        const baseDescription = originalDescription || fallbackDescription;
+        description.value = structured && !baseDescription.includes(structured)
+          ? `${baseDescription}\n\n${structured}`
+          : baseDescription;
+      }
+      submitting = true;
+      if (submit) { submit.disabled = true; submit.setAttribute('aria-busy', 'true'); submit.textContent = 'Sending requirement…'; }
+      if (errorAlert) errorAlert.hidden = true;
+      try {
+        const response = await fetch('/api/inquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form).entries())) });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.success) throw new Error(result.message || 'Unable to send the requirement.');
+        form.hidden = true;
+        byId<HTMLElement>('lead-id-display')!.textContent = `#${result.leadId || 'INQ-RECEIVED'}`;
+        if (successCard) { successCard.hidden = false; successCard.focus(); }
+      } catch (error) {
+        if (errorAlert) { errorAlert.textContent = error instanceof Error ? error.message : 'Unable to send the requirement. Email inquiries@infrahub.tech directly.'; errorAlert.hidden = false; errorAlert.focus(); }
+      } finally {
+        submitting = false;
+        if (submit) { submit.disabled = false; submit.removeAttribute('aria-busy'); submit.textContent = 'Send requirement to InfraHub'; }
+      }
+    });
+  }
+</script>

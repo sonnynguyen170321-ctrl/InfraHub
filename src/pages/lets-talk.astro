@@ -1,692 +1,82 @@
 ---
-// src/pages/lets-talk.astro
 import Layout from '../layouts/Layout.astro';
+import RequirementBuilder from '../components/RequirementBuilder.astro';
 ---
 
-<Layout 
-  title="Let's Talk Infrastructure — Technical Sourcing & Qualification"
-  description="Discuss infrastructure, connectivity, cloud, security, hardware, or managed-service requirements with InfraHub."
+<Layout
+  title="Start a requirement — InfraHub Desk"
+  description="Describe an infrastructure requirement or build a concise technical brief before continuing with an InfraHub advisor."
   canonicalPath="/lets-talk"
 >
-  <div class="section section-hero network-overlay">
-    <div class="container talk-container">
-      <!-- Left Column: Context & Guidelines -->
-      <div class="talk-intro">
-        <span class="talk-kicker">TECHNICAL SOURCING &amp; ADVISORY INTAKE</span>
-        <h1 class="talk-title">Tell us what you're trying to build.</h1>
-        <p class="talk-sub">
-          You don't need a final provider or bill of materials figured out first. Start with your technical constraints, location requirements, and timeline.
-        </p>
-
-        <div class="qualification-card">
-          <h2 class="qual-heading">What happens after you submit:</h2>
-          <ul class="qual-steps">
-            <li>
-              <span class="step-badge">1</span>
-              <div>
-                <strong>Advisor Review</strong>
-                <p>InfraHub reviews the requirement, technical constraints, location, and timing to identify what needs to be clarified next.</p>
-              </div>
-            </li>
-            <li>
-              <span class="step-badge">2</span>
-              <div>
-                <strong>Ecosystem Matching</strong>
-                <p>We evaluate relevant specialist providers and approaches against the requirement and available information.</p>
-              </div>
-            </li>
-            <li>
-              <span class="step-badge">3</span>
-              <div>
-                <strong>Direct Introduction</strong>
-                <p>Where a partner-delivered service fits, InfraHub coordinates an introduction so commercial and delivery terms can be confirmed directly with the selected provider.</p>
-              </div>
-            </li>
-          </ul>
+  <div class="desk-page">
+    <section class="desk-intro">
+      <div class="container intro-grid">
+        <div>
+          <h1>Bring us the requirement.</h1>
+          <p>You do not need a provider shortlist or finished bill of materials. Start with the problem, location, capacity, or constraint you already know.</p>
         </div>
-
-        <div class="commercial-callout">
-          <p>
-            <strong>Commercial transparency:</strong> InfraHub will clarify its role in the engagement before introduction. Provider-specific pricing, contracting, delivery, and service commitments are confirmed with the selected provider.
-          </p>
-        </div>
+        <dl class="desk-principles" aria-label="InfraHub inquiry principles">
+          <div><dt>Before contact</dt><dd>Build a useful brief</dd></div>
+          <div><dt>Clarification</dt><dd>One useful question at a time</dd></div>
+          <div><dt>Commercial role</dt><dd>Confirmed before any introduction</dd></div>
+        </dl>
       </div>
+    </section>
 
-      <!-- Right Column: Qualification Form -->
-      <div class="talk-form-card">
-        <form id="inquiry-form" class="qualification-form" novalidate>
-          <div id="form-error-alert" class="form-alert alert-error" role="alert" tabindex="-1" hidden></div>
-          
-          <!-- Hidden Context Inputs -->
-          <input type="hidden" name="sourcePage" id="context-source-page" value="/lets-talk" />
-          <input type="hidden" name="serviceParam" id="context-service" value="" />
-          <input type="hidden" name="partnerParam" id="context-partner" value="" />
-          <input type="hidden" name="offerSlug" id="context-offer" value="" />
-          <input type="hidden" name="utmSource" id="context-utm-source" value="" />
-          <input type="hidden" name="utmCampaign" id="context-utm-campaign" value="" />
-          <input type="hidden" name="industryParam" id="context-industry" value="" />
-          <input type="hidden" name="utmMedium" id="context-utm-medium" value="" />
-          <input type="hidden" name="utmTerm" id="context-utm-term" value="" />
-          <input type="hidden" name="utmContent" id="context-utm-content" value="" />
+    <section class="desk-builder">
+      <div class="container"><RequirementBuilder /></div>
+    </section>
 
-          <!-- Context Pill (if arriving from an offer/partner) -->
-          <div id="context-badge-wrap" class="context-badge-wrap" style="display: none;">
-            <span class="pill-badge badge-teal" id="context-badge-text">Inquiring about: ...</span>
-          </div>
-
-          <!-- Section 1: Technical Discipline -->
-          <div class="form-fieldset">
-            <span class="fieldset-legend">1. Technical Discipline</span>
-            <div class="form-group">
-              <label for="lookingFor" class="form-label">Primary Infrastructure Scope <span class="required">*</span></label>
-              <select name="lookingFor" id="lookingFor" class="form-select" required aria-describedby="lookingFor-error">
-                <option value="" disabled selected>Select an infrastructure discipline...</option>
-                <option value="connectivity">Connectivity, IP Transit &amp; Wavelengths</option>
-                <option value="hardware">Hardware &amp; Enterprise Servers (New / Refurbished)</option>
-                <option value="dedicated-infrastructure">Dedicated Infrastructure &amp; Bare Metal Clusters</option>
-                <option value="cloud">Cloud &amp; Virtualization (Private Cloud / VMware Alternatives)</option>
-                <option value="ddos-security">DDoS Mitigation &amp; FlowSpec Automation</option>
-                <option value="cybersecurity">Cybersecurity &amp; Perimeter Defence</option>
-                <option value="managed-services">Managed NOC &amp; Network Operations Desk</option>
-                <option value="ipv4">IPv4 Sourcing &amp; Subnet Leasing</option>
-                <option value="other">Other Infrastructure Requirement</option>
-              </select>
-              <p class="field-error" id="lookingFor-error" hidden></p>
-            </div>
-          </div>
-
-          <!-- Section 2: Requirement Parameters & Location -->
-          <div class="form-fieldset">
-            <span class="fieldset-legend">2. Location &amp; Technical Constraints</span>
-            <div class="form-group">
-              <label for="targetLocation" class="form-label">Target Facility / Metro</label>
-              <input 
-                type="text" 
-                name="targetLocation" 
-                id="targetLocation" 
-                class="form-input" 
-                placeholder="e.g. Equinix FR5 Frankfurt, Telehouse North London, Interxion FRA" 
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="requirementsDescription" class="form-label">Technical Parameters &amp; Workload <span class="required">*</span></label>
-              <textarea 
-                name="requirementsDescription" 
-                id="requirementsDescription" 
-                class="form-textarea" 
-                rows="4" 
-                placeholder="Detail port capacity (e.g. 10G/100G), commit (e.g. 20G CDR), ASN (e.g. AS12345), server specs, or specific hypervisor dependencies..."
-                required
-                aria-describedby="requirementsDescription-error"
-              ></textarea>
-              <p class="field-error" id="requirementsDescription-error" hidden></p>
-            </div>
-
-            <div class="form-group">
-              <label for="timeline" class="form-label">Anticipated Timeline <span class="required">*</span></label>
-              <select name="timeline" id="timeline" class="form-select" required aria-describedby="timeline-error">
-                <option value="" disabled selected>Select implementation timeline...</option>
-                <option value="immediate">Immediate (Next 7–14 days)</option>
-                <option value="under-30-days">Under 30 days</option>
-                <option value="1-3-months">1 to 3 months</option>
-                <option value="3-plus-months">3+ months</option>
-                <option value="researching">Evaluating market options</option>
-              </select>
-              <p class="field-error" id="timeline-error" hidden></p>
-            </div>
-          </div>
-
-          <!-- Section 3: Contact Details -->
-          <div class="form-fieldset">
-            <span class="fieldset-legend">3. Contact &amp; Organization</span>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="contactName" class="form-label">Your Name <span class="required">*</span></label>
-                <input type="text" name="contactName" id="contactName" class="form-input" placeholder="First and last name" required aria-describedby="contactName-error" />
-                <p class="field-error" id="contactName-error" hidden></p>
-              </div>
-              <div class="form-group">
-                <label for="companyName" class="form-label">Organization <span class="required">*</span></label>
-                <input type="text" name="companyName" id="companyName" class="form-input" placeholder="Company or ASN name" required aria-describedby="companyName-error" />
-                <p class="field-error" id="companyName-error" hidden></p>
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="workEmail" class="form-label">Work Email <span class="required">*</span></label>
-                <input type="email" name="workEmail" id="workEmail" class="form-input" placeholder="name@company.com" required aria-describedby="workEmail-error" />
-                <p class="field-error" id="workEmail-error" hidden></p>
-              </div>
-              <div class="form-group">
-                <label for="phone" class="form-label">Direct Phone (Optional)</label>
-                <input type="tel" name="phone" id="phone" class="form-input" placeholder="+1..." />
-              </div>
-            </div>
-          </div>
-
-          <!-- Honeypot Bot Shield -->
-          <div style="display:none;" aria-hidden="true">
-            <label for="website_trap_field">Do not fill this field</label>
-            <input type="text" name="website_trap_field" id="website_trap_field" tabindex="-1" autocomplete="off" aria-label="Do not fill" />
-          </div>
-
-          <button type="submit" id="submit-btn" class="btn btn-accent btn-block btn-lg">
-            <span>Submit Technical Requirement</span>
-            <span class="link-arrow" aria-hidden="true">&rarr;</span>
-          </button>
-
-          <p class="form-privacy-note">
-            InfraHub uses your details to qualify the inquiry and may share them with relevant providers as described in the Privacy Policy.
-          </p>
-        </form>
-
-        <!-- Success Confirmation State -->
-        <div id="form-success-card" class="form-success-card" role="status" aria-live="polite" tabindex="-1" hidden>
-          <span class="success-route" aria-hidden="true"></span>
-          <h2>Requirement Received</h2>
-          <p>
-            Inquiry reference: <strong id="lead-id-display">#LEAD-0000</strong>
-          </p>
-          <p class="success-desc">
-            InfraHub has received your requirement. The next step may be a clarification, a relevant provider introduction, or a discussion of suitable sourcing options.
-          </p>
-          <a href="/" class="btn btn-secondary">Return to Homepage</a>
+    <section class="desk-after" aria-labelledby="after-heading">
+      <div class="container after-grid">
+        <div>
+          <h2 id="after-heading">What happens next</h2>
+          <p>InfraHub reviews the requirement, identifies what still matters, and compares suitable technical routes. Where a partner-delivered service fits, we coordinate the introduction.</p>
         </div>
+        <ol>
+          <li><span>01</span><strong>Clarify</strong><p>Resolve the detail that changes the architecture.</p></li>
+          <li><span>02</span><strong>Compare</strong><p>Evaluate suitable approaches and specialist capability.</p></li>
+          <li><span>03</span><strong>Introduce</strong><p>Set the technical and commercial handoff clearly.</p></li>
+        </ol>
       </div>
-    </div>
+      <div class="container commercial-note">
+        <strong>Commercial transparency</strong>
+        <p>Provider-specific pricing, contracting, delivery, availability, and service commitments are confirmed with the selected provider. InfraHub clarifies its role before an introduction.</p>
+      </div>
+    </section>
   </div>
 </Layout>
 
 <style>
-  /* Visibility is toggled with the hidden attribute; keep display rules from overriding it. */
-  .form-alert[hidden],
-  .form-success-card[hidden] {
-    display: none !important;
+  .desk-page { background: var(--bg-secondary); }
+  .desk-intro { padding: clamp(72px, 10vw, 132px) 0 clamp(58px, 8vw, 96px); background: #0b1120; color: #fff; }
+  .intro-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr); gap: clamp(48px, 8vw, 112px); align-items: end; }
+  .desk-intro h1 { color: #fff; font-size: clamp(3rem, 7vw, 6rem); line-height: .96; letter-spacing: -0.04em; max-width: 9ch; text-wrap: balance; }
+  .desk-intro p { max-width: 58ch; margin-top: 24px; color: #c4cfdd; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.65; }
+  .desk-principles { margin: 0; border-top: 1px solid #2d3a50; }
+  .desk-principles div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 16px 0; border-bottom: 1px solid #2d3a50; }
+  .desk-principles dt { color: #8fa1ba; font-size: .8rem; }
+  .desk-principles dd { margin: 0; font-weight: 600; }
+  .desk-builder { padding: clamp(64px, 9vw, 120px) 0; }
+  .desk-after { padding: clamp(64px, 9vw, 112px) 0; background: var(--bg-primary); border-top: 1px solid var(--border-color); }
+  .after-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(52px, 9vw, 120px); }
+  .after-grid h2 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.035em; line-height: 1.05; }
+  .after-grid > div p { margin-top: 18px; color: var(--text-secondary); line-height: 1.65; max-width: 50ch; }
+  .after-grid ol { list-style: none; margin: 0; padding: 0; }
+  .after-grid li { display: grid; grid-template-columns: 40px 120px 1fr; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--border-color); align-items: baseline; }
+  .after-grid li:first-child { border-top: 1px solid var(--border-color); }
+  .after-grid li span { color: var(--accent-blue); font-family: var(--font-mono); font-size: .78rem; }
+  .after-grid li p { color: var(--text-secondary); margin: 0; }
+  .commercial-note { display: grid; grid-template-columns: minmax(180px, .3fr) minmax(0, .7fr); gap: 32px; margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+  .commercial-note p { color: var(--text-secondary); max-width: 72ch; line-height: 1.6; }
+  @media (max-width: 800px) {
+    .intro-grid, .after-grid { grid-template-columns: 1fr; }
+    .desk-intro h1 { max-width: 10ch; }
+    .after-grid li { grid-template-columns: 32px 90px 1fr; gap: 12px; }
+    .commercial-note { grid-template-columns: 1fr; gap: 10px; }
   }
-
-  .field-error {
-    margin-top: 6px;
-    font-size: 0.82rem;
-    line-height: 1.4;
-    color: #b91c1c;
-  }
-
-  .form-input[aria-invalid="true"],
-  .form-select[aria-invalid="true"],
-  .form-textarea[aria-invalid="true"] {
-    border-color: #b91c1c;
-  }
-
-  .talk-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 48px;
-    align-items: flex-start;
-  }
-  @media (min-width: 1024px) {
-    .talk-container {
-      grid-template-columns: 1fr 1.15fr;
-      gap: 64px;
-    }
-  }
-
-  .talk-title {
-    font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-    font-weight: 700;
-    line-height: 1.15;
-    margin: 16px 0 18px;
-  }
-
-  .talk-sub {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 48ch;
-    margin-bottom: 36px;
-  }
-
-  .talk-kicker {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--accent-blue);
-    letter-spacing: 0.02em;
-    display: inline-block;
-  }
-
-  /* Qualification Card */
-  .qualification-card {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 34px 32px;
-    margin-bottom: 28px;
-  }
-  .qual-heading {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-  .qual-steps {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    padding: 0;
-    margin: 0;
-  }
-  .qual-steps li {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-  }
-  .step-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: var(--accent-blue);
-    color: #ffffff;
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .qual-steps strong {
-    display: block;
-    font-size: 0.95rem;
-    margin-bottom: 2px;
-  }
-  .qual-steps p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-    margin: 0;
-  }
-
-  .commercial-callout {
-    padding: 24px 28px;
-    background-color: #f8fafc;
-    border: 1px solid var(--border-color);
-    border-left: 3px solid var(--accent-blue);
-    border-radius: var(--radius-sm);
-  }
-  .commercial-callout p {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  /* Form Fieldsets */
-  .form-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0 0 32px 0;
-  }
-  .fieldset-legend {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    letter-spacing: -0.01em;
-  }
-
-  /* Form Card */
-  .talk-form-card {
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: 44px;
-    box-shadow: var(--shadow-xl);
-  }
-  @media (max-width: 640px) {
-    .talk-form-card {
-      padding: 28px 24px;
-    }
-  }
-
-  .context-badge-wrap {
-    margin-bottom: 20px;
-  }
-
-  .form-group {
-    margin-bottom: 20px;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  @media (min-width: 640px) {
-    .form-row {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .form-label {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 0.88rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .required {
-    color: #ef4444;
-  }
-
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background-color: var(--bg-secondary);
-    font-size: 0.95rem;
-    transition: var(--transition-fast);
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: var(--accent-blue);
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-  }
-
-  .form-privacy-note {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    text-align: center;
-    margin-top: 14px;
-    line-height: 1.45;
-  }
-
-  .form-alert {
-    padding: 12px 16px;
-    border-radius: var(--radius-md);
-    font-size: 0.88rem;
-    margin-bottom: 20px;
-  }
-  .alert-error {
-    background-color: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #991b1b;
-  }
-
-  /* Success Card */
-  .form-success-card {
-    text-align: center;
-    padding: 36px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .success-route {
-    display: block;
-    width: 120px;
-    height: 2px;
-    background: var(--accent-blue);
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: successRoute 480ms var(--ease-out) forwards;
-  }
-
-  @keyframes successRoute {
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  .form-success-card h2,
-  .form-success-card p {
-    opacity: 0;
-    animation: successCopy var(--motion-content) var(--ease-out) 420ms forwards;
-  }
-
-  @keyframes successCopy {
-    to {
-      opacity: 1;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .success-route {
-      transform: scaleX(1);
-      animation: none;
-    }
-
-    .form-success-card h2,
-    .form-success-card p {
-      opacity: 1;
-      animation: none;
-    }
-  }
-  .success-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--accent-teal-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .form-success-card h2 {
-    font-size: 1.7rem;
-    font-weight: 700;
-  }
-  .success-desc {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    max-width: 420px;
+  @media (max-width: 520px) {
+    .after-grid li { grid-template-columns: 32px 1fr; }
+    .after-grid li p { grid-column: 2; }
   }
 </style>
-
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('inquiry-form');
-    if (!form) return;
-
-    const submitBtn = document.getElementById('submit-btn');
-    const errorAlert = document.getElementById('form-error-alert');
-    const successCard = document.getElementById('form-success-card');
-    const leadIdDisplay = document.getElementById('lead-id-display');
-
-    // ── Context and attribution carried in the URL ────────────────────────────
-    const params = new URLSearchParams(window.location.search);
-    const setHidden = (id, value) => {
-      const el = document.getElementById(id);
-      if (el && value) el.value = value;
-    };
-
-    const service = params.get('service');
-    const partner = params.get('partner');
-    const offer = params.get('offer');
-    const industry = params.get('industry');
-
-    setHidden('context-service', service);
-    setHidden('context-partner', partner);
-    setHidden('context-offer', offer);
-    setHidden('context-industry', industry);
-    setHidden('context-utm-source', params.get('utm_source'));
-    setHidden('context-utm-campaign', params.get('utm_campaign'));
-    setHidden('context-utm-medium', params.get('utm_medium'));
-    setHidden('context-utm-term', params.get('utm_term'));
-    setHidden('context-utm-content', params.get('utm_content'));
-
-    const lookingForSelect = document.getElementById('lookingFor');
-    if (service && lookingForSelect instanceof HTMLSelectElement) {
-      const hasMatchingScope = Array.from(lookingForSelect.options)
-        .some((option) => option.value === service);
-      if (hasMatchingScope) lookingForSelect.value = service;
-    }
-
-    const badgeWrap = document.getElementById('context-badge-wrap');
-    const badgeText = document.getElementById('context-badge-text');
-    let context = null;
-    if (offer) context = 'Inquiring about offer: ' + offer;
-    else if (partner) context = 'Inquiring about partner: ' + partner;
-    else if (service) context = 'Inquiring about solution: ' + service;
-    else if (industry) context = 'Inquiring for industry: ' + industry;
-    if (context && badgeWrap && badgeText) {
-      badgeText.textContent = context;
-      badgeWrap.style.display = 'block';
-    }
-
-    // ── Validation ────────────────────────────────────────────────────────────
-    // The form is novalidate, so the browser reports nothing on its own. Every rule the
-    // server enforces is reported here: per field, announced, and focusable.
-    const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-    const rules = [
-      { id: 'lookingFor', message: 'Select the primary infrastructure scope.' },
-      {
-        id: 'requirementsDescription',
-        message: 'Describe the requirement in at least 10 characters.',
-        test: (v) => v.trim().length >= 10
-      },
-      { id: 'timeline', message: 'Select an anticipated timeline.' },
-      {
-        id: 'contactName',
-        message: 'Enter your name (at least 2 characters).',
-        test: (v) => v.trim().length >= 2
-      },
-      {
-        id: 'companyName',
-        message: 'Enter your organization (at least 2 characters).',
-        test: (v) => v.trim().length >= 2
-      },
-      {
-        id: 'workEmail',
-        message: 'Enter a valid work email address.',
-        test: (v) => EMAIL_PATTERN.test(v.trim())
-      }
-    ];
-
-    const errorNode = (id) => document.getElementById(id + '-error');
-
-    function clearFieldError(rule) {
-      const field = document.getElementById(rule.id);
-      const node = errorNode(rule.id);
-      if (field) field.removeAttribute('aria-invalid');
-      if (node) {
-        node.textContent = '';
-        node.hidden = true;
-      }
-    }
-
-    function showFieldError(rule) {
-      const field = document.getElementById(rule.id);
-      const node = errorNode(rule.id);
-      if (field) field.setAttribute('aria-invalid', 'true');
-      if (node) {
-        node.textContent = rule.message;
-        node.hidden = false;
-      }
-    }
-
-    function isValid(rule) {
-      const field = document.getElementById(rule.id);
-      if (!field) return true;
-      const value = field.value || '';
-      if (value.trim() === '') return false;
-      return rule.test ? rule.test(value) : true;
-    }
-
-    // Clear a message as soon as the field it belongs to becomes valid, so it does not
-    // linger while the person is still fixing it.
-    for (const rule of rules) {
-      const field = document.getElementById(rule.id);
-      if (!field) continue;
-      field.addEventListener('change', () => {
-        if (isValid(rule)) clearFieldError(rule);
-      });
-      field.addEventListener('blur', () => {
-        if (isValid(rule)) clearFieldError(rule);
-        else showFieldError(rule);
-      });
-    }
-
-    function showSummary(message) {
-      errorAlert.textContent = message;
-      errorAlert.hidden = false;
-      errorAlert.focus();
-    }
-
-    function setSubmitting(isSubmitting) {
-      submitBtn.disabled = isSubmitting;
-      submitBtn.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
-      submitBtn.textContent = isSubmitting ? 'Sending requirement…' : 'Submit Technical Requirement';
-    }
-
-    let submitting = false;
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      if (submitting) return;
-
-      errorAlert.hidden = true;
-
-      const honeypot = document.getElementById('website_trap_field');
-      if (honeypot && honeypot.value) return;
-
-      const invalid = [];
-      for (const rule of rules) {
-        if (isValid(rule)) clearFieldError(rule);
-        else {
-          showFieldError(rule);
-          invalid.push(rule);
-        }
-      }
-
-      if (invalid.length > 0) {
-        showSummary(
-          invalid.length === 1
-            ? 'One field needs attention: ' + invalid[0].message
-            : invalid.length + ' fields need attention. See the message under each field.'
-        );
-        const firstField = document.getElementById(invalid[0].id);
-        if (firstField) firstField.focus();
-        return;
-      }
-
-      submitting = true;
-      setSubmitting(true);
-
-      const data = Object.fromEntries(new FormData(form).entries());
-
-      try {
-        const res = await fetch('/api/inquiry', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        const result = await res.json().catch(() => ({}));
-
-        if (res.ok && result.success) {
-          form.hidden = true;
-          if (leadIdDisplay) leadIdDisplay.textContent = '#' + (result.leadId || 'INQ-RECEIVED');
-          successCard.hidden = false;
-          successCard.focus();
-          return;
-        }
-
-        showSummary(result.message || 'Unable to submit your requirement. Please email inquiries@infrahub.tech directly.');
-      } catch (err) {
-        showSummary('Could not reach the inquiry service. Please email inquiries@infrahub.tech directly.');
-      } finally {
-        submitting = false;
-        setSubmitting(false);
-      }
-    });
-  });
-</script>
