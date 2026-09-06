@@ -20,6 +20,7 @@ from pending external configuration; `BLOCKED_EXTERNAL` and `NOT_TESTED` are nev
 | Workstream | Status | Observed evidence |
 |---|:---:|---|
 | Phases 0–11 redesign implementation | COMPLETE | Transformation is merged into protected `main` |
+| Track 2: Product & Experience Polish | COMPLETE | Interactive Architectural Decision Navigator (`DecisionNavigator.astro`), Cloud Topology Explorer (`CloudTopologyExplorer.astro`), and Security Scrubbing Explorer (`SecurityScrubbingExplorer.astro`) deployed across solution suites with Desk parameter bridging |
 | Homepage first-frame readability | COMPLETE | Hero value proposition is legible before entrance motion |
 | Primary information architecture | COMPLETE | Solutions · How We Work · Industries · Insights · About; Partners and Featured Offers removed from primary navigation |
 | Progressive requirement builder | COMPLETE | InfraHub Desk supports visual and natural-language starts, starter prompt chips, rotating placeholder guidance, persistent Desk quick-access trigger, relevant disclosure, a live brief, advanced technical entry, attribution, and optional company |
@@ -27,8 +28,8 @@ from pending external configuration; `BLOCKED_EXTERNAL` and `NOT_TESTED` are nev
 | Accessibility and progressive enhancement | COMPLETE | WCAG A/AA browser scans pass; no-JavaScript form remains submittable; reduced-motion flow passes |
 | Responsive and visual polish | COMPLETE | No overflow from 320–1920 px; two Impeccable browser-polish passes completed |
 | Local release certification | COMPLETE | All local gates below observed green |
-| Protected-main release | COMPLETE | PR #24 merged after required Node 22 `Build and verify` CI and Vercel preview passed |
-| Canonical Vercel deployment | COMPLETE | Ready production deployment; 30/30 smoke checks and 161/161 deployed browser tests passed |
+| Protected-main release | COMPLETE | PR #24 merged and subsequent Track 2 commit `de16c09` passed required Node 22 `Build and verify` CI |
+| Canonical Vercel deployment | COMPLETE | Ready production deployment `dpl_HRPQikFM9HhvECNgsHhcJMu6Ykyn`; 30/30 smoke checks and 166/166 deployed browser tests passed |
 | Vercel project reconciliation | COMPLETE | Duplicate `infra-hub` is absent; repository is locally linked to `infrahub-tech` |
 | Inquiry delivery configuration | BLOCKED_EXTERNAL | `LEAD_WEBHOOK_URL` is NOT SET; endpoint deliberately fails closed in production |
 | Custom-domain cutover | BLOCKED_EXTERNAL | `infrahub.tech` and `www.infrahub.tech` remain on the legacy GoDaddy site and are absent from Vercel |
@@ -37,11 +38,11 @@ from pending external configuration; `BLOCKED_EXTERNAL` and `NOT_TESTED` are nev
 
 | Gate | Result | Evidence |
 |---|:---:|---|
-| `npm run check` | PASS | 108 files; 0 errors, 0 warnings, 0 hints |
+| `npm run check` | PASS | 112 files; 0 errors, 0 warnings, 0 hints |
 | `npm run build` | PASS | 51 routes, 18 optimized images, serverless bundle and sitemap complete |
 | `npm test` | PASS | 51 documents and 51 internal links; all static accessibility, content, performance, partner, provenance, and human-design audits green |
-| Local `npm run test:e2e` | PASS | 163/163 Playwright tests across desktop and mobile |
-| Protected-main CI | PASS | Node 22 check, build, repository audits, and full browser suite |
+| Local `npm run test:e2e` | PASS | 166/166 Playwright tests across desktop and mobile |
+| Protected-main CI | PASS | Node 22 check, build, repository audits, and full browser suite (run `34046796513`) |
 | Vercel production smoke | PASS | 30/30 checks against `https://infrahub-tech.vercel.app` |
 | Deployed `npm run test:e2e` | PASS | 161/161 Playwright tests against the canonical production deployment |
 | Impeccable detector | PASS | No prohibited UI patterns in changed UI (`[]`) |
@@ -64,12 +65,12 @@ These are local synthetic observations, not field Core Web Vitals.
 
 ## Production truth observed on 2026-09-06
 
-- GitHub `main` is at commit `a8db4a5` (`feat(desk): add persistent desk trigger and starter example prompts`).
-- The required main-branch CI (`34045594054`) completed successfully green in 2m43s.
-- `infrahub-tech` has Ready production deployment `dpl_EHkYE4UiXx91z8jA2nrdTQvG2rui` aliased to `https://infrahub-tech.vercel.app`.
+- GitHub `main` is at commit `de16c09` (`feat(solutions): add progressive decision navigators and interactive topology schematics`).
+- The required main-branch CI (`34046796513`) completed successfully green in 2m47s.
+- `infrahub-tech` has Ready production deployment `dpl_HRPQikFM9HhvECNgsHhcJMu6Ykyn` aliased to `https://infrahub-tech.vercel.app`.
 - The former duplicate `infra-hub` project is no longer present in the Vercel team inventory.
 - Local Vercel linkage resolves to `son-nguyen-s-projects7/infrahub-tech`.
-- The stable Vercel production alias serves the new requirement journey with persistent DeskTrigger and starter prompt chips, passing 30/30 read-only production checks plus the complete deployed browser suite.
+- The stable Vercel production alias serves the new requirement journey and Track 2 interactive decision maps, passing 30/30 read-only production checks plus the complete deployed browser suite.
 - The canonical project has no environment variables. `LEAD_WEBHOOK_URL` is NOT SET.
 - `infrahub.tech` and `www.infrahub.tech` return “Domain not found” in the Vercel account.
 - Apex DNS resolves to `13.248.243.5` and `76.223.105.230`; `www` CNAMEs to the apex.
