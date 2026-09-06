@@ -1,0 +1,56 @@
+/* First-load hero choreography
+ * Deliberately local to the homepage. The photograph establishes the room first, then the
+ * proposition arrives in a measured sequence. Transform + opacity only for copy motion.
+ */
+
+.hero-section .hero-line {
+  animation-duration: 760ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-section .hero-line-1 {
+  animation-delay: 360ms;
+}
+
+.hero-section .hero-line-2 {
+  animation-delay: 520ms;
+}
+
+.hero-section .hero-description {
+  transform: translateY(20px);
+  animation-duration: 720ms;
+  animation-delay: 860ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-section .hero-actions {
+  transform: translateY(18px);
+  animation-duration: 680ms;
+  animation-delay: 1080ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Let the environment arrive before the message. This remains deliberately restrained: no
+ * blur, bounce, or dramatic zoom competing with the facility photograph. */
+.hero-section .hero-bg-img {
+  animation-duration: 1650ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 768px) {
+  /* Mobile gets the same hierarchy with a slightly tighter cadence so the CTA is not held
+   * below the user's attention for too long. */
+  .hero-section .hero-line-1 { animation-delay: 260ms; }
+  .hero-section .hero-line-2 { animation-delay: 400ms; }
+  .hero-section .hero-description { animation-delay: 700ms; }
+  .hero-section .hero-actions { animation-delay: 900ms; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .hero-line,
+  .hero-section .hero-description,
+  .hero-section .hero-actions,
+  .hero-section .hero-bg-img {
+    animation: none !important;
+  }
+}
