@@ -1,6 +1,99 @@
 ---
 // src/pages/solutions/security.astro
+// Phase 8: Solution Family Architecture — Security & Network Defense
 import Layout from '../../layouts/Layout.astro';
+
+const situations = [
+  {
+    title: "Volumetric Transit Saturation",
+    detail: "High-volume UDP, NTP, or SYN reflection attacks exhausting upstream transit ports before border edge routers can process ACLs. We structure cloud scrubbing networks that filter multi-terabit attacks upstream."
+  },
+  {
+    title: "Slow-Rate Application Layer (L7) Floods",
+    detail: "Application-layer HTTP/2 rapid reset, TLS renegotiation, and slowloris attacks bypassing volume-based thresholds and overwhelming web application and API backends."
+  },
+  {
+    title: "Slow Incident Response & Manual Triage",
+    detail: "NOC engineers spending critical minutes diagnosing traffic spikes before diverting prefixes. We architect automated out-of-band flow telemetry (FastNetMon) that triggers BGP FlowSpec in seconds."
+  },
+  {
+    title: "BGP Route Hijacking & Prefix Leaks",
+    detail: "Lack of RPKI origin validation and ROA filtering exposing corporate traffic to route hijacking, redirection, or misconfigured downstream AS-path leaks."
+  }
+];
+
+const approaches = [
+  {
+    kicker: "CLOUD SCRUBBING",
+    title: "DDoS Cloud Protection",
+    desc: "Evaluate always-on or on-demand cloud scrubbing with GRE tunnel return, direct cross-connects, and multi-terabit edge capacity.",
+    route: "/ddos-protection",
+    action: "Explore Cloud Scrubbing →"
+  },
+  {
+    kicker: "FLOW TELEMETRY",
+    title: "FastNetMon Advanced",
+    desc: "Near-real-time flow telemetry analyzing sFlow, NetFlow, and IPFIX with autonomous triggers for BGP FlowSpec, RTBH, and scriptable actions.",
+    route: "/ddos-detection-automation",
+    action: "Explore FastNetMon →"
+  },
+  {
+    kicker: "ROUTING SAFEGUARDS",
+    title: "BGP & Routing Intelligence",
+    desc: "Autonomous system routing hygiene with RPKI origin validation, prefix filters, peer policy review, and automated anomaly alerting.",
+    route: "/bgp-routing-intelligence",
+    action: "Explore Routing Security →"
+  },
+  {
+    kicker: "PERIMETER AUDIT",
+    title: "Cybersecurity & Hardening",
+    desc: "Infrastructure vulnerability assessments, application firewalling, and network perimeter audits conducted by certified security specialists.",
+    route: "/cybersecurity",
+    action: "Explore Cybersecurity →"
+  }
+];
+
+const diligenceFactors = [
+  {
+    factor: "Traffic Return Architecture",
+    inquiry: "Is clean traffic returned over symmetrical GRE tunnels, direct cross-connects, or Layer 2 interconnects to prevent MTU fragmentation?"
+  },
+  {
+    factor: "Telemetry Detection Speed",
+    inquiry: "What is the sampling rate on border switch sFlow/IPFIX feeds, and how quickly does the detector inject FlowSpec rules into edge routers?"
+  },
+  {
+    factor: "L4 vs L7 Inspection Depth",
+    inquiry: "Does the mitigation platform support deep HTTP header inspection and behavioral challenge-response without penalizing API latency?"
+  },
+  {
+    factor: "SLA Response Under Attack",
+    inquiry: "Are SLA guarantees backed by round-the-clock direct telephone access to senior security mitigation engineers during live incidents?"
+  }
+];
+
+const partners = [
+  {
+    name: "FastNetMon",
+    role: "DDoS Detection, sFlow / NetFlow Analytics & FlowSpec Automation",
+    slug: "fastnetmon"
+  },
+  {
+    name: "StormWall",
+    role: "Global DDoS Cloud Scrubbing, WAF & Anti-Bot Protection",
+    slug: "stormwall"
+  },
+  {
+    name: "Gcore",
+    role: "Global Scrubbing Network, Edge Security & Web Protection",
+    slug: "gcore"
+  },
+  {
+    name: "ITcare",
+    role: "Security Operations, BGP Filter Engineering & 24/7 Incident Triage",
+    slug: "itcare"
+  }
+];
 ---
 
 <Layout 
@@ -8,69 +101,490 @@ import Layout from '../../layouts/Layout.astro';
   description="Evaluate DDoS protection, FastNetMon detection and routing controls, application security, and BGP routing safeguards through InfraHub."
   canonicalPath="/solutions/security"
   ogImage="/images/og/solution.png"
-  ogImageAlt="InfraHub solution family"
+  ogImageAlt="InfraHub Security & Network Defense solution family"
 >
-  <div class="section section-hero network-overlay">
-    <div class="container hub-container">
-      <div class="hub-header">
-        <span class="hub-kicker">Solution family</span>
-        <h1>Security & Network Defense</h1>
-        <p class="hub-lead">
-          Cloud scrubbing, out-of-band flow detection, automated FlowSpec mitigation, and external perimeter cybersecurity.
+  <!-- Chapter 01: Hero / Discipline Thesis -->
+  <section class="section section-bedrock solution-hero blueprint-grid" aria-label="Discipline Overview">
+    <div class="container solution-container">
+      <div class="solution-hero-header">
+        <div class="technical-kicker">Discipline 04 • DDoS Mitigation, Flow Telemetry &amp; Routing Defense</div>
+        <h1 class="solution-h1">Security &amp; Network Defense</h1>
+        <p class="solution-lead">
+          Cloud scrubbing, out-of-band flow detection, automated FlowSpec mitigation, and external perimeter cybersecurity engineered for mission-critical ASNs.
         </p>
-      </div>
 
-      <div class="services-grid">
-        <div class="service-discovery-card">
-          <span class="disc-pill">Cloud Mitigation</span>
-          <h2>DDoS Cloud Scrubbing</h2>
-          <p>Evaluate always-on or on-demand DDoS protection, including routing, onboarding, clean-traffic return, application requirements, and provider-specific service commitments.</p>
-          <a href="/ddos-protection" class="disc-link">Explore DDoS Protection →</a>
+        <!-- Monospace Telemetry Specs -->
+        <div class="telemetry-bar">
+          <span class="telemetry-badge telemetry-badge-sky">MITIGATION: MULTI-TERABIT SCRUBBING</span>
+          <span class="telemetry-badge">DETECTION: SFLOW / NETFLOW / IPFIX</span>
+          <span class="telemetry-badge">TRIGGER: SUB-SECOND FLOWSPEC</span>
+          <span class="telemetry-badge">ROUTING: RPKI ORIGIN VALIDATION</span>
         </div>
-
-        <div class="service-discovery-card">
-          <span class="disc-pill">Flow Telemetry</span>
-          <h2>FastNetMon Advanced</h2>
-          <p>Near-real-time automated attack detection analyzing sFlow, NetFlow, and IPFIX with automatic FlowSpec and RTBH triggers.</p>
-          <a href="/partners/fastnetmon" class="disc-link">Explore FastNetMon →</a>
-        </div>
-
-        <div class="service-discovery-card">
-          <span class="disc-pill">Routing Security</span>
-          <h2>BGP & Routing Intelligence</h2>
-          <p>Improve routing hygiene with RPKI origin validation, prefix and AS-path policy, monitoring, and incident-response procedures.</p>
-          <a href="/lets-talk?service=bgp" class="disc-link">Inquire Routing Security →</a>
-        </div>
-
-        <div class="service-discovery-card">
-          <span class="disc-pill">Perimeter</span>
-          <h2>Cybersecurity & Pentesting</h2>
-          <p>Evaluate vulnerability assessment, application protection, infrastructure hardening, and other specialist cybersecurity requirements where appropriate coverage is available.</p>
-          <a href="/lets-talk?service=cybersecurity" class="disc-link">Inquire Security Sourcing →</a>
-        </div>
-      </div>
-
-      <div class="hub-cta">
-        <h2>Harden Your Network Perimeter</h2>
-        <a href="/lets-talk?service=security" class="btn btn-accent btn-lg">Discuss Security Requirements</a>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Chapter 02: Situational Triggers -->
+  <section class="section section-midnight" aria-label="When This Fits">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Trigger Scenarios</div>
+        <h2 class="editorial-h2">When to evaluate network security and DDoS defenses</h2>
+      </div>
+
+      <div class="situations-grid">
+        {situations.map((item, idx) => (
+          <div class="situation-item">
+            <span class="situation-num">0{idx + 1}</span>
+            <h3 class="situation-title">{item.title}</h3>
+            <p class="situation-desc">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 03: Available Approaches / Sourcing Ledger -->
+  <section class="section section-bedrock" aria-label="Available Approaches">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Architecture Portfolio</div>
+        <h2 class="editorial-h2">Available defensive disciplines</h2>
+        <p class="section-desc">From autonomous on-premise flow detection to cloud-scale upstream volumetric filtering.</p>
+      </div>
+
+      <div class="architectural-ledger">
+        {approaches.map((item) => (
+          <div class="ledger-row solution-approach-row">
+            <div class="ledger-cell cell-kicker">
+              <span class="approach-kicker">{item.kicker}</span>
+            </div>
+            <div class="ledger-cell cell-title">
+              <h3 class="approach-title">{item.title}</h3>
+            </div>
+            <div class="ledger-cell cell-desc">
+              <p class="approach-desc">{item.desc}</p>
+            </div>
+            <div class="ledger-cell cell-action">
+              <a href={item.route} class="btn-approach-link">{item.action}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 04: Technical Diligence & Verification -->
+  <section class="section section-midnight" aria-label="Engineering Diligence">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Verification Standards</div>
+        <h2 class="editorial-h2">What we verify during security qualification</h2>
+        <p class="section-desc">Defensive architectures must be evaluated against real routing mechanics, return topologies, and provider escalation commitments.</p>
+      </div>
+
+      <div class="diligence-matrix">
+        {diligenceFactors.map((df) => (
+          <div class="diligence-card">
+            <div class="diligence-header">
+              <span class="diligence-dot" aria-hidden="true"></span>
+              <h3 class="diligence-factor">{df.factor}</h3>
+            </div>
+            <p class="diligence-inquiry">{df.inquiry}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 05: Verified Ecosystem Specialists -->
+  <section class="section section-bedrock" aria-label="Verified Ecosystem Specialists">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Ecosystem Specialists</div>
+        <h2 class="editorial-h2">Verified security &amp; mitigation partners</h2>
+        <p class="section-desc">InfraHub coordinates requirements with established flow analytics developers and DDoS cloud scrubbing providers.</p>
+      </div>
+
+      <div class="specialists-grid">
+        {partners.map((partner) => (
+          <a href={`/partners/${partner.slug}`} class="specialist-card" title={`View ${partner.name} architecture profile`}>
+            <div class="specialist-header">
+              <span class="specialist-name">{partner.name}</span>
+              <span class="specialist-arrow" aria-hidden="true">&rarr;</span>
+            </div>
+            <p class="specialist-role">{partner.role}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="operating-disclosure">
+        <p class="disclosure-text">
+          <strong class="disclosure-strong">Delivery Governance:</strong> InfraHub evaluates attack profiles, analyzes routing return models, and structures provider introductions. Active scrubbing capacity, flow license entitlements, and technical uptime SLAs are contracted directly with the specialist provider.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 06: Conversion Action -->
+  <section class="section section-midnight solution-cta-band" aria-label="Technical Consultation">
+    <div class="container solution-container">
+      <div class="cta-inner-card">
+        <div class="cta-left">
+          <div class="technical-kicker">Perimeter Hardening</div>
+          <h2 class="cta-headline">Harden Your Network Perimeter</h2>
+          <p class="cta-desc">
+            Discuss your ASN topology, prefix count, and threat profile. We analyze mitigation models and coordinate an introduction with specialist engineering teams.
+          </p>
+        </div>
+        <div class="cta-right">
+          <a href="/lets-talk?service=ddos-security" class="btn btn-cobalt btn-lg">Discuss Security Requirements</a>
+          <span class="cta-subtext">Direct Principal Access • Response Under 2 Hours</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .hub-container { max-width: 1040px; }
-  .hub-header { max-width: 820px; margin: 0 auto 54px; }
-  .hub-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-blue); display: block; margin-bottom: 8px; }
-  .hub-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 700; margin: 16px 0; }
-  .hub-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
-  .services-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 64px; }
-  @media (min-width: 640px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-  .service-discovery-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
-  .disc-pill { font-size: 0.72rem; font-weight: 700; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 12px; }
-  .service-discovery-card h2 { font-size: 1.3rem; margin-bottom: 12px; }
-  .service-discovery-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
-  .disc-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
-  .disc-link:hover { text-decoration: underline; }
-  .hub-cta { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 44px 36px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; margin-top: 48px; }
+  .solution-hero {
+    padding: 104px 0 72px;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .solution-container {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .solution-hero-header {
+    max-width: 860px;
+  }
+
+  .solution-h1 {
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 16px 0 20px;
+  }
+
+  .solution-lead {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: var(--color-paper);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 780px;
+  }
+
+  .telemetry-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .section-label-row {
+    margin-bottom: 48px;
+    max-width: 780px;
+  }
+
+  .editorial-h2 {
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    font-weight: 650;
+    color: #ffffff;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 10px 0 12px;
+  }
+
+  .section-desc {
+    font-size: 1.02rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Situations Grid */
+  .situations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .situations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .situation-item {
+    background: #0f172a;
+    border: 1px solid var(--color-hairline);
+    padding: 32px 28px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .situation-num {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--color-sky);
+    letter-spacing: 0.08em;
+  }
+
+  .situation-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .situation-desc {
+    font-size: 0.92rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Solution Approach Row */
+  .solution-approach-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 24px 28px;
+  }
+
+  @media (min-width: 840px) {
+    .solution-approach-row {
+      grid-template-columns: 180px 220px 1fr auto;
+      gap: 24px;
+    }
+  }
+
+  .approach-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-sky);
+  }
+
+  .approach-title {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .approach-desc {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .btn-approach-link {
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--color-sky);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 140ms ease;
+  }
+
+  .btn-approach-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  /* Diligence Matrix */
+  .diligence-matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .diligence-matrix {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .diligence-card {
+    background: #0f172a;
+    border: 1px solid var(--color-hairline);
+    border-left: 3px solid var(--color-cobalt);
+    padding: 24px 26px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .diligence-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .diligence-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-sky);
+  }
+
+  .diligence-factor {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .diligence-inquiry {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Specialists Grid */
+  .specialists-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  @media (min-width: 640px) {
+    .specialists-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .specialists-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .specialist-card {
+    background: #0f172a;
+    border: 1px solid var(--color-hairline);
+    padding: 22px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color 140ms ease;
+  }
+
+  .specialist-card:hover {
+    border-color: var(--color-sky);
+  }
+
+  .specialist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .specialist-name {
+    font-size: 1.08rem;
+    font-weight: 650;
+    color: #ffffff;
+  }
+
+  .specialist-arrow {
+    font-size: 1rem;
+    color: var(--color-sky);
+  }
+
+  .specialist-role {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .operating-disclosure {
+    padding: 18px 22px;
+    background: rgba(11, 17, 32, 0.6);
+    border: 1px solid var(--color-hairline);
+    border-radius: 4px;
+  }
+
+  .disclosure-text {
+    font-size: 0.86rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .disclosure-strong {
+    color: var(--color-paper);
+  }
+
+  /* CTA Band */
+  .solution-cta-band {
+    padding: 72px 0 96px;
+  }
+
+  .cta-inner-card {
+    background: #050811;
+    border: 1px solid var(--color-hairline);
+    border-radius: 6px;
+    padding: 54px 44px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .cta-inner-card {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 56px;
+    }
+  }
+
+  .cta-headline {
+    font-size: clamp(2rem, 3.4vw, 2.6rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 10px 0 16px;
+  }
+
+  .cta-desc {
+    font-size: 1.02rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .cta-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cta-subtext {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: #64748b;
+    letter-spacing: 0.04em;
+  }
 </style>

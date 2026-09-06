@@ -1,76 +1,585 @@
 ---
 // src/pages/solutions/managed-services.astro
+// Phase 8: Solution Family Architecture — Managed Operations & 24/7 NOC
 import Layout from '../../layouts/Layout.astro';
+
+const situations = [
+  {
+    title: "Out-of-Hours Incident Fatigue & Coverage Gaps",
+    detail: "Internal senior engineering teams interrupted by midnight pager alerts for transient carrier drops or routine interface flaps instead of focusing on strategic architecture."
+  },
+  {
+    title: "Syslog Floods & Slow Root-Cause Attribution",
+    detail: "Cascading routing alerts and interface notifications across thousands of network elements obscuring the root failure during critical regional outages."
+  },
+  {
+    title: "Upstream Carrier Escalation Delays",
+    detail: "Hours lost navigating Tier-1 upstream telco ticketing queues, unformatted ticket handoffs, and lack of standardized RFO (Reason for Outage) tracking."
+  },
+  {
+    title: "Configuration Drift & Manual Provisioning Bottlenecks",
+    detail: "Manual CLI configuration across multi-vendor fleets introducing human error, inconsistent ACLs, and delayed customer turn-ups."
+  }
+];
+
+const approaches = [
+  {
+    kicker: "CONTINUOUS COVERAGE",
+    title: "24/7 NOC Operations",
+    desc: "Round-the-clock incident monitoring, circuit triage, carrier escalation, and SLA tracking managed by dedicated L2/L3 network teams.",
+    route: "/managed-noc",
+    action: "Explore 24/7 NOC →"
+  },
+  {
+    kicker: "AUTONOMOUS TELEMETRY",
+    title: "AI Network Operations (AIOps)",
+    desc: "Event correlation, root-cause clustering across millions of syslog and telemetry messages, and automated runbook execution.",
+    route: "/ai-network-operations",
+    action: "Explore AI NetOps →"
+  },
+  {
+    kicker: "BGP & PROTOCOL DESIGN",
+    title: "Network Engineering Advisory",
+    desc: "Senior network architecture advisory: multi-homed BGP redesigns, EVPN-VXLAN migration planning, and hardware lifecycle engineering.",
+    route: "/lets-talk?service=network-engineering",
+    action: "Inquire Engineering →"
+  },
+  {
+    kicker: "IAC & PROVISIONING",
+    title: "Network Automation Workflows",
+    desc: "Automated configuration generation and drift compliance using Ansible, NetBox, and CI/CD testing pipelines.",
+    route: "/lets-talk?service=automation",
+    action: "Inquire Automation →"
+  }
+];
+
+const diligenceFactors = [
+  {
+    factor: "Escalation Tier Direct Access",
+    inquiry: "Do incident escalation paths lead directly to qualified L2/L3 network engineers with hands-on CLI access, or through unspecialized first-line call agents?"
+  },
+  {
+    factor: "Monitoring Integration & Runbook Fidelity",
+    inquiry: "Can the NOC interface natively with your Prometheus, Grafana, Zabbix, or Datadog telemetry with customer-approved deterministic runbooks?"
+  },
+  {
+    factor: "Carrier Coordination & Telco Escalation SLAs",
+    inquiry: "Does the provider take full ownership of upstream transit and dark fiber carrier tickets from initial fault isolation to verified RFO delivery?"
+  },
+  {
+    factor: "Protocol & Multi-Vendor Proficiency",
+    inquiry: "Is engineering expertise verified across Cisco IOS-XR, Juniper Junos, Arista EOS, and Linux whitebox environments?"
+  }
+];
+
+const partners = [
+  {
+    name: "ITcare",
+    role: "24/7 Network Operations Center, L2/L3 Engineering & HORA AIOps",
+    slug: "itcare"
+  },
+  {
+    name: "FastNetMon",
+    role: "Automated Incident Detection, Flow Telemetry & BGP FlowSpec Triggers",
+    slug: "fastnetmon"
+  },
+  {
+    name: "Airframe",
+    role: "Operational Intelligence, Vendor Diligence & Technical Build-vs-Buy",
+    slug: "airframe"
+  }
+];
 ---
 
 <Layout 
-  title="Managed Services & 24/7 NOC Solutions | InfraHub"
-  description="Managed network operations, AI-assisted incident workflows, and network engineering delivered through specialist providers."
+  title="Managed Operations & 24/7 NOC Solutions | InfraHub"
+  description="Evaluate 24/7 NOC operations, AI-assisted incident workflows, and senior network engineering advisory through InfraHub."
   canonicalPath="/solutions/managed-services"
   ogImage="/images/og/solution.png"
-  ogImageAlt="InfraHub solution family"
+  ogImageAlt="InfraHub Managed Operations & 24/7 NOC solution family"
 >
-  <div class="section section-hero network-overlay">
-    <div class="container hub-container">
-      <div class="hub-header">
-        <span class="hub-kicker">Solution family</span>
-        <h1>Managed Operations & 24/7 NOC</h1>
-        <p class="hub-lead">
-          Round-the-clock incident response, AI-driven event correlation, proactive runbook execution, and senior network engineering advisory.
+  <!-- Chapter 01: Hero / Discipline Thesis -->
+  <section class="section section-bedrock solution-hero blueprint-grid" aria-label="Discipline Overview">
+    <div class="container solution-container">
+      <div class="solution-hero-header">
+        <div class="technical-kicker">Discipline 05 • 24/7 NOC Operations, AI Incident Telemetry &amp; Network Advisory</div>
+        <h1 class="solution-h1">Managed Operations &amp; 24/7 NOC</h1>
+        <p class="solution-lead">
+          Continuous incident triage, AI-driven event correlation, proactive runbook execution, and senior network engineering advisory engineered for high-availability infrastructures.
         </p>
-      </div>
 
-      <div class="services-grid">
-        <div class="service-discovery-card">
-          <span class="disc-pill">Continuous Coverage</span>
-          <h2>24/7 NOC Operations</h2>
-          <p>Continuous monitoring, incident triage, circuit troubleshooting, and carrier-ticket workflows. Response and escalation targets are defined by the selected provider's service scope.</p>
-          <a href="/managed-noc" class="disc-link">Explore 24/7 NOC →</a>
+        <!-- Monospace Telemetry Specs -->
+        <div class="telemetry-bar">
+          <span class="telemetry-badge telemetry-badge-sky">COVERAGE: 24/7/365 CONTINUOUS</span>
+          <span class="telemetry-badge">PROTOCOLS: BGP / OSPF / EVPN</span>
+          <span class="telemetry-badge">TELEMETRY: AIOPS / EVENT CLUSTERING</span>
+          <span class="telemetry-badge">ESCALATION: DIRECT L2/L3 ACCESS</span>
         </div>
-
-        <div class="service-discovery-card">
-          <span class="disc-pill">Autonomous Intelligence</span>
-          <h2>AI Network Operations (AIOps)</h2>
-          <p>Machine-learning pipelines that correlate root causes across thousands of syslog events and auto-remediate known failure modes.</p>
-          <a href="/lets-talk?service=ai-netops" class="disc-link">Inquire AI Operations →</a>
-        </div>
-
-        <div class="service-discovery-card">
-          <span class="disc-pill">BGP & Architecture</span>
-          <h2>Network Engineering</h2>
-          <p>BGP routing redesigns, carrier migration planning, multi-homing optimization, and hardware lifecycle architecture.</p>
-          <a href="/lets-talk?service=network-engineering" class="disc-link">Inquire Engineering →</a>
-        </div>
-
-        <div class="service-discovery-card">
-          <span class="disc-pill">IaC & CI/CD</span>
-          <h2>Network Automation</h2>
-          <p>Infrastructure as Code deployments utilizing Ansible, Terraform, and NetBox for automated switch provisioning and testing.</p>
-          <a href="/lets-talk?service=automation" class="disc-link">Inquire Automation →</a>
-        </div>
-      </div>
-
-      <div class="hub-cta">
-        <h2>Eliminate Engineering Burnout</h2>
-        <a href="/lets-talk?service=managed-services" class="btn btn-accent btn-lg">Consult an Operations Architect</a>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Chapter 02: Situational Triggers -->
+  <section class="section section-midnight" aria-label="When This Fits">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Trigger Scenarios</div>
+        <h2 class="editorial-h2">When to evaluate managed operations &amp; engineering coverage</h2>
+      </div>
+
+      <div class="situations-grid">
+        {situations.map((item, idx) => (
+          <div class="situation-item">
+            <span class="situation-num">0{idx + 1}</span>
+            <h3 class="situation-title">{item.title}</h3>
+            <p class="situation-desc">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 03: Available Approaches / Sourcing Ledger -->
+  <section class="section section-bedrock" aria-label="Available Approaches">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Architecture Portfolio</div>
+        <h2 class="editorial-h2">Available operational disciplines</h2>
+        <p class="section-desc">From continuous out-of-hours coverage to machine-learning root-cause correlation and protocol redesigns.</p>
+      </div>
+
+      <div class="architectural-ledger">
+        {approaches.map((item) => (
+          <div class="ledger-row solution-approach-row">
+            <div class="ledger-cell cell-kicker">
+              <span class="approach-kicker">{item.kicker}</span>
+            </div>
+            <div class="ledger-cell cell-title">
+              <h3 class="approach-title">{item.title}</h3>
+            </div>
+            <div class="ledger-cell cell-desc">
+              <p class="approach-desc">{item.desc}</p>
+            </div>
+            <div class="ledger-cell cell-action">
+              <a href={item.route} class="btn-approach-link">{item.action}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 04: Technical Diligence & Verification -->
+  <section class="section section-midnight" aria-label="Engineering Diligence">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Verification Standards</div>
+        <h2 class="editorial-h2">What we verify during operational qualification</h2>
+        <p class="section-desc">Managed network services must provide direct access to verified L2/L3 engineers rather than scripted call centers.</p>
+      </div>
+
+      <div class="diligence-matrix">
+        {diligenceFactors.map((df) => (
+          <div class="diligence-card">
+            <div class="diligence-header">
+              <span class="diligence-dot" aria-hidden="true"></span>
+              <h3 class="diligence-factor">{df.factor}</h3>
+            </div>
+            <p class="diligence-inquiry">{df.inquiry}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 05: Verified Ecosystem Specialists -->
+  <section class="section section-bedrock" aria-label="Verified Ecosystem Specialists">
+    <div class="container solution-container">
+      <div class="section-label-row">
+        <div class="technical-kicker">Ecosystem Specialists</div>
+        <h2 class="editorial-h2">Verified operations &amp; engineering partners</h2>
+        <p class="section-desc">InfraHub coordinates requirements with verified network operations specialists and telemetry providers.</p>
+      </div>
+
+      <div class="specialists-grid">
+        {partners.map((partner) => (
+          <a href={`/partners/${partner.slug}`} class="specialist-card" title={`View ${partner.name} architecture profile`}>
+            <div class="specialist-header">
+              <span class="specialist-name">{partner.name}</span>
+              <span class="specialist-arrow" aria-hidden="true">&rarr;</span>
+            </div>
+            <p class="specialist-role">{partner.role}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="operating-disclosure">
+        <p class="disclosure-text">
+          <strong class="disclosure-strong">Delivery Governance:</strong> InfraHub evaluates network monitoring requirements, scopes escalation procedures, and coordinates specialist introductions. Active NOC coverage, SLA commitments, and engineering advisory contracts are held directly with the specialist provider.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chapter 06: Conversion Action -->
+  <section class="section section-midnight solution-cta-band" aria-label="Technical Consultation">
+    <div class="container solution-container">
+      <div class="cta-inner-card">
+        <div class="cta-left">
+          <div class="technical-kicker">Operational Resilience</div>
+          <h2 class="cta-headline">Eliminate Engineering Alert Fatigue</h2>
+          <p class="cta-desc">
+            Discuss your network topology, monitoring inputs, and escalation requirements. We structure SLA-backed 24/7 NOC coverage and engineering advisory through verified specialists.
+          </p>
+        </div>
+        <div class="cta-right">
+          <a href="/lets-talk?service=managed-services" class="btn btn-cobalt btn-lg">Consult an Operations Architect</a>
+          <span class="cta-subtext">Direct Principal Access • Response Under 2 Hours</span>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .hub-container { max-width: 1040px; }
-  .hub-header { max-width: 820px; margin: 0 auto 54px; }
-  .hub-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-blue); display: block; margin-bottom: 8px; }
-  .hub-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 700; margin: 16px 0; }
-  .hub-lead { font-size: 1.15rem; color: var(--text-secondary); line-height: 1.6; }
-  .services-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 64px; }
-  @media (min-width: 640px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-  .service-discovery-card { background-color: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
-  .disc-pill { font-size: 0.72rem; font-weight: 700; color: var(--accent-teal); letter-spacing: 0.05em; margin-bottom: 12px; }
-  .service-discovery-card h2 { font-size: 1.3rem; margin-bottom: 12px; }
-  .service-discovery-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
-  .disc-link { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); }
-  .disc-link:hover { text-decoration: underline; }
-  .hub-cta { background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 44px 36px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 16px; margin-top: 48px; }
+  .solution-hero {
+    padding: 104px 0 72px;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+
+  .solution-container {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .solution-hero-header {
+    max-width: 860px;
+  }
+
+  .solution-h1 {
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 16px 0 20px;
+  }
+
+  .solution-lead {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: var(--color-paper);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 780px;
+  }
+
+  .telemetry-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .section-label-row {
+    margin-bottom: 48px;
+    max-width: 780px;
+  }
+
+  .editorial-h2 {
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    font-weight: 650;
+    color: #ffffff;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 10px 0 12px;
+  }
+
+  .section-desc {
+    font-size: 1.02rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Situations Grid */
+  .situations-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .situations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .situation-item {
+    background: #0f172a;
+    border: 1px solid var(--color-hairline);
+    padding: 32px 28px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .situation-num {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--color-sky);
+    letter-spacing: 0.08em;
+  }
+
+  .situation-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .situation-desc {
+    font-size: 0.92rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Solution Approach Row */
+  .solution-approach-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: center;
+    padding: 24px 28px;
+  }
+
+  @media (min-width: 840px) {
+    .solution-approach-row {
+      grid-template-columns: 180px 220px 1fr auto;
+      gap: 24px;
+    }
+  }
+
+  .approach-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-sky);
+  }
+
+  .approach-title {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .approach-desc {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .btn-approach-link {
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--color-sky);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 140ms ease;
+  }
+
+  .btn-approach-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+
+  /* Diligence Matrix */
+  .diligence-matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .diligence-matrix {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .diligence-card {
+    background: #0f172a;
+    border: 1px solid var(--color-hairline);
+    border-left: 3px solid var(--color-cobalt);
+    padding: 24px 26px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .diligence-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .diligence-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-sky);
+  }
+
+  .diligence-factor {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .diligence-inquiry {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* Specialists Grid */
+  .specialists-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  @media (min-width: 640px) {
+    .specialists-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .specialists-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .specialist-card {
+    background: #0f172a;
+    border: 1px solid var(--color-hairline);
+    padding: 22px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color 140ms ease;
+  }
+
+  .specialist-card:hover {
+    border-color: var(--color-sky);
+  }
+
+  .specialist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .specialist-name {
+    font-size: 1.08rem;
+    font-weight: 650;
+    color: #ffffff;
+  }
+
+  .specialist-arrow {
+    font-size: 1rem;
+    color: var(--color-sky);
+  }
+
+  .specialist-role {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .operating-disclosure {
+    padding: 18px 22px;
+    background: rgba(11, 17, 32, 0.6);
+    border: 1px solid var(--color-hairline);
+    border-radius: 4px;
+  }
+
+  .disclosure-text {
+    font-size: 0.86rem;
+    color: #94a3b8;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .disclosure-strong {
+    color: var(--color-paper);
+  }
+
+  /* CTA Band */
+  .solution-cta-band {
+    padding: 72px 0 96px;
+  }
+
+  .cta-inner-card {
+    background: #050811;
+    border: 1px solid var(--color-hairline);
+    border-radius: 6px;
+    padding: 54px 44px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .cta-inner-card {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 56px;
+    }
+  }
+
+  .cta-headline {
+    font-size: clamp(2rem, 3.4vw, 2.6rem);
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+    margin: 10px 0 16px;
+  }
+
+  .cta-desc {
+    font-size: 1.02rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .cta-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cta-subtext {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: #64748b;
+    letter-spacing: 0.04em;
+  }
 </style>
