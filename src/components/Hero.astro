@@ -47,7 +47,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-light-field"></div>
-    <canvas class="hero-optical" id="heroOptical" data-optical-idle></canvas>
     <div class="hero-exit-veil"></div>
   </div>
 
@@ -245,14 +244,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   /*
-   * The light sweep is gone. It was the hero's authored moment: a one-time highlight tracking
-   * the overhead trays at 0.08 peak opacity. The optical module's arrival is that moment now,
-   * and the two ran across the same second of the same frame — a second entrance nobody was
-   * asked to notice, competing with the one that carries meaning. Its absence is not missed,
-   * which is the whole test.
-   */
-
-  /*
    * Exposure drops only in the last third of the exit, so the photograph stays worth looking
    * at while the visitor is still leaving it. Negative opacity clamps to 0 on its own.
    */
@@ -262,42 +253,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     pointer-events: none;
     background-color: #070c14;
     opacity: calc((var(--hero-progress, 0) - 0.65) / 3.5);
-  }
-
-  /*
-   * Directive 25: right of centre and high, in the open part of the frame rather than over the
-   * rack detail, and small enough that it is the second thing seen rather than the first. The
-   * width band keeps it between 14% and 20% of the hero at every size. It is decorative, so it
-   * never takes pointer events away from the copy beneath it.
-   */
-  .hero-optical {
-    position: absolute;
-    right: clamp(4%, 7vw, 12%);
-    top: 20%;
-    width: clamp(200px, 17vw, 340px);
-    height: clamp(150px, 12vw, 240px);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 420ms var(--ease-out, ease-out);
-  }
-
-  .hero-optical[data-optical-ready] {
-    opacity: 1;
-  }
-
-  /* Nothing to reveal, so nothing is shown: the photograph carries the hero on its own. */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-optical {
-      display: none;
-    }
-  }
-
-  /* Directive 34: at narrow widths the headline and the call to action matter more. */
-  @media (max-width: 1023px) {
-    .hero-optical {
-      display: none;
-    }
   }
 
   .hero-container {
@@ -624,81 +579,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
    * room rather than a flat plate. Finishing detail only: ±3px horizontal, ±2px vertical,
    * and never on touch, coarse pointers, narrow viewports or reduced motion.
    */
-  /**
-   * The optical module. Three.js is loaded only here, only on a pointer-capable desktop, and
-   * only after the hero photograph has begun painting: it is an accent on the LCP element and
-   * must never compete with it. Everything else on this page ships about 5kb of JavaScript, so
-   * the import is dynamic and the failure path is simply that no object appears.
-   */
-  function initOpticalModule() {
-    const canvas = document.getElementById('heroOptical') as HTMLCanvasElement | null;
-    const heroSection = document.getElementById('hero');
-    if (!canvas || !heroSection) return;
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduced.matches) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)').matches) return;
-
-    // A context is not guaranteed. If the machine cannot give us one, leave the frame alone.
-    const probe = canvas.getContext('webgl2') || canvas.getContext('webgl');
-    if (!probe) return;
-
-    const start = async () => {
-      let module;
-      try {
-        const { createOpticalModule } = await import('../scripts/hero-optical-module');
-        module = createOpticalModule(canvas);
-      } catch {
-        return; // no object is a better outcome than a broken one
-      }
-
-      canvas.setAttribute('data-optical-ready', '');
-      canvas.removeAttribute('data-optical-idle');
-
-      // Entrance: revealed over ~900ms, then it stops. No float, no breathing, no loop.
-      const REVEAL_MS = 900;
-      const began = performance.now();
-      let revealing = true;
-      const step = (now: number) => {
-        const t = Math.min((now - began) / REVEAL_MS, 1);
-        module.setReveal(t);
-        if (t < 1) requestAnimationFrame(step);
-        else revealing = false;
-      };
-      requestAnimationFrame(step);
-
-      const scheduler = homepageScheduler();
-      scheduler.onFrame(() => {
-        const heroHeight = heroSection.offsetHeight || 1;
-        module.setExit(Math.min(Math.max(window.scrollY / heroHeight, 0), 1));
-      });
-
-      heroSection.addEventListener('pointermove', (event) => {
-        if (revealing || event.pointerType !== 'mouse') return;
-        const rect = heroSection.getBoundingClientRect();
-        module.setPointer(
-          ((event.clientX - rect.left) / rect.width - 0.5) * 2,
-          ((event.clientY - rect.top) / rect.height - 0.5) * -2,
-        );
-      }, { passive: true });
-      heroSection.addEventListener('pointerleave', () => module.setPointer(null, null), { passive: true });
-
-      window.addEventListener('resize', () => module.resize(), { passive: true });
-      reduced.addEventListener('change', (event) => {
-        if (event.matches) {
-          canvas.removeAttribute('data-optical-ready');
-          module.dispose();
-        }
-      });
-    };
-
-    // After the hero image has begun rendering, and never blocking it.
-    const image = document.querySelector('.hero-bg-img') as HTMLImageElement | null;
-    const whenPainted = () => window.requestAnimationFrame(() => window.setTimeout(start, 120));
-    if (!image || image.complete) whenPainted();
-    else image.addEventListener('load', whenPainted, { once: true });
-  }
-
   function initHeroPointerDepth() {
     const heroSection = document.getElementById('hero');
     if (!heroSection) return;
@@ -744,9 +624,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
   function initHero() {
     initHeroScroll();
     initHeroPointerDepth();
-  initOpticalModule();
 
-    // Lazy load Three.js 3D spatial transition on desktop after initial paint (Directives 12, 28, 47)
+    // Lazy load the 3D spatial transition on desktop after initial paint (Directives 12, 28, 47)
     if (window.innerWidth >= 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const load3D = () => {
         import('../scripts/hero-3d-transition').then(({ initHero3DTransition }) => {

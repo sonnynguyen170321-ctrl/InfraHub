@@ -62,6 +62,12 @@ async function copyLineBoxes(page: Page) {
 }
 
 test.describe('hero art direction', () => {
+  test('does not render the decorative optical hardware', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page.locator('#heroOptical, .hero-optical')).toHaveCount(0);
+  });
+
   test('every line of hero copy clears AA against its brightest background pixel', async ({ page }, testInfo) => {
     await page.goto('/');
     await page.waitForTimeout(2200); // the one-time reveal must have settled
