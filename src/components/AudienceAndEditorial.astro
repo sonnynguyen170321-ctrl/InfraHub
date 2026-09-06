@@ -1,27 +1,8 @@
 ---
-// src/components/AudienceAndEditorial.astro  -  Technical Journal Editorial Split (Directives 28-30)
-const industries = [
-  {
-    name: "ISPs & Network Operators",
-    summary: "Transit, optical connectivity, routing and DDoS requirements.",
-    url: "/industries/isps-network-operators"
-  },
-  {
-    name: "Hosting & Cloud Providers",
-    summary: "Compute, colocation, IPv4 and network capacity.",
-    url: "/industries/hosting-cloud-providers"
-  },
-  {
-    name: "SaaS & Technology",
-    summary: "Regional connectivity, cloud economics and private infrastructure.",
-    url: "/industries/saas-technology"
-  },
-  {
-    name: "Enterprise",
-    summary: "Private cloud, connectivity, hardware and managed operations.",
-    url: "/industries/enterprise"
-  }
-];
+// src/components/AudienceAndEditorial.astro  -  Technical Journal Editorial & Evaluation Matrix (Directives 28-30)
+import { industries } from '../data/industry-evaluations';
+
+const initialSector = industries[0];
 ---
 
 <section class="section section-audience-editorial" id="who-we-help" aria-label="Industries and Editorial Practice">
@@ -40,9 +21,9 @@ const industries = [
 
     <div class="journal-editorial-stage">
       
-      <!-- Dominant Left Column: Featured Technical Analysis (~62%) -->
+      <!-- Dominant Left Column: Featured Technical Analysis (~58%) -->
       <article class="journal-analysis-dominant" id="featuredArticle" aria-labelledby="featured-analysis-title">
-        <a href="/insights/physical-path-diversity" class="analysis-image-frame">
+        <a href="/insights/physical-path-diversity" class="analysis-image-frame" aria-label="Read technical analysis: Why two diverse network circuits may still share the same physical path">
           <img 
             src="/images/physical-route-diversity.jpg" 
             alt="Physical optical fiber route diversity diagram across bridge choke point" 
@@ -57,6 +38,10 @@ const industries = [
         <div class="analysis-editorial-body">
           <div class="analysis-meta-row">
             <span class="analysis-category">Optical Networks</span>
+            <span class="meta-dot" aria-hidden="true">&bull;</span>
+            <span class="analysis-time">8 min technical read</span>
+            <span class="meta-dot" aria-hidden="true">&bull;</span>
+            <span class="analysis-context-hint" id="articleSectorHint">Relevant to ISPs & Network Operators</span>
           </div>
 
           <h3 class="analysis-title" id="featured-analysis-title">
@@ -78,21 +63,26 @@ const industries = [
         </div>
       </article>
 
-      <!-- Supporting Right Column: Industry Index Navigation (~38%) -->
-      <aside class="journal-industries-sidebar" aria-label="Target Industries">
+      <!-- Supporting Right Column: Industry Index & Evaluation Detail (~42%) -->
+      <aside class="journal-industries-sidebar" aria-label="Target industries and evaluation details">
         <div class="sidebar-header">
           <h3 class="sidebar-title">Who we work with</h3>
           <p class="sidebar-desc">
-            We tailor sourcing, routing, and hardware evaluation to the operational realities of four core sectors.
+            Select a sector to compare the constraints and evidence that shape an infrastructure decision.
           </p>
         </div>
 
-        <nav class="industries-nav-list" aria-label="Target Industries">
+        <div class="industries-nav-list" role="tablist" aria-label="Industry Sector Profiles">
           {industries.map((ind, idx) => (
-            <a 
-              href={ind.url} 
-              class="industry-nav-item" 
+            <button
+              type="button"
+              role="tab"
+              id={`sector-tab-${ind.id}`}
+              aria-selected={idx === 0 ? "true" : "false"}
+              aria-controls="sectorDetailPanel"
+              class={`industry-nav-item ${idx === 0 ? 'is-active' : ''}`}
               data-sector-index={idx}
+              data-sector-id={ind.id}
             >
               <span class="ind-index">{String(idx + 1).padStart(2, '0')}</span>
               <div class="ind-text-wrap">
@@ -100,9 +90,50 @@ const industries = [
                 <span class="ind-summary">{ind.summary}</span>
               </div>
               <span class="ind-arrow" aria-hidden="true">&rarr;</span>
-            </a>
+            </button>
           ))}
-        </nav>
+        </div>
+
+        <!-- Sector-specific evaluation detail -->
+        <div
+          class="sector-detail-panel"
+          id="sectorDetailPanel"
+          role="tabpanel"
+          aria-labelledby="sector-tab-isps"
+          aria-live="polite"
+        >
+          <div class="card-header-bar">
+            <span class="eval-tag" id="evalKicker">{initialSector.kicker}</span>
+          </div>
+
+          <div class="eval-body">
+            <div class="eval-block">
+              <div class="eval-label">Typical constraint</div>
+              <p class="eval-challenge" id="evalChallenge">{initialSector.challenge}</p>
+            </div>
+
+            <div class="eval-block">
+              <div class="eval-label">What to compare</div>
+              <p class="eval-solution" id="evalSolution">{initialSector.solution}</p>
+            </div>
+
+            <div class="eval-metrics-grid" id="evalMetricsGrid">
+              {initialSector.metrics.map(m => (
+                <div class="eval-metric-item">
+                  <span class="metric-label">{m.label}</span>
+                  <span class="metric-value">{m.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="eval-footer">
+            <a href={initialSector.url} class="btn-sector-deepdive" id="evalDeepdiveLink">
+              <span id="evalDeepdiveText">View {initialSector.name} guidance</span>
+              <span class="link-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
 
         <div class="ecosystem-strip-link">
           <a href="/partners" class="btn-ecosystem-link">
@@ -146,7 +177,7 @@ const industries = [
     line-height: 1.2;
     letter-spacing: -0.025em;
     color: var(--text-primary);
-    margin: 10px 0 12px;
+    margin: 8px 0 12px;
   }
   .practice-subline {
     font-size: 1.05rem;
@@ -160,8 +191,8 @@ const industries = [
   }
   @media (min-width: 960px) {
     .journal-editorial-stage {
-      grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
-      gap: 64px;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.15fr);
+      gap: 56px;
       align-items: start;
     }
   }
@@ -177,6 +208,7 @@ const industries = [
     border-radius: var(--radius-sm);
     background-color: #0b1120;
     border: 1px solid var(--border-color);
+    text-decoration: none;
   }
   .analysis-lead-img {
     width: 100%;
@@ -187,23 +219,6 @@ const industries = [
   .analysis-image-frame:hover .analysis-lead-img,
   .analysis-lead-img.shift-crop {
     transform: scale(1.025) translate3d(2px, -2px, 0);
-  }
-  .analysis-image-overlay {
-    position: absolute;
-    bottom: 12px;
-    left: 12px;
-  }
-  .analysis-overlay-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    font-size: 0.76rem;
-    font-weight: 600;
-    color: #ffffff;
-    background: rgba(11, 17, 32, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-    backdrop-filter: blur(4px);
-    transition: color 160ms ease, border-color 160ms ease;
   }
   .analysis-editorial-body {
     padding-top: 24px;
@@ -227,7 +242,7 @@ const industries = [
     color: var(--text-muted);
     font-size: 0.75rem;
   }
-  .analysis-time, .analysis-context-hint {
+  .analysis-time {
     font-size: 0.82rem;
     color: #475569;
   }
@@ -235,11 +250,12 @@ const industries = [
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.02em;
+    color: #475569;
   }
   .analysis-title {
     font-size: clamp(1.35rem, 1.8vw, 1.65rem);
     font-weight: 700;
-    line-height: 1.35;
+    line-height: 1.4;
     color: var(--text-primary);
     margin: 4px 0 0;
   }
@@ -274,25 +290,28 @@ const industries = [
     color: var(--accent-blue-hover);
   }
   .analysis-read-link:hover .link-arrow,
-  .btn-ecosystem-link:hover .link-arrow {
+  .btn-ecosystem-link:hover .link-arrow,
+  .btn-sector-deepdive:hover .link-arrow {
     transform: translateX(3px);
   }
   .link-arrow {
     transition: transform 160ms ease;
   }
+
+  /* Right Column: Sidebar & Sector Detail */
   .journal-industries-sidebar {
     display: flex;
     flex-direction: column;
   }
   .sidebar-header {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   .sidebar-title {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 700;
     line-height: 1.3;
     color: var(--text-primary);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .sidebar-desc {
     font-size: 0.92rem;
@@ -306,16 +325,25 @@ const industries = [
   }
   .industry-nav-item {
     display: grid;
-    grid-template-columns: 32px 1fr 20px;
+    grid-template-columns: 28px 1fr 20px;
     align-items: start;
-    gap: 16px;
-    padding: 18px 4px;
+    gap: 14px;
+    padding: 14px 10px;
+    border: none;
     border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
     text-decoration: none;
-    transition: background-color 160ms ease;
+    transition: background-color 160ms ease, border-left-color 160ms ease;
   }
   .industry-nav-item:hover {
-    background-color: rgba(40, 84, 199, 0.02);
+    background-color: rgba(40, 84, 199, 0.03);
+  }
+  .industry-nav-item.is-active {
+    background-color: rgba(40, 84, 199, 0.05);
+    border-left: 3px solid var(--accent-blue);
+    padding-left: 7px;
   }
   .ind-index {
     font-family: var(--font-mono);
@@ -327,35 +355,141 @@ const industries = [
   .ind-text-wrap {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
   }
   .ind-name {
-    font-size: 1.02rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: var(--text-primary);
-    transition: color 160ms ease;
     line-height: 1.35;
+    transition: color 160ms ease;
   }
-  .industry-nav-item:hover .ind-name {
+  .industry-nav-item:hover .ind-name,
+  .industry-nav-item.is-active .ind-name {
     color: var(--accent-blue);
   }
   .ind-summary {
-    font-size: 0.84rem;
+    font-size: 0.82rem;
     color: #475569;
-    line-height: 1.45;
+    line-height: 1.4;
   }
   .ind-arrow {
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--text-muted);
     transition: transform 160ms ease, color 160ms ease;
     padding-top: 2px;
   }
-  .industry-nav-item:hover .ind-arrow {
+  .industry-nav-item:hover .ind-arrow,
+  .industry-nav-item.is-active .ind-arrow {
     color: var(--accent-blue);
     transform: translateX(3px);
   }
+
+  /* Sector-specific evaluation detail */
+  .sector-detail-panel {
+    margin-top: 20px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: border-color 180ms ease, background-color 180ms ease;
+  }
+  .card-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding-bottom: 10px;
+  }
+  .eval-tag {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+  .eval-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .eval-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .eval-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .eval-challenge {
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .eval-solution {
+    font-size: 0.86rem;
+    line-height: 1.45;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  .eval-metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  @media (min-width: 640px) {
+    .eval-metrics-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+  }
+  .eval-metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .metric-label {
+    font-size: 0.68rem;
+    color: #64748b;
+  }
+  .metric-value {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .eval-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 4px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .btn-sector-deepdive {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+  .btn-sector-deepdive:hover {
+    color: var(--accent-blue-hover);
+  }
+
   .ecosystem-strip-link {
-    margin-top: 24px;
+    margin-top: 18px;
   }
   .btn-ecosystem-link {
     display: inline-flex;
@@ -370,19 +504,107 @@ const industries = [
   .btn-ecosystem-link:hover {
     color: var(--accent-blue-hover);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .analysis-lead-img,
+    .industry-nav-item,
+    .ind-name,
+    .ind-arrow,
+    .link-arrow,
+    .sector-detail-panel {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
 </style>
 
 <script>
+  import { industries } from '../data/industry-evaluations';
+
   function initPracticeInteractions() {
     const leadImg = document.getElementById('analysisLeadImg');
-    const items = document.querySelectorAll('.industry-nav-item');
-    if (!leadImg || !items.length) return;
+    const hint = document.getElementById('articleSectorHint');
+    const items = Array.from(document.querySelectorAll<HTMLButtonElement>('.industry-nav-item'));
+    
+    // Sector detail elements
+    const kickerEl = document.getElementById('evalKicker');
+    const challengeEl = document.getElementById('evalChallenge');
+    const solutionEl = document.getElementById('evalSolution');
+    const metricsGridEl = document.getElementById('evalMetricsGrid');
+    const deepdiveLink = document.getElementById('evalDeepdiveLink') as HTMLAnchorElement | null;
+    const deepdiveText = document.getElementById('evalDeepdiveText');
+    const card = document.getElementById('sectorDetailPanel');
 
-    items.forEach((item) => {
-      item.addEventListener('mouseenter', () => leadImg.classList.add('shift-crop'));
-      item.addEventListener('mouseleave', () => leadImg.classList.remove('shift-crop'));
-      item.addEventListener('focus', () => leadImg.classList.add('shift-crop'));
-      item.addEventListener('blur', () => leadImg.classList.remove('shift-crop'));
+    function selectSector(index: number, focusTab = false) {
+      if (index < 0 || index >= industries.length) return;
+      const sec = industries[index];
+
+      // Update button active state
+      items.forEach((item, idx) => {
+        const isActive = idx === index;
+        item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        item.tabIndex = isActive ? 0 : -1;
+        if (isActive && focusTab) {
+          item.focus();
+        }
+      });
+
+      // Update the selected sector detail
+      if (kickerEl) kickerEl.textContent = sec.kicker;
+      if (challengeEl) challengeEl.textContent = sec.challenge;
+      if (solutionEl) solutionEl.textContent = sec.solution;
+      if (deepdiveLink) deepdiveLink.href = sec.url;
+      if (deepdiveText) deepdiveText.textContent = `View ${sec.name} guidance`;
+      if (hint) hint.textContent = `Relevant to ${sec.name}`;
+
+      // Update metrics
+      if (metricsGridEl && Array.isArray(sec.metrics)) {
+        metricsGridEl.innerHTML = sec.metrics.map((m: any) => `
+          <div class="eval-metric-item">
+            <span class="metric-label">${m.label}</span>
+            <span class="metric-value">${m.value}</span>
+          </div>
+        `).join('');
+      }
+
+      if (card) {
+        card.setAttribute('aria-labelledby', `sector-tab-${sec.id}`);
+      }
+    }
+
+    items.forEach((item, idx) => {
+      item.addEventListener('click', () => {
+        selectSector(idx);
+      });
+
+      item.addEventListener('mouseenter', () => {
+        if (leadImg) leadImg.classList.add('shift-crop');
+      });
+
+      item.addEventListener('mouseleave', () => {
+        if (leadImg) leadImg.classList.remove('shift-crop');
+      });
+
+      // Keyboard navigation (Arrow keys, Home, End)
+      item.addEventListener('keydown', (e) => {
+        let targetIdx = idx;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          targetIdx = (idx + 1) % items.length;
+          selectSector(targetIdx, true);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          targetIdx = (idx - 1 + items.length) % items.length;
+          selectSector(targetIdx, true);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          selectSector(0, true);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          selectSector(items.length - 1, true);
+        }
+      });
     });
   }
 

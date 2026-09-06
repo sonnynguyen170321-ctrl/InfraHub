@@ -269,7 +269,6 @@ img {
 }
 .btn-primary:hover {
   background-color: var(--accent-blue);
-  transform: translateY(-1px);
 }
 
 .btn-accent {
@@ -278,7 +277,6 @@ img {
 }
 .btn-accent:hover {
   background-color: var(--accent-blue-hover);
-  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -299,7 +297,10 @@ img {
 .btn-on-dark:hover {
   background-color: var(--accent-blue-light);
   color: var(--accent-blue);
-  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: scale(0.985);
 }
 
 .btn-on-dark-outline {

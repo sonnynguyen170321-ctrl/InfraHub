@@ -136,4 +136,76 @@ test.describe('route diversity states', () => {
     await expect(page.locator('#route-explorer canvas')).toHaveCount(0);
     await expect(page.locator('#route-explorer svg')).not.toHaveCount(0);
   });
+
+  test('optical transmission pulses render along carrier paths in both views', async ({ page }) => {
+    await page.goto('/');
+
+    const logicalPulses = page.locator('#svgLogical .route-path-pulse');
+    await expect(logicalPulses).toHaveCount(2);
+
+    await page.locator('[data-view="physical"]').click();
+    const physicalPulses = page.locator('#svgPhysical .route-path-pulse');
+    await expect(physicalPulses).toHaveCount(3);
+  });
+
+  test('hotspot interaction updates the route-point explanation', async ({ page }) => {
+    await page.goto('/wavelengths');
+
+    const physical = page.locator('[data-view="physical"]');
+    await physical.click();
+    // aria-pressed is only set by the explorer script, so waiting on it keeps the hotspot
+    // click below from landing before that script's listeners attach.
+    await expect(physical).toHaveAttribute('aria-pressed', 'true');
+
+    const bridgeItem = page.locator('.verify-item[data-risk-target="bridge-or-rail-crossing"]');
+    await bridgeItem.click();
+
+    const title = page.locator('#routePointName');
+    const desc = page.locator('#routePointDesc');
+    await expect(title).toContainText('Civil Bridge or Rail Crossing');
+    await expect(desc).toContainText('River, highway, or railway barriers');
+  });
+
+  test('selected route point returns after closing the failure illustration', async ({ page }) => {
+    await page.goto('/wavelengths');
+
+    const physical = page.locator('[data-view="physical"]');
+    await physical.click();
+    await expect(physical).toHaveAttribute('aria-pressed', 'true');
+
+    await page.locator('.verify-item[data-risk-target="bridge-or-rail-crossing"]').click();
+    const pointName = page.locator('#routePointName');
+    await expect(pointName).toContainText('Civil Bridge or Rail Crossing');
+
+    const failureControl = page.locator('#btnSeverSim');
+    await failureControl.click();
+    await expect(pointName).toContainText('Shared civil crossing unavailable');
+
+    await failureControl.click();
+    await expect(pointName).toContainText('Civil Bridge or Rail Crossing');
+  });
+
+  test('shared-segment failure control explains the common-mode state', async ({ page }) => {
+    await page.goto('/');
+
+    const severBtn = page.locator('#btnSeverSim');
+    await expect(severBtn).toBeVisible();
+
+    await severBtn.click();
+    await expect(severBtn).toHaveClass(/is-active/);
+    await expect(severBtn).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#route-explorer')).toHaveClass(/is-severed/);
+
+    const statusTag = page.locator('#statusTag');
+    await expect(statusTag).toContainText('Common-mode failure');
+
+    const desc = page.locator('#routePointDesc');
+    await expect(desc).toContainText('illustrative model');
+
+    // Toggle back off
+    await severBtn.click();
+    await expect(severBtn).not.toHaveClass(/is-active/);
+    await expect(page.locator('#route-explorer')).not.toHaveClass(/is-severed/);
+  });
 });
+

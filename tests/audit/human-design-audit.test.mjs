@@ -2,10 +2,24 @@
 // Automated human design forensics audit enforcing anti-slop and taste guardrails
 
 import fs from 'fs';
+import path from 'path';
 
 console.log('Running Human Design Forensics & Taste Audit...\n');
 
 let errors = [];
+
+function sourceFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const target = path.join(dir, entry.name);
+    if (entry.isDirectory()) return sourceFiles(target);
+    return /\.(?:astro|css)$/.test(entry.name) ? [target] : [];
+  });
+}
+
+const designSources = sourceFiles('src').map((file) => ({
+  file,
+  content: fs.readFileSync(file, 'utf8')
+}));
 
 // 1. Check EcosystemSolutions.astro for distinct imagery across all 5 families
 const ecosystemFile = 'src/components/EcosystemSolutions.astro';
@@ -37,7 +51,26 @@ if (fs.existsSync(ecosystemFile)) {
   errors.push(`Missing ${ecosystemFile}`);
 }
 
-// 2. Check for transition: all in src/styles/
+// 2. Check the full component-scoped design surface, not only global.css. Astro component
+// styles are emitted into the homepage too, so ignoring them makes this audit falsely green.
+const sourceRules = [
+  { pattern: /transition\s*:\s*all\b/i, message: 'forbidden transition: all' },
+  { pattern: /backdrop-filter\s*:/i, message: 'forbidden backdrop blur' },
+  { pattern: /filter\s*:\s*drop-shadow\s*\(/i, message: 'forbidden glow/drop-shadow' },
+  { pattern: /:hover[^\{]*\{[^}]*transform\s*:\s*translateY\s*\(\s*-/is, message: 'forbidden hover lift' }
+];
+
+const styleErrorsBefore = errors.length;
+for (const { file, content } of designSources) {
+  for (const rule of sourceRules) {
+    if (rule.pattern.test(content)) errors.push(`Found ${rule.message} in ${file}`);
+  }
+}
+
+if (errors.length === styleErrorsBefore) {
+  console.log('✓ Component and global styles are free of transition-all, blur, glow, and hover lift');
+}
+
 const globalCssFile = 'src/styles/global.css';
 if (fs.existsSync(globalCssFile)) {
   const css = fs.readFileSync(globalCssFile, 'utf8');
@@ -82,7 +115,12 @@ if (fs.existsSync(indexHtmlPath)) {
     'COMMERCIAL OPPORTUNITIES',
     'WHO WE WORK WITH',
     'INFRASTRUCTURE IN PRACTICE',
-    'QUALIFICATION & SOURCING'
+    'QUALIFICATION & SOURCING',
+    'PHYSICAL DIVERSITY AUDIT',
+    'AUDITED MODEL',
+    'VERIFIED ARCHITECTURE SOLUTION',
+    'PRINCIPAL ENGINEER REVIEW',
+    '1 BUSINESS DAY SLA'
   ];
 
   for (const eyebrow of forbiddenEyebrows) {
