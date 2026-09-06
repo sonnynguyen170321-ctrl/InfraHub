@@ -14,7 +14,7 @@ specifications:
   - "Sub-0.4ms round-trip latency"
   - "Verified physical KMZ conduit diversity"
   - "24/7 proactive optical line monitoring"
-shortDescription: "High-capacity 100G point-to-point optical wavelength linking Amsterdam's two premier datacenter facilities with sub-millisecond latency."
+shortDescription: "High-capacity 100G point-to-point optical wavelength linking two Amsterdam datacenter facilities; latency is confirmed for the delivered path."
 ---
 
 ## Metro Datacenter Interconnect (DCI)
