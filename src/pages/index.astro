@@ -1,30 +1,35 @@
 ---
-// src/pages/index.astro | InfraHub VNext Final Premium Commercial Edition
+// src/pages/index.astro — InfraHub Bespoke 5-Act Experience (Master Directive)
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import PartnerTrustRibbon from '../components/PartnerTrustRibbon.astro';
-import EcosystemSolutions from '../components/EcosystemSolutions.astro';
-import DeliveryModel from '../components/DeliveryModel.astro';
+import SolutionSelector from '../components/SolutionSelector.astro';
+import ConvergenceVisual from '../components/ConvergenceVisual.astro';
 import RouteDiversityExplorer from '../components/RouteDiversityExplorer.astro';
-import FeaturedOffers from '../components/FeaturedOffers.astro';
-import AudienceAndEditorial from '../components/AudienceAndEditorial.astro';
 import FinalCTA from '../components/FinalCTA.astro';
 ---
 
 <Layout 
-  title="The Right Infrastructure. The Right Partner."
-  description="InfraHub helps businesses define infrastructure requirements, compare suitable approaches and connect with specialist providers across networking, cloud, security, hardware and managed operations."
+  title="Complex Infrastructure. One Place to Solve It. — InfraHub"
+  description="Bring us the requirement. InfraHub evaluates technical options and coordinates the right path across network, compute, cloud, security, and managed operations."
   canonicalPath="/"
 >
+  <!-- ACT 1: INFRAHUB & PARTNER CREDIBILITY -->
   <Hero />
   <PartnerTrustRibbon />
-  <EcosystemSolutions />
-  <DeliveryModel />
-  <RouteDiversityExplorer />
-  <FeaturedOffers />
-  <AudienceAndEditorial />
+
+  <!-- ACT 2: WHAT DO YOU NEED? (Concise Visual Capability Selector) -->
+  <SolutionSelector />
+
+  <!-- ACT 3: WHY INFRAHUB? (Signature Convergence Visual & Business Model) -->
+  <ConvergenceVisual />
+
+  <!-- ACT 4: PROVE HOW INFRAHUB THINKS (Route Diversity Proof Moment) -->
+  <RouteDiversityExplorer isTeaser={true} />
+
+  <!-- ACT 5: START (Low-Friction Requirement Capture & Desk) -->
   <FinalCTA />
 
-  <!-- HOMEPAGE CONTINUOUS SCENE SYSTEM (Directive 02 & 56) -->
+  <!-- HOMEPAGE SCENE SCRIPT -->
   <script src="../scripts/homepage-scene-system.ts"></script>
 </Layout>

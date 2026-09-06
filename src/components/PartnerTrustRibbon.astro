@@ -36,11 +36,10 @@ const approvedPartners = allPartners
         <ul class="marquee-track primary-track" aria-label="Partner ecosystem">
           {approvedPartners.map((partner, index) => (
             <li class="partner-item">
-              <a 
-                href={`/partners/${partner.slug}`} 
-                class="partner-logo-link"
-                aria-label={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
-                title={`${partner.data.name} — ${partner.data.shortRole || partner.data.tagline}`}
+              <span 
+                class="partner-logo-badge partner-logo-link"
+                data-partner-slug={partner.slug}
+                aria-label={partner.data.name}
               >
                 {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
                   <img 
@@ -55,10 +54,9 @@ const approvedPartners = allPartners
                 ) : (
                   <span class="partner-text-mark">
                     <span class="partner-name">{partner.data.name}</span>
-                    {partner.data.shortRole && <span class="partner-role">{partner.data.shortRole}</span>}
                   </span>
                 )}
-              </a>
+              </span>
             </li>
           ))}
         </ul>

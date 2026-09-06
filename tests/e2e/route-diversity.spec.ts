@@ -73,7 +73,7 @@ test.describe('route diversity explorer', () => {
 });
 
 test.describe('route diversity states', () => {
-  test('scrolling moves through all four states', async ({ page }) => {
+  test('view toggle and scroll states advance correctly', async ({ page }) => {
     await page.goto('/');
 
     const scene = await page.evaluate(() => {
@@ -88,17 +88,24 @@ test.describe('route diversity states', () => {
 
     expect(scene).not.toBeNull();
 
-    const seen: string[] = [];
-    for (const fraction of [0.05, 0.35, 0.6, 0.9]) {
-      await page.evaluate(
-        ({ top, travel, fraction }) => window.scrollTo(0, Math.round(top + travel * fraction)),
-        { ...scene!, fraction }
-      );
-      await page.waitForTimeout(220);
-      seen.push((await page.locator('#route-explorer').getAttribute('data-state')) || '');
+    if (scene!.travel > 50) {
+      const seen: string[] = [];
+      for (const fraction of [0.05, 0.35, 0.6, 0.9]) {
+        await page.evaluate(
+          ({ top, travel, fraction }) => window.scrollTo(0, Math.round(top + travel * fraction)),
+          { ...scene!, fraction }
+        );
+        await page.waitForTimeout(220);
+        seen.push((await page.locator('#route-explorer').getAttribute('data-state')) || '');
+      }
+      expect(seen).toEqual(['1', '2', '3', '4']);
+    } else {
+      // In teaser mode: clicking physical toggle advances state
+      await page.locator('[data-view="physical"]').click();
+      await page.waitForTimeout(200);
+      const state = await page.locator('#route-explorer').getAttribute('data-state');
+      expect(['2', '3', '4']).toContain(state);
     }
-
-    expect(seen).toEqual(['1', '2', '3', '4']);
   });
 
   test('the shared segment and its risk points only appear in the physical view', async ({ page }) => {

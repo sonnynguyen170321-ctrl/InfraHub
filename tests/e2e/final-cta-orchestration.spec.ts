@@ -1,65 +1,56 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Phase 6: Final CTA & Inquiry Orchestration', () => {
-  test('final CTA section renders the headline and technical inquiry routes', async ({ page }) => {
+test.describe('Act 5: Requirement Desk Orchestration', () => {
+  test('renders the Desk headline, natural language input, and starter prompt chips', async ({ page }) => {
     await page.goto('/');
 
-    const ctaSection = page.locator('#contact');
-    await expect(ctaSection).toBeVisible();
+    const deskSection = page.locator('#start-requirement');
+    await expect(deskSection).toBeVisible();
 
-    await expect(ctaSection.locator('.conversion-headline')).toContainText("Tell us what you're");
-    const fastTrackGrid = ctaSection.locator('.fast-track-grid');
-    await expect(fastTrackGrid).toBeVisible();
-    await expect(fastTrackGrid.locator('.fast-track-chip')).toHaveCount(4);
+    await expect(deskSection.locator('.start-title')).toContainText('What are you working on?');
+    const input = deskSection.locator('#home-requirement-input');
+    await expect(input).toBeVisible();
+
+    const chips = deskSection.locator('.prompt-chip-btn');
+    await expect(chips).toHaveCount(4);
   });
 
-  test('fast-track connectivity chip pre-populates inquiry form on /lets-talk', async ({ page }) => {
+  test('clicking a starter prompt chip fills the input and reveals draft brief card', async ({ page }) => {
     await page.goto('/');
 
-    const connectivityChip = page.locator('.fast-track-chip[href*="service=connectivity"]');
-    await expect(connectivityChip).toBeVisible();
-    await connectivityChip.click();
+    const deskSection = page.locator('#start-requirement');
+    const firstChip = deskSection.locator('.prompt-chip-btn').first();
+    await firstChip.click();
 
-    await expect(page).toHaveURL(/\/lets-talk\?service=connectivity/);
-    await expect(page.locator('#lookingFor')).toHaveValue('connectivity');
-    await expect(page.locator('#context-service')).toHaveValue('connectivity');
+    const input = deskSection.locator('#home-requirement-input');
+    await expect(input).toHaveValue(/100G transit in Frankfurt/i);
 
-    const badge = page.locator('#context-badge-wrap');
-    await expect(badge).toBeVisible();
-    await expect(badge).toContainText('connectivity');
+    const briefCard = deskSection.locator('#home-live-brief');
+    await expect(briefCard).toBeVisible();
+    await expect(briefCard.locator('#brief-rendered-title')).toContainText('Frankfurt');
   });
 
-  test('fast-track cloud chip pre-populates cloud scope on /lets-talk', async ({ page }) => {
+  test('clicking a category pill navigates with service param to /lets-talk', async ({ page }) => {
     await page.goto('/');
 
-    const cloudChip = page.locator('.fast-track-chip[href*="service=cloud"]');
-    await expect(cloudChip).toBeVisible();
-    await cloudChip.click();
+    const deskSection = page.locator('#start-requirement');
+    const cloudPill = deskSection.locator('.category-pill[data-scope="cloud"]');
+    await expect(cloudPill).toBeVisible();
+    await cloudPill.click();
 
     await expect(page).toHaveURL(/\/lets-talk\?service=cloud/);
-    await expect(page.locator('#lookingFor')).toHaveValue('cloud');
-    await expect(page.locator('#context-service')).toHaveValue('cloud');
   });
 
-  test('fast-track ddos chip pre-populates security scope on /lets-talk', async ({ page }) => {
+  test('form submission carries requirement text to /lets-talk', async ({ page }) => {
     await page.goto('/');
 
-    const ddosChip = page.locator('.fast-track-chip[href*="service=ddos-security"]');
-    await expect(ddosChip).toBeVisible();
-    await ddosChip.click();
+    const input = page.locator('#home-requirement-input');
+    await input.fill('Need 100G wavelength between Frankfurt and Amsterdam');
+    
+    const submitBtn = page.locator('.btn-submit-requirement');
+    await submitBtn.click();
 
-    await expect(page).toHaveURL(/\/lets-talk\?service=ddos-security/);
-    await expect(page.locator('#lookingFor')).toHaveValue('ddos-security');
-  });
-
-  test('main CTA button leads to /lets-talk', async ({ page }) => {
-    await page.goto('/');
-
-    const mainBtn = page.locator('#mainCtaButton');
-    await expect(mainBtn).toBeVisible();
-    await mainBtn.click();
-
-    await expect(page).toHaveURL(/\/lets-talk$/);
-    await expect(page.locator('#inquiry-form')).toBeVisible();
+    await expect(page).toHaveURL(/\/lets-talk/);
+    await expect(page.url()).toContain('requirement=Need+100G+wavelength');
   });
 });

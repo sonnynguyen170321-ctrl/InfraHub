@@ -1,0 +1,450 @@
+---
+// src/components/ConvergenceVisual.astro — Act 3: Signature InfraHub Convergence Visual
+import BrandLogo from './BrandLogo.astro';
+---
+
+<section class="section section-convergence" id="why-infrahub" aria-labelledby="convergence-heading">
+  <div class="container">
+    <div class="convergence-header">
+      <div class="convergence-kicker">Act 3 &bull; The Model</div>
+      <h2 id="convergence-heading" class="convergence-title">
+        One requirement.<br />One coordinated path.
+      </h2>
+      <p class="convergence-lead">
+        Navigating carriers, facilities, hardware vendors, and cloud providers individually creates fragmented SLAs and hidden failure points. InfraHub translates your requirement into one coherent delivery path.
+      </p>
+    </div>
+
+    <!-- Interactive Convergence Stage -->
+    <div class="convergence-stage" role="region" aria-label="Interactive Convergence Model">
+      <div class="stage-controls" role="group" aria-label="View Modes">
+        <button type="button" class="mode-btn" id="mode-fragmented" aria-pressed="false">
+          <span>Traditional Market (5 Contracts)</span>
+        </button>
+        <button type="button" class="mode-btn active" id="mode-converged" aria-pressed="true">
+          <span>The InfraHub Path (1 Coordinated Relationship)</span>
+        </button>
+      </div>
+
+      <div class="stage-canvas-wrap" id="stage-canvas-wrap">
+        <svg class="convergence-svg" viewBox="0 0 960 480" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <!-- Gradients -->
+            <linearGradient id="grad-transit" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.9" />
+            </linearGradient>
+            <linearGradient id="grad-facility" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0d9488" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#0d9488" stop-opacity="0.9" />
+            </linearGradient>
+            <linearGradient id="grad-hardware" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.9" />
+            </linearGradient>
+            <linearGradient id="grad-security" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ef4444" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#ef4444" stop-opacity="0.9" />
+            </linearGradient>
+            <linearGradient id="grad-cloud" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.2" />
+              <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.9" />
+            </linearGradient>
+            <linearGradient id="grad-resolved" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#2563eb" />
+              <stop offset="100%" stop-color="#0d9488" />
+            </linearGradient>
+          </defs>
+
+          <!-- Left Nodes: Disparate Infrastructure Layers -->
+          <g class="nodes-input">
+            <!-- Node 1: IP Transit -->
+            <g class="input-node" transform="translate(80, 60)">
+              <rect width="180" height="48" rx="8" class="node-box" />
+              <circle cx="20" cy="24" r="5" fill="#3b82f6" />
+              <text x="36" y="22" class="node-title">Tier-1 Transit</text>
+              <text x="36" y="36" class="node-sub">BGP Commits &amp; Ports</text>
+            </g>
+
+            <!-- Node 2: Datacenter MMR -->
+            <g class="input-node" transform="translate(80, 140)">
+              <rect width="180" height="48" rx="8" class="node-box" />
+              <circle cx="20" cy="24" r="5" fill="#0d9488" />
+              <text x="36" y="22" class="node-title">Facility &amp; MMR</text>
+              <text x="36" y="36" class="node-sub">Power &amp; Cross-connects</text>
+            </g>
+
+            <!-- Node 3: Bare Metal Hardware -->
+            <g class="input-node" transform="translate(80, 220)">
+              <rect width="180" height="48" rx="8" class="node-box" />
+              <circle cx="20" cy="24" r="5" fill="#f59e0b" />
+              <text x="36" y="22" class="node-title">Hardware Chassis</text>
+              <text x="36" y="36" class="node-sub">Servers &amp; Optics</text>
+            </g>
+
+            <!-- Node 4: DDoS Mitigation -->
+            <g class="input-node" transform="translate(80, 300)">
+              <rect width="180" height="48" rx="8" class="node-box" />
+              <circle cx="20" cy="24" r="5" fill="#ef4444" />
+              <text x="36" y="22" class="node-title">DDoS Scrubbing</text>
+              <text x="36" y="36" class="node-sub">FlowSpec &amp; Automation</text>
+            </g>
+
+            <!-- Node 5: Cloud Fabric -->
+            <g class="input-node" transform="translate(80, 380)">
+              <rect width="180" height="48" rx="8" class="node-box" />
+              <circle cx="20" cy="24" r="5" fill="#8b5cf6" />
+              <text x="36" y="22" class="node-title">Cloud Direct Link</text>
+              <text x="36" y="36" class="node-sub">Private Virtual Router</text>
+            </g>
+          </g>
+
+          <!-- Converging Connection Beams -->
+          <g class="convergence-paths" id="convergence-paths">
+            <!-- Path 1 -->
+            <path d="M 260 84 C 360 84, 400 240, 480 240" class="beam-path beam-1" stroke="url(#grad-transit)" />
+            <!-- Path 2 -->
+            <path d="M 260 164 C 360 164, 420 240, 480 240" class="beam-path beam-2" stroke="url(#grad-facility)" />
+            <!-- Path 3 -->
+            <path d="M 260 244 L 480 240" class="beam-path beam-3" stroke="url(#grad-hardware)" />
+            <!-- Path 4 -->
+            <path d="M 260 324 C 360 324, 420 240, 480 240" class="beam-path beam-4" stroke="url(#grad-security)" />
+            <!-- Path 5 -->
+            <path d="M 260 404 C 360 404, 400 240, 480 240" class="beam-path beam-5" stroke="url(#grad-cloud)" />
+          </g>
+
+          <!-- Central Hub Core (InfraHub) -->
+          <g class="hub-center" transform="translate(480, 240)">
+            <circle r="44" class="hub-outer-glow" />
+            <circle r="36" class="hub-core-circle" />
+            <g transform="translate(-16, -16) scale(0.66)">
+              <BrandLogo size={48} tone="light" />
+            </g>
+            <text y="58" class="hub-center-label">INFRAHUB</text>
+            <text y="72" class="hub-center-role">Unified Sourcing &amp; SLA</text>
+          </g>
+
+          <!-- Resolved Output Route -->
+          <g class="resolved-path-wrap">
+            <path d="M 524 240 L 700 240" class="resolved-beam" stroke="url(#grad-resolved)" stroke-width="5" />
+            <!-- Pulse dot -->
+            <circle cx="612" cy="240" r="4" fill="#ffffff" class="pulse-packet" />
+          </g>
+
+          <!-- Right Node: Customer Outcome -->
+          <g class="nodes-output" transform="translate(700, 200)">
+            <rect width="200" height="80" rx="10" class="outcome-box" />
+            <circle cx="24" cy="40" r="8" fill="#10b981" />
+            <text x="44" y="34" class="outcome-title">Customer Result</text>
+            <text x="44" y="52" class="outcome-sub">100G Frankfurt Diverse</text>
+            <text x="44" y="66" class="outcome-sla">Single Commercial &amp; Tech SLA</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Tactical Metrics Bar -->
+      <div class="convergence-metrics">
+        <div class="metric-item">
+          <strong class="metric-val">100%</strong>
+          <span class="metric-desc">Direct relationship with InfraHub</span>
+        </div>
+        <div class="metric-item">
+          <strong class="metric-val">1</strong>
+          <span class="metric-desc">Coordinated architecture review</span>
+        </div>
+        <div class="metric-item">
+          <strong class="metric-val">0</strong>
+          <span class="metric-desc">Vendor shopping or runarounds</span>
+        </div>
+        <div class="metric-item">
+          <strong class="metric-val">Global</strong>
+          <span class="metric-desc">Ecosystem reach across Tier-1 backbones</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initConvergenceStage() {
+    const btnFragmented = document.getElementById('mode-fragmented');
+    const btnConverged = document.getElementById('mode-converged');
+    const stage = document.getElementById('stage-canvas-wrap');
+
+    if (!btnFragmented || !btnConverged || !stage) return;
+
+    btnFragmented.addEventListener('click', () => {
+      btnFragmented.classList.add('active');
+      btnFragmented.setAttribute('aria-pressed', 'true');
+      btnConverged.classList.remove('active');
+      btnConverged.setAttribute('aria-pressed', 'false');
+      stage.classList.add('fragmented-mode');
+    });
+
+    btnConverged.addEventListener('click', () => {
+      btnConverged.classList.add('active');
+      btnConverged.setAttribute('aria-pressed', 'true');
+      btnFragmented.classList.remove('active');
+      btnFragmented.setAttribute('aria-pressed', 'false');
+      stage.classList.remove('fragmented-mode');
+    });
+  }
+
+  initConvergenceStage();
+  document.addEventListener('astro:page-load', initConvergenceStage);
+</script>
+
+<style>
+  .section-convergence {
+    background: #090d16;
+    color: #ffffff;
+    padding: clamp(80px, 10vw, 128px) 0;
+    border-bottom: 1px solid #1e293b;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .convergence-header {
+    max-width: 64ch;
+    margin-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  .convergence-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+
+  .convergence-title {
+    font-size: clamp(2.2rem, 5vw, 3.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+  }
+
+  .convergence-lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Stage Controls */
+  .convergence-stage {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 40px);
+  }
+
+  .stage-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .mode-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: rgba(255, 255, 255, 0.03);
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .mode-btn:hover {
+    color: #ffffff;
+    border-color: #475569;
+  }
+
+  .mode-btn.active {
+    background: rgba(37, 99, 235, 0.15);
+    border-color: #2563eb;
+    color: #60a5fa;
+    font-weight: 600;
+  }
+
+  /* SVG Canvas Wrap */
+  .stage-canvas-wrap {
+    width: 100%;
+    margin-bottom: 32px;
+    transition: opacity 0.2s ease;
+  }
+
+  .convergence-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .node-box {
+    fill: #0f172a;
+    stroke: #334155;
+    stroke-width: 1;
+  }
+
+  .node-title {
+    fill: #f8fafc;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--font-body, system-ui);
+  }
+
+  .node-sub {
+    fill: #64748b;
+    font-size: 10px;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .beam-path {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: stroke 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hub-outer-glow {
+    fill: rgba(37, 99, 235, 0.15);
+  }
+
+  .hub-core-circle {
+    fill: #0b1120;
+    stroke: #2563eb;
+    stroke-width: 2;
+  }
+
+  .hub-center-label {
+    fill: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-anchor: middle;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .hub-center-role {
+    fill: #60a5fa;
+    font-size: 9px;
+    text-anchor: middle;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .resolved-beam {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .pulse-packet {
+    animation: packetMove 2s infinite linear;
+  }
+
+  @keyframes packetMove {
+    0% { cx: 524px; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { cx: 700px; opacity: 0; }
+  }
+
+  .outcome-box {
+    fill: #064e3b;
+    stroke: #10b981;
+    stroke-width: 1.5;
+  }
+
+  .outcome-title {
+    fill: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-body, system-ui);
+  }
+
+  .outcome-sub {
+    fill: #a7f3d0;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--font-body, system-ui);
+  }
+
+  .outcome-sla {
+    fill: #6ee7b7;
+    font-size: 10px;
+    font-family: var(--font-mono, monospace);
+  }
+
+  /* Fragmented Mode State */
+  .fragmented-mode .hub-center {
+    opacity: 0.2;
+    transform: translate(480px, 240px) scale(0.9);
+  }
+
+  .fragmented-mode .resolved-path-wrap {
+    opacity: 0.1;
+  }
+
+  .fragmented-mode .beam-path {
+    stroke-dasharray: 4 6;
+    stroke: #ef4444 !important;
+  }
+
+  .fragmented-mode .outcome-box {
+    fill: #450a0a;
+    stroke: #ef4444;
+  }
+
+  .fragmented-mode .outcome-sub {
+    fill: #fca5a5;
+  }
+
+  .fragmented-mode .outcome-sla {
+    fill: #f87171;
+  }
+
+  /* Metrics Bar */
+  .convergence-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-top: 24px;
+    border-top: 1px solid #1e293b;
+  }
+
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .metric-val {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-mono, monospace);
+  }
+
+  .metric-desc {
+    font-size: 0.8125rem;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 800px) {
+    .convergence-metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .convergence-metrics {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

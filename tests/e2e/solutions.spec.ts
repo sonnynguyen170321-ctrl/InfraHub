@@ -1,44 +1,50 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('solution discovery tabs', () => {
-  test('the first discipline is selected and its panel is the only one shown', async ({ page }) => {
+test.describe('Homepage Act 2: Solution Selector', () => {
+  test('the first discipline is selected and its panel is shown', async ({ page }) => {
     await page.goto('/');
 
-    const tabs = page.locator('#solutionDiscovery .discipline-tab-btn');
+    const selector = page.locator('#what-you-need');
+    await expect(selector).toBeVisible();
+
+    const tabs = selector.locator('.discipline-tab-btn');
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'true');
 
-    const visiblePanels = page.locator('#solutionDiscovery .services-panel:not([hidden])');
+    const visiblePanels = selector.locator('.selector-panel.active');
     await expect(visiblePanels).toHaveCount(1);
   });
 
-  test('clicking a discipline swaps the panel and the visual', async ({ page }) => {
+  test('clicking a discipline swaps the panel and its details', async ({ page }) => {
     await page.goto('/');
 
-    const secondTab = page.locator('#solutionDiscovery .discipline-tab-btn').nth(1);
-    const target = await secondTab.getAttribute('data-target');
+    const selector = page.locator('#what-you-need');
+    const computeTab = selector.locator('#tab-compute');
+    await computeTab.click();
 
-    await secondTab.click();
+    await expect(computeTab).toHaveAttribute('aria-selected', 'true');
+    const computePanel = selector.locator('#panel-compute');
+    await expect(computePanel).toBeVisible();
+    await expect(computePanel).toHaveClass(/active/);
 
-    await expect(secondTab).toHaveAttribute('aria-selected', 'true');
-    await expect(page.locator(`#panel-${target}`)).toBeVisible();
-    await expect(page.locator(`#visual-${target}`)).toHaveAttribute('aria-hidden', 'false');
-    await expect(page.locator('#solutionDiscovery .services-panel:not([hidden])')).toHaveCount(1);
+    const visiblePanels = selector.locator('.selector-panel.active');
+    await expect(visiblePanels).toHaveCount(1);
   });
 
   test('arrow keys move between disciplines and activate them', async ({ page }) => {
     await page.goto('/');
 
-    const tabs = page.locator('#solutionDiscovery .discipline-tab-btn');
+    const selector = page.locator('#what-you-need');
+    const tabs = selector.locator('.discipline-tab-btn');
     const count = await tabs.count();
     expect(count).toBeGreaterThan(2);
 
     await tabs.first().focus();
-    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowRight');
 
     await expect(tabs.nth(1)).toBeFocused();
     await expect(tabs.nth(1)).toHaveAttribute('aria-selected', 'true');
 
-    await page.keyboard.press('ArrowUp');
+    await page.keyboard.press('ArrowLeft');
     await expect(tabs.first()).toBeFocused();
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'true');
 
@@ -48,129 +54,36 @@ test.describe('solution discovery tabs', () => {
     await page.keyboard.press('Home');
     await expect(tabs.first()).toBeFocused();
   });
-
-  test('wrapping past the last discipline returns to the first', async ({ page }) => {
-    await page.goto('/');
-
-    const tabs = page.locator('#solutionDiscovery .discipline-tab-btn');
-    const count = await tabs.count();
-
-    await tabs.nth(count - 1).focus();
-    await page.keyboard.press('ArrowDown');
-
-    await expect(tabs.first()).toBeFocused();
-  });
 });
 
-test.describe('discovery scene progression', () => {
-  test('free explore allows user choice and exit scroll triggers transition', async ({ page }) => {
-    await page.goto('/');
+test.describe('Master Solutions Hub (/solutions)', () => {
+  test('renders the central topology grid with all 5 infrastructure domains', async ({ page }) => {
+    await page.goto('/solutions');
 
-    const bands = await page.evaluate(() => {
-      const scene = document.getElementById('discoveryScene');
-      const sticky = scene?.querySelector('.discovery-sticky') as HTMLElement | null;
-      if (!scene || !sticky) return null;
-      const travel = scene.offsetHeight - sticky.offsetHeight;
-      return { top: scene.getBoundingClientRect().top + window.scrollY, travel };
-    });
+    await expect(page).toHaveTitle(/Infrastructure Solutions Architecture/i);
+    const coreNode = page.locator('.center-hub-token');
+    await expect(coreNode).toBeAttached();
 
-    expect(bands, 'the discovery scene should exist').not.toBeNull();
-    expect(bands!.travel, 'the scene should have exit travel').toBeGreaterThan(50);
+    const domainNodes = page.locator('.domain-node');
+    await expect(domainNodes).toHaveCount(5);
 
-    // Initial state: first discipline active
-    const initialDiscipline = await page.locator('.discipline-tab-btn.active').getAttribute('data-target');
-    expect(initialDiscipline).toBe('infrastructure');
-
-    // Free explore: scrolling during early scene preserves user choice without auto-forcing jumps
-    await page.evaluate(
-      ({ top, travel }) => window.scrollTo(0, Math.round(top + travel * 0.3)),
-      bands!
-    );
-    await page.waitForTimeout(200);
-    const scrollDiscipline = await page.locator('.discipline-tab-btn.active').getAttribute('data-target');
-    expect(scrollDiscipline).toBe('infrastructure');
-
-    // Exit travel: at final ~28% scroll travel, exit state activates
-    await page.evaluate(
-      ({ top, travel }) => window.scrollTo(0, Math.round(top + travel * 0.95)),
-      bands!
-    );
-    await page.waitForTimeout(200);
-    const isExiting = await page.locator('#discoveryScene').evaluate((el) => el.classList.contains('is-exiting'));
-    expect(isExiting).toBe(true);
-    await expect(page.locator('#solutionDiscovery .services-panel:not([hidden])')).toHaveCount(1);
+    for (const slug of ['network', 'infrastructure', 'cloud', 'security', 'operations']) {
+      const node = page.locator(`.domain-node.domain-${slug}`);
+      await expect(node).toBeVisible();
+      const link = node.locator('.node-title a');
+      await expect(link).toBeAttached();
+    }
   });
 
-  test('the routing line shows only the active discipline branches', async ({ page }) => {
-    await page.goto('/');
+  test('each domain provides direct links to specific service capabilities', async ({ page }) => {
+    await page.goto('/solutions');
 
-    const activeSets = page.locator('.route-set.active');
-    await expect(activeSets).toHaveCount(1);
-    await expect(activeSets).toHaveAttribute('data-route-set', 'infrastructure');
+    const networkNode = page.locator('.domain-node.domain-network');
+    const serviceLinks = networkNode.locator('a.service-link');
+    const count = await serviceLinks.count();
+    expect(count).toBeGreaterThanOrEqual(4);
 
-    await page.locator('.discipline-tab-btn').nth(2).click();
-    await expect(page.locator('.route-set.active')).toHaveAttribute('data-route-set', 'network');
-  });
-
-  test('the scene does not pin under reduced motion', async ({ page }) => {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
-
-    const position = await page
-      .locator('.discovery-sticky')
-      .evaluate((el) => getComputedStyle(el).position);
-
-    expect(position).toBe('static');
-  });
-});
-
-test.describe('qualification parameters and architectural causality', () => {
-  test('all 6 qualification parameters render with correct metadata', async ({ page }) => {
-    await page.goto('/');
-
-    const qualItems = page.locator('.qualification-grid .qual-item');
-    await expect(qualItems).toHaveCount(6);
-
-    const firstItem = qualItems.first();
-    await expect(firstItem.locator('.qual-name')).toHaveText('Workload');
-    await expect(firstItem.locator('.qual-criterion')).toHaveText('Compute profile & density');
-    await expect(firstItem).toHaveClass(/is-driver/);
-
-    const meta = page.locator('#qualMeta');
-    await expect(meta).toContainText('ACTIVE DRIVERS');
-  });
-
-  test('hovering and clicking a parameter updates architectural causality readout and branches', async ({ page }) => {
-    await page.goto('/');
-
-    const readout = page.locator('#qualReadoutText');
-    const resilienceParam = page.locator('#qual-resilience');
-
-    // Hover parameter updates readout
-    await resilienceParam.hover();
-    await expect(readout).toContainText('recovery objectives');
-
-    // Clicking resilience switches active discipline to Security
-    await resilienceParam.click();
-    const activeTab = page.locator('.discipline-tab-btn.active');
-    await expect(activeTab).toHaveAttribute('data-target', 'security');
-    await expect(page.locator('#panel-security')).toBeVisible();
-
-    // Check SVG branch illumination
-    const highlightedBranches = page.locator('.branch-item.is-highlighted');
-    const count = await highlightedBranches.count();
-    expect(count).toBeGreaterThanOrEqual(1);
-  });
-
-  test('keyboard interaction allows activating qualification parameters', async ({ page }) => {
-    await page.goto('/');
-
-    const networkParam = page.locator('#qual-location');
-    await networkParam.focus();
-    await page.keyboard.press('Enter');
-
-    const activeTab = page.locator('.discipline-tab-btn.active');
-    await expect(activeTab).toHaveAttribute('data-target', 'network');
-    await expect(page.locator('#panel-network')).toBeVisible();
+    const firstHref = await serviceLinks.first().getAttribute('href');
+    expect(firstHref).toBeTruthy();
   });
 });

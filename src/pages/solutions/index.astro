@@ -1,0 +1,456 @@
+---
+// src/pages/solutions/index.astro — Master Solutions Capability Center
+import Layout from '../../layouts/Layout.astro';
+import BrandLogo from '../../components/BrandLogo.astro';
+
+const domains = [
+  {
+    id: "network",
+    title: "Network & Connectivity",
+    slug: "/solutions/network-connectivity",
+    lead: "Move data reliably between users, facilities, and clouds.",
+    services: [
+      { name: "IP Transit", href: "/ip-transit", detail: "Committed upstream BGP bandwidth" },
+      { name: "Wavelengths", href: "/wavelengths", detail: "Point-to-point lit optical transport" },
+      { name: "Layer 2 Connectivity", href: "/layer-2-connectivity", detail: "Private Ethernet metro & long-haul" },
+      { name: "Cloud Connectivity", href: "/cloud-connectivity", detail: "Direct interconnects to hyperscalers" },
+      { name: "IPv4 Solutions", href: "/ipv4", detail: "Lease, purchase, and clean allocation" }
+    ],
+    accent: "#2563eb"
+  },
+  {
+    id: "infrastructure",
+    title: "Compute & Infrastructure",
+    slug: "/solutions/infrastructure",
+    lead: "Bare-metal hardware, high-density colocation, and specialized acceleration.",
+    services: [
+      { name: "Dedicated Servers", href: "/dedicated-servers", detail: "Custom bare-metal hardware" },
+      { name: "GPU & AI Clusters", href: "/gpu-ai-infrastructure", detail: "H100/H200 high-compute fabrics" },
+      { name: "Colocation", href: "/colocation", detail: "Tier-3/4 power, space, and MMR cross-connects" },
+      { name: "Enterprise Hardware", href: "/enterprise-hardware", detail: "Certified switching, routing, and optics" },
+      { name: "Custom IaaS", href: "/custom-iaas", detail: "Private hypervisors and custom nodes" }
+    ],
+    accent: "#3b82f6"
+  },
+  {
+    id: "cloud",
+    title: "Cloud & Virtualization",
+    slug: "/solutions/cloud-virtualization",
+    lead: "Sovereign private hypervisors, VMware exits, and hybrid resiliency.",
+    services: [
+      { name: "Private Cloud", href: "/private-cloud", detail: "Dedicated hypervisors with predictable cost" },
+      { name: "VMware Alternatives", href: "/vmware-alternatives", detail: "Proxmox VE and XCP-ng / Vates migrations" },
+      { name: "Hybrid Architecture", href: "/solutions/cloud-virtualization", detail: "Private-to-public cloud bridges" },
+      { name: "Disaster Recovery", href: "/solutions/cloud-virtualization", detail: "Automated off-site replication" }
+    ],
+    accent: "#0d9488"
+  },
+  {
+    id: "security",
+    title: "Security & DDoS",
+    slug: "/solutions/security",
+    lead: "Volumetric scrubbing, BGP diversion, and edge routing defense.",
+    services: [
+      { name: "DDoS Protection", href: "/ddos-protection", detail: "Multi-Tbps inline and BGP scrubbing" },
+      { name: "FlowSpec Automation", href: "/ddos-detection-automation", detail: "Sub-second traffic filtering" },
+      { name: "BGP Routing Intelligence", href: "/bgp-routing-intelligence", detail: "Route leak and hijack prevention" },
+      { name: "Cybersecurity", href: "/cybersecurity", detail: "Perimeter and infrastructure defense" }
+    ],
+    accent: "#f59e0b"
+  },
+  {
+    id: "operations",
+    title: "Managed Operations",
+    slug: "/solutions/managed-services",
+    lead: "24/7 technical operations, automation engineering, and network lifecycle.",
+    services: [
+      { name: "24/7 Managed NOC", href: "/managed-noc", detail: "Round-the-clock incident response" },
+      { name: "AI Network Operations", href: "/ai-network-operations", detail: "Predictive telemetry and triage" },
+      { name: "Network Engineering", href: "/solutions/managed-services", detail: "BGP tuning, ASN setup, and migrations" },
+      { name: "Network Automation", href: "/solutions/managed-services", detail: "Infrastructure-as-code and orchestration" }
+    ],
+    accent: "#10b981"
+  }
+];
+---
+
+<Layout
+  title="Infrastructure Solutions Architecture — InfraHub"
+  description="Explore InfraHub's unified capability model across Network, Compute, Cloud, Security, and Operations. One relationship coordinating the right infrastructure route."
+  canonicalPath="/solutions"
+>
+  <div class="solutions-page">
+    <!-- Hero Header -->
+    <header class="solutions-hero">
+      <div class="container">
+        <div class="hero-kicker">Unified Capability Model</div>
+        <h1 class="hero-headline">Many capabilities.<br />One coordinated center.</h1>
+        <p class="hero-subline">
+          InfraHub eliminates the friction of navigating fragmented telecommunications, data centers, and cloud providers. Whatever your infrastructure requirement, start with InfraHub.
+        </p>
+      </div>
+    </header>
+
+    <!-- Topological Centerpiece -->
+    <section class="topology-section" aria-label="Solutions Topology">
+      <div class="container">
+        <div class="topology-card">
+          <div class="topology-header">
+            <span class="hub-tag">The InfraHub Architecture</span>
+            <h2>Connected across 5 infrastructure disciplines</h2>
+            <p>InfraHub sits at the center of the infrastructure ecosystem, translating your technical constraints into coordinated execution.</p>
+          </div>
+
+          <!-- Central Topology Map -->
+          <div class="topology-visual" role="region" aria-label="Interactive Topology Map">
+            <div class="topology-grid">
+              {domains.map((domain) => (
+                <div class={`domain-node domain-${domain.id}`} id={`node-${domain.id}`}>
+                  <div class="node-header">
+                    <span class="node-indicator" style={`background: ${domain.accent};`}></span>
+                    <h3 class="node-title">
+                      <a href={domain.slug}>{domain.title}</a>
+                    </h3>
+                  </div>
+                  <p class="node-lead">{domain.lead}</p>
+                  
+                  <ul class="node-service-list">
+                    {domain.services.map((svc) => (
+                      <li>
+                        <a href={svc.href} class="service-link">
+                          <span class="svc-name">{svc.name}</span>
+                          <span class="svc-detail">{svc.detail}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div class="node-footer">
+                    <a href={domain.slug} class="explore-btn">
+                      <span>Explore {domain.title}</span>
+                      <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </div>
+                </div>
+              ))}
+
+              <!-- Center Hub Token -->
+              <div class="center-hub-token" aria-hidden="true">
+                <div class="hub-core">
+                  <BrandLogo size={36} />
+                  <span class="hub-label">INFRAHUB</span>
+                  <span class="hub-role">Single Coordination Layer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Prompt -->
+    <section class="solutions-action-band">
+      <div class="container action-container">
+        <div class="action-text">
+          <h3>Have an unlisted or complex requirement?</h3>
+          <p>InfraHub sources and engineers custom architectures including dark fiber, multi-city private backbones, and bespoke hardware builds.</p>
+        </div>
+        <div class="action-button">
+          <a href="/lets-talk" class="btn btn-accent btn-lg">
+            Start a Requirement &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .solutions-page {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    padding-bottom: clamp(64px, 8vw, 120px);
+  }
+
+  .solutions-hero {
+    padding: clamp(96px, 12vw, 160px) 0 clamp(48px, 6vw, 72px);
+    background: #0b1120;
+    color: #ffffff;
+    border-bottom: 1px solid #1e293b;
+  }
+
+  .hero-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    max-width: 18ch;
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
+
+  .hero-subline {
+    font-size: clamp(1.125rem, 1.8vw, 1.35rem);
+    line-height: 1.6;
+    color: #94a3b8;
+    max-width: 62ch;
+  }
+
+  .topology-section {
+    padding: clamp(64px, 8vw, 96px) 0;
+  }
+
+  .topology-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: clamp(32px, 5vw, 64px);
+  }
+
+  .topology-header {
+    max-width: 64ch;
+    margin-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  .hub-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--accent-blue);
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  .topology-header h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+
+  .topology-header p {
+    font-size: 1.0625rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Topology Grid */
+  .topology-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    position: relative;
+  }
+
+  .domain-node {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease;
+  }
+
+  .domain-node:hover {
+    border-color: #3b82f6;
+  }
+
+  .node-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .node-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .node-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .node-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .node-lead {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    min-height: 42px;
+  }
+
+  .node-service-list {
+    list-style: none;
+    margin: 0 0 24px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+
+  .service-link {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .service-link:hover {
+    background: rgba(37, 99, 235, 0.06);
+    border-color: rgba(37, 99, 235, 0.2);
+  }
+
+  .svc-name {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .svc-detail {
+    font-size: 0.8rem;
+    color: var(--text-muted, #64748b);
+    margin-top: 2px;
+  }
+
+  .node-footer {
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+
+  .explore-btn:hover {
+    gap: 10px;
+  }
+
+  /* Center Hub Token */
+  .center-hub-token {
+    grid-column: span 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, rgba(15, 23, 42, 0.4) 100%);
+    border: 1px dashed rgba(37, 99, 235, 0.3);
+    border-radius: 12px;
+    padding: 32px 20px;
+  }
+
+  .hub-core {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hub-label {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    margin-top: 12px;
+  }
+
+  .hub-role {
+    font-size: 0.8125rem;
+    color: var(--accent-blue);
+    font-family: var(--font-mono);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Action Band */
+  .solutions-action-band {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: clamp(32px, 5vw, 48px);
+    margin-top: 40px;
+  }
+
+  .action-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .action-text h3 {
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .action-text p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    max-width: 54ch;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .action-button {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .topology-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .center-hub-token {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .topology-grid {
+      grid-template-columns: 1fr;
+    }
+    .center-hub-token {
+      grid-column: span 1;
+      order: -1;
+    }
+    .action-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

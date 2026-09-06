@@ -1,222 +1,438 @@
 ---
-// src/components/FinalCTA.astro — Chapter 08: Direct Technical Engagement
-const technicalScopes = [
-  {
-    label: "Connectivity & Transit",
-    param: "connectivity",
-    spec: "10G/100G IP Transit, Metro Wavelengths, BGP Peering"
-  },
-  {
-    label: "Cloud & Virtualization",
-    param: "cloud",
-    spec: "Private Cloud Hypervisors, VMware Migration, Edge Compute"
-  },
-  {
-    label: "High-Density Compute",
-    param: "dedicated-infrastructure",
-    spec: "Bare-Metal Clusters, Refurbished Enterprise Hardware"
-  },
-  {
-    label: "DDoS & FlowSpec Security",
-    param: "ddos-security",
-    spec: "Volumetric Scrubbing, Automated BGP Diversion, WAF"
-  }
+// src/components/FinalCTA.astro — Act 5: Start / InfraHub Requirement Desk
+const starterChips = [
+  { label: "100G transit in Frankfurt", scope: "connectivity", text: "100G transit in Frankfurt, diverse paths" },
+  { label: "DDoS protection & FlowSpec", scope: "ddos-security", text: "Volumetric DDoS scrubbing and BGP FlowSpec automation" },
+  { label: "VMware private cloud exit", scope: "cloud", text: "Migrating enterprise workloads from VMware to sovereign private cloud" },
+  { label: "Two-facility route redundancy", scope: "connectivity", text: "Physically diverse dark fiber or wavelengths between two DCs" }
+];
+
+const visualCategories = [
+  { id: "network", label: "Network", param: "connectivity" },
+  { id: "compute", label: "Compute", param: "dedicated-infrastructure" },
+  { id: "cloud", label: "Cloud", param: "cloud" },
+  { id: "security", label: "Security", param: "ddos-security" },
+  { id: "operations", label: "Operations", param: "managed-services" },
+  { id: "custom", label: "Not sure", param: "other" }
 ];
 ---
 
-<section class="section-conversion-band" id="contact" aria-label="Final Conversation">
-  <div class="container conversion-container">
-    <div class="conversion-left">
-      <h2 class="conversion-headline">
-        Tell us what you're<br />trying to build.
-      </h2>
-      <p class="conversion-copy">
-        Start with the requirement, location constraints, and timing. InfraHub evaluates the approach and coordinates an introduction to specialist providers across our ecosystem.
+<section class="section section-act5-start" id="start-requirement" aria-labelledby="start-heading">
+  <div class="container">
+    <div class="start-header">
+      <div class="start-kicker">Act 5 &bull; Start</div>
+      <h2 id="start-heading" class="start-title">What are you working on?</h2>
+      <p class="start-lead">
+        Tell us what you know. You don't need a finished RFP or provider shortlist to begin.
       </p>
     </div>
 
-    <div class="conversion-right">
-      <!-- Technical scope selection -->
-      <div class="fast-track-box">
-        <div class="fast-track-header">
-          <strong class="fast-track-kicker">Choose a starting point</strong>
-          <span class="fast-track-hint">Select a domain to pre-fill your inquiry.</span>
+    <div class="start-desk-card">
+      <form action="/lets-talk" method="GET" class="desk-quick-form" id="desk-quick-form">
+        <!-- Natural Language Input -->
+        <div class="natural-input-wrap">
+          <label for="home-requirement-input" class="input-label">Describe your requirement</label>
+          <div class="input-row">
+            <input
+              type="text"
+              name="requirement"
+              id="home-requirement-input"
+              class="requirement-text-input"
+              placeholder="e.g. 100G transit in Frankfurt, ideally diverse paths"
+              autocomplete="off"
+            />
+            <button type="submit" class="btn btn-accent btn-submit-requirement">
+              <span>Start</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
         </div>
-        <div class="fast-track-grid" role="group" aria-label="Technical inquiry routes">
-          {technicalScopes.map((scope) => (
-            <a
-              href={`/lets-talk?service=${scope.param}`}
-              class="fast-track-chip"
-              title={`Inquire about ${scope.label}`}
-            >
-              <span class="chip-name">{scope.label}</span>
-              <span class="chip-spec">{scope.spec}</span>
-            </a>
-          ))}
-        </div>
-      </div>
 
-      <div class="conversion-actions-row">
-        <a href="/lets-talk" class="btn btn-accent btn-lg" id="mainCtaButton">
-          Discuss your requirement
-        </a>
-        <a href="/how-we-work" class="conversion-text-link">
-          <span>How InfraHub works</span>
-          <span class="link-arrow" aria-hidden="true">&rarr;</span>
-        </a>
+        <!-- Starter Prompt Chips -->
+        <div class="starter-chips-wrap">
+          <span class="chips-label">Quick prompts:</span>
+          <div class="chips-list">
+            {starterChips.map(chip => (
+              <button
+                type="button"
+                class="prompt-chip-btn"
+                data-text={chip.text}
+                data-scope={chip.scope}
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <input type="hidden" name="service" id="home-service-param" value="connectivity" />
+
+        <!-- Visual Category Fallback -->
+        <div class="visual-category-wrap">
+          <span class="chips-label">Or choose an area:</span>
+          <div class="category-pills" role="group" aria-label="Infrastructure Areas">
+            {visualCategories.map(cat => (
+              <a
+                href={`/lets-talk?service=${cat.param}`}
+                class="category-pill"
+                data-scope={cat.param}
+              >
+                {cat.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Live Requirement Brief Object (Reveals upon typing or clicking) -->
+        <div class="live-brief-card" id="home-live-brief" hidden>
+          <div class="brief-kicker">Draft Infrastructure Brief</div>
+          <div class="brief-title" id="brief-rendered-title">IP Transit &bull; Frankfurt</div>
+          <p class="brief-desc" id="brief-rendered-desc">Physical route diversity required.</p>
+          <div class="brief-actions">
+            <span class="brief-status">&bull; Ready to review with InfraHub</span>
+            <a href="/lets-talk" class="brief-continue-link" id="brief-continue-btn">
+              Continue to Brief &rarr;
+            </a>
+          </div>
+        </div>
+      </form>
+
+      <!-- Reassurance Strip -->
+      <div class="desk-guarantee-strip">
+        <div class="guarantee-col">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+          <span>No sales runarounds</span>
+        </div>
+        <div class="guarantee-col">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span>Direct engineer evaluation</span>
+        </div>
+        <div class="guarantee-col">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span>Response within 1 business day</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  .section-conversion-band {
-    position: relative;
-    background-color: #0b1120;
-    padding: 84px 0 88px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-  }
+<script>
+  function initHomeDesk() {
+    const input = document.getElementById('home-requirement-input') as HTMLInputElement | null;
+    const chips = document.querySelectorAll('.prompt-chip-btn');
+    const briefCard = document.getElementById('home-live-brief');
+    const briefTitle = document.getElementById('brief-rendered-title');
+    const briefDesc = document.getElementById('brief-rendered-desc');
+    const continueBtn = document.getElementById('brief-continue-btn') as HTMLAnchorElement | null;
+    const serviceInput = document.getElementById('home-service-param') as HTMLInputElement | null;
 
-  .conversion-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 56px;
-    align-items: start;
-  }
+    if (!input || !briefCard || !briefTitle || !briefDesc) return;
 
-  @media (min-width: 960px) {
-    .conversion-container {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 64px;
-      align-items: center;
+    function updateBrief(text: string, scope?: string) {
+      if (!briefCard || !briefTitle || !briefDesc) return;
+      if (text.trim().length > 3) {
+        briefCard.hidden = false;
+        briefTitle.textContent = text;
+        briefDesc.textContent = "InfraHub will evaluate provider options, route diversity, and commercial terms.";
+        if (continueBtn) {
+          const encoded = encodeURIComponent(text);
+          const scopeParam = scope ? `&service=${scope}` : '';
+          continueBtn.href = `/lets-talk?requirement=${encoded}${scopeParam}`;
+        }
+      } else {
+        briefCard.hidden = true;
+      }
     }
+
+    input.addEventListener('input', () => {
+      updateBrief(input.value);
+    });
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const text = chip.getAttribute('data-text') || '';
+        const scope = chip.getAttribute('data-scope') || 'connectivity';
+        input.value = text;
+        if (serviceInput) serviceInput.value = scope;
+        updateBrief(text, scope);
+        input.focus();
+      });
+    });
   }
 
-  .conversion-left {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 620px;
-  }
+  initHomeDesk();
+  document.addEventListener('astro:page-load', initHomeDesk);
+</script>
 
-  .conversion-headline {
-    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
+<style>
+  .section-act5-start {
+    background: #0b1120;
     color: #ffffff;
+    padding: clamp(80px, 10vw, 128px) 0;
+    border-top: 1px solid #1e293b;
+    position: relative;
+  }
+
+  .start-header {
+    max-width: 62ch;
+    margin-bottom: clamp(36px, 5vw, 56px);
+  }
+
+  .start-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: #60a5fa;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+  }
+
+  .start-title {
+    font-size: clamp(2.2rem, 5vw, 3.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+
+  .start-lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: #94a3b8;
+    line-height: 1.6;
     margin: 0;
   }
 
-  .conversion-copy {
-    font-size: 1.12rem;
-    line-height: 1.65;
-    color: #cbd5e1;
-    max-width: 50ch;
-    margin: 0;
+  /* Desk Card */
+  .start-desk-card {
+    background: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    padding: clamp(28px, 5vw, 48px);
   }
 
-  /* Right Column: Fast-Track Scope Ingress */
-  .conversion-right {
+  .desk-quick-form {
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
 
-  .fast-track-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-sm);
-    padding: 18px 20px;
+  .natural-input-wrap {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  .input-row {
+    display: flex;
     gap: 12px;
   }
-  .fast-track-header {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .fast-track-kicker {
-    font-size: 0.84rem;
-    font-weight: 600;
-    color: #60a5fa;
-  }
-  .fast-track-hint {
-    font-size: 0.82rem;
-    color: #94a3b8;
-  }
-  .fast-track-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  @media (min-width: 640px) {
-    .fast-track-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  .fast-track-chip {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: 10px 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
-    text-decoration: none;
-    transition: border-color 160ms ease, background-color 160ms ease;
-  }
-  .fast-track-chip:hover {
-    background: rgba(37, 99, 235, 0.12);
-    border-color: rgba(37, 99, 235, 0.4);
-  }
-  .chip-name {
-    font-size: 0.84rem;
-    font-weight: 600;
+
+  .requirement-text-input {
+    flex: 1;
+    background: #070b14;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 16px 20px;
     color: #ffffff;
-  }
-  .chip-spec {
-    font-size: 0.74rem;
-    color: #94a3b8;
-    line-height: 1.35;
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .conversion-actions-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+  .requirement-text-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
   }
 
-  .conversion-text-link {
+  .requirement-text-input::placeholder {
+    color: #475569;
+  }
+
+  .btn-submit-requirement {
+    padding: 0 28px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #cbd5e1;
+    border-radius: 10px;
     font-size: 1rem;
     font-weight: 600;
-    text-decoration: none;
-    transition: color 160ms ease;
-  }
-  .conversion-text-link:hover {
-    color: #ffffff;
-  }
-  .link-arrow {
-    transition: transform 160ms ease;
-    display: inline-block;
-  }
-  .conversion-text-link:hover .link-arrow {
-    transform: translateX(3px);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .fast-track-chip,
-    .conversion-text-link,
-    .link-arrow {
-      transition: none !important;
-      transform: none !important;
+  /* Starter Chips */
+  .starter-chips-wrap,
+  .visual-category-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .chips-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+
+  .chips-list,
+  .category-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .prompt-chip-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #cbd5e1;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .prompt-chip-btn:hover {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: rgba(37, 99, 235, 0.3);
+    color: #93c5fd;
+  }
+
+  .category-pill {
+    background: transparent;
+    border: 1px dashed #334155;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #94a3b8;
+    font-size: 0.8125rem;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .category-pill:hover {
+    border-color: #60a5fa;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  /* Live Brief Object */
+  .live-brief-card {
+    background: #070b14;
+    border: 1px solid #2563eb;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 8px;
+    animation: briefSlideDown 0.25s ease-out;
+  }
+
+  @keyframes briefSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .brief-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-blue);
+    margin-bottom: 6px;
+  }
+
+  .brief-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 4px;
+  }
+
+  .brief-desc {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin: 0 0 16px 0;
+  }
+
+  .brief-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid #1e293b;
+  }
+
+  .brief-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #10b981;
+  }
+
+  .brief-continue-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .brief-continue-link:hover {
+    color: #93c5fd;
+  }
+
+  /* Guarantee Strip */
+  .desk-guarantee-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #1e293b;
+  }
+
+  .guarantee-col {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8125rem;
+    color: #94a3b8;
+  }
+
+  .guarantee-col svg {
+    stroke: var(--accent-blue);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .input-row {
+      flex-direction: column;
+    }
+    .btn-submit-requirement {
+      padding: 14px 20px;
+      justify-content: center;
+    }
+    .desk-guarantee-strip {
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
   }
 </style>

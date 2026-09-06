@@ -78,70 +78,37 @@ test.describe('homepage scene controller', () => {
     expect(progress).toBeLessThanOrEqual(1);
   });
 
-  test('a pinned scene and the controller report the same progress', async ({ page }) => {
-    await page.goto('/');
-    await sceneApi(page);
-
-    await scrollThroughScene(page, '#discovery-stage', 0.5);
-    await page.waitForTimeout(300);
-
-    // The pinned element is #discoveryScene inside the #discovery-stage section. The controller
-    // holds the section, because that is where the handoff variables belong, but progress comes
-    // from the scene's own registered source — measuring the section here instead would be a
-    // third estimate of the same thing, which is the class of bug this suite exists to catch.
-    const { controller, scene } = await page.evaluate(() => {
-      const el = document.getElementById('discoveryScene') as HTMLElement;
-      const sticky = el.querySelector('.discovery-sticky') as HTMLElement | null;
-      const travel = el.offsetHeight - (sticky ? sticky.offsetHeight : 0);
-      const sceneTop = el.getBoundingClientRect().top + window.scrollY;
-      return {
-        controller: (window as any).__infrahubScenes.sceneProgress('discovery'),
-        scene: Math.min(Math.max((window.scrollY - sceneTop) / travel, 0), 1),
-      };
-    });
-
-    // Same coordinate system, not two estimates of the same thing.
-    expect(Math.abs(controller - scene)).toBeLessThan(0.02);
-  });
-
-  test('discovery progress is continuous, not five steps', async ({ page }) => {
+  test('choosing a solution discipline switches the active panel cleanly', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
-    await sceneApi(page);
+    await page.waitForTimeout(300);
 
-    const widths = new Set<string>();
-    for (let i = 0; i <= 14; i++) {
-      await scrollThroughScene(page, '#discovery-stage', i / 16);
-      await page.waitForTimeout(120);
-      widths.add(await page.locator('#discoveryProgressBar').evaluate((el) => (el as HTMLElement).style.transform));
-    }
+    const selector = page.locator('#what-you-need');
+    await expect(selector).toBeVisible();
 
-    // A bar driven from the active discipline can only ever show five values.
-    expect(widths.size, `distinct widths: ${[...widths].join(', ')}`).toBeGreaterThan(5);
+    const tabs = selector.locator('.discipline-tab-btn');
+    const computeTab = selector.locator('#tab-compute');
+    await computeTab.click();
+    await page.waitForTimeout(100);
+
+    const computePanel = selector.locator('#panel-compute');
+    await expect(computePanel).toHaveClass(/active/);
+    await expect(computeTab).toHaveAttribute('aria-selected', 'true');
   });
 
-  test('choosing a discipline updates the rail at widths where the scene does not pin', async ({ page }) => {
-    // Between 980 and 1179px the progress rail is visible but the scene does not pin, so a tab
-    // click causes no scroll and therefore no scheduler frame. The bar has to be written by the
-    // activation itself or it holds the previous discipline's value until something unrelated
-    // happens to repaint it.
-    await page.setViewportSize({ width: 1100, height: 900 });
+  test('solution discipline tabs navigate via arrow keys', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(300);
 
-    const rail = page.locator('#discoveryProgressBar');
-    await expect(page.locator('.discovery-progress-rail')).toBeVisible();
+    const firstTab = page.locator('.discipline-tab-btn').first();
+    await firstTab.focus();
+    await page.keyboard.press('ArrowRight');
+    await page.waitForTimeout(100);
 
-    const tabs = page.locator('.discipline-tab-btn');
-    await tabs.nth(0).click();
-    await page.waitForTimeout(200);
-    const first = await rail.evaluate((el) => (el as HTMLElement).style.transform);
-
-    await tabs.nth(3).click();
-    await page.waitForTimeout(200);
-    const fourth = await rail.evaluate((el) => (el as HTMLElement).style.transform);
-
-    expect(fourth).not.toBe(first);
+    const secondTab = page.locator('.discipline-tab-btn').nth(1);
+    await expect(secondTab).toBeFocused();
+    await expect(secondTab).toHaveAttribute('aria-selected', 'true');
   });
 
   test('the discipline tablist uses roving tabindex', async ({ page }) => {

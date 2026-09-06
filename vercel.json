@@ -36,6 +36,51 @@
       "source": "/wavelengths.html",
       "destination": "/wavelengths",
       "permanent": true
+    },
+    {
+      "source": "/partners",
+      "destination": "/solutions",
+      "permanent": true
+    },
+    {
+      "source": "/partners/fastnetmon",
+      "destination": "/solutions/security",
+      "permanent": true
+    },
+    {
+      "source": "/partners/stormwall",
+      "destination": "/solutions/security",
+      "permanent": true
+    },
+    {
+      "source": "/partners/zenlayer",
+      "destination": "/solutions/network-connectivity",
+      "permanent": true
+    },
+    {
+      "source": "/partners/gcore",
+      "destination": "/solutions/cloud-virtualization",
+      "permanent": true
+    },
+    {
+      "source": "/partners/vates",
+      "destination": "/solutions/cloud-virtualization",
+      "permanent": true
+    },
+    {
+      "source": "/partners/itcare",
+      "destination": "/solutions/managed-services",
+      "permanent": true
+    },
+    {
+      "source": "/partners/ipxo",
+      "destination": "/ipv4",
+      "permanent": true
+    },
+    {
+      "source": "/partners/airframe",
+      "destination": "/how-we-work",
+      "permanent": true
     }
   ],
   "headers": [

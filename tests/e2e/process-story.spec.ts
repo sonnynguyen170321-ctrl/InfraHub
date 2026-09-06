@@ -1,51 +1,37 @@
 import { test, expect } from '@playwright/test';
 
-// Chapter 04. The claim under test is that the story advances with the reader: the active step,
-// the drawn route line and the single annotation stay in agreement.
+test.describe('How We Work Operating Process & Commercial Story (/how-we-work)', () => {
+  test('renders all 4 stages in the operating process', async ({ page }) => {
+    await page.goto('/how-we-work');
 
-test.describe('process story', () => {
-  test('the annotation follows the step being read', async ({ page }) => {
-    await page.goto('/');
+    await expect(page).toHaveTitle(/How We Work/i);
+    const stages = page.locator('.stage-block');
+    await expect(stages).toHaveCount(4);
 
-    const observed: string[] = [];
-
-    for (const step of ['understand', 'match', 'introduce', 'deliver']) {
-      await page.evaluate((id) => {
-        const el = document.getElementById(`step-${id}`);
-        if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 280);
-      }, step);
-      await page.waitForTimeout(220);
-
-      await expect(page.locator(`#step-${step}`)).toHaveClass(/is-active/);
-      observed.push(
-        (await page.locator('.annotation-slide.active .annotation-title').innerText()).trim()
-      );
-    }
-
-    // Four steps, four different observations, in order.
-    expect(new Set(observed).size).toBe(4);
+    const kickers = await stages.locator('.stage-kicker').allInnerTexts();
+    expect(kickers.map((k) => k.trim())).toEqual(['Understand', 'Match', 'Introduce', 'Deliver']);
   });
 
-  test('steps already passed keep their route line drawn', async ({ page }) => {
-    await page.goto('/');
+  test('the process states truthful commercial boundaries without hype', async ({ page }) => {
+    await page.goto('/how-we-work');
 
-    await page.evaluate(() => {
-      const el = document.getElementById('step-deliver');
-      if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 280);
-    });
-    await page.waitForTimeout(220);
+    const bodyText = (await page.locator('main').innerText()).toLowerCase();
+    for (const banned of ['guarantee', 'zero markup', 'best provider in the world', 'cheapest']) {
+      expect(bodyText, `process copy must not claim "${banned}"`).not.toContain(banned);
+    }
 
-    await expect(page.locator('#step-understand')).toHaveClass(/is-passed/);
-    await expect(page.locator('#step-match')).toHaveClass(/is-passed/);
+    expect(bodyText).toContain('understand');
+    expect(bodyText).toContain('evaluate');
   });
 
-  test('the process states nothing beyond the commercial model', async ({ page }) => {
-    await page.goto('/');
+  test('commercial FAQ section answers key relationship and SLA questions', async ({ page }) => {
+    await page.goto('/how-we-work');
 
-    const text = (await page.locator('#how-it-works').innerText()).toLowerCase();
-    for (const banned of ['guarantee', 'zero markup', 'verified specialist', 'best provider']) {
-      expect(text, `process copy must not claim "${banned}"`).not.toContain(banned);
-    }
-    expect(text).toContain('the selected specialist contracts and delivers');
+    const faqEntries = page.locator('.faq-entry');
+    const count = await faqEntries.count();
+    expect(count).toBeGreaterThanOrEqual(3);
+
+    const firstQuestion = page.locator('.faq-question').first();
+    await expect(firstQuestion).toBeVisible();
   });
 });

@@ -84,8 +84,8 @@ function runTest() {
     }
 
     eligibleCount++;
-    if (!html.includes(`/partners/${slug}`)) {
-      console.error(`FAIL: Eligible partner "${slug}" missing link in partner trust ribbon`);
+    if (!html.includes(`data-partner-slug="${slug}"`)) {
+      console.error(`FAIL: Eligible partner "${slug}" missing badge in partner trust ribbon`);
       process.exit(1);
     }
   }

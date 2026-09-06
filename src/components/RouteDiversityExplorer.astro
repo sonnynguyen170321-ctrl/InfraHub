@@ -306,6 +306,16 @@ const riskPoints = [
     position: relative;
   }
 
+  /* Teaser Mode on Homepage: Condensed instant proof without 165vh scroll trap */
+  .route-diversity-explorer.is-teaser .route-scene {
+    min-height: auto !important;
+  }
+
+  .route-diversity-explorer.is-teaser .route-sticky {
+    position: static !important;
+    min-height: auto !important;
+  }
+
   @media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
     .route-scene {
       /* Two-act scroll story: logical then physical convergence, followed by interaction */
@@ -921,7 +931,7 @@ const riskPoints = [
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const pinQuery = window.matchMedia('(min-width: 1180px) and (min-height: 700px)');
-    const isPinned = () => pinQuery.matches && !reducedMotion.matches;
+    const isPinned = () => !section.classList.contains('is-teaser') && pinQuery.matches && !reducedMotion.matches;
 
     const STATE_COUNT = copies.length;
     const statusFor: Record<number, string> = {
@@ -1140,7 +1150,7 @@ const riskPoints = [
             setState(2);
             scrollToState(2);
           }
-          if (statusTag) statusTag.textContent = 'Illustrative failure: both circuits use the shared civil crossing.';
+          if (statusTag) statusTag.textContent = 'Illustrative: Common-mode failure at the shared civil crossing.';
           if (pointName) pointName.textContent = 'Shared civil crossing unavailable';
           if (pointDesc) pointDesc.textContent = 'In this illustrative model, loss of the shared crossing interrupts both circuits. Real route diversity must be established from evidence for the specific paths.';
           if (pointDetail) pointDetail.classList.add('is-warning');

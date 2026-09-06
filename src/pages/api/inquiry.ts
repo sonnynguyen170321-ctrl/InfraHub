@@ -93,7 +93,7 @@ const InquiryPayloadSchema = z.object({
     .trim()
     .min(10, 'Requirement description must be at least 10 characters.')
     .max(3000),
-  timeline: z.enum(['immediate', 'under-30-days', '1-3-months', '3-plus-months', 'researching']),
+  timeline: z.enum(['immediate', 'under-30-days', '1-3-months', '3-plus-months', 'researching']).optional().default('researching'),
   contactName: z.string().trim().min(2, 'Name is required.').max(100),
   companyName: optionalShortString(120),
   workEmail: z.string().trim().email('Valid work email is required.').max(254),

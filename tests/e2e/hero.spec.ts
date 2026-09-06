@@ -269,73 +269,24 @@ async function scrollSettled(page: Page) {
   throw new Error('scroll never settled');
 }
 
-test.describe('hero primary action', () => {
-  test('Explore Solutions targets a section that exists', async ({ page }) => {
+test.describe('hero actions', () => {
+  test('primary CTA Start a Requirement targets /lets-talk', async ({ page }) => {
     await page.goto('/');
-    const targets = await page.locator('.hero-primary-action').getAttribute('href');
-    expect(targets).toBe('#discovery-stage');
-    await expect(page.locator(String(targets))).toHaveCount(1);
+    const primary = page.locator('.hero-primary-action');
+    await expect(primary).toHaveText(/Start a Requirement/i);
+    await expect(primary).toHaveAttribute('href', '/lets-talk');
   });
 
-  test('clicking it lands on the discovery stage, clear of the sticky header', async ({ page }) => {
+  test('secondary action Explore Solutions targets #what-you-need and scrolls to Act 2', async ({ page }) => {
     await page.goto('/');
-    await page.locator('.hero-primary-action').click();
+    const secondary = page.locator('.hero-text-action');
+    await expect(secondary).toHaveText(/Explore Solutions/i);
+    await expect(secondary).toHaveAttribute('href', '#what-you-need');
+
+    await secondary.click();
     await scrollSettled(page);
 
-    /*
-     * Measured from the header as rendered, not from --header-height. The header shrinks to
-     * 68px once .is-scrolled is applied while the token stays at 80px, so asserting against
-     * the token fails a landing that is in fact flush with the header's real bottom edge.
-     */
-    const headerBottom = await page.evaluate(() =>
-      document.querySelector('header')!.getBoundingClientRect().bottom);
-
-    const stage = await page.locator('#discovery-stage').boundingBox();
-    expect(stage, 'discovery stage should be laid out').not.toBeNull();
-
-    // Below the header rather than tucked under it, and actually arrived at rather than
-    // left somewhere down the page.
-    expect(stage!.y).toBeGreaterThanOrEqual(headerBottom - 4);
-    expect(stage!.y).toBeLessThan(headerBottom + 120);
-  });
-
-  test('keyboard activation moves focus into the discovery stage', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.hero-primary-action').focus();
-    await page.keyboard.press('Enter');
-    await scrollSettled(page);
-
-    /*
-     * Without a focusable target, fragment navigation only moves the sequential focus starting
-     * point: focus stays on the link, so a screen reader user who activates the call to action
-     * is still announced back in the hero while the viewport has moved on.
-     */
-    const landed = await page.evaluate(() => {
-      const stage = document.querySelector('#discovery-stage');
-      const active = document.activeElement;
-      return !!(stage && active && (stage === active || stage.contains(active)));
-    });
-    expect(landed, 'focus should be inside #discovery-stage').toBe(true);
-  });
-
-  test('that focus does not paint a ring for pointer users', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.hero-primary-action').click();
-    await scrollSettled(page);
-    const outline = await page.evaluate(() => {
-      const stage = document.querySelector('#discovery-stage') as HTMLElement;
-      const cs = getComputedStyle(stage);
-      return { width: cs.outlineWidth, style: cs.outlineStyle };
-    });
-    expect(outline.style === 'none' || outline.width === '0px').toBe(true);
-  });
-
-  test('the landing frame shows the controls, not just a heading', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.hero-primary-action').click();
-    await scrollSettled(page);
-
-    await expect(page.locator('#discovery-stage .solutions-title')).toBeInViewport();
-    await expect(page.locator('#solutionDiscovery .discipline-tab-btn').first()).toBeInViewport();
+    const selector = page.locator('#what-you-need');
+    await expect(selector).toBeInViewport();
   });
 });

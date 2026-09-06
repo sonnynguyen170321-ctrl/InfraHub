@@ -129,14 +129,13 @@ const services: Record<string, string[]> = {
         </div>
 
         <div class="field-group timeline-group">
-          <label for="timeline">Timing</label>
-          <select name="timeline" id="timeline" required aria-describedby="timeline-error">
-            <option value="" disabled selected>Select timing</option>
+          <label for="timeline">Timing <span>Optional</span></label>
+          <select name="timeline" id="timeline" aria-describedby="timeline-error">
+            <option value="researching" selected>Evaluating / Flexible timing</option>
             <option value="immediate">Next 7–14 days</option>
             <option value="under-30-days">Under 30 days</option>
             <option value="1-3-months">1–3 months</option>
             <option value="3-plus-months">3+ months</option>
-            <option value="researching">Still evaluating</option>
           </select>
           <p class="field-error" id="timeline-error" hidden></p>
         </div>
@@ -461,16 +460,17 @@ const services: Record<string, string[]> = {
     byId<HTMLButtonElement>('continue-to-contact')?.addEventListener('click', () => {
       const missingScope = !scopeInput?.value;
       const missingDescription = (description?.value.trim().length || 0) < 10 && !selectedService;
-      const missingTimeline = !timeline?.value;
-      if (missingScope || missingDescription || missingTimeline) {
+      if (timeline && !timeline.value) {
+        timeline.value = 'researching';
+      }
+      if (missingScope || missingDescription) {
         if (errorAlert) {
-          errorAlert.textContent = 'Choose an area, add a short requirement, and select timing before continuing.';
+          errorAlert.textContent = 'Choose an area or describe your requirement in one sentence to continue.';
           errorAlert.hidden = false;
           errorAlert.focus();
         }
         if (missingScope) form.querySelector<HTMLButtonElement>('[data-scope]')?.focus();
-        else if (missingDescription) description?.focus();
-        else timeline?.focus();
+        else description?.focus();
         return;
       }
       if (errorAlert) errorAlert.hidden = true;
@@ -499,6 +499,14 @@ const services: Record<string, string[]> = {
     if (contextValue && contextBadge && contextNote) {
       contextNote.textContent = `Starting from: ${contextValue}`;
       contextBadge.hidden = false;
+    }
+    const incomingRequirement = params.get('requirement');
+    if (incomingRequirement && description) {
+      description.value = incomingRequirement;
+      const inferred = inferScope(incomingRequirement);
+      if (inferred) chooseScope(inferred);
+      showDetails();
+      updateSummary();
     }
     const incomingService = params.get('service');
     if (incomingService) chooseScope(serviceScope[incomingService] || inferScope(incomingService) || 'other');

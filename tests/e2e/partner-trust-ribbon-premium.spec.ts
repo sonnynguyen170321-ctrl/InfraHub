@@ -12,14 +12,14 @@ const CANONICAL_PARTNERS = [
 ];
 
 test.describe('Partner Ecosystem Ribbon — Premium Marquee Architecture', () => {
-  test('primary sequence contains all 8 canonical partners and proper links', async ({ page }) => {
+  test('primary sequence contains all 8 canonical partners as non-clickable passive credibility badges', async ({ page }) => {
     await page.goto('/');
 
     const ribbon = page.locator('.partner-trust-ribbon');
     await expect(ribbon).toBeVisible();
 
     const kicker = ribbon.locator('.ribbon-kicker');
-    await expect(kicker).toHaveText('Our partner ecosystem');
+    await expect(kicker).toHaveText(/Our partner ecosystem/i);
 
     const primaryTrack = ribbon.locator('.primary-track');
     await expect(primaryTrack).toBeVisible();
@@ -27,12 +27,15 @@ test.describe('Partner Ecosystem Ribbon — Premium Marquee Architecture', () =>
     const items = primaryTrack.locator('.partner-item');
     await expect(items).toHaveCount(CANONICAL_PARTNERS.length);
 
+    // Verify all partner badges are passive (non-clickable spans, NO links per Directive Section 3)
+    const links = ribbon.locator('a');
+    await expect(links).toHaveCount(0);
+
     for (let i = 0; i < CANONICAL_PARTNERS.length; i++) {
       const partnerName = CANONICAL_PARTNERS[i];
-      const link = items.nth(i).locator('a.partner-logo-link');
-      await expect(link).toBeAttached();
-      await expect(link).toHaveAttribute('href', /^\/partners\//);
-      const img = link.locator('img.partner-logo-img');
+      const badge = items.nth(i).locator('span.partner-logo-link');
+      await expect(badge).toBeAttached();
+      const img = badge.locator('img.partner-logo-img');
       await expect(img).toBeAttached();
       await expect(img).toHaveAttribute('alt', `${partnerName} logo`);
     }
@@ -56,36 +59,17 @@ test.describe('Partner Ecosystem Ribbon — Premium Marquee Architecture', () =>
       await expect(links).toHaveCount(0);
 
       // Verify each item is a non-interactive span
-      const spans = track.locator('span.partner-logo-link.decorative');
+      const spans = track.locator('span.partner-logo-link');
       await expect(spans).toHaveCount(CANONICAL_PARTNERS.length);
     }
   });
 
-  test('keyboard focus never pauses on a clipped partner link', async ({ page }) => {
+  test('ribbon is passive credibility and does not trap keyboard focus', async ({ page }) => {
     await page.goto('/');
 
-    const wrapper = page.locator('.partner-trust-ribbon .ribbon-track-wrapper');
-    const links = page.locator('.partner-trust-ribbon .primary-track a.partner-logo-link');
-    await links.first().focus();
-
-    for (let index = 0; index < CANONICAL_PARTNERS.length; index++) {
-      await expect(links.nth(index)).toBeFocused();
-
-      const [wrapperBox, linkBox] = await Promise.all([
-        wrapper.boundingBox(),
-        links.nth(index).boundingBox()
-      ]);
-
-      expect(wrapperBox, 'ribbon viewport should be laid out').not.toBeNull();
-      expect(linkBox, `${CANONICAL_PARTNERS[index]} should be laid out`).not.toBeNull();
-      expect(
-        linkBox!.x + linkBox!.width > wrapperBox!.x &&
-          linkBox!.x < wrapperBox!.x + wrapperBox!.width,
-        `${CANONICAL_PARTNERS[index]} focus should remain visible inside the ribbon`
-      ).toBe(true);
-
-      if (index < CANONICAL_PARTNERS.length - 1) await page.keyboard.press('Tab');
-    }
+    // Per Directive Section 3: partner logos are non-clickable passive badges and should not receive tab focus
+    const ribbonLinks = page.locator('.partner-trust-ribbon a');
+    await expect(ribbonLinks).toHaveCount(0);
   });
 
   test('parent marquee strip exists, animates infinite, and measures distance', async ({ page }) => {

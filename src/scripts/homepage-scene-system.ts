@@ -31,12 +31,12 @@ export interface SceneState {
 export const SCENE_SELECTORS: ReadonlyArray<{ id: string; selector: string; optional?: boolean }> = [
   { id: 'hero', selector: '#hero' },
   { id: 'ecosystem', selector: '.partner-trust-ribbon' },
-  { id: 'discovery', selector: '#discovery-stage' },
-  { id: 'judgment', selector: '#how-it-works' },
+  { id: 'discovery', selector: '#what-you-need, #discovery-stage' },
+  { id: 'judgment', selector: '#why-infrahub, #how-it-works' },
   { id: 'routeReality', selector: '#route-explorer' },
   { id: 'market', selector: '#featured-offers', optional: true },
-  { id: 'practice', selector: '#who-we-help' },
-  { id: 'conversation', selector: '#contact' },
+  { id: 'practice', selector: '#who-we-help', optional: true },
+  { id: 'conversation', selector: '#start-requirement, #contact' },
 ];
 
 export class HomepageSceneSystem {
