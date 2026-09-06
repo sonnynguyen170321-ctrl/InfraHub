@@ -235,6 +235,20 @@ test.describe('hero art direction', () => {
  * instead of guessing how long it takes.
  */
 async function scrollSettled(page: Page) {
+  /*
+   * A smooth scroll does not necessarily begin in the same tick as the click that
+   * triggered it. Polling only for stability cannot tell "finished" apart from "not
+   * started yet" — both hold scrollY constant — so the caller would measure the
+   * unscrolled page and read the target's natural position instead of its landed one.
+   * Wait for movement to start first, then for it to stop.
+   */
+  const from = await page.evaluate(() => window.scrollY);
+  await page
+    .waitForFunction((y) => window.scrollY !== y, from, { timeout: 4000 })
+    .catch(() => {
+      // Already at the target: no movement is the correct outcome, not a failure.
+    });
+
   let last = -1;
   let stable = 0;
   for (let i = 0; i < 80; i++) {
