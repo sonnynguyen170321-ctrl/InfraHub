@@ -87,18 +87,19 @@ import heroImage from '../assets/hero-datacenter.jpg';
       </defs>
       <path
         class="spatial-route-path"
-        d="M 620 180 Q 560 340, 480 440 T 420 590"
+        d="M 640 120 Q 580 300, 480 430 T 420 600"
       />
       <path
         class="spatial-route-branch branch-left"
-        d="M 480 440 Q 450 510, 360 590"
+        d="M 480 430 Q 450 520, 360 600"
       />
       <path
         class="spatial-route-branch branch-right"
-        d="M 480 440 Q 510 510, 490 590"
+        d="M 480 430 Q 510 520, 500 600"
       />
-      <circle class="spatial-route-junction" cx="480" cy="440" r="3" />
+      <circle class="spatial-route-junction" cx="480" cy="430" r="3.5" />
     </svg>
+    <div class="hero-bottom-shelf"></div>
   </div>
 </section>
 
@@ -128,6 +129,7 @@ import heroImage from '../assets/hero-datacenter.jpg';
     color: #ffffff;
     overflow: hidden;
     padding: 96px 0 88px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .hero-backdrop {
@@ -444,8 +446,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
     height: 100%;
     z-index: 1;
     pointer-events: none;
-    opacity: calc(min(max((var(--hero-progress, 0) - 0.5) * 3, 0), 1));
-    transition: opacity 180ms ease-out;
+    opacity: calc(0.4 + min(max(var(--hero-progress, 0) * 1.5, 0), 0.6));
+    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .hero-spatial-transition[data-enhanced='true'] .hero-spatial-fallback {
@@ -457,21 +459,34 @@ import heroImage from '../assets/hero-datacenter.jpg';
     stroke: url(#routeSplineGradient);
     stroke-width: 1.5;
     stroke-dasharray: 600;
-    stroke-dashoffset: calc(600 - min(max((var(--hero-progress, 0) - 0.6) * 2.5, 0), 1) * 600);
+    stroke-dashoffset: calc(320 - min(max(var(--hero-progress, 0) * 1.5, 0), 1) * 320);
     stroke-linecap: round;
+    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.4));
   }
 
   .spatial-route-branch {
     fill: none;
-    stroke: rgba(37, 99, 235, 0.4);
+    stroke: rgba(70, 120, 220, 0.45);
     stroke-width: 1;
     stroke-dasharray: 200;
-    stroke-dashoffset: calc(200 - min(max((var(--hero-progress, 0) - 0.8) * 5, 0), 1) * 200);
+    stroke-dashoffset: calc(140 - min(max((var(--hero-progress, 0) - 0.1) * 2, 0), 1) * 140);
   }
 
   .spatial-route-junction {
-    fill: var(--accent-blue, #2563eb);
-    opacity: calc(min(max((var(--hero-progress, 0) - 0.78) * 5, 0), 1));
+    fill: #3b82f6;
+    opacity: calc(0.5 + min(max(var(--hero-progress, 0) * 1.8, 0), 0.5));
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.6));
+  }
+
+  .hero-bottom-shelf {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    background: linear-gradient(180deg, rgba(7, 12, 20, 0) 0%, rgba(7, 12, 20, 0.4) 60%, rgba(7, 12, 20, 0.72) 100%);
+    pointer-events: none;
+    z-index: 3;
   }
 
   /*

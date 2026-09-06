@@ -224,7 +224,7 @@ const approvedPartners = allPartners
        * motion was spent inside the first hundred pixels of scroll and never actually read.
        */
       const heroHeight = hero ? hero.offsetHeight || 1 : 1;
-      const raw = (window.scrollY - heroHeight * 0.45) / (heroHeight * 0.55);
+      const raw = window.scrollY / (heroHeight * 0.75);
       const land = Math.min(Math.max(raw, 0), 1);
 
       section!.style.setProperty('--ribbon-land', land.toFixed(3));
@@ -284,6 +284,7 @@ const approvedPartners = allPartners
     padding: 13px 0;
     overflow: hidden;
     z-index: 10;
+    border-top: 1px solid rgba(9, 17, 24, 0.07);
     --ribbon-land: 1;
     --ribbon-gap: 28px;
     --ribbon-logo-height: 36px;
@@ -310,16 +311,16 @@ const approvedPartners = allPartners
     gap: 16px;
     align-items: flex-start;
     /*
-     * The surface hinges up from its own bottom edge as it arrives, finishing flat. Every term
-     * is a plain multiplication by a unit, deliberately: a min()/max() around an angle here is
-     * what silently invalidated the hero's transform and froze it. Clamping happens in JS.
+     * The surface hinges up from its own bottom edge as it arrives, finishing flat.
+     * Retuned with restrained physical calibration (1.5deg, 4px travel) so it remains
+     * authoritative and crisp at rest and responsive under scroll.
      */
     transform-origin: 50% 100%;
     transform:
-      perspective(900px)
-      rotateX(calc((1 - var(--ribbon-land, 1)) * 2.5deg))
-      translateY(calc((1 - var(--ribbon-land, 1)) * 8px));
-    opacity: calc(0.88 + var(--ribbon-land, 1) * 0.12);
+      perspective(1000px)
+      rotateX(calc((1 - var(--ribbon-land, 1)) * 1.5deg))
+      translateY(calc((1 - var(--ribbon-land, 1)) * 4px));
+    opacity: calc(0.94 + var(--ribbon-land, 1) * 0.06);
   }
 
   @media (min-width: 900px) {

@@ -129,8 +129,8 @@ export class Hero3DTransitionController {
     const heroHeight = this.heroEl.offsetHeight || 1;
     const scrollY = window.scrollY;
 
-    // Transition occupies hero scroll progress ~0.55 to ~1.02
-    const progress = Math.min(Math.max((scrollY - heroHeight * 0.45) / (heroHeight * 0.55), 0), 1);
+    // Transition responds immediately as scroll starts, tracking the route exit
+    const progress = Math.min(Math.max(scrollY / (heroHeight * 0.75), 0), 1);
     this.updateProgress(progress);
   }
 
@@ -254,53 +254,25 @@ export class Hero3DTransitionController {
     const masterOpacity = p > 0.94 ? Math.max(0, (1 - p) / 0.06) : 1;
     ctx.globalAlpha = masterOpacity;
 
-    // 1. Render Architectural Partner Plane (Directives 06, 17, 21)
-    if (p > 0.25) {
-      const planeProgress = Math.min(Math.max((p - 0.25) / 0.7, 0), 1);
-      const easedTilt = 1 - Math.pow(1 - planeProgress, 2.2);
-      const tiltAngle = (1 - easedTilt) * 0.14; // Perspective tilt (radians)
+    // 1. Render Architectural Datum Baseline in 3D perspective
+    if (p > 0.05) {
 
-      const planeWidth = 6.0;
-      const planeDepth = 2.4;
-      const planeY = -1.15 + (1 - easedTilt) * -0.3;
+      const planeWidth = 5.5;
+      const planeDepth = 2.0;
+      const planeY = -1.15;
 
-      // 4 corners of the architectural plane in 3D
-      const corners: Vec3[] = [
-        { x: -planeWidth, y: planeY + Math.sin(tiltAngle) * planeDepth, z: -planeDepth },
-        { x: planeWidth, y: planeY + Math.sin(tiltAngle) * planeDepth, z: -planeDepth },
-        { x: planeWidth, y: planeY, z: planeDepth },
-        { x: -planeWidth, y: planeY, z: planeDepth }
-      ];
+      const baselineLeft: Vec3 = { x: -planeWidth, y: planeY, z: planeDepth };
+      const baselineRight: Vec3 = { x: planeWidth, y: planeY, z: planeDepth };
 
-      const projectedCorners = corners.map(c => this.project3D(c, width, height, p));
+      const projLeft = this.project3D(baselineLeft, width, height, p);
+      const projRight = this.project3D(baselineRight, width, height, p);
 
-      if (projectedCorners.every(c => c.visible)) {
-        // Reaches 1, not 0.92: the plane's bottom edge butts directly against the partner
-        // ribbon, so anything less composites the dark photograph through it and leaves a
-        // visible step at the seam.
-        const planeAlpha = Math.min((p - 0.25) / 0.25, 1);
+      if (projLeft.visible && projRight.visible) {
+        const lineAlpha = Math.min(p / 0.3, 1) * 0.35;
         ctx.beginPath();
-        ctx.moveTo(projectedCorners[0].x, projectedCorners[0].y);
-        ctx.lineTo(projectedCorners[1].x, projectedCorners[1].y);
-        ctx.lineTo(projectedCorners[2].x, projectedCorners[2].y);
-        ctx.lineTo(projectedCorners[3].x, projectedCorners[3].y);
-        ctx.closePath();
-
-        const grad = ctx.createLinearGradient(
-          0, projectedCorners[0].y,
-          0, projectedCorners[2].y
-        );
-        // Warm paper, the same #F7F7F5 the ribbon and .section-solutions carry, rather than a
-        // cool white that reads as a different material where the two surfaces meet.
-        grad.addColorStop(0, `rgba(247, 247, 245, ${0.4 * planeAlpha})`);
-        grad.addColorStop(0.5, `rgba(247, 247, 245, ${0.85 * planeAlpha})`);
-        grad.addColorStop(1, `rgba(247, 247, 245, ${planeAlpha})`);
-
-        ctx.fillStyle = grad;
-        ctx.fill();
-
-        // Subtle leading edge highlight
-        ctx.strokeStyle = `rgba(37, 99, 235, ${0.25 * planeAlpha})`;
+        ctx.moveTo(projLeft.x, projLeft.y);
+        ctx.lineTo(projRight.x, projRight.y);
+        ctx.strokeStyle = `rgba(164, 185, 212, ${lineAlpha})`;
         ctx.lineWidth = 1;
         ctx.stroke();
       }
@@ -308,7 +280,7 @@ export class Hero3DTransitionController {
 
     // 2. Render 3D Route Spline (Directives 03, 04, 05, 22)
     const splineSamples = 80;
-    const maxT = Math.min(p * 1.35, 1);
+    const maxT = Math.min(0.2 + p * 0.85, 1);
     const steps = Math.floor(maxT * splineSamples);
 
     if (steps >= 2) {
@@ -351,9 +323,9 @@ export class Hero3DTransitionController {
         ctx.stroke();
 
         // Landing junction point (Directive 23)
-        if (p > 0.65) {
-          const landingPt = screenPoints[Math.min(Math.floor(splineSamples * 0.6), screenPoints.length - 1)];
-          const jAlpha = Math.min((p - 0.65) / 0.2, 1);
+        if (p > 0.4) {
+          const landingPt = screenPoints[screenPoints.length - 1];
+          const jAlpha = Math.min((p - 0.4) / 0.3, 1);
           ctx.beginPath();
           ctx.arc(landingPt.x, landingPt.y, 3, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(37, 99, 235, ${jAlpha})`;
