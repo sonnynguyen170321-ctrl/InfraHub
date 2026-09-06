@@ -14,13 +14,6 @@ type EntryTiming = {
   imageDuration: number;
 };
 
-const seconds = (value: string) => {
-  const first = value.split(',')[0].trim();
-  if (first.endsWith('ms')) return parseFloat(first) / 1000;
-  if (first.endsWith('s')) return parseFloat(first);
-  return Number.NaN;
-};
-
 async function timings(page: import('@playwright/test').Page): Promise<EntryTiming> {
   return page.evaluate(() => {
     const sec = (value: string) => {
