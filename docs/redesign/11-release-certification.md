@@ -1,11 +1,11 @@
 # Phase 11 — Release Certification & Launch Readiness Audit
 
-**Classification:** CURRENT_CANONICAL  
+**Classification:** HISTORICAL — superseded by [HANDOFF.md](HANDOFF.md)
 **Date:** 2026-09-06  
 **Branch:** `release/50k-certification`  
 **Base Commit:** `6ffcb1c` (Phase 10 completion)  
 **Master Plan Reference:** [MASTER_PLAN.md](MASTER_PLAN.md) §30, §31, §32  
-**Verdict:** **APPROVED FOR PRODUCTION RELEASE**  
+**Verdict at time of issue:** **APPROVED FOR PRODUCTION RELEASE**
 
 ---
 

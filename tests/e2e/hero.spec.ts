@@ -62,6 +62,13 @@ async function copyLineBoxes(page: Page) {
 }
 
 test.describe('hero art direction', () => {
+  test('the value proposition is legible from the first frame', async ({ page }) => {
+    await page.goto('/');
+    const states = await page.locator('.hero-line, .hero-description, .hero-actions').evaluateAll((elements) =>
+      elements.map((element) => Number.parseFloat(getComputedStyle(element).opacity))
+    );
+    expect(Math.min(...states)).toBeGreaterThanOrEqual(0.7);
+  });
   test('does not render the decorative optical hardware', async ({ page }) => {
     await page.goto('/');
 

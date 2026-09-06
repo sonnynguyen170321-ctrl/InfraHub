@@ -4,6 +4,16 @@ import { test, expect } from '@playwright/test';
 // runs at 1440 so these are the real desktop affordances, not a CSS accident.
 
 test.describe('desktop navigation', () => {
+  test('keeps the requirement-first primary information architecture', async ({ page }) => {
+    await page.goto('/');
+    const nav = page.getByRole('navigation', { name: 'Primary Navigation' });
+
+    await expect(nav.getByRole('link', { name: 'How We Work' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Industries' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Insights' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Partners' })).toHaveCount(0);
+    await expect(nav.getByRole('link', { name: 'Featured Offers' })).toHaveCount(0);
+  });
   test('mega menu opens on hover and reports its expanded state', async ({ page }) => {
     await page.goto('/');
 

@@ -52,7 +52,7 @@ test.describe('accessibility', () => {
 
   test('the inquiry form is clean in its error state', async ({ page }) => {
     await page.goto('/lets-talk');
-
+    await page.locator('#advanced-toggle').click();
     await page.locator('#submit-btn').click();
     await page.waitForTimeout(300);
 
