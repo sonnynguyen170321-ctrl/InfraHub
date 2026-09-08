@@ -23,18 +23,6 @@ async function sceneApi(page: Page) {
   await page.waitForFunction(() => Boolean((window as any).__infrahubScenes), null, { timeout: 5000 });
 }
 
-/** Scrolls to a fraction of the way through a scene's own travel. */
-async function scrollThroughScene(page: Page, selector: string, fraction: number) {
-  await page.evaluate(
-    ({ selector, fraction }) => {
-      const el = document.querySelector(selector) as HTMLElement;
-      const top = el.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: Math.round(top + el.offsetHeight * fraction), behavior: 'instant' as ScrollBehavior });
-    },
-    { selector, fraction }
-  );
-}
-
 test.describe('homepage scene controller', () => {
   test('every expected scene resolves to an element', async ({ page }) => {
     await page.goto('/');
@@ -86,7 +74,6 @@ test.describe('homepage scene controller', () => {
     const selector = page.locator('#what-you-need');
     await expect(selector).toBeVisible();
 
-    const tabs = selector.locator('.discipline-tab-btn');
     const computeTab = selector.locator('#tab-compute');
     await computeTab.click();
     await page.waitForTimeout(100);

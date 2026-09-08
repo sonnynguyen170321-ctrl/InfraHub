@@ -1,7 +1,7 @@
 ---
 // src/pages/offers/[slug].astro
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { publicPriceLabel } from '../../lib/offer-pricing';
 
 export async function getStaticPaths() {
@@ -15,16 +15,16 @@ export async function getStaticPaths() {
       return true;
     })
     .map(offer => ({
-      params: { slug: offer.slug },
+      params: { slug: offer.id },
       props: { offer }
     }));
 }
 
 const { offer } = Astro.props;
-const { Content } = await offer.render();
+const { Content } = await render(offer);
 
 const SITE = 'https://infrahub.tech';
-const offerUrl = `${SITE}/offers/${offer.slug}`;
+const offerUrl = `${SITE}/offers/${offer.id}`;
 
 // Hardware is a Product; transit, colocation, scrubbing and the rest are Services. Branching
 // on the collection's own category keeps the markup describing what the thing actually is
@@ -81,7 +81,7 @@ const structuredData = {
 <Layout 
   title={`${offer.data.title} — Offer Details`}
   description={offer.data.shortDescription}
-  canonicalPath={`/offers/${offer.slug}`}
+  canonicalPath={`/offers/${offer.id}`}
   ogImage="/images/og/offer.png"
   ogImageAlt="InfraHub commercial sourcing board"
 >
@@ -155,7 +155,7 @@ const structuredData = {
           <div class="request-price">{priceLabel}</div>
           <p class="request-terms">Availability, technical conditions and commercial terms are confirmed per request.</p>
 
-          <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-block btn-lg">
+          <a href={`/lets-talk?offer=${offer.id}`} class="btn btn-accent btn-block btn-lg">
             <span>Request This Offer</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="5" y1="12" x2="19" y2="12"></line>

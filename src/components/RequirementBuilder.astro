@@ -25,7 +25,7 @@ const services: Record<string, string[]> = {
     <p>Choose a starting point or describe the requirement in one sentence. You can refine it before sharing contact details.</p>
   </div>
 
-  <form id="inquiry-form" class="builder-form" novalidate>
+  <form id="inquiry-form" class="builder-form" method="post" action="/api/inquiry">
     <div id="form-error-alert" class="form-alert alert-error" role="alert" tabindex="-1" hidden></div>
 
     <div class="scope-fallback">
@@ -276,6 +276,7 @@ const services: Record<string, string[]> = {
   const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
   if (form) {
     form.classList.add('builder-enhanced');
+    form.noValidate = true;
     const byId = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
     const scopeInput = byId<HTMLSelectElement>('lookingFor');
     const description = byId<HTMLTextAreaElement>('requirementsDescription');
@@ -526,7 +527,6 @@ const services: Record<string, string[]> = {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (submitting) return;
-      if (byId<HTMLInputElement>('website_trap_field')?.value) return;
       const name = byId<HTMLInputElement>('contactName');
       const email = byId<HTMLInputElement>('workEmail');
       const checks = [

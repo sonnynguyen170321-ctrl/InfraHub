@@ -291,12 +291,19 @@ import BrandLogo from './BrandLogo.astro';
     pointer-events: none;
   }
 
-  .nav-item.has-megamenu:hover .megamenu-panel,
-  .nav-item.has-megamenu:focus-within .megamenu-panel {
+  .nav-item.has-megamenu:not(.is-dismissed):hover .megamenu-panel,
+  .nav-item.has-megamenu:not(.is-dismissed):focus-within .megamenu-panel {
     opacity: 1;
     visibility: visible;
     transform: translate(-50%, 0);
     pointer-events: auto;
+  }
+
+  .nav-item.is-dismissed .megamenu-panel {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 8px);
+    pointer-events: none;
   }
 
   .megamenu-grid {
@@ -375,11 +382,17 @@ import BrandLogo from './BrandLogo.astro';
     transform: translateY(6px);
     transition: var(--transition-fast);
   }
-  .nav-item.has-dropdown:hover .dropdown-menu,
-  .nav-item.has-dropdown:focus-within .dropdown-menu {
+  .nav-item.has-dropdown:not(.is-dismissed):hover .dropdown-menu,
+  .nav-item.has-dropdown:not(.is-dismissed):focus-within .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+  }
+  .nav-item.is-dismissed .dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    pointer-events: none;
   }
   .dropdown-item {
     display: block;
@@ -465,6 +478,9 @@ import BrandLogo from './BrandLogo.astro';
     transform: translateX(-100%);
     transition: transform var(--motion-content, 300ms) var(--ease-out, ease);
   }
+  .site-header.is-scrolled .mobile-drawer {
+    top: calc(var(--header-height) - 12px);
+  }
   .mobile-drawer.is-open {
     display: block;
     transform: translateX(0);
@@ -538,6 +554,9 @@ import BrandLogo from './BrandLogo.astro';
 
     const toggle = document.getElementById('mobile-toggle');
     const drawer = document.getElementById('mobile-drawer');
+    const backgroundRegions = Array.from(
+      document.querySelectorAll<HTMLElement>('main, footer, #deskTriggerWrap')
+    );
 
     // Focus follows the drawer: opening moves it to the first control inside, closing puts it
     // back on the toggle. Without this, a keyboard user opens the drawer and their focus is
@@ -564,6 +583,11 @@ import BrandLogo from './BrandLogo.astro';
       toggle.setAttribute('aria-expanded', String(open));
       drawer.setAttribute('aria-hidden', String(!open));
       document.body.style.overflow = open ? 'hidden' : '';
+      backgroundRegions.forEach((region) => {
+        region.inert = open;
+        if (open) region.setAttribute('aria-hidden', 'true');
+        else region.removeAttribute('aria-hidden');
+      });
 
       if (open) {
         // The drawer is display:none until .is-open lands, and focus() is a no-op on an
@@ -606,12 +630,27 @@ import BrandLogo from './BrandLogo.astro';
         trigger.setAttribute('aria-expanded', String(expanded));
       };
 
-      item.addEventListener('mouseenter', () => setExpanded(true));
-      item.addEventListener('mouseleave', () => setExpanded(false));
-      item.addEventListener('focusin', () => setExpanded(true));
+      item.addEventListener('mouseenter', () => {
+        item.classList.remove('is-dismissed');
+        setExpanded(true);
+      });
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('is-dismissed');
+        setExpanded(false);
+      });
+      item.addEventListener('pointerdown', () => {
+        item.classList.remove('is-dismissed');
+        setExpanded(true);
+      });
+      item.addEventListener('focusin', () => {
+        if (!item.classList.contains('is-dismissed')) setExpanded(true);
+      });
       item.addEventListener('focusout', (event) => {
         const next = (event as FocusEvent).relatedTarget;
-        if (!(next instanceof Node) || !item.contains(next)) setExpanded(false);
+        if (!(next instanceof Node) || !item.contains(next)) {
+          item.classList.remove('is-dismissed');
+          setExpanded(false);
+        }
       });
     });
 
@@ -648,6 +687,7 @@ import BrandLogo from './BrandLogo.astro';
         '.menu-trigger[aria-expanded="true"], .dropdown-trigger[aria-expanded="true"]'
       );
       if (expandedDesktopTrigger) {
+        expandedDesktopTrigger.closest('.nav-item')?.classList.add('is-dismissed');
         expandedDesktopTrigger.setAttribute('aria-expanded', 'false');
         // Keep focus on the trigger rather than dropping it to the document.
         expandedDesktopTrigger.focus();

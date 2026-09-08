@@ -61,6 +61,10 @@ test.describe('Master Solutions Hub (/solutions)', () => {
     await page.goto('/solutions');
 
     await expect(page).toHaveTitle(/Infrastructure Solutions Architecture/i);
+    const heroHeadline = page.locator('.hero-headline');
+    await expect(heroHeadline).toBeVisible();
+    await expect(heroHeadline).toHaveCSS('color', 'rgb(255, 255, 255)');
+
     const coreNode = page.locator('.center-hub-token');
     await expect(coreNode).toBeAttached();
 

@@ -48,11 +48,11 @@ const remainingArticles = allInsights.slice(1);
               <span class="meta-time">{leadArticle.data.readTime}</span>
             </div>
             <h2 class="lead-title">
-              <a href={`/insights/${leadArticle.slug}`}>{leadArticle.data.title}</a>
+              <a href={`/insights/${leadArticle.id}`}>{leadArticle.data.title}</a>
             </h2>
             <p class="lead-summary">{leadArticle.data.summary}</p>
             <div class="lead-action">
-              <a href={`/insights/${leadArticle.slug}`} class="btn btn-secondary btn-sm">
+              <a href={`/insights/${leadArticle.id}`} class="btn btn-secondary btn-sm">
                 <span>Read Analysis</span>
                 <span class="link-arrow" aria-hidden="true">&rarr;</span>
               </a>
@@ -75,12 +75,12 @@ const remainingArticles = allInsights.slice(1);
               </div>
               <div class="archive-body">
                 <h3 class="archive-title">
-                  <a href={`/insights/${article.slug}`}>{article.data.title}</a>
+                  <a href={`/insights/${article.id}`}>{article.data.title}</a>
                 </h3>
                 <p class="archive-summary">{article.data.summary}</p>
               </div>
               <div class="archive-action">
-                <a href={`/insights/${article.slug}`} class="archive-read-link">
+                <a href={`/insights/${article.id}`} class="archive-read-link">
                   <span>Read</span>
                   <span class="link-arrow" aria-hidden="true">&rarr;</span>
                 </a>

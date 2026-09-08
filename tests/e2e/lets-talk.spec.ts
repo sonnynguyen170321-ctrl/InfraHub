@@ -166,6 +166,36 @@ test.describe('InfraHub Desk context and submission', () => {
     expect(submitted!.utmSource).toBe('linkedin');
   });
 
+  test('keeps a safe native form fallback and never silently stalls on the bot-trap field', async ({ page }) => {
+    let requestCount = 0;
+    await page.route('**/api/inquiry', async (route) => {
+      requestCount += 1;
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true, leadId: 'INQ-RECEIVED' })
+      });
+    });
+
+    await page.goto('/lets-talk');
+    const form = page.locator('#inquiry-form');
+    await expect(form).toHaveAttribute('method', 'post');
+    await expect(form).toHaveAttribute('action', '/api/inquiry');
+
+    await page.locator('#advanced-toggle').click();
+    await page.locator('[data-scope="connectivity"]').click();
+    await page.locator('#requirementsDescription').fill('Need resilient IP transit in Frankfurt.');
+    await page.locator('#contactName').fill('Alex Doe');
+    await page.locator('#workEmail').fill('alex@example.com');
+    await page.locator('#website_trap_field').evaluate((input: HTMLInputElement) => {
+      input.value = 'autofilled.example';
+    });
+    await page.locator('#submit-btn').click();
+
+    await expect(page.locator('#form-success-card')).toBeVisible();
+    expect(requestCount).toBe(1);
+  });
+
   test('failed delivery reports the provider message and re-enables submit', async ({ page }) => {
     await page.route('**/api/inquiry', async (route) => {
       await route.fulfill({ status: 502, contentType: 'application/json', body: JSON.stringify({ success: false, message: 'Dispatch unavailable.' }) });

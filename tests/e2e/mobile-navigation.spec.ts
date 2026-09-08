@@ -17,12 +17,28 @@ test.describe('mobile drawer', () => {
 
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await expect(drawer).toHaveAttribute('aria-hidden', 'false');
+    await expect(page.locator('main')).toHaveAttribute('aria-hidden', 'true');
 
     const focusedInsideDrawer = await page.evaluate(() => {
       const drawerEl = document.getElementById('mobile-drawer');
       return Boolean(drawerEl && document.activeElement && drawerEl.contains(document.activeElement));
     });
     expect(focusedInsideDrawer).toBe(true);
+  });
+
+  test('stays flush with the compact header after scrolling', async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => window.scrollTo(0, 200));
+    await expect(page.locator('#site-header')).toHaveClass(/is-scrolled/);
+
+    await page.locator('#mobile-toggle').click();
+    const geometry = await page.evaluate(() => {
+      const header = document.getElementById('site-header')!.getBoundingClientRect();
+      const drawer = document.getElementById('mobile-drawer')!.getBoundingClientRect();
+      return { headerBottom: header.bottom, drawerTop: drawer.top };
+    });
+
+    expect(Math.abs(geometry.headerBottom - geometry.drawerTop)).toBeLessThanOrEqual(1);
   });
 
   test('Escape closes the drawer and returns focus to the toggle', async ({ page }) => {
@@ -39,6 +55,7 @@ test.describe('mobile drawer', () => {
     await expect(drawer).toHaveAttribute('aria-hidden', 'true');
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await expect(toggle).toBeFocused();
+    await expect(page.locator('main')).not.toHaveAttribute('aria-hidden', 'true');
   });
 
   test('toggling closed with the button also restores focus', async ({ page }) => {

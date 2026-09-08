@@ -1,21 +1,21 @@
 ---
 // src/pages/insights/[slug].astro
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   const insights = await getCollection('insights');
   return insights.map(insight => ({
-    params: { slug: insight.slug },
+    params: { slug: insight.id },
     props: { insight }
   }));
 }
 
 const { insight } = Astro.props;
-const { Content } = await insight.render();
+const { Content } = await render(insight);
 
 const SITE = 'https://infrahub.tech';
-const articleUrl = `${SITE}/insights/${insight.slug}`;
+const articleUrl = `${SITE}/insights/${insight.id}`;
 
 // TechArticle rather than Article: these are engineering analyses, and the more specific type
 // is what the content actually is. Every value below comes from the content collection  -  no
@@ -59,7 +59,7 @@ const structuredData = {
 <Layout 
   title={`${insight.data.title} | InfraHub Insights`}
   description={insight.data.summary}
-  canonicalPath={`/insights/${insight.slug}`}
+  canonicalPath={`/insights/${insight.id}`}
   ogImage="/images/og/insight.png"
   ogImageAlt="InfraHub technical insight"
   ogType="article"

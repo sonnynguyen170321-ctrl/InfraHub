@@ -13,9 +13,9 @@ const activeOffers = allOffers.filter(o => {
 });
 
 // Primary featured opportunity + secondary opportunities
-const primaryOffer = activeOffers.find(o => o.slug === '100g-transit-frankfurt') || activeOffers[0];
-const secondaryOffers = primaryOffer 
-  ? activeOffers.filter(o => o.slug !== primaryOffer.slug).slice(0, 2)
+const primaryOffer = activeOffers.find(o => o.id === '100g-transit-frankfurt') || activeOffers[0];
+const secondaryOffers = primaryOffer
+  ? activeOffers.filter(o => o.id !== primaryOffer.id).slice(0, 2)
   : [];
 ---
 
@@ -41,7 +41,7 @@ const secondaryOffers = primaryOffer
             <div class="primary-card-top">
               <span class="primary-kicker">{primaryOffer.data.category}</span>
               <h3 class="primary-title">
-                <a href={`/offers/${primaryOffer.slug}`}>{primaryOffer.data.title}</a>
+                <a href={`/offers/${primaryOffer.id}`}>{primaryOffer.data.title}</a>
               </h3>
               <span class="primary-location">{primaryOffer.data.location}</span>
             </div>
@@ -58,7 +58,7 @@ const secondaryOffers = primaryOffer
               <div class="primary-price">
                 <span class="price-figure">{publicPriceLabel(primaryOffer.data)}</span>
               </div>
-              <a href={`/lets-talk?offer=${primaryOffer.slug}`} class="btn btn-accent btn-sm">
+              <a href={`/lets-talk?offer=${primaryOffer.id}`} class="btn btn-accent btn-sm">
                 <span>Request Pricing</span>
               </a>
             </div>
@@ -75,14 +75,14 @@ const secondaryOffers = primaryOffer
                   <span class="secondary-location">{offer.data.location}</span>
                 </div>
                 <h4 class="secondary-title">
-                  <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
+                  <a href={`/offers/${offer.id}`}>{offer.data.title}</a>
                 </h4>
                 <p class="secondary-spec">{offer.data.specifications[0]}</p>
               </div>
 
               <div class="secondary-action-group">
                 <span class="secondary-price">{publicPriceLabel(offer.data)}</span>
-                <a href={`/offers/${offer.slug}`} class="secondary-link">
+                <a href={`/offers/${offer.id}`} class="secondary-link">
                   <span>View Offer</span>
                   <span class="link-arrow" aria-hidden="true">&rarr;</span>
                 </a>

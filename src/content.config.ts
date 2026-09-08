@@ -1,7 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const offers = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/offers' }),
   schema: z.object({
     title: z.string(),
     shortDescription: z.string(),
@@ -23,11 +25,11 @@ const offers = defineCollection({
 });
 
 const partners = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/partners' }),
   schema: z.object({
     name: z.string(),
-    officialWebsite: z.string().url(),
-    sourceUrls: z.array(z.string().url()).default([]),
+    officialWebsite: z.url(),
+    sourceUrls: z.array(z.url()).default([]),
     logo: z.string().optional(),
     logoDark: z.string().optional(),
     logoLight: z.string().optional(),
@@ -44,33 +46,28 @@ const partners = defineCollection({
     tagline: z.string(),
     shortRole: z.string().optional(),
     capabilities: z.array(z.string()),
-    
-    // Buyer decision layer. Partner-specific architecture and decision guidance lives here,
-    // beside the sourceUrls that support it, rather than inside the page template.
+
+    // Buyer decision guidance stays beside the source URLs that support it.
     decisionLayer: z
       .object({
         architectureTitle: z.string(),
         architectureSubtitle: z.string(),
-        steps: z.array(
-          z.object({ num: z.string(), title: z.string(), desc: z.string() })
-        ),
+        steps: z.array(z.object({ num: z.string(), title: z.string(), desc: z.string() })),
         decisionQuestions: z.array(z.string()),
         whenFits: z.string(),
         whenAlternative: z.string(),
         commercialCaution: z.string(),
-        sourceRefs: z.array(z.string().url()).default([])
+        sourceRefs: z.array(z.url()).default([])
       })
       .optional(),
 
-    // Business Verification & Approval States (Separated from Publication)
     relationshipStatus: z.enum(['unconfirmed', 'confirmed']).default('unconfirmed'),
     publicNamingStatus: z.enum(['unapproved', 'approved']).default('unapproved'),
     logoStatus: z.enum(['missing', 'sourced', 'approved']).default('missing'),
     capabilityClaimsStatus: z.enum(['unverified', 'sourced', 'approved']).default('unverified'),
     strategicStatus: z.enum(['none', 'candidate', 'approved']).default('none'),
     homepageStatus: z.enum(['hidden', 'approved']).default('hidden'),
-    
-    // Publication Control Gates (Fail-Closed Default = FALSE)
+
     relationshipConfirmed: z.boolean().default(false),
     publicNameApproved: z.boolean().default(false),
     logoApproved: z.boolean().default(false),
@@ -83,7 +80,7 @@ const partners = defineCollection({
 });
 
 const solutions = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/solutions' }),
   schema: z.object({
     title: z.string(),
     category: z.enum([
@@ -102,7 +99,7 @@ const solutions = defineCollection({
 });
 
 const insights = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
   schema: z.object({
     title: z.string(),
     category: z.enum(['Networks', 'Infrastructure', 'Cloud', 'Security']),
@@ -114,9 +111,4 @@ const insights = defineCollection({
   })
 });
 
-export const collections = {
-  offers,
-  partners,
-  solutions,
-  insights
-};
+export const collections = { offers, partners, solutions, insights };

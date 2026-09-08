@@ -113,6 +113,30 @@ const InquiryPayloadSchema = z.object({
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   try {
+    const contentType = (request.headers.get('content-type') || '').toLowerCase();
+    const isJsonRequest = contentType.includes('application/json');
+    const isNativeFormRequest = contentType.includes('application/x-www-form-urlencoded');
+
+    if (!isJsonRequest && !isNativeFormRequest) {
+      return jsonResponse(
+        { success: false, message: 'Unsupported content type. Send JSON or form-encoded data.' },
+        415
+      );
+    }
+
+    const successResponse = (leadId: string, message = 'Inquiry received. InfraHub will review the requirement.') => {
+      if (isNativeFormRequest) {
+        return new Response(null, {
+          status: 303,
+          headers: {
+            Location: '/requirement-received',
+            'Cache-Control': 'no-store'
+          }
+        });
+      }
+      return jsonResponse({ success: true, leadId, message });
+    };
+
     const forwardedIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
     const clientIp = clientAddress || forwardedIp;
 
@@ -124,14 +148,6 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         },
         429,
         { 'Retry-After': '600' }
-      );
-    }
-
-    const contentType = (request.headers.get('content-type') || '').toLowerCase();
-    if (!contentType.includes('application/json')) {
-      return jsonResponse(
-        { success: false, message: 'Unsupported content type. Send application/json.' },
-        415
       );
     }
 
@@ -153,10 +169,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
     let rawBody: unknown;
     try {
-      rawBody = JSON.parse(rawText);
+      rawBody = isJsonRequest
+        ? JSON.parse(rawText)
+        : Object.fromEntries(new URLSearchParams(rawText));
     } catch {
       return jsonResponse(
-        { success: false, message: 'Invalid JSON request payload.' },
+        { success: false, message: 'Invalid request payload.' },
         400
       );
     }
@@ -168,7 +186,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       Boolean((rawBody as Record<string, unknown>).website_trap_field)
     ) {
       // Return a generic success to avoid teaching bots how the trap works.
-      return jsonResponse({ success: true, leadId: 'INQ-RECEIVED' });
+      return successResponse('INQ-RECEIVED');
     }
 
     const validation = InquiryPayloadSchema.safeParse(rawBody);
@@ -285,11 +303,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       );
     }
 
-    return jsonResponse({
-      success: true,
-      leadId,
-      message: 'Inquiry received. InfraHub will review the requirement.'
-    });
+    return successResponse(leadId);
   } catch (error) {
     const detail = error instanceof Error ? error.name : 'UnknownError';
     console.error(`[INQUIRY_ENDPOINT_ERROR] ${detail}`);

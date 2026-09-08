@@ -1,7 +1,7 @@
 ---
 // src/pages/partners/[slug].astro — Partner Architecture Framework & Decision Layer (Parts XVII & XVIII)
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { logoHeightStyle } from '../../lib/partner-logo';
 
 // The profile header shows the lockup at its largest; the correction still applies.
@@ -13,13 +13,13 @@ export async function getStaticPaths() {
   return partners
     .filter(partner => partner.data.partnerPageEnabled && partner.data.relationshipConfirmed && partner.data.publicNameApproved)
     .map(partner => ({
-      params: { slug: partner.slug },
+      params: { slug: partner.id },
       props: { partner }
     }));
 }
 
 const { partner } = Astro.props;
-const { Content } = await partner.render();
+const { Content } = await render(partner);
 
 // The decision layer is content, not template. A record that has not been populated falls
 // back to provider-neutral guidance rather than to partner-specific claims.
@@ -30,7 +30,7 @@ const sourceRefs = signature.sourceRefs ?? [];
 <Layout 
   title={`${partner.data.name} — Specialist Partner Profile | InfraHub`}
   description={partner.data.tagline}
-  canonicalPath={`/partners/${partner.slug}`}
+  canonicalPath={`/partners/${partner.id}`}
   ogImage="/images/og/partner.png"
   ogImageAlt="InfraHub partner profile"
 >
@@ -76,7 +76,7 @@ const sourceRefs = signature.sourceRefs ?? [];
               <span>Corporate Website</span>
               <span class="ext-icon" aria-hidden="true">&nearr;</span>
             </a>
-            <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-sm">
+            <a href={`/lets-talk?partner=${partner.id}`} class="btn btn-accent btn-sm">
               <span>Discuss Requirement</span>
             </a>
           </div>
@@ -205,7 +205,7 @@ const sourceRefs = signature.sourceRefs ?? [];
               <p class="consult-desc">
                 Discuss the requirement with InfraHub. We help clarify technical constraints, compare relevant options, and coordinate an introduction. Provider-specific pricing, availability, and service commitments are confirmed before contracting.
               </p>
-              <a href={`/lets-talk?partner=${partner.slug}`} class="btn btn-accent btn-block btn-lg">
+              <a href={`/lets-talk?partner=${partner.id}`} class="btn btn-accent btn-block btn-lg">
                 <span>Discuss Your Requirement</span>
               </a>
 

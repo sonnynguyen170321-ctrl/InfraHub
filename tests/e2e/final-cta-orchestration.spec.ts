@@ -51,6 +51,6 @@ test.describe('Act 5: Requirement Desk Orchestration', () => {
     await submitBtn.click();
 
     await expect(page).toHaveURL(/\/lets-talk/);
-    await expect(page.url()).toContain('requirement=Need+100G+wavelength');
+    expect(page.url()).toContain('requirement=Need+100G+wavelength');
   });
 });

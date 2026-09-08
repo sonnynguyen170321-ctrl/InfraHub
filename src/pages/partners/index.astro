@@ -21,42 +21,42 @@ const disciplines = [
     number: "01",
     name: "Infrastructure & Cloud",
     scope: "Dedicated compute, hypervisors, bare-metal clusters, and distributed edge infrastructure.",
-    partners: publishedPartners.filter(p => ['gcore', 'zenlayer'].includes(p.slug))
+    partners: publishedPartners.filter(p => ['gcore', 'zenlayer'].includes(p.id))
   },
   {
     id: "security",
     number: "02",
     name: "Defensive & Routing Security",
     scope: "DDoS detection, routing controls, traffic diversion, and managed network or application protection.",
-    partners: publishedPartners.filter(p => ['fastnetmon', 'stormwall'].includes(p.slug))
+    partners: publishedPartners.filter(p => ['fastnetmon', 'stormwall'].includes(p.id))
   },
   {
     id: "network-resources",
     number: "03",
     name: "Network & IP Resources",
     scope: "IPv4 address leasing, transfer governance, RPKI validation, and address monetization.",
-    partners: publishedPartners.filter(p => p.slug === 'ipxo')
+    partners: publishedPartners.filter(p => p.id === 'ipxo')
   },
   {
     id: "virtualization",
     number: "04",
     name: "Virtualization Architecture",
     scope: "Enterprise open-source hypervisors, VMware migration paths, backup, and cluster replication.",
-    partners: publishedPartners.filter(p => p.slug === 'vates')
+    partners: publishedPartners.filter(p => p.id === 'vates')
   },
   {
     id: "managed-operations",
     number: "05",
     name: "Managed Network Operations",
     scope: "24/7 NOC services, network engineering, automation, and incident-response workflows.",
-    partners: publishedPartners.filter(p => p.slug === 'itcare')
+    partners: publishedPartners.filter(p => p.id === 'itcare')
   },
   {
     id: "technology-decision",
     number: "06",
     name: "Technology Decision Support",
     scope: "Market mapping, vendor due diligence, build-vs-buy analysis, and practitioner evidence.",
-    partners: publishedPartners.filter(p => p.slug === 'airframe')
+    partners: publishedPartners.filter(p => p.id === 'airframe')
   }
 ];
 ---
@@ -102,7 +102,7 @@ const disciplines = [
                   
                   <!-- Column 1: Brand & Identity -->
                   <div class="ledger-col-brand">
-                    <a href={`/partners/${partner.slug}`} class="partner-logo-anchor" aria-label={`${partner.data.name} profile`}>
+                    <a href={`/partners/${partner.id}`} class="partner-logo-anchor" aria-label={`${partner.data.name} profile`}>
                       {partner.data.logoApproved && partner.data.logoStatus === 'approved' && partner.data.logo ? (
                         <img 
                           src={partner.data.logo} 
@@ -133,7 +133,7 @@ const disciplines = [
                   <div class="ledger-col-content">
                     <div class="partner-headline-row">
                       <h3 class="partner-title">
-                        <a href={`/partners/${partner.slug}`}>{partner.data.name}</a>
+                        <a href={`/partners/${partner.id}`}>{partner.data.name}</a>
                       </h3>
                       <span class="partner-short-role">{partner.data.shortRole || partner.data.tagline}</span>
                     </div>
@@ -155,10 +155,10 @@ const disciplines = [
 
                   <!-- Column 3: Navigation Actions -->
                   <div class="ledger-col-actions">
-                    <a href={`/partners/${partner.slug}`} class="btn btn-secondary btn-sm ledger-profile-btn">
+                    <a href={`/partners/${partner.id}`} class="btn btn-secondary btn-sm ledger-profile-btn">
                       <span>Technical scope</span>
                     </a>
-                    <a href={`/lets-talk?partner=${partner.slug}`} class="ledger-inquire-link">
+                    <a href={`/lets-talk?partner=${partner.id}`} class="ledger-inquire-link">
                       <span>Discuss requirement</span>
                     </a>
                   </div>

@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Requirement received — InfraHub"
+  description="InfraHub has received your infrastructure requirement."
+  canonicalPath="/requirement-received"
+  noindex={true}
+>
+  <section class="receipt-page" aria-labelledby="receipt-title">
+    <div class="container receipt-inner">
+      <span class="receipt-route" aria-hidden="true"></span>
+      <h1 id="receipt-title">Requirement received</h1>
+      <p>InfraHub will review the brief. The next step may be one useful clarification or a discussion of suitable routes.</p>
+      <a href="/" class="btn btn-secondary">Return to InfraHub</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .receipt-page {
+    min-height: 62vh;
+    display: grid;
+    place-items: center;
+    padding: clamp(72px, 10vw, 132px) 0;
+    background: var(--bg-secondary);
+  }
+
+  .receipt-inner {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .receipt-inner > * {
+    margin-inline: auto;
+  }
+
+  .receipt-route {
+    display: block;
+    width: 96px;
+    height: 2px;
+    margin-bottom: 24px;
+    background: var(--accent-blue);
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    letter-spacing: -0.035em;
+  }
+
+  p {
+    margin-bottom: 28px;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+  }
+</style>

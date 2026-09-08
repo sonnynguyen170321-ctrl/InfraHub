@@ -85,6 +85,7 @@
   --accent-teal: var(--color-sky);
   --accent-teal-hover: var(--color-sky-hover);
   --accent-teal-light: #f0f9ff;
+  --accent-teal-text: #0f766e;
   
   --border-color: #cbd5e1;        /* Structural Grey */
   --border-color-active: #94a3b8;
@@ -559,7 +560,6 @@ img {
 .experience-note {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-top: 3px solid var(--accent-blue);
   padding: 28px 34px;
   border-radius: var(--radius-md);
   margin: 40px 0;

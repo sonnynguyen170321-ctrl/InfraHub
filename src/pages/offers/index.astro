@@ -48,7 +48,6 @@ const activeOffers = allOffers
           </a>
         </div>
       ) : (
-        <!-- Structured Commercial Board -->
         <div class="commercial-board">
           {activeOffers.map(offer => (
             <article class="board-row-item">
@@ -58,7 +57,7 @@ const activeOffers = allOffers
                   <span class="location-label">{offer.data.location}</span>
                 </div>
                 <h2 class="board-title">
-                  <a href={`/offers/${offer.slug}`}>{offer.data.title}</a>
+                  <a href={`/offers/${offer.id}`}>{offer.data.title}</a>
                 </h2>
                 <p class="board-desc">{offer.data.shortDescription}</p>
                 <div class="board-specs">
@@ -74,10 +73,10 @@ const activeOffers = allOffers
                   <span class="price-amount">{publicPriceLabel(offer.data)}</span>
                 </div>
                 <div class="board-actions">
-                  <a href={`/offers/${offer.slug}`} class="btn btn-secondary btn-sm">
+                  <a href={`/offers/${offer.id}`} class="btn btn-secondary btn-sm">
                     <span>Details</span>
                   </a>
-                  <a href={`/lets-talk?offer=${offer.slug}`} class="btn btn-accent btn-sm">
+                  <a href={`/lets-talk?offer=${offer.id}`} class="btn btn-accent btn-sm">
                     <span>Request Terms</span>
                   </a>
                 </div>

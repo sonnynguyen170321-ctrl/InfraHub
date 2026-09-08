@@ -3,12 +3,12 @@
   "type": "module",
   "version": "2.0.0",
   "scripts": {
-    "dev": "node node_modules/astro/astro.js dev",
-    "start": "node node_modules/astro/astro.js dev",
-    "build": "node --max-old-space-size=4096 node_modules/astro/astro.js build",
-    "preview": "node node_modules/astro/astro.js preview",
-    "astro": "node node_modules/astro/astro.js",
-    "check": "node node_modules/astro/astro.js sync && node node_modules/@astrojs/check/bin/astro-check.js",
+    "dev": "node node_modules/astro/bin/astro.mjs dev",
+    "start": "node node_modules/astro/bin/astro.mjs dev",
+    "build": "node --max-old-space-size=4096 node_modules/astro/bin/astro.mjs build",
+    "preview": "node node_modules/astro/bin/astro.mjs preview",
+    "astro": "node node_modules/astro/bin/astro.mjs",
+    "check": "node node_modules/astro/bin/astro.mjs sync && node node_modules/@astrojs/check/bin/astro-check.js",
     "test": "node scripts/verify-routes.mjs && node tests/audit/accessibility-audit.mjs && node tests/audit/content-truth-audit.mjs && node tests/audit/performance-audit.mjs && node tests/audit/partner-trust-ribbon.test.mjs && node tests/audit/human-design-audit.test.mjs && node tests/audit/user-audit.mjs && node tests/audit/partner-assets.test.mjs",
     "test:a11y": "node tests/audit/accessibility-audit.mjs",
     "test:content": "node tests/audit/content-truth-audit.mjs",
@@ -18,13 +18,13 @@
     "test:e2e:ui": "node node_modules/@playwright/test/cli.js test --ui",
     "verify": "npm run check && npm run build && npm test && npm run test:e2e",
     "verify:production": "node scripts/verify-production.mjs",
-    "sync": "node node_modules/astro/astro.js sync"
+    "sync": "node node_modules/astro/bin/astro.mjs sync"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/sitemap": "^3.7.4",
-    "@astrojs/vercel": "^8.0.6",
-    "astro": "^5.4.1",
+    "@astrojs/vercel": "^11.0.10",
+    "astro": "^7.3.1",
     "typescript": "^5.7.3",
     "zod": "^3.24.2"
   },
@@ -37,5 +37,8 @@
   },
   "engines": {
     "node": "22.x"
+  },
+  "overrides": {
+    "path-to-regexp": "6.3.0"
   }
 }

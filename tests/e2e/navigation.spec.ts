@@ -33,12 +33,14 @@ test.describe('desktop navigation', () => {
 
     const item = page.locator('.nav-item.has-megamenu').first();
     const trigger = item.locator('.menu-trigger').first();
+    const panel = item.locator('.megamenu-panel');
 
     await trigger.focus();
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
     await page.keyboard.press('Escape');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(panel).toBeHidden();
     await expect(trigger).toBeFocused();
   });
 
