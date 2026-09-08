@@ -199,7 +199,9 @@ test.describe('hero art direction', () => {
 
     const state = await page.evaluate(() => {
       const img = document.querySelector('.hero-bg-img') as HTMLElement;
-      const camera = document.querySelector('.hero-camera') as HTMLElement;
+      // Renamed with the split composition: the camera now moves the stage, not a full-bleed
+      // backdrop. The assertions below are unchanged - holding still must still cost nothing.
+      const camera = document.querySelector('.stage-camera') as HTMLElement;
       return {
         filter: getComputedStyle(img).filter,
         imageAnimation: getComputedStyle(img).animationName,
@@ -219,8 +221,18 @@ test.describe('hero art direction', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     const objectPosition = await page.locator('.hero-bg-img').evaluate((el) => getComputedStyle(el).objectPosition);
-    // Dead centre lands on the aisle's vanishing point, the darkest part of the room.
-    expect(objectPosition).not.toContain('50%');
+
+    /*
+     * Dead centre lands on the aisle's vanishing point, the darkest part of the room, so the
+     * mobile crop has to be placed rather than defaulted.
+     *
+     * This asserted that the value contained no "50%" at all, which was right when the plate was
+     * landscape inside a portrait frame and the crop therefore ran horizontally. The plate is now
+     * 4:5 inside a wide band, so the crop runs vertically and the horizontal half is legitimately
+     * centred - "50% 38%" is a deliberately placed crop that the old assertion would still fail.
+     * Assert the thing the test is named after: that the frame is not defaulted.
+     */
+    expect(objectPosition).not.toBe('50% 50%');
   });
 });
 

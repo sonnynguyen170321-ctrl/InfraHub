@@ -577,6 +577,17 @@ import architectureImage from '../assets/hero-architecture.png';
       justify-self: stretch;
     }
 
+    /*
+     * Art direction, not a centre crop. The plate is 4:5 and the mobile stage is a wide band, so
+     * the crop is vertical here. Dead centre lands on the corridor's vanishing point, which is
+     * the darkest and least legible part of the room; 38% holds the rack faces and the tray runs
+     * where there is actually something to see.
+     */
+    .hero-bg-img,
+    .stage-architecture-img {
+      object-position: center 38%;
+    }
+
     .stage-frame {
       --structure: min(1, max(0, calc((var(--p) - 0.02) / 0.16)));
       --nodes: min(1, max(0, calc((var(--p) - 0.1) / 0.14)));
