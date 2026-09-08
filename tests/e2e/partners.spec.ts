@@ -1,7 +1,19 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type APIRequestContext } from '@playwright/test';
 
 // The eight canonical partner records. Each one must have a live profile, a logo that actually
 // loads, and decision guidance that came from the record rather than the template.
+//
+// Two environments, two truths. vercel.json 308-redirects /partners and every /partners/<slug>
+// onto a solution route, so on a real deployment these pages are built but unreachable. The
+// local fixture server (scripts/static-server.mjs) reproduces cleanUrls and nothing else, so the
+// same routes render there. Both behaviours are correct for their environment.
+//
+// This suite used to assume the local one. Run against a deployment it failed eleven times, and
+// had done so since the redirects were added - nobody saw it because the suite only ever ran
+// against the build output. So rather than assert one environment's behaviour everywhere, these
+// specs ask the environment which it is: the page-rendering tests run where the pages are
+// reachable, and the redirect contract is verified where it is live. Neither is skipped silently
+// in the environment that can actually check it.
 const CANONICAL_PARTNERS = [
   'fastnetmon',
   'gcore',
@@ -13,9 +25,56 @@ const CANONICAL_PARTNERS = [
   'airframe'
 ];
 
+// Source of truth mirrored from vercel.json. Kept here deliberately: if a redirect is changed
+// there without updating this, the redirect specs fail and say so.
+const PARTNER_REDIRECTS: Record<string, string> = {
+  '/partners': '/solutions',
+  '/partners/fastnetmon': '/solutions/security',
+  '/partners/stormwall': '/solutions/security',
+  '/partners/zenlayer': '/solutions/network-connectivity',
+  '/partners/gcore': '/solutions/cloud-virtualization',
+  '/partners/vates': '/solutions/cloud-virtualization',
+  '/partners/itcare': '/solutions/managed-services',
+  '/partners/ipxo': '/ipv4',
+  '/partners/airframe': '/how-we-work'
+};
+
+// Probed once per worker rather than inferred from E2E_BASE, so the answer comes from what the
+// target actually does. A deployment that stopped redirecting would flip these suites over
+// instead of quietly passing the wrong set.
+let redirectsLive: boolean | null = null;
+async function partnersRedirect(request: APIRequestContext): Promise<boolean> {
+  if (redirectsLive === null) {
+    const response = await request.get('/partners', { maxRedirects: 0 });
+    const status = response.status();
+    redirectsLive = status >= 300 && status < 400;
+  }
+  return redirectsLive;
+}
+
+test.describe('partner route redirects', () => {
+  for (const [from, to] of Object.entries(PARTNER_REDIRECTS)) {
+    test(`${from} redirects to ${to}`, async ({ request }) => {
+      test.skip(
+        !(await partnersRedirect(request)),
+        'the local fixture server reproduces cleanUrls only, not vercel.json redirects'
+      );
+
+      const response = await request.get(from, { maxRedirects: 0 });
+      expect(response.status(), `${from} should be a permanent redirect`).toBe(308);
+      expect(response.headers()['location'], `${from} should land on ${to}`).toContain(to);
+    });
+  }
+});
+
 test.describe('partner profiles', () => {
   for (const slug of CANONICAL_PARTNERS) {
-    test(`/partners/${slug} renders its own decision layer`, async ({ page }) => {
+    test(`/partners/${slug} renders its own decision layer`, async ({ page, request }) => {
+      test.skip(
+        await partnersRedirect(request),
+        'this deployment redirects /partners/* - the redirect contract is covered above'
+      );
+
       const response = await page.goto(`/partners/${slug}`);
       expect(response?.status()).toBe(200);
 
@@ -32,7 +91,12 @@ test.describe('partner profiles', () => {
     });
   }
 
-  test('the partner index links to every canonical profile', async ({ page }) => {
+  test('the partner index links to every canonical profile', async ({ page, request }) => {
+    test.skip(
+      await partnersRedirect(request),
+      'this deployment redirects /partners - the redirect contract is covered above'
+    );
+
     await page.goto('/partners');
 
     for (const slug of CANONICAL_PARTNERS) {
@@ -41,7 +105,10 @@ test.describe('partner profiles', () => {
   });
 
   test('partner logos load rather than 404', async ({ page, request }) => {
-    await page.goto('/partners');
+    // Deliberately not skipped on a deployment. Whether the logo files are served is exactly the
+    // kind of thing worth checking against the real origin, so when /partners is redirected the
+    // sources come from the homepage ribbon, which renders the same eight assets everywhere.
+    await page.goto((await partnersRedirect(request)) ? '/' : '/partners');
 
     const sources = await page.locator('img').evaluateAll((images) =>
       Array.from(
@@ -100,7 +167,12 @@ test.describe('logo optical sizing', () => {
     expect(fastnetmon!.height).toBeLessThanOrEqual(median * 1.8);
   });
 
-  test('the catalogue applies the same correction', async ({ page }) => {
+  test('the catalogue applies the same correction', async ({ page, request }) => {
+    test.skip(
+      await partnersRedirect(request),
+      'the catalogue page is redirected on this deployment; the ribbon test above still covers the correction'
+    );
+
     await page.goto('/partners');
 
     const heights = await page.evaluate(() =>
