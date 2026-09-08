@@ -1,128 +1,37 @@
 ---
 // src/components/Hero.astro
 //
-// The hero photograph is the LCP element of the site. It goes through astro:assets so the
-// build emits sized, modern-format variants and a srcset, rather than shipping one 1920px
-// JPEG to every device.
+// Split composition: a copy column on solid ground, and a cinematic stage beside it.
 //
-// Lighting model. The photograph used to be darkened twice — brightness(0.65) on the image
-// AND a 94%→65% black scrim over it — which flattened a genuinely detailed facility into an
-// unreadable dark rectangle. It is now lit locally instead of uniformly: the left third is
-// held dark enough to carry the copy, and the right two thirds are left open so the racks,
-// cable trays and aisle depth are actually visible. Exposure and scrim were chosen from
-// screenshot comparisons at three settings, not from taste alone.
+// The previous hero was one full-bleed photograph with the headline sitting on top of it. That
+// composition forced a compromise it could never win: the copy needed the image dark enough to
+// read against, and the image needed to stay light enough to be worth looking at, so the frame
+// was pulled in both directions and the "transformation" had nowhere to happen except as thin
+// lines drawn over a picture that never changed. Reviewers saw exactly that - some blue lines
+// over a data centre - which is the correct reading of what was there.
 //
-// Layer order inside the backdrop, bottom to top:
-//   .hero-camera      scroll + pointer transform (the only moving layer)
-//     .hero-bg-img    the photograph, carrying the one-time exposure reveal
-//   .hero-scrim       localized readability + depth gradients
-//   .hero-light-field restrained radial lift around the rack architecture
-//   .hero-exit-veil   a 10% exposure drop, applied only in the last third of the exit
+// The copy now sits on its own dark ground where contrast is a solved problem rather than a
+// negotiated one, and the photograph moves into a dedicated stage that is free to change. The
+// stage is what carries the story: a real facility that resolves into the architecture beneath
+// it, rather than a static picture with an overlay.
 //
-// The bottom of the frame is landed by one gradient shelf. A canvas used to draw an
-// "Architectural Partner Plane" and a route spline here; both were removed because they
-// carried no information. An earlier CSS gradient in this stack did the same job with an
-// invalid transform (a unitless 0 mixed with a deg value inside max()), so it never
-// animated and washed out the bottom of the photograph at every scroll position.
+// Stage layers, back to front:
+//   .stage-physical      the facility as photographed  (state A)
+//   .stage-architecture  the same frame as structure   (state B)
+//   .stage-topology      nodes and routes the structure implies
+//   .hero-scrim          local readability + depth, no longer smothering the whole frame
+//   .hero-exit-veil      a small exposure drop on exit only
+//
+// The physical and architecture layers are the same room from the same camera, so the crossfade
+// between them reads as understanding rather than as two unrelated pictures swapping over. That
+// alignment is the whole effect; nothing else here matters as much.
 import { Image } from 'astro:assets';
-import heroImage from '../assets/hero-datacenter.jpg';
+import physicalImage from '../assets/hero-physical.png';
+import architectureImage from '../assets/hero-architecture.png';
 ---
 
 <section class="hero-section" id="hero">
-  <div class="hero-backdrop" aria-hidden="true">
-    <div class="hero-camera">
-      <div class="hero-pointer">
-        <Image
-          src={heroImage}
-          alt=""
-          class="hero-bg-img"
-          loading="eager"
-          fetchpriority="high"
-          widths={[640, 960, 1376]}
-          sizes="100vw"
-          quality={76}
-          format="webp"
-        />
-      </div>
-    </div>
-    <div class="hero-scrim"></div>
-    <div class="hero-light-field"></div>
-    <div class="hero-exit-veil"></div>
-
-    <!--
-      The Living Infrastructure Lens, scene 0 -> 1.
-
-      The photograph is the physical infrastructure; this is the architecture underneath it
-      resolving as the visitor scrolls. The geometry is the InfraHub mark at page scale, not a
-      new invention: two routes descending, a junction where they are coordinated, one route
-      continuing out of the frame. The hero comment above records that an earlier decorative
-      spline was removed because it carried no information. This one carries the business model.
-
-      It occupies the right half of the frame only, clear of the copy column, so the directive's
-      preference for a lens beside the content is met without giving up the measured scrim that
-      holds the headline at AA.
-
-      Every stage is a pure function of --hero-progress. No JS beyond the one number the hero
-      already publishes to the scheduler, and no animation that runs because time passed.
-    -->
-    <svg
-      class="hero-lens"
-      viewBox="0 0 1000 620"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <defs>
-        <!-- The resolved route dissolves rather than stopping, so the handoff reads as continuing. -->
-        <!--
-          userSpaceOnUse, not the objectBoundingBox default. The resolved route is a perfectly
-          vertical line, so its bounding box is zero-width and a bounding-box gradient on it is
-          degenerate - the stroke renders faint or not at all depending on the engine. Explicit
-          user-space coordinates are the only reliable way to gradient a straight line.
-        -->
-        <linearGradient
-          id="lensResolvedFade"
-          gradientUnits="userSpaceOnUse"
-          x1="764" y1="392" x2="764" y2="620"
-        >
-          <stop offset="0%" stop-color="#2563eb" />
-          <stop offset="18%" stop-color="#f8fafc" />
-          <stop offset="62%" stop-color="#f8fafc" />
-          <stop offset="100%" stop-color="#f8fafc" stop-opacity="0" />
-        </linearGradient>
-        <radialGradient id="lensJunctionHalo">
-          <stop offset="0%" stop-color="#2563eb" stop-opacity="0.5" />
-          <stop offset="100%" stop-color="#2563eb" stop-opacity="0" />
-        </radialGradient>
-      </defs>
-
-      <!--
-        Five routes, not two: these are the disciplines the site actually sells - network,
-        compute, cloud, security, operations - arriving from different parts of the facility and
-        being coordinated at one point. The mark's two-leg geometry is the idea; five is the
-        truth of the business. They are equally weighted, because none of them outranks another.
-      -->
-      <g class="lens-legs">
-        <path class="lens-leg" pathLength="1" d="M 542 96 C 626 128, 676 258, 748 368" />
-        <path class="lens-leg" pathLength="1" d="M 648 72 C 700 140, 720 268, 754 368" />
-        <path class="lens-leg" pathLength="1" d="M 792 66 C 788 150, 772 272, 764 368" />
-        <path class="lens-leg" pathLength="1" d="M 918 84 C 872 148, 812 268, 772 368" />
-        <path class="lens-leg" pathLength="1" d="M 992 128 C 926 176, 828 282, 780 368" />
-      </g>
-
-      <g class="lens-nodes">
-        <circle class="lens-node" cx="614" cy="152" r="3" />
-        <circle class="lens-node" cx="690" cy="176" r="3" />
-        <circle class="lens-node" cx="788" cy="152" r="3" />
-        <circle class="lens-node" cx="886" cy="168" r="3" />
-        <circle class="lens-node" cx="946" cy="196" r="3" />
-      </g>
-
-      <circle class="lens-halo" cx="764" cy="378" r="54" fill="url(#lensJunctionHalo)" />
-      <rect class="lens-junction" x="726" y="374" width="76" height="5" rx="2.5" />
-      <path class="lens-resolved" pathLength="1" d="M 764 392 L 764 620" />
-    </svg>
-  </div>
+  <div class="hero-ground" aria-hidden="true"></div>
 
   <div class="container hero-container">
     <div class="hero-content">
@@ -146,16 +55,99 @@ import heroImage from '../assets/hero-datacenter.jpg';
         </a>
       </div>
     </div>
-  </div>
 
-  <!--
-    The photograph is grounded into the partner ribbon by a single gradient shelf. A
-    decorative route spline and its canvas used to sit here; both were removed because
-    they carried no information (master plan sections 20, 21, 32). The signature
-    identity motion is authored in Phase 7, from geometry the identity actually owns.
-  -->
-  <div class="hero-base-shelf hero-routing-exit" aria-hidden="true">
-    <div class="hero-bottom-shelf"></div>
+    <div class="hero-stage" aria-hidden="true">
+      <div class="stage-frame">
+        <div class="stage-camera">
+          <div class="stage-layer stage-physical">
+            <Image
+              src={physicalImage}
+              alt=""
+              class="hero-bg-img"
+              loading="eager"
+              fetchpriority="high"
+              widths={[560, 840, 1120]}
+              sizes="(max-width: 900px) 100vw, 48vw"
+              quality={78}
+              format="webp"
+            />
+          </div>
+
+          <!--
+            The same room, same camera, drawn as structure. Because the two plates share a
+            vanishing point and rack rhythm, the crossfade reads as the facility being understood
+            rather than as one picture replacing another. Lazy: it is not needed for first paint
+            and must not compete with the LCP plate for bandwidth.
+          -->
+          <div class="stage-layer stage-architecture">
+            <Image
+              src={architectureImage}
+              alt=""
+              class="stage-architecture-img"
+              loading="lazy"
+              decoding="async"
+              widths={[560, 840, 1120]}
+              sizes="(max-width: 900px) 100vw, 48vw"
+              quality={80}
+              format="webp"
+            />
+          </div>
+        </div>
+
+        <!--
+          The structure under the room. Drawn rather than photographed until the matched
+          architecture plate is in place, and aligned to the same one-point perspective as the
+          photograph so the two read as one frame resolving, not as a dissolve between pictures.
+        -->
+        <svg
+          class="stage-topology"
+          viewBox="0 0 700 760"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+        >
+          <defs>
+            <linearGradient id="stageResolve" gradientUnits="userSpaceOnUse" x1="350" y1="470" x2="350" y2="760">
+              <stop offset="0%" stop-color="#2563eb" />
+              <stop offset="30%" stop-color="#f8fafc" />
+              <stop offset="72%" stop-color="#f8fafc" />
+              <stop offset="100%" stop-color="#f8fafc" stop-opacity="0" />
+            </linearGradient>
+            <radialGradient id="stageHub">
+              <stop offset="0%" stop-color="#2563eb" stop-opacity="0.55" />
+              <stop offset="100%" stop-color="#2563eb" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+
+          <!-- The disciplines the racks actually carry, emerging where the equipment sat. -->
+          <g class="stage-nodes">
+            <circle class="stage-node" cx="150" cy="250" r="4" />
+            <circle class="stage-node" cx="196" cy="378" r="4" />
+            <circle class="stage-node" cx="168" cy="512" r="4" />
+            <circle class="stage-node" cx="550" cy="250" r="4" />
+            <circle class="stage-node" cx="504" cy="378" r="4" />
+            <circle class="stage-node" cx="532" cy="512" r="4" />
+          </g>
+
+          <!-- Routes leaving those nodes and being coordinated at one point. -->
+          <g class="stage-routes">
+            <path class="stage-route" pathLength="1" d="M 150 250 C 250 300, 300 380, 344 462" />
+            <path class="stage-route" pathLength="1" d="M 196 378 C 268 400, 312 430, 348 462" />
+            <path class="stage-route" pathLength="1" d="M 168 512 C 250 500, 306 478, 346 468" />
+            <path class="stage-route" pathLength="1" d="M 550 250 C 450 300, 400 380, 356 462" />
+            <path class="stage-route" pathLength="1" d="M 504 378 C 432 400, 388 430, 352 462" />
+            <path class="stage-route" pathLength="1" d="M 532 512 C 450 500, 394 478, 354 468" />
+          </g>
+
+          <circle class="stage-hub-halo" cx="350" cy="466" r="62" fill="url(#stageHub)" />
+          <rect class="stage-hub" x="308" y="462" width="84" height="6" rx="3" />
+          <path class="stage-resolved" pathLength="1" d="M 350 476 L 350 760" />
+        </svg>
+
+        <div class="hero-scrim"></div>
+        <div class="hero-exit-veil"></div>
+        <div class="stage-edge"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -163,20 +155,10 @@ import heroImage from '../assets/hero-datacenter.jpg';
   .hero-section {
     position: relative;
     /*
-     * min-height beats max-height in CSS, so the two cannot simply be stated side by side:
-     * at 1080px tall, 76dvh is 821px and a max-height of 780px would never apply.
-     *
-     * The height is expressed as "the viewport, less the header, less what should show beneath"
-     * rather than as a share of the viewport, because a share does not hold what matters
-     * constant. At 76dvh capped to 780px the gap under the hero measured 220px at 1080, 136px at
-     * 900 and 104px at 768: the partner band is 84px, so the tall displays were showing it plus
-     * up to 136px of bare paper — the empty band the first screen is meant to avoid. Cutting the
-     * hero toward 72dvh widens that gap rather than closing it.
-     *
-     * 100px leaves the whole band plus roughly 16px of the ground beneath it at every size, so
-     * the ecosystem is proven above the fold and the next section is only hinted at. The cap
-     * matters above ~1180px of viewport height, where the subtraction would otherwise let the
-     * photograph grow without limit.
+     * Unchanged from the composition that preceded this one, and deliberately so: the partner
+     * band has to stay whole above the fold at every viewport height the suite checks, and that
+     * is a function of this number. The composition inside the hero changed; its footprint on
+     * the first screen did not.
      */
     min-height: min(calc(100dvh - var(--header-height) - 100px), 1100px);
     display: flex;
@@ -184,256 +166,65 @@ import heroImage from '../assets/hero-datacenter.jpg';
     background-color: #070c14;
     color: #ffffff;
     overflow: hidden;
-    padding: clamp(72px, 8vh, 96px) 0 clamp(64px, 7vh, 88px);
+    padding: clamp(40px, 4.5vh, 60px) 0 clamp(38px, 4.5vh, 56px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .hero-backdrop {
+  /* A quiet gradient on the copy side so the column has depth without needing the photograph. */
+  .hero-ground {
     position: absolute;
     inset: 0;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  /*
-   * The camera is a separate layer from the photograph because the two move for different
-   * reasons: the image carries the one-time exposure reveal, the camera carries the scroll
-   * push and the pointer offset. Putting both on one element means one transform overwriting
-   * the other, which is what the previous inline-style approach did.
-   */
-  .hero-camera {
-    position: absolute;
-    inset: 0;
-    transform:
-      scale(calc(1 + var(--hero-progress, 0) * 0.045))
-      translate3d(
-        calc(var(--hero-progress, 0) * -5px),
-        calc(var(--hero-progress, 0) * -8px),
-        0
-      );
-    will-change: transform;
-  }
-
-  /*
-   * The pointer offset is a separate layer because the two transforms want opposite
-   * things. Scroll is written every animation frame and has to land on the frame it was
-   * written for; a transition on that same element makes the camera lag the scroll, which
-   * reads as viscous. The pointer is an occasional, tiny offset and does want smoothing.
-   */
-  .hero-pointer {
-    position: absolute;
-    inset: 0;
-    transform: translate3d(var(--hero-pointer-x, 0px), var(--hero-pointer-y, 0px), 0);
-    transition: transform 220ms var(--ease-out);
-  }
-
-  .hero-bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /*
-     * At desktop widths the hero box is wider than the photograph's 1.79 aspect ratio, so
-     * object-fit crops vertically and the horizontal half of this value has no effect there.
-     * It is decisive on mobile, where the crop is horizontal — see the 768px block.
-     */
-    object-position: center 42%;
-    filter: brightness(0.92) contrast(1.06) saturate(0.92);
-    animation: heroAwaken 1150ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  /*
-   * The eye adapting to a real technical environment: the facility starts slightly closed
-   * down and opens to its final exposure. One time, no loop, no flash.
-   */
-  @keyframes heroAwaken {
-    0% {
-      filter: brightness(0.72) contrast(1) saturate(0.9);
-      transform: scale(1.018);
-    }
-    100% {
-      filter: brightness(0.92) contrast(1.06) saturate(0.92);
-      transform: scale(1);
-    }
-  }
-
-  /*
-   * Layer A is the left-side readability gradient, layer B the bottom atmospheric settle.
-   * The relationship that matters is left dark enough for copy, right open enough to inspect.
-   */
-  .hero-scrim {
-    position: absolute;
-    inset: 0;
+    z-index: 0;
     background:
-      /*
-       * The copy column reaches to roughly 46% of the frame, and that stop is what carries it.
-       * A taller hero re-crops the photograph behind the text and the revised description
-       * rewraps across different pixels, which took the first description line to 4.37:1 —
-       * under the 4.5:1 AA floor. Raised only where the copy sits; the open right-hand side is
-       * untouched so the facility stays visible.
-       */
-      linear-gradient(
-        90deg,
-        rgba(7, 12, 20, 0.86) 0%,
-        rgba(7, 12, 20, 0.78) 26%,
-        rgba(7, 12, 20, 0.54) 46%,
-        rgba(7, 12, 20, 0.16) 68%,
-        rgba(7, 12, 20, 0.02) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(7, 12, 20, 0.1) 0%,
-        rgba(7, 12, 20, 0) 44%,
-        rgba(7, 12, 20, 0.16) 80%,
-        rgba(7, 12, 20, 0.3) 100%
-      );
-  }
-
-  /* Dimension around the rack architecture. If this ever reads as a blue glow, it is too strong. */
-  .hero-light-field {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse at 76% 44%,
-      rgba(67, 112, 160, 0.13) 0%,
-      rgba(40, 84, 199, 0.045) 28%,
-      transparent 58%
-    );
-  }
-
-  /*
-   * Exposure drops only in the last third of the exit, so the photograph stays worth looking
-   * at while the visitor is still leaving it. Negative opacity clamps to 0 on its own.
-   */
-  .hero-exit-veil {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-color: #070c14;
-    opacity: calc((var(--hero-progress, 0) - 0.65) / 3.5);
-  }
-
-  /*
-   * The lens sits above the exit veil on purpose. As the visitor leaves, the photograph loses
-   * exposure but the architecture stays legible - the physical fades and the understood system
-   * remains, which is the whole point of the sequence.
-   */
-  .hero-lens {
-    position: absolute;
-    inset: 0;
-    z-index: 9;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
-    /*
-     * Stage gates. min/max rather than clamp() because the arguments are unitless numbers and
-     * min/max has the wider engine support for that case. Each stage overlaps the next so the
-     * sequence reads as one continuous resolve rather than four separate events.
-     *
-     * The gates are compressed into the first 44% of hero travel, and that is deliberate.
-     * --hero-progress is scrollY / heroHeight, so it only reaches 1 once the hero has travelled
-     * its own height - by which point a 720px hero in a 900px viewport has been off screen for
-     * a long time. An earlier version of this ran the junction at 0.56 and the resolve at 0.72,
-     * and screenshots showed both stages completing after the visitor could no longer see the
-     * hero at all: the sequence existed, and nobody would ever have watched it finish. The
-     * whole resolve now lands while the frame still holds most of the viewport.
-     */
-    --p: var(--hero-progress, 0);
-    --draw: min(1, max(0, calc((var(--p) - 0.02) / 0.2)));
-    --nodes: min(1, max(0, calc((var(--p) - 0.12) / 0.16)));
-    --junction: min(1, max(0, calc((var(--p) - 0.2) / 0.14)));
-    --resolve: min(1, max(0, calc((var(--p) - 0.28) / 0.16)));
-  }
-
-  /* Secondary infrastructure routes: sky, per the site's colour grammar. */
-  .lens-leg {
-    fill: none;
-    stroke: var(--color-sky);
-    stroke-width: 1.25;
-    stroke-linecap: round;
-    stroke-dasharray: 1;
-    stroke-dashoffset: calc(1 - var(--leg-draw, var(--draw)));
-    opacity: calc(var(--leg-draw, var(--draw)) * 0.44);
-  }
-
-  /*
-   * The five routes arrive in sequence rather than together. Each leg gets its own slice of the
-   * draw window, so the eye follows them in instead of watching a fan appear at once - the same
-   * reason a diagram is drawn one line at a time when someone is explaining it to you.
-   */
-  .lens-leg:nth-child(1) { --leg-draw: min(1, max(0, calc((var(--p) - 0.02) / 0.14))); }
-  .lens-leg:nth-child(2) { --leg-draw: min(1, max(0, calc((var(--p) - 0.05) / 0.14))); }
-  .lens-leg:nth-child(3) { --leg-draw: min(1, max(0, calc((var(--p) - 0.08) / 0.14))); }
-  .lens-leg:nth-child(4) { --leg-draw: min(1, max(0, calc((var(--p) - 0.11) / 0.14))); }
-  .lens-leg:nth-child(5) { --leg-draw: min(1, max(0, calc((var(--p) - 0.14) / 0.14))); }
-
-  .lens-node {
-    fill: var(--color-sky);
-    opacity: calc(var(--nodes) * 0.55);
-  }
-
-  /*
-   * The junction is the only cobalt in the hero backdrop: it is the coordination decision, and
-   * it is the crossbar of the InfraHub mark at page scale. The halo keeps it from reading as a
-   * flat UI chip sitting on a photograph - it is a place in the room, not a control.
-   */
-  .lens-halo {
-    opacity: calc(var(--junction) * 0.85);
-  }
-
-  .lens-junction {
-    fill: var(--color-cobalt);
-    opacity: calc(var(--junction) * 0.9);
-    transform-box: fill-box;
-    transform-origin: center;
-    transform: scaleX(calc(0.34 + var(--junction) * 0.66));
-  }
-
-  /*
-   * The resolved route: cobalt at the junction, mineral through the frame, dissolving at the
-   * bottom edge. It must not stop with a visible cap - it is meant to read as continuing into
-   * the partner band and the chapters after it.
-   */
-  .lens-resolved {
-    fill: none;
-    stroke: url(#lensResolvedFade);
-    stroke-width: 2.25;
-    stroke-dasharray: 1;
-    stroke-dashoffset: calc(1 - var(--resolve));
-    opacity: var(--resolve);
+      radial-gradient(ellipse at 18% 30%, rgba(37, 84, 199, 0.14) 0%, transparent 55%),
+      linear-gradient(180deg, #070c14 0%, #080e18 60%, #070c14 100%);
   }
 
   .hero-container {
     position: relative;
     z-index: 2;
-    max-width: 1240px;
-    transform: translateY(calc(var(--hero-progress, 0) * -28px));
+    max-width: 1300px;
+    width: 100%;
+    display: grid;
+    /*
+     * The copy takes the smaller half. Giving the stage the larger share is the point of the
+     * whole change: the visual needs room to be a place rather than a backdrop.
+     */
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+  }
+
+  .hero-content {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    transform: translateY(calc(var(--hero-progress, 0) * -24px));
     opacity: calc(max(0, 1 - var(--hero-progress, 0) * 1.5));
     will-change: transform, opacity;
   }
 
-  .hero-content {
-    max-width: 800px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
   .hero-kicker {
-    margin-bottom: -10px;
+    margin-bottom: -8px;
     font-size: 0.76rem;
     letter-spacing: 0.14em;
     color: var(--color-sky);
   }
 
   .hero-title {
-    font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+    /*
+     * Measured: "Complex infrastructure." occupies about 10.4x the font size, and the copy
+     * column resolves to roughly 565px at 1440. Anything above ~54px wraps it, which is what
+     * 3.9vw did. The cap is set from that measurement rather than from taste.
+     */
+    font-size: clamp(2.3rem, 3.5vw, 3.4rem);
     font-weight: 700;
     line-height: 1.08;
     letter-spacing: -0.035em;
     color: #ffffff;
     margin: 0;
+    text-wrap: balance;
   }
 
   .hero-mask {
@@ -442,8 +233,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   /*
-   * The hierarchy is legible from first paint, then settles quickly. Earlier 380–840ms
-   * delays left the value proposition absent from real first-frame captures.
+   * The hierarchy is legible from first paint, then settles quickly. Earlier 380-840ms delays
+   * left the value proposition absent from real first-frame captures.
    */
   .hero-line {
     display: block;
@@ -456,7 +247,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     animation-delay: 40ms;
   }
 
-  /* The second line is quieter than the first, not disabled. */
   .hero-line-2 {
     color: #e8ecea;
     animation-delay: 100ms;
@@ -474,16 +264,10 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   .hero-description {
-    font-size: clamp(1.1rem, 1.4vw, 1.25rem);
-    line-height: 1.65;
-    color: #d4dade;
-    /*
-     * 700px ran to about 95 characters a line, and it pushed the last words of each line out
-     * past the middle of the frame where the scrim has already opened up — one specular
-     * highlight on a rack edge landed behind live glyphs at 2.7:1. A shorter measure keeps
-     * the copy inside the zone that is actually lit for it, and reads better besides.
-     */
-    max-width: 620px;
+    font-size: clamp(1.02rem, 1.15vw, 1.15rem);
+    line-height: 1.62;
+    color: #cfd6dc;
+    max-width: 46ch;
     opacity: 0.72;
     transform: translateY(8px);
     animation: heroFadeUp 420ms cubic-bezier(0.22, 1, 0.36, 1) 140ms forwards;
@@ -493,8 +277,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 32px;
-    margin-top: 16px;
+    gap: 28px;
+    margin-top: 10px;
     opacity: 0.72;
     transform: translateY(8px);
     animation: heroFadeUp 380ms cubic-bezier(0.22, 1, 0.36, 1) 200ms forwards;
@@ -511,11 +295,6 @@ import heroImage from '../assets/hero-datacenter.jpg';
     }
   }
 
-  /*
-   * A deeper cobalt than the shared button token, because this one sits on a photograph
-   * rather than on paper. No glow, gradient, or hover lift, so it stays anchored to the
-   * facility composition.
-   */
   .hero-primary-action {
     background-color: #2450bd;
     padding: 15px 26px;
@@ -533,11 +312,9 @@ import heroImage from '../assets/hero-datacenter.jpg';
     transform: scale(0.99);
   }
 
-  /* The secondary action stays a text action; the route continues under it on hover. */
   .hero-text-action {
     display: inline-flex;
     align-items: center;
-    /* Measured at 43px - one pixel short of the 44px platform target, for no reason. */
     min-height: 44px;
     gap: 8px;
     color: rgba(232, 236, 234, 0.85);
@@ -559,197 +336,303 @@ import heroImage from '../assets/hero-datacenter.jpg';
     transform: translateX(4px);
   }
 
-  /*
-   * The shelf wrapper only positions the gradient that lands the photograph onto the
-   * partner ribbon. It keeps .hero-routing-exit so the reduced-motion override below
-   * still has a target.
-   */
-  .hero-base-shelf {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 380px;
-    pointer-events: none;
-    z-index: 8;
+  /* ------------------------------------------------------------------ the stage */
+
+  .hero-stage {
+    position: relative;
+    /*
+     * Taller than it is wide. The plate is a corridor shot in portrait, and the aspect is what
+     * makes it read as somewhere you could walk rather than a banner behind text.
+     */
+    aspect-ratio: 92 / 100;
+    /*
+     * The stage is capped, not free. Left to its aspect ratio it drove the section to 794px at
+     * 1440x900 and pushed the partner band off the first screen - the one thing the hero's
+     * footprint is not allowed to do. The cap subtracts the header, the reveal beneath the band
+     * and this section's own padding, so the aspect ratio yields before the contract does.
+     */
+    max-height: min(calc(100dvh - var(--header-height) - 220px), 640px);
+    align-self: center;
+    justify-self: end;
+    width: 100%;
   }
 
-  .hero-bottom-shelf {
+  .stage-frame {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 48px;
-    background: linear-gradient(180deg, rgba(7, 12, 20, 0) 0%, rgba(7, 12, 20, 0.4) 60%, rgba(7, 12, 20, 0.72) 100%);
+    inset: 0;
+    overflow: hidden;
+    border-radius: 3px;
+    background-color: #05080f;
+    /*
+     * The stage reads as an aperture onto the facility rather than a floating card: one hairline,
+     * no drop shadow, no lift on hover. It is architecture, not a UI panel.
+     */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07);
+  }
+
+  /*
+   * The camera moves; the layers inside it do not move independently. One transform, so the
+   * photograph and the structure drawn over it stay locked to each other at every scroll offset.
+   */
+  .stage-camera {
+    position: absolute;
+    inset: 0;
+    transform:
+      scale(calc(1 + var(--hero-progress, 0) * 0.06))
+      translate3d(
+        calc(var(--hero-pointer-x, 0px)),
+        calc(var(--hero-pointer-y, 0px) + var(--hero-progress, 0) * -10px),
+        0
+      );
+    transition: transform 220ms var(--ease-out);
+    will-change: transform;
+  }
+
+  .stage-layer {
+    position: absolute;
+    inset: 0;
+  }
+
+  /*
+   * Gates are declared on the frame rather than the svg, because the architecture plate and the
+   * topology drawn over it have to advance on exactly the same numbers.
+   */
+  .stage-frame {
+    --p: var(--hero-progress, 0);
+    --structure: min(1, max(0, calc((var(--p) - 0.04) / 0.24)));
+    --nodes: min(1, max(0, calc((var(--p) - 0.16) / 0.2)));
+    --routes: min(1, max(0, calc((var(--p) - 0.26) / 0.2)));
+    --resolve: min(1, max(0, calc((var(--p) - 0.36) / 0.2)));
+  }
+
+  .hero-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 45%;
+    /*
+     * Exposure is held where the facility is actually legible. The suite samples this frame for
+     * luminance spread, so a scrim that flattens it fails a test as well as the composition.
+     */
+    filter: brightness(0.92) contrast(1.06) saturate(0.94);
+    animation: heroAwaken 1150ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes heroAwaken {
+    0% {
+      filter: brightness(0.72) contrast(1) saturate(0.9);
+      transform: scale(1.02);
+    }
+    100% {
+      filter: brightness(0.92) contrast(1.06) saturate(0.94);
+      transform: scale(1);
+    }
+  }
+
+  /*
+   * Stage gates. The hero holds states A and B; the deeper transformation runs in the pinned
+   * chapter that follows, because --hero-progress only reaches 1 once the hero has travelled its
+   * own height and the frame is long gone by then. Compressing the whole story in here is the
+   * mistake the previous version made.
+   */
+  .stage-topology {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 3;
   }
 
   /*
-   * Mobile is a different photograph. The crop is horizontal here, so object-position picks
-   * which part of the room is on screen; dead centre is the dark vanishing point, which is
-   * the least legible part of the frame at 390px. The scrim is a top-to-bottom/left-to-right
-   * hybrid rather than the desktop 90deg gradient, which would leave the copy on open image.
+   * The architecture plate, crossfaded over the photograph on the same gate the structure used
+   * to be drawn on. This is the transformation: a photographed room becoming a drawn one, in
+   * place, without the camera moving. Hand-drawn rack outlines used to live here and were
+   * removed - the plate carries the room's real geometry, and two versions of the same lines
+   * fighting each other looked like neither.
    */
-  @media (max-width: 768px) {
+  .stage-architecture-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 50%;
+    opacity: var(--structure);
+    filter: brightness(1.05) saturate(1.05);
+  }
+
+  .stage-node {
+    fill: var(--color-sky);
+    opacity: calc(var(--nodes) * 0.85);
+  }
+
+  .stage-route {
+    fill: none;
+    stroke: var(--color-sky);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--routes));
+    opacity: calc(var(--routes) * 0.7);
+  }
+
+  /* The only cobalt in the frame: the coordination decision. */
+  .stage-hub-halo {
+    opacity: calc(var(--resolve) * 0.9);
+  }
+
+  .stage-hub {
+    fill: var(--color-cobalt);
+    opacity: calc(var(--resolve) * 0.95);
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scaleX(calc(0.3 + var(--resolve) * 0.7));
+  }
+
+  .stage-resolved {
+    fill: none;
+    stroke: url(#stageResolve);
+    stroke-width: 2.5;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--resolve));
+    opacity: var(--resolve);
+  }
+
+  /*
+   * Local, not global. It lands the bottom of the frame and lifts the corridor a little; it is
+   * no longer doing the job of making white text readable, because the text is not on it.
+   */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 50% 42%, rgba(120, 170, 220, 0.1) 0%, transparent 62%),
+      linear-gradient(180deg, rgba(7, 12, 20, 0.34) 0%, rgba(7, 12, 20, 0) 26%, rgba(7, 12, 20, 0.12) 68%, rgba(7, 12, 20, 0.6) 100%);
+  }
+
+  .hero-exit-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    background-color: #070c14;
+    opacity: calc((var(--hero-progress, 0) - 0.65) / 3.5);
+  }
+
+  .stage-edge {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    box-shadow: inset 0 0 90px 10px rgba(5, 8, 15, 0.55);
+  }
+
+  /* ------------------------------------------------------------------ tablet */
+
+  @media (max-width: 1080px) {
+    .hero-container {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+      gap: clamp(24px, 3.5vw, 44px);
+    }
+    .hero-title {
+      font-size: clamp(2.1rem, 4.2vw, 3rem);
+    }
+  }
+
+  /* ------------------------------------------------------------------ mobile */
+
+  /*
+   * Mobile is its own composition, not the desktop grid folded in half. The stage becomes a wide
+   * band beneath the copy: the corridor still reads, the headline is never pushed below the fold
+   * by it, and the transformation runs shorter because there is less travel to spend.
+   */
+  @media (max-width: 900px) {
     .hero-section {
       min-height: auto;
-      max-height: none;
-      padding: 88px 0 64px;
+      padding: 72px 0 56px;
     }
-    .hero-bg-img {
-      /*
-       * 36% of the frame is on screen at 390px. Centre lands on the aisle's vanishing point,
-       * which is the darkest and least legible part of the room; 86% lands on the right-hand
-       * rack wall, where there is equipment, cabling and an aisle sign to actually see.
-       */
-      object-position: 86% 44%;
+
+    .hero-container {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 30px;
     }
-    .hero-scrim {
-      background:
-        linear-gradient(
-          180deg,
-          rgba(7, 12, 20, 0.66) 0%,
-          rgba(7, 12, 20, 0.5) 34%,
-          rgba(7, 12, 20, 0.26) 68%,
-          rgba(7, 12, 20, 0.58) 100%
-        ),
-        linear-gradient(
-          90deg,
-          rgba(7, 12, 20, 0.34) 0%,
-          rgba(7, 12, 20, 0.1) 62%,
-          rgba(7, 12, 20, 0) 100%
-        );
+
+    .hero-content {
+      max-width: none;
     }
-    .hero-light-field {
-      background: radial-gradient(
-        ellipse at 62% 40%,
-        rgba(67, 112, 160, 0.12) 0%,
-        rgba(40, 84, 199, 0.04) 30%,
-        transparent 60%
-      );
-    }
-    /*
-     * The headline is authored as two lines - one sentence per .hero-line span - and below
-     * 500px it was silently becoming four.
-     *
-     * The cause is the clamp floor, not the vw term: clamp(2.6rem, 5.2vw, 4.2rem) holds 41.6px
-     * all the way down, because 5.2vw only overtakes the floor past ~800px of viewport. So from
-     * 320 to 499px the type stayed at 41.6px while the column shrank to 256-436px. Measured,
-     * "Complex infrastructure." needs 433px and "One place to solve it." needs 374px at that
-     * size, so both wrapped and the second broke worst: "One place / to solve it."
-     *
-     * The replacement is the width that actually fits. Both sentences occupy about 10.4 times
-     * the font size, and the column is the viewport less 64px of gutter, so the size that keeps
-     * a sentence whole is (100vw - 64px) / 10.4. The vw term here is that, with a few percent
-     * of headroom for font loading and rounding, capped at the original 2.6rem so nothing above
-     * 500px changes, and floored at 1.4rem so a 320px screen still gets a real headline.
-     *
-     * text-wrap: balance is insurance rather than the fix - if the copy is ever revised past
-     * one line again, it breaks evenly instead of leaving an orphan.
-     */
+
     .hero-title {
-      font-size: clamp(1.4rem, calc(9.3vw - 6.2px), 2.6rem);
-      text-wrap: balance;
+      font-size: clamp(1.9rem, 8.2vw, 2.6rem);
+    }
+
+    .hero-description {
+      max-width: none;
+      font-size: 1.02rem;
+    }
+
+    .hero-stage {
+      aspect-ratio: 132 / 100;
+      max-height: 52vh;
+      justify-self: stretch;
+    }
+
+    .stage-frame {
+      --structure: min(1, max(0, calc((var(--p) - 0.02) / 0.16)));
+      --nodes: min(1, max(0, calc((var(--p) - 0.1) / 0.14)));
+      --routes: min(1, max(0, calc((var(--p) - 0.18) / 0.14)));
+      --resolve: min(1, max(0, calc((var(--p) - 0.26) / 0.16)));
     }
 
     .hero-actions {
       flex-direction: column;
       align-items: flex-start;
-      gap: 18px;
+      gap: 16px;
     }
 
-    /*
-     * The mobile hero is a different crop of a different photograph, and it is short: there is
-     * not enough scroll travel here to earn a four-stage reveal, and the 86% crop already puts
-     * the rack wall behind the copy. The lens keeps the one thing worth carrying - routes
-     * converging into a junction and leaving as one - and drops the detail that would only add
-     * noise at 390px. It is quieter, and it resolves earlier so it is not still assembling as
-     * the section leaves.
-     */
-    .hero-lens {
-      --draw: min(1, max(0, calc((var(--p) - 0.02) / 0.16)));
-      --junction: min(1, max(0, calc((var(--p) - 0.14) / 0.14)));
-      --resolve: min(1, max(0, calc((var(--p) - 0.24) / 0.16)));
-    }
-    .lens-nodes {
-      display: none;
-    }
-    /* Five converging routes is detail at 1440px and clutter at 390px. Two carry the idea. */
-    .lens-leg:nth-child(2),
-    .lens-leg:nth-child(3),
-    .lens-leg:nth-child(4) {
-      display: none;
-    }
-    /* Re-stated so the two survivors follow the compressed mobile window, not the desktop one. */
-    .lens-leg:nth-child(1) { --leg-draw: min(1, max(0, calc((var(--p) - 0.02) / 0.14))); }
-    .lens-leg:nth-child(5) { --leg-draw: min(1, max(0, calc((var(--p) - 0.06) / 0.14))); }
-    .lens-leg {
-      opacity: calc(var(--leg-draw, var(--draw)) * 0.32);
-    }
-    .lens-resolved {
-      opacity: calc(var(--resolve) * 0.55);
+    .stage-edge {
+      box-shadow: inset 0 0 60px 6px rgba(5, 8, 15, 0.5);
     }
   }
 
+  /* ------------------------------------------------------------------ reduced motion */
+
   /*
-   * Reduced motion gets the finished composition immediately, at the same exposure. It must
-   * not be handed a darker or otherwise inferior hero as the price of holding still.
+   * A designed state, not an absence. initHeroScroll returns early under reduced motion so
+   * --hero-progress is never written; without pinning the gates here the stage would sit at
+   * state A forever and these visitors would simply never be shown the idea. They get the
+   * resolved architecture immediately and statically instead.
    */
   @media (prefers-reduced-motion: reduce) {
     .hero-bg-img {
       animation: none;
-      filter: brightness(0.92) contrast(1.06) saturate(0.92);
+      filter: brightness(0.92) contrast(1.06) saturate(0.94);
       transform: none;
     }
-    .hero-camera,
-    .hero-pointer {
+    .stage-camera {
       transform: none;
       transition: none;
       will-change: auto;
     }
     .hero-line,
     .hero-description,
-    .hero-actions,
-    .hero-routing-exit {
+    .hero-actions {
       animation: none !important;
       transform: none !important;
       opacity: 1 !important;
     }
-    .hero-container {
+    .hero-content {
       transform: none;
       opacity: 1;
       will-change: auto;
     }
-
-    /*
-     * Reduced motion is a first-class version of this scene, not the absence of it.
-     *
-     * initHeroScroll() returns early when reduced motion is requested, so --hero-progress is
-     * never written and every stage gate above would evaluate against 0 - the lens would simply
-     * not exist for these visitors. The stages are pinned to their resolved values instead, so
-     * the finished architecture is present immediately and statically: routes drawn, junction
-     * coordinated, one route leaving the frame. Same story, no movement.
-     */
-    .hero-lens {
-      --draw: 1;
+    .stage-frame {
+      --structure: 1;
       --nodes: 1;
-      --junction: 1;
+      --routes: 1;
       --resolve: 1;
     }
-    /*
-     * The staggered per-leg gates compute from --p directly, so pinning --draw above does not
-     * reach them: without this the five routes stay invisible and reduced-motion visitors get a
-     * junction floating with nothing arriving at it. Caught by screenshot, not by review.
-     *
-     * :nth-child(n) is not decoration. A media query adds no specificity, so a bare .lens-leg
-     * here (0,1,0) loses to the .lens-leg:nth-child(1..5) gates above (0,2,0) and the override
-     * silently does nothing - which is exactly what the first attempt at this fix did.
-     */
-    .lens-leg:nth-child(n) {
-      --leg-draw: 1;
-    }
-    .lens-junction {
+    .stage-hub {
       transform: none;
     }
   }
@@ -759,11 +642,9 @@ import heroImage from '../assets/hero-datacenter.jpg';
   import { homepageScheduler } from '../scripts/homepage-scheduler';
 
   /**
-   * The hero writes one number. Everything the scroll drives — camera push, content exit,
-   * the exit exposure, the route extending, the partner surface rising — is expressed in CSS
-   * against --hero-progress. The previous version mutated four inline styles directly, one of
-   * which set scrim opacity above 1 (meaningless, and it darkened the photograph precisely
-   * where the point is to keep it visible).
+   * The hero writes one number. Everything the scroll drives - the stage camera, the structure
+   * emerging, the routes resolving, the content exit - is expressed in CSS against
+   * --hero-progress, so there is one source of truth and no second scroll pipeline.
    */
   function initHeroScroll() {
     const heroSection = document.getElementById('hero');
@@ -784,9 +665,9 @@ import heroImage from '../assets/hero-datacenter.jpg';
   }
 
   /**
-   * A few pixels of crop response to the pointer, so the frame feels like a window onto a
-   * room rather than a flat plate. Finishing detail only: ±3px horizontal, ±2px vertical,
-   * and never on touch, coarse pointers, narrow viewports or reduced motion.
+   * A few pixels of parallax on the stage, so the frame feels like a window onto a room rather
+   * than a flat plate. Finishing detail only: never on touch, coarse pointers, narrow viewports
+   * or reduced motion.
    */
   function initHeroPointerDepth() {
     const heroSection = document.getElementById('hero');
@@ -809,8 +690,8 @@ import heroImage from '../assets/hero-datacenter.jpg';
       (event) => {
         if (event.pointerType !== 'mouse') return;
         const rect = heroSection.getBoundingClientRect();
-        pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * -6;
-        pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * -4;
+        pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * -8;
+        pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
         if (!ticking) {
           window.requestAnimationFrame(write);
           ticking = true;

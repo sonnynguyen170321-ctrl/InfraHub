@@ -109,3 +109,14 @@ claimed from here.
 - **Canonical partner domains:** maintained in the partner content records and enforced by `tests/audit/partner-trust-ribbon.test.mjs`.
 - **Logo gate:** an official logo may render only when the asset is sourced from an official partner property and explicitly approved for production use.
 - **Pre-release gate:** `tests/audit/content-truth-audit.mjs` and `tests/audit/partner-trust-ribbon.test.mjs` must pass before release.
+
+## Hero cinematic plates (Phase 13, final corrective build)
+
+| File | Origin | Notes |
+|---|---|---|
+| `src/assets/hero-physical.png` | Generated to brief, supplied by the project owner | 1122x1402, 4:5. Data centre cold aisle, one-point perspective. State A of the hero stage. |
+| `src/assets/hero-architecture.png` | Generated to brief from the same composition, supplied by the project owner | 1122x1402, 4:5. Wireframe of the identical frame - same vanishing point, rack rhythm and tray runs. State B. The shared camera is what makes the crossfade read as the room being understood rather than two pictures swapping. |
+| `src/assets/hero-trays.png` | Generated to brief, supplied by the project owner | 1122x1402, 4:5. Overhead cable tray detail. Held for a depth layer; not yet rendered. |
+
+No people, brand marks or readable text appear in any of the three. Amber is absent by
+instruction, since the palette reserves it for risk and dependency.
