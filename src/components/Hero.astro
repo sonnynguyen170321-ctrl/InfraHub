@@ -562,8 +562,13 @@ import architectureImage from '../assets/hero-architecture.png';
       max-width: none;
     }
 
+    /*
+     * "Complex infrastructure." occupies about 10.4x the font size and the mobile column
+     * resolves to ~326px at 390. 8.2vw put it at 32px, needing 333px, so it wrapped to three
+     * lines against an authored two. Sized from that measurement.
+     */
     .hero-title {
-      font-size: clamp(1.9rem, 8.2vw, 2.6rem);
+      font-size: clamp(1.5rem, 7.4vw, 2.5rem);
     }
 
     .hero-description {
