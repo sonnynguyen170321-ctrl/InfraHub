@@ -629,6 +629,30 @@ import heroImage from '../assets/hero-datacenter.jpg';
         transparent 60%
       );
     }
+    /*
+     * The headline is authored as two lines - one sentence per .hero-line span - and below
+     * 500px it was silently becoming four.
+     *
+     * The cause is the clamp floor, not the vw term: clamp(2.6rem, 5.2vw, 4.2rem) holds 41.6px
+     * all the way down, because 5.2vw only overtakes the floor past ~800px of viewport. So from
+     * 320 to 499px the type stayed at 41.6px while the column shrank to 256-436px. Measured,
+     * "Complex infrastructure." needs 433px and "One place to solve it." needs 374px at that
+     * size, so both wrapped and the second broke worst: "One place / to solve it."
+     *
+     * The replacement is the width that actually fits. Both sentences occupy about 10.4 times
+     * the font size, and the column is the viewport less 64px of gutter, so the size that keeps
+     * a sentence whole is (100vw - 64px) / 10.4. The vw term here is that, with a few percent
+     * of headroom for font loading and rounding, capped at the original 2.6rem so nothing above
+     * 500px changes, and floored at 1.4rem so a 320px screen still gets a real headline.
+     *
+     * text-wrap: balance is insurance rather than the fix - if the copy is ever revised past
+     * one line again, it breaks evenly instead of leaving an orphan.
+     */
+    .hero-title {
+      font-size: clamp(1.4rem, calc(9.3vw - 6.2px), 2.6rem);
+      text-wrap: balance;
+    }
+
     .hero-actions {
       flex-direction: column;
       align-items: flex-start;
