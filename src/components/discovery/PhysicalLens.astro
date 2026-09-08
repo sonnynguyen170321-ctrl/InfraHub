@@ -4,11 +4,28 @@
 import { Image } from 'astro:assets';
 import { DISCIPLINARY_DATA, DISCIPLINE_KEYS } from '../../data/discovery-disciplines';
 
-import networkImg from '../../assets/network-fiber.jpg';
-import computeImg from '../../assets/hero-datacenter.jpg';
-import cloudImg from '../../assets/cloud-compute.jpg';
-import securityImg from '../../assets/security-operations.jpg';
-import operationsImg from '../../assets/managed-noc.jpg';
+/*
+ * The discipline plates, graded as one family.
+ *
+ * These were the site's five general-purpose photographs, imported straight from ../../assets:
+ * one of them was the hero's own landscape plate doing double duty as "compute". Measured, they
+ * did not belong together - network-fiber sat at a green-blue delta of -5.1 and read visibly
+ * teal against a graphite and cobalt page, security-operations at -2.6, and managed-noc was
+ * actually green-dominant at +5.5.
+ *
+ * They are now cropped to a common 3:2 and put through one colour matrix that pulls green toward
+ * blue, so the set reads as the same room shot on the same day: the delta band is -18.1 to -7.3,
+ * all blue-dominant. operations-noc needed a stronger pull than the other four because it began
+ * on the wrong side of neutral.
+ *
+ * This is a grade, not a substitute for bespoke photography. The subjects are still generic
+ * stock; what has been fixed is that they no longer fight the palette or each other.
+ */
+import networkImg from '../../assets/discovery/network-core.jpg';
+import computeImg from '../../assets/discovery/compute-clusters.jpg';
+import cloudImg from '../../assets/discovery/cloud-fabric.jpg';
+import securityImg from '../../assets/discovery/security-perimeter.jpg';
+import operationsImg from '../../assets/discovery/operations-noc.jpg';
 
 interface Props {
   activeId?: string;

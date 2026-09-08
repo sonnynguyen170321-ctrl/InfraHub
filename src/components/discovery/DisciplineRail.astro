@@ -29,6 +29,9 @@ const disciplines = DISCIPLINE_KEYS.map(k => DISCIPLINARY_DATA[k]);
           aria-controls={`panel-${item.id}`}
           tabindex={isSelected ? 0 : -1}
           data-discipline-id={item.id}
+          {/* Retained from the SolutionSelector this replaced. Nothing in the repo reads it today,
+              but it is the documented backward-compatibility contract for anything outside it. */}
+          data-tab-target={item.id}
         >
           <span class="btn-line-indicator" aria-hidden="true"></span>
           <div class="btn-text-wrap">

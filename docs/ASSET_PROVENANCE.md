@@ -120,3 +120,23 @@ claimed from here.
 
 No people, brand marks or readable text appear in any of the three. Amber is absent by
 instruction, since the palette reserves it for risk and dependency.
+
+## Discovery discipline plates (Act 2)
+
+Derived assets, not new photography. `src/assets/discovery/*.jpg` are the site's five existing
+general-purpose photographs, centre-cropped to a common 3:2 and put through one colour matrix so
+they read as a single family against the graphite and cobalt palette.
+
+| Output | Source | Green-blue delta before | after |
+|---|---|---|---|
+| `network-core.jpg` | `network-fiber.jpg` | -5.1 (read visibly teal) | -12.4 |
+| `compute-clusters.jpg` | `hero-datacenter.jpg` | -6.8 | -12.2 |
+| `cloud-fabric.jpg` | `cloud-compute.jpg` | -12.7 | -18.1 |
+| `security-perimeter.jpg` | `security-operations.jpg` | -2.6 | -9.9 |
+| `operations-noc.jpg` | `managed-noc.jpg` | **+5.5 (green-dominant)** | -7.3 |
+
+`operations-noc` required a stronger matrix than the other four because it began on the wrong
+side of neutral. All five are now blue-dominant within a -18.1 to -7.3 band.
+
+This is a colour grade. The subjects remain generic stock photography; bespoke plates shot to the
+brief in the Act 2 plan would still be an improvement, and the grade does not pretend otherwise.
