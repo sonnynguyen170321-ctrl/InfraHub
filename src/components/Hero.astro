@@ -48,6 +48,80 @@ import heroImage from '../assets/hero-datacenter.jpg';
     <div class="hero-scrim"></div>
     <div class="hero-light-field"></div>
     <div class="hero-exit-veil"></div>
+
+    <!--
+      The Living Infrastructure Lens, scene 0 -> 1.
+
+      The photograph is the physical infrastructure; this is the architecture underneath it
+      resolving as the visitor scrolls. The geometry is the InfraHub mark at page scale, not a
+      new invention: two routes descending, a junction where they are coordinated, one route
+      continuing out of the frame. The hero comment above records that an earlier decorative
+      spline was removed because it carried no information. This one carries the business model.
+
+      It occupies the right half of the frame only, clear of the copy column, so the directive's
+      preference for a lens beside the content is met without giving up the measured scrim that
+      holds the headline at AA.
+
+      Every stage is a pure function of --hero-progress. No JS beyond the one number the hero
+      already publishes to the scheduler, and no animation that runs because time passed.
+    -->
+    <svg
+      class="hero-lens"
+      viewBox="0 0 1000 620"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <defs>
+        <!-- The resolved route dissolves rather than stopping, so the handoff reads as continuing. -->
+        <!--
+          userSpaceOnUse, not the objectBoundingBox default. The resolved route is a perfectly
+          vertical line, so its bounding box is zero-width and a bounding-box gradient on it is
+          degenerate - the stroke renders faint or not at all depending on the engine. Explicit
+          user-space coordinates are the only reliable way to gradient a straight line.
+        -->
+        <linearGradient
+          id="lensResolvedFade"
+          gradientUnits="userSpaceOnUse"
+          x1="764" y1="392" x2="764" y2="620"
+        >
+          <stop offset="0%" stop-color="#2563eb" />
+          <stop offset="18%" stop-color="#f8fafc" />
+          <stop offset="62%" stop-color="#f8fafc" />
+          <stop offset="100%" stop-color="#f8fafc" stop-opacity="0" />
+        </linearGradient>
+        <radialGradient id="lensJunctionHalo">
+          <stop offset="0%" stop-color="#2563eb" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="#2563eb" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <!--
+        Five routes, not two: these are the disciplines the site actually sells - network,
+        compute, cloud, security, operations - arriving from different parts of the facility and
+        being coordinated at one point. The mark's two-leg geometry is the idea; five is the
+        truth of the business. They are equally weighted, because none of them outranks another.
+      -->
+      <g class="lens-legs">
+        <path class="lens-leg" pathLength="1" d="M 542 96 C 626 128, 676 258, 748 368" />
+        <path class="lens-leg" pathLength="1" d="M 648 72 C 700 140, 720 268, 754 368" />
+        <path class="lens-leg" pathLength="1" d="M 792 66 C 788 150, 772 272, 764 368" />
+        <path class="lens-leg" pathLength="1" d="M 918 84 C 872 148, 812 268, 772 368" />
+        <path class="lens-leg" pathLength="1" d="M 992 128 C 926 176, 828 282, 780 368" />
+      </g>
+
+      <g class="lens-nodes">
+        <circle class="lens-node" cx="614" cy="152" r="3" />
+        <circle class="lens-node" cx="690" cy="176" r="3" />
+        <circle class="lens-node" cx="788" cy="152" r="3" />
+        <circle class="lens-node" cx="886" cy="168" r="3" />
+        <circle class="lens-node" cx="946" cy="196" r="3" />
+      </g>
+
+      <circle class="lens-halo" cx="764" cy="378" r="54" fill="url(#lensJunctionHalo)" />
+      <rect class="lens-junction" x="726" y="374" width="76" height="5" rx="2.5" />
+      <path class="lens-resolved" pathLength="1" d="M 764 392 L 764 620" />
+    </svg>
   </div>
 
   <div class="container hero-container">
@@ -237,6 +311,97 @@ import heroImage from '../assets/hero-datacenter.jpg';
     pointer-events: none;
     background-color: #070c14;
     opacity: calc((var(--hero-progress, 0) - 0.65) / 3.5);
+  }
+
+  /*
+   * The lens sits above the exit veil on purpose. As the visitor leaves, the photograph loses
+   * exposure but the architecture stays legible - the physical fades and the understood system
+   * remains, which is the whole point of the sequence.
+   */
+  .hero-lens {
+    position: absolute;
+    inset: 0;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    /*
+     * Stage gates. min/max rather than clamp() because the arguments are unitless numbers and
+     * min/max has the wider engine support for that case. Each stage overlaps the next so the
+     * sequence reads as one continuous resolve rather than four separate events.
+     *
+     * The gates are compressed into the first 44% of hero travel, and that is deliberate.
+     * --hero-progress is scrollY / heroHeight, so it only reaches 1 once the hero has travelled
+     * its own height - by which point a 720px hero in a 900px viewport has been off screen for
+     * a long time. An earlier version of this ran the junction at 0.56 and the resolve at 0.72,
+     * and screenshots showed both stages completing after the visitor could no longer see the
+     * hero at all: the sequence existed, and nobody would ever have watched it finish. The
+     * whole resolve now lands while the frame still holds most of the viewport.
+     */
+    --p: var(--hero-progress, 0);
+    --draw: min(1, max(0, calc((var(--p) - 0.02) / 0.2)));
+    --nodes: min(1, max(0, calc((var(--p) - 0.12) / 0.16)));
+    --junction: min(1, max(0, calc((var(--p) - 0.2) / 0.14)));
+    --resolve: min(1, max(0, calc((var(--p) - 0.28) / 0.16)));
+  }
+
+  /* Secondary infrastructure routes: sky, per the site's colour grammar. */
+  .lens-leg {
+    fill: none;
+    stroke: var(--color-sky);
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--leg-draw, var(--draw)));
+    opacity: calc(var(--leg-draw, var(--draw)) * 0.44);
+  }
+
+  /*
+   * The five routes arrive in sequence rather than together. Each leg gets its own slice of the
+   * draw window, so the eye follows them in instead of watching a fan appear at once - the same
+   * reason a diagram is drawn one line at a time when someone is explaining it to you.
+   */
+  .lens-leg:nth-child(1) { --leg-draw: min(1, max(0, calc((var(--p) - 0.02) / 0.14))); }
+  .lens-leg:nth-child(2) { --leg-draw: min(1, max(0, calc((var(--p) - 0.05) / 0.14))); }
+  .lens-leg:nth-child(3) { --leg-draw: min(1, max(0, calc((var(--p) - 0.08) / 0.14))); }
+  .lens-leg:nth-child(4) { --leg-draw: min(1, max(0, calc((var(--p) - 0.11) / 0.14))); }
+  .lens-leg:nth-child(5) { --leg-draw: min(1, max(0, calc((var(--p) - 0.14) / 0.14))); }
+
+  .lens-node {
+    fill: var(--color-sky);
+    opacity: calc(var(--nodes) * 0.55);
+  }
+
+  /*
+   * The junction is the only cobalt in the hero backdrop: it is the coordination decision, and
+   * it is the crossbar of the InfraHub mark at page scale. The halo keeps it from reading as a
+   * flat UI chip sitting on a photograph - it is a place in the room, not a control.
+   */
+  .lens-halo {
+    opacity: calc(var(--junction) * 0.85);
+  }
+
+  .lens-junction {
+    fill: var(--color-cobalt);
+    opacity: calc(var(--junction) * 0.9);
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scaleX(calc(0.34 + var(--junction) * 0.66));
+  }
+
+  /*
+   * The resolved route: cobalt at the junction, mineral through the frame, dissolving at the
+   * bottom edge. It must not stop with a visible cap - it is meant to read as continuing into
+   * the partner band and the chapters after it.
+   */
+  .lens-resolved {
+    fill: none;
+    stroke: url(#lensResolvedFade);
+    stroke-width: 2.25;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--resolve));
+    opacity: var(--resolve);
   }
 
   .hero-container {
@@ -467,6 +632,38 @@ import heroImage from '../assets/hero-datacenter.jpg';
       align-items: flex-start;
       gap: 18px;
     }
+
+    /*
+     * The mobile hero is a different crop of a different photograph, and it is short: there is
+     * not enough scroll travel here to earn a four-stage reveal, and the 86% crop already puts
+     * the rack wall behind the copy. The lens keeps the one thing worth carrying - routes
+     * converging into a junction and leaving as one - and drops the detail that would only add
+     * noise at 390px. It is quieter, and it resolves earlier so it is not still assembling as
+     * the section leaves.
+     */
+    .hero-lens {
+      --draw: min(1, max(0, calc((var(--p) - 0.02) / 0.16)));
+      --junction: min(1, max(0, calc((var(--p) - 0.14) / 0.14)));
+      --resolve: min(1, max(0, calc((var(--p) - 0.24) / 0.16)));
+    }
+    .lens-nodes {
+      display: none;
+    }
+    /* Five converging routes is detail at 1440px and clutter at 390px. Two carry the idea. */
+    .lens-leg:nth-child(2),
+    .lens-leg:nth-child(3),
+    .lens-leg:nth-child(4) {
+      display: none;
+    }
+    /* Re-stated so the two survivors follow the compressed mobile window, not the desktop one. */
+    .lens-leg:nth-child(1) { --leg-draw: min(1, max(0, calc((var(--p) - 0.02) / 0.14))); }
+    .lens-leg:nth-child(5) { --leg-draw: min(1, max(0, calc((var(--p) - 0.06) / 0.14))); }
+    .lens-leg {
+      opacity: calc(var(--leg-draw, var(--draw)) * 0.32);
+    }
+    .lens-resolved {
+      opacity: calc(var(--resolve) * 0.55);
+    }
   }
 
   /*
@@ -497,6 +694,37 @@ import heroImage from '../assets/hero-datacenter.jpg';
       transform: none;
       opacity: 1;
       will-change: auto;
+    }
+
+    /*
+     * Reduced motion is a first-class version of this scene, not the absence of it.
+     *
+     * initHeroScroll() returns early when reduced motion is requested, so --hero-progress is
+     * never written and every stage gate above would evaluate against 0 - the lens would simply
+     * not exist for these visitors. The stages are pinned to their resolved values instead, so
+     * the finished architecture is present immediately and statically: routes drawn, junction
+     * coordinated, one route leaving the frame. Same story, no movement.
+     */
+    .hero-lens {
+      --draw: 1;
+      --nodes: 1;
+      --junction: 1;
+      --resolve: 1;
+    }
+    /*
+     * The staggered per-leg gates compute from --p directly, so pinning --draw above does not
+     * reach them: without this the five routes stay invisible and reduced-motion visitors get a
+     * junction floating with nothing arriving at it. Caught by screenshot, not by review.
+     *
+     * :nth-child(n) is not decoration. A media query adds no specificity, so a bare .lens-leg
+     * here (0,1,0) loses to the .lens-leg:nth-child(1..5) gates above (0,2,0) and the override
+     * silently does nothing - which is exactly what the first attempt at this fix did.
+     */
+    .lens-leg:nth-child(n) {
+      --leg-draw: 1;
+    }
+    .lens-junction {
+      transform: none;
     }
   }
 </style>

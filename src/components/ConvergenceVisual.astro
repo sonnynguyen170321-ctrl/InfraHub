@@ -125,10 +125,14 @@ import BrandLogo from './BrandLogo.astro';
           </g>
 
           <!-- Resolved Output Route -->
+          <!--
+            The resolved run carried a white dot looping along it every two seconds. It was
+            removed: it reported nothing, it ran because time passed rather than because the
+            visitor did anything, and it competed with the one scroll-driven motion idea the
+            homepage is now built around (directive sections 13 and 29).
+          -->
           <g class="resolved-path-wrap">
             <path d="M 524 240 L 700 240" class="resolved-beam" stroke="url(#grad-resolved)" stroke-width="5" />
-            <!-- Pulse dot -->
-            <circle cx="612" cy="240" r="4" fill="#ffffff" class="pulse-packet" />
           </g>
 
           <!-- Right Node: Customer Outcome -->
@@ -343,17 +347,6 @@ import BrandLogo from './BrandLogo.astro';
     stroke-linecap: round;
   }
 
-  .pulse-packet {
-    animation: packetMove 2s infinite linear;
-  }
-
-  @keyframes packetMove {
-    0% { cx: 524px; opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { cx: 700px; opacity: 0; }
-  }
-
   .outcome-box {
     fill: #0f1c2e;
     stroke: #f8fafc;
@@ -406,6 +399,25 @@ import BrandLogo from './BrandLogo.astro';
 
   .fragmented-mode .outcome-sla {
     fill: #fbbf24;
+  }
+
+  /*
+   * This component previously had no prefers-reduced-motion block of any kind, so a visitor who
+   * asks for less movement still got every transition here plus a dot looping forever. The dot
+   * is gone; the remaining transitions are state changes between the two view modes, so they
+   * are cut to zero rather than removed - the mode still switches, it just switches instantly.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    .beam-path,
+    .mode-btn,
+    .hub-center,
+    .resolved-path-wrap,
+    .outcome-box,
+    .stage-canvas-wrap * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
 
   /* Metrics Bar */
