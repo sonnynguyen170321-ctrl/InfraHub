@@ -1,0 +1,196 @@
+---
+// src/components/discovery/CapacityLens.astro
+// Interactive requirement-driven capacity selector shaping route weight & constraints
+import { DISCIPLINARY_DATA } from '../../data/discovery-disciplines';
+
+interface Props {
+  activeDisciplineId?: string;
+  activeCapacity?: '10G' | '100G' | '400G';
+}
+
+const { activeDisciplineId = 'network', activeCapacity = '100G' } = Astro.props;
+const currentDiscipline = DISCIPLINARY_DATA[activeDisciplineId] || DISCIPLINARY_DATA.network;
+---
+
+<div class="capacity-lens" role="region" aria-label="Customer Requirement Capacity Dimension">
+  <div class="capacity-header">
+    <div class="capacity-label-group">
+      <span class="capacity-kicker">REQUIREMENT CAPACITY</span>
+      <span class="capacity-current-note" id="capacity-current-note">
+        {currentDiscipline.capacityTiers.find(t => t.id === activeCapacity)?.trafficDesc || 'Scale requirement'}
+      </span>
+    </div>
+
+    <!-- Capacity Option Chips -->
+    <div class="capacity-pills" role="radiogroup" aria-label="Committed Capacity Filter">
+      {currentDiscipline.capacityTiers.map(tier => {
+        const isChecked = tier.id === activeCapacity;
+        return (
+          <button
+            type="button"
+            role="radio"
+            class={`capacity-pill ${isChecked ? 'active' : ''}`}
+            aria-checked={isChecked ? 'true' : 'false'}
+            data-capacity={tier.id}
+            data-weight={tier.routeWeight}
+            data-desc={tier.trafficDesc}
+            data-constraint={tier.architectureConstraint}
+            id={`cap-btn-${tier.id}`}
+          >
+            <span class="pill-dot" aria-hidden="true"></span>
+            <span class="pill-val">{tier.id}</span>
+          </button>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Live Architecture Constraint Note -->
+  <div class="capacity-constraint-box" id="capacity-constraint-box">
+    <span class="constraint-icon" aria-hidden="true">&#9670;</span>
+    <span class="constraint-text" id="capacity-constraint-text">
+      {currentDiscipline.capacityTiers.find(t => t.id === activeCapacity)?.architectureConstraint || ''}
+    </span>
+  </div>
+</div>
+
+<style>
+  .capacity-lens {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, 0.5rem);
+    padding: 0.75rem 1rem;
+    background: var(--bg-surface-elevated, #f8faf9);
+    border: 1px solid var(--border-color, #d2d7d3);
+    border-radius: var(--radius-sm, 4px);
+    margin-top: 0.75rem;
+  }
+
+  .capacity-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3, 0.75rem);
+    flex-wrap: wrap;
+  }
+
+  .capacity-label-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .capacity-kicker {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary, #64748b);
+    text-transform: uppercase;
+  }
+
+  .capacity-current-note {
+    font-family: var(--font-body, 'IBM Plex Sans', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary, #334155);
+  }
+
+  .capacity-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .capacity-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3125rem 0.625rem;
+    background: var(--bg-surface, #ffffff);
+    border: 1px solid var(--border-color, #d2d7d3);
+    border-radius: var(--radius-sm, 3px);
+    cursor: pointer;
+    outline: none;
+    transition: background-color var(--motion-fast, 140ms) var(--ease-out, ease-out),
+                border-color var(--motion-fast, 140ms) var(--ease-out, ease-out);
+  }
+
+  .capacity-pill:hover {
+    background-color: var(--bg-hover, rgba(0, 0, 0, 0.02));
+    border-color: var(--text-tertiary, #94a3b8);
+  }
+
+  .capacity-pill:focus-visible {
+    border-color: var(--color-cobalt, #2854c7);
+    box-shadow: 0 0 0 2px rgba(40, 84, 199, 0.2);
+  }
+
+  .capacity-pill.active {
+    background-color: var(--color-carbon, #091118);
+    border-color: var(--color-carbon, #091118);
+  }
+
+  .pill-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--text-tertiary, #94a3b8);
+    transition: background-color var(--motion-fast, 140ms) var(--ease-out, ease-out);
+  }
+
+  .capacity-pill.active .pill-dot {
+    background-color: var(--color-cobalt, #38bdf8);
+  }
+
+  .pill-val {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary, #091118);
+    transition: color var(--motion-fast, 140ms) var(--ease-out, ease-out);
+  }
+
+  .capacity-pill.active .pill-val {
+    color: #ffffff;
+  }
+
+  .capacity-constraint-box {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding-top: 0.375rem;
+    border-top: 1px dashed var(--border-color, #e2e8f0);
+  }
+
+  .constraint-icon {
+    color: var(--color-cobalt, #2854c7);
+    font-size: 0.625rem;
+    flex-shrink: 0;
+  }
+
+  .constraint-text {
+    font-family: var(--font-body, 'IBM Plex Sans', sans-serif);
+    font-size: 0.75rem;
+    color: var(--text-secondary, #475569);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 639px) {
+    .capacity-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .capacity-pills {
+      width: 100%;
+      justify-content: stretch;
+    }
+
+    .capacity-pill {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+</style>
