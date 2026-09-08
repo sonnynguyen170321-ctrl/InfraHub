@@ -263,6 +263,12 @@ img {
   justify-content: center;
   gap: 8px;
   padding: 12px 24px;
+  /*
+   * 12px padding on a 1-line 0.95rem label lands at 39px, five short of the 44px touch target
+   * every platform guideline asks for. The box is already centred both ways, so a floor grows
+   * it without moving the label. One declaration covers all 114 .btn usages.
+   */
+  min-height: 44px;
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 600;

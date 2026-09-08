@@ -302,11 +302,18 @@ const visualCategories = [
     gap: 8px;
   }
 
+  /*
+   * The starter chips are how most visitors begin a requirement without typing, and they
+   * measured 31px tall. They wrap in a flex list, so height costs nothing but a taller row.
+   */
   .prompt-chip-btn {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid #1e293b;
     border-radius: 6px;
     padding: 6px 12px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     color: #cbd5e1;
     font-size: 0.8125rem;
     cursor: pointer;
@@ -320,6 +327,9 @@ const visualCategories = [
   }
 
   .category-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     background: transparent;
     border: 1px dashed #334155;
     border-radius: 6px;

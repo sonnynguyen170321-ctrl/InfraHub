@@ -104,11 +104,17 @@ const currentYear = new Date().getFullYear();
     gap: 16px;
   }
 
+  /*
+   * 24px measured - sitting exactly on the SC 2.5.8 floor, like the header lockup was. Same
+   * padding/negative-margin pair, so the target clears 44 without moving the mark.
+   */
   .footer-logo {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
+    padding-block: 10px;
+    margin-block: -10px;
   }
 
 
@@ -142,11 +148,24 @@ const currentYear = new Date().getFullYear();
     gap: 14px;
   }
 
+  /*
+   * Padding with a matching negative margin, not extra height.
+   *
+   * These links were bare inline anchors, so the tap target was the 19px line box and nothing
+   * else - under the 24x24 floor in WCAG 2.2 SC 2.5.8, and they do not qualify for the inline
+   * exception because each one is the whole content of its own list item rather than a link
+   * inside a sentence. inline-block plus vertical padding lifts the target to 29px; the equal
+   * negative margin cancels the layout effect, so the footer rhythm is pixel-identical and the
+   * 14px column gap absorbs the overlap.
+   */
   .footer-links a {
     font-size: 0.9rem;
     color: #94a3b8;
     text-decoration: none;
     transition: color 160ms ease;
+    display: inline-block;
+    padding-block: 5px;
+    margin-block: -5px;
   }
 
   .footer-links a:hover {
@@ -167,7 +186,9 @@ const currentYear = new Date().getFullYear();
     text-decoration: none;
     transition: color 160ms ease;
     display: inline-block;
-    margin-bottom: 20px;
+    /* 24px measured, i.e. exactly on the SC 2.5.8 line. Padding puts it clearly over. */
+    padding-block: 5px;
+    margin-bottom: 15px;
   }
   .footer-email-link:hover {
     color: #ffffff;
@@ -183,6 +204,9 @@ const currentYear = new Date().getFullYear();
     color: #94a3b8;
     text-decoration: none;
     transition: color 160ms ease;
+    display: inline-block;
+    padding-block: 6px;
+    margin-block: -6px;
   }
   .footer-legal-row a:hover {
     color: #ffffff;

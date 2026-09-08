@@ -349,6 +349,22 @@ const riskPoints = [
     width: 100%;
   }
 
+  /*
+   * Touch sizing for the exhibit controls.
+   *
+   * This component is mobile-first, so the compact proportions that suit a dense desktop
+   * control row are exactly what a phone inherits: the view toggles measured 33px tall and the
+   * shared-segment button 32px. Both clear the WCAG 2.2 AA floor, but they are the primary way
+   * the exhibit is operated and they are fiddly under a thumb. Raised to 44 below the
+   * component's own 980px breakpoint, so the desktop row keeps its tuned height.
+   */
+  @media (max-width: 979px) {
+    .toggle-btn,
+    .sever-sim-btn {
+      min-height: 44px;
+    }
+  }
+
   @media (min-width: 980px) {
     .route-stage-grid {
       grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
@@ -619,6 +635,7 @@ const riskPoints = [
   .narrative-link {
     display: inline-flex;
     align-items: center;
+    min-height: 44px;
     gap: 8px;
     font-weight: 600;
     color: var(--text-primary);

@@ -361,12 +361,20 @@ const categories = [
     gap: 20px;
   }
 
+  /*
+   * Measured at exactly 24px, i.e. sitting on the SC 2.5.8 floor rather than clearing it.
+   * Padding lifts the target; the equal negative margin keeps the panel layout identical.
+   */
   .panel-secondary-link {
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -10px;
   }
 
   .panel-secondary-link:hover {

@@ -233,12 +233,19 @@ import BrandLogo from './BrandLogo.astro';
     position: relative;
   }
   /* Logo */
+  /*
+   * The lockup measures 28px tall, so the home link was a 28px target. The padding/negative
+   * margin pair raises the target to 44 without moving the mark, which the header alignment
+   * audit measures to 0.01px against the nav and CTA.
+   */
   .brand-logo {
     display: inline-flex;
     align-items: center;
     line-height: 1;
     text-decoration: none;
     vertical-align: middle;
+    padding-block: 8px;
+    margin-block: -8px;
   }
   .nav-link {
     display: inline-flex;
@@ -392,6 +399,10 @@ import BrandLogo from './BrandLogo.astro';
     gap: 14px;
   }
 
+  /*
+   * The persistent conversion control, and on a phone it shrinks to "Start" at 59x32. The
+   * header is a fixed 80px token, so a 44px target fits inside space the header already has.
+   */
   .btn-nav-cta {
     padding: 9px 18px;
     font-size: 0.88rem;
@@ -399,6 +410,8 @@ import BrandLogo from './BrandLogo.astro';
     line-height: 1;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-height: 44px;
     gap: 6px;
   }
   .cta-short { display: none; }
@@ -409,11 +422,20 @@ import BrandLogo from './BrandLogo.astro';
   }
 
 
+  /*
+   * 38x32 measured, which is the primary navigation control on every phone. The header is a
+   * fixed 80px token and the bars are unchanged, so squaring the button to 44 costs no layout:
+   * the hit area grows inside space the header already had.
+   */
   .mobile-toggle {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
     padding: 8px;
+    min-width: 44px;
+    min-height: 44px;
   }
   @media (min-width: 1180px) {
     .mobile-toggle {
