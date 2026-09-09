@@ -147,9 +147,12 @@ import DecisionPanel from './DecisionPanel.astro';
     border-radius: var(--radius-sm, 4px);
   }
 
+  /* 29px measured - above the AA floor, below the platform target for a primary view switch. */
   .view-mode-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-height: 44px;
     gap: 0.375rem;
     padding: 0.375rem 0.75rem;
     font-family: var(--font-mono, 'IBM Plex Mono', monospace);

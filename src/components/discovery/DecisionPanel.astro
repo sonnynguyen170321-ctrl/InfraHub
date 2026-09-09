@@ -326,7 +326,12 @@ const disciplines = DISCIPLINE_KEYS.map(k => DISCIPLINARY_DATA[k]);
     border-color: #1e40af;
   }
 
+  /* 19px measured, same standalone-anchor case as the rail bridge link. */
   .panel-desk-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -12px;
     font-family: var(--font-mono, 'IBM Plex Mono', monospace);
     font-size: 0.75rem;
     font-weight: 600;

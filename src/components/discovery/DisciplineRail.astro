@@ -199,7 +199,17 @@ const disciplines = DISCIPLINE_KEYS.map(k => DISCIPLINARY_DATA[k]);
     color: var(--text-secondary, #64748b);
   }
 
+  /*
+   * Measured at 19px tall - a bare inline anchor, so the tap target was the line box and nothing
+   * else. That is under the 24x24 floor in WCAG 2.2 SC 2.5.8, and it does not qualify for the
+   * inline exception because it is a standalone call to action rather than a link inside a
+   * sentence. Padding with a matching negative margin lifts the target without moving the rail.
+   */
   .bridge-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -12px;
     font-family: var(--font-mono, 'IBM Plex Mono', monospace);
     font-size: 0.75rem;
     font-weight: 600;

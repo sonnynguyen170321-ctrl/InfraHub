@@ -102,9 +102,15 @@ const currentDiscipline = DISCIPLINARY_DATA[activeDisciplineId] || DISCIPLINARY_
     gap: 0.375rem;
   }
 
+  /*
+   * 27px measured. It clears the AA floor but it is the control the visitor uses to state their
+   * own capacity, so it is worth a full-size target rather than a technically-compliant one.
+   */
   .capacity-pill {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    min-height: 44px;
     gap: 0.375rem;
     padding: 0.3125rem 0.625rem;
     background: var(--bg-surface, #ffffff);
