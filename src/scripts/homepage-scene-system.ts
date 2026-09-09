@@ -34,8 +34,6 @@ export const SCENE_SELECTORS: ReadonlyArray<{ id: string; selector: string; opti
   { id: 'discovery', selector: '#what-you-need, #discovery-stage' },
   { id: 'judgment', selector: '#why-infrahub, #how-it-works' },
   { id: 'routeReality', selector: '#route-explorer' },
-  { id: 'market', selector: '#featured-offers', optional: true },
-  { id: 'practice', selector: '#who-we-help', optional: true },
   { id: 'conversation', selector: '#start-requirement, #contact' },
 ];
 
@@ -163,7 +161,14 @@ export class HomepageSceneSystem {
     reality.element.style.setProperty('--carrier-fork-progress', forkProgress.toFixed(2));
   }
 
-  /** Route Reality → Market: the physical model flattens into the commercial ledger rule. */
+  /**
+ * Route Reality handoff.
+ *
+ * This drove a 'market' scene that pointed at #featured-offers, an element that only ever
+ * existed in FeaturedOffers.astro. That component stopped being rendered when the homepage was
+ * rebuilt and has now been deleted, so the scene could never resolve and the flatten value it
+ * published had no consumer. Kept as a no-op guard rather than silently writing to nothing.
+ */
   private handleRouteRealityHandoff(scene: SceneState) {
     if (!scene.element) return;
     const market = this.scenes.get('market');

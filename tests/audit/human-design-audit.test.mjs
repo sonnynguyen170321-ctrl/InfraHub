@@ -21,34 +21,30 @@ const designSources = sourceFiles('src').map((file) => ({
   content: fs.readFileSync(file, 'utf8')
 }));
 
-// 1. Check EcosystemSolutions.astro for distinct imagery across all 5 families
-const ecosystemFile = 'src/components/EcosystemSolutions.astro';
-if (fs.existsSync(ecosystemFile)) {
-  const content = fs.readFileSync(ecosystemFile, 'utf8');
-  // The visuals moved from string paths to imported assets when they started going through
-  // astro:assets, so both shapes count: image: "/images/x.jpg" and image: xVisual.
-  const imageMatches = [...content.matchAll(/image:\s*(?:["']([^"']+)["']|([A-Za-z_$][\w$]*))/g)].map(
-    (m) => m[1] || m[2]
+// 1. The discovery lens must carry a distinct visual per discipline.
+//
+// This read EcosystemSolutions.astro until Act 2 was rebuilt around the Infrastructure Lens.
+// That component is gone, and the five families now live in PhysicalLens, which imports one
+// graded plate per discipline from src/assets/discovery. Retargeted rather than deleted: the
+// rule being enforced - five disciplines, five distinct subjects, no plate doing double duty -
+// is exactly as worth holding on the new component as it was on the old one.
+const lensFile = 'src/components/discovery/PhysicalLens.astro';
+if (fs.existsSync(lensFile)) {
+  const content = fs.readFileSync(lensFile, 'utf8');
+  const plates = [...content.matchAll(/import\s+\w+\s+from\s+['"][^'"]*\/assets\/discovery\/([^'"]+)['"]/g)].map(
+    (m) => m[1]
   );
-  const uniqueImages = new Set(imageMatches);
+  const uniquePlates = new Set(plates);
 
-  if (imageMatches.length < 5) {
-    errors.push(`EcosystemSolutions must declare at least 5 solution families, found ${imageMatches.length}`);
-  }
-  if (uniqueImages.size !== imageMatches.length) {
-    errors.push(`Duplicate images detected across solution families in ${ecosystemFile}: ${imageMatches.join(', ')}`);
+  if (plates.length < 5) {
+    errors.push(`PhysicalLens must declare a plate for all 5 disciplines, found ${plates.length}`);
+  } else if (uniquePlates.size !== plates.length) {
+    errors.push(`Duplicate plates across disciplines in ${lensFile}: ${plates.join(', ')}`);
   } else {
-    console.log(`✓ Solution families have 5 distinct visual subjects (${uniqueImages.size} unique assets)`);
-  }
-
-  // Ensure faux console shell classes are removed
-  if (content.includes('console-desktop') || content.includes('console-nav')) {
-    errors.push(`Faux console classes found in ${ecosystemFile}. Solution explorer must use open editorial architecture.`);
-  } else {
-    console.log('✓ Faux console window framing removed from EcosystemSolutions');
+    console.log(`✓ Discipline lens has ${uniquePlates.size} distinct visual subjects`);
   }
 } else {
-  errors.push(`Missing ${ecosystemFile}`);
+  errors.push(`Missing ${lensFile}`);
 }
 
 // 2. Check the full component-scoped design surface, not only global.css. Astro component

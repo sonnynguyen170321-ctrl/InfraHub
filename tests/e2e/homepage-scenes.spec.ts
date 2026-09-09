@@ -14,8 +14,6 @@ const EXPECTED_SCENES = [
   'discovery',
   'judgment',
   'routeReality',
-  'market',
-  'practice',
   'conversation',
 ];
 
@@ -36,8 +34,9 @@ test.describe('homepage scene controller', () => {
     await page.goto('/');
     await sceneApi(page);
 
-    const hasOffers = (await page.locator('#featured-offers').count()) > 0;
-    const activeScenes = EXPECTED_SCENES.filter((id) => id !== 'market' || hasOffers);
+    // 'market' and 'practice' were dropped with the components that owned their elements, so
+    // every remaining scene is expected to resolve unconditionally.
+    const activeScenes = EXPECTED_SCENES;
 
     const progresses = await page.evaluate(
       (ids: string[]) => ids.map((id) => ({ id, progress: (window as any).__infrahubScenes.sceneProgress(id) })),
