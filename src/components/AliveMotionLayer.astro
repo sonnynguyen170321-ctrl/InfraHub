@@ -1,0 +1,428 @@
+---
+// Pinterest-inspired motion study for the homepage.
+// The references inform composition and motion language only. No third-party Pin assets ship here.
+---
+
+<div class="motion-atmosphere" aria-hidden="true"></div>
+
+<style is:global>
+  :root {
+    --alive-blue: 83 137 255;
+    --alive-cyan: 94 214 255;
+    --alive-ink: 7 12 20;
+  }
+
+  .motion-atmosphere {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.22;
+    background:
+      radial-gradient(circle at 18% 24%, rgb(var(--alive-blue) / 0.06), transparent 28rem),
+      radial-gradient(circle at 82% 67%, rgb(var(--alive-cyan) / 0.045), transparent 32rem);
+  }
+
+  #main-content,
+  header,
+  footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hero augmentation: architectural 2.5D routing field over the existing facility image. */
+  #hero .alive-hero-field {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    perspective: 1100px;
+    opacity: calc(1 - min(var(--hero-progress, 0), 0.88));
+  }
+
+  #hero .alive-grid-plane {
+    position: absolute;
+    width: min(62vw, 900px);
+    height: min(62vw, 900px);
+    right: -9vw;
+    top: 10%;
+    transform: rotateX(66deg) rotateZ(-18deg) translate3d(var(--alive-px, 0px), var(--alive-py, 0px), 0);
+    transform-origin: 50% 50%;
+    background-image:
+      linear-gradient(rgb(var(--alive-cyan) / 0.075) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--alive-cyan) / 0.075) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at 50% 50%, #000 0 34%, transparent 72%);
+    filter: drop-shadow(0 0 18px rgb(var(--alive-blue) / 0.08));
+    animation: aliveGridDrift 16s linear infinite;
+  }
+
+  @keyframes aliveGridDrift {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 0 44px, 44px 0; }
+  }
+
+  #hero .alive-network {
+    position: absolute;
+    inset: 7% -1% 0 42%;
+    width: 59%;
+    height: 82%;
+    overflow: visible;
+    transform: translate3d(calc(var(--alive-px, 0px) * 0.45), calc(var(--alive-py, 0px) * 0.45), 0);
+    filter: drop-shadow(0 0 12px rgb(var(--alive-cyan) / 0.16));
+  }
+
+  #hero .alive-network .route {
+    fill: none;
+    stroke: rgb(var(--alive-cyan) / 0.22);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  #hero .alive-network .route.hot {
+    stroke: rgb(var(--alive-cyan) / 0.62);
+    stroke-dasharray: 5 22;
+    stroke-linecap: round;
+    animation: aliveRouteFlow 4.8s linear infinite;
+  }
+
+  #hero .alive-network .route.hot.route-b { animation-duration: 6.2s; animation-delay: -1.7s; }
+  #hero .alive-network .route.hot.route-c { animation-duration: 7.4s; animation-delay: -2.9s; }
+
+  @keyframes aliveRouteFlow {
+    to { stroke-dashoffset: -108; }
+  }
+
+  #hero .alive-network .node {
+    fill: rgb(224 241 255 / 0.94);
+    stroke: rgb(var(--alive-cyan) / 0.75);
+    stroke-width: 1;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: aliveNodePulse 3.6s ease-in-out infinite;
+  }
+
+  #hero .alive-network .node:nth-of-type(2n) { animation-delay: -1.2s; }
+  #hero .alive-network .node:nth-of-type(3n) { animation-delay: -2.1s; }
+
+  @keyframes aliveNodePulse {
+    0%, 100% { opacity: 0.42; transform: scale(0.82); }
+    50% { opacity: 1; transform: scale(1.18); }
+  }
+
+  #hero .alive-orb {
+    position: absolute;
+    width: 180px;
+    aspect-ratio: 1;
+    right: 14%;
+    top: 29%;
+    border-radius: 50%;
+    border: 1px solid rgb(var(--alive-cyan) / 0.15);
+    box-shadow:
+      inset 0 0 35px rgb(var(--alive-blue) / 0.08),
+      0 0 50px rgb(var(--alive-cyan) / 0.06);
+    transform: translate3d(calc(var(--alive-px, 0px) * -0.4), calc(var(--alive-py, 0px) * -0.4), 0);
+    animation: aliveOrbTurn 18s linear infinite;
+  }
+
+  #hero .alive-orb::before,
+  #hero .alive-orb::after {
+    content: '';
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    border: 1px solid rgb(var(--alive-cyan) / 0.16);
+  }
+
+  #hero .alive-orb::before { transform: rotateX(68deg); }
+  #hero .alive-orb::after { transform: rotateY(68deg); }
+
+  @keyframes aliveOrbTurn {
+    to { rotate: 360deg; }
+  }
+
+  /* Sections arrive with depth rather than generic fade-up blocks. */
+  .motion-ready {
+    --alive-section-y: 34px;
+    --alive-section-opacity: 0;
+    opacity: var(--alive-section-opacity);
+    transform: translate3d(0, var(--alive-section-y), 0) scale(0.992);
+    transform-origin: 50% 30%;
+    transition:
+      opacity 720ms cubic-bezier(.2,.75,.2,1),
+      transform 900ms cubic-bezier(.16,1,.3,1);
+  }
+
+  .motion-ready.motion-visible {
+    --alive-section-y: 0px;
+    --alive-section-opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  /* A restrained scanning highlight makes technical blocks feel operational. */
+  .alive-section-accent {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .alive-section-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 18%;
+    left: -22%;
+    background: linear-gradient(90deg, transparent, rgb(var(--alive-blue) / 0.035), transparent);
+    transform: skewX(-16deg);
+    animation: aliveSectionScan 13s cubic-bezier(.4,0,.2,1) infinite;
+  }
+
+  @keyframes aliveSectionScan {
+    0%, 48% { translate: 0 0; opacity: 0; }
+    52% { opacity: 1; }
+    72% { translate: 690% 0; opacity: 0.65; }
+    76%, 100% { translate: 690% 0; opacity: 0; }
+  }
+
+  /* Hover depth on existing product/service surfaces. */
+  .alive-card {
+    --alive-card-x: 50%;
+    --alive-card-y: 50%;
+    position: relative;
+    isolation: isolate;
+    transform-style: preserve-3d;
+    transition:
+      transform 260ms cubic-bezier(.2,.75,.2,1),
+      border-color 220ms ease,
+      box-shadow 260ms ease;
+  }
+
+  .alive-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    background: radial-gradient(circle at var(--alive-card-x) var(--alive-card-y), rgb(var(--alive-cyan) / 0.12), transparent 42%);
+    transition: opacity 220ms ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .alive-card:hover {
+      transform: perspective(900px) rotateX(var(--alive-rx, 0deg)) rotateY(var(--alive-ry, 0deg)) translateY(-3px);
+      box-shadow: 0 18px 50px rgb(4 10 22 / 0.11);
+    }
+
+    .alive-card:hover::after { opacity: 1; }
+  }
+
+  /* Buttons keep their seriousness, but the arrow/light reacts instantly. */
+  .alive-action {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .alive-action::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    translate: -115% 0;
+    background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.14), transparent 70%);
+    transition: translate 620ms cubic-bezier(.16,1,.3,1);
+    pointer-events: none;
+  }
+
+  .alive-action:hover::before { translate: 115% 0; }
+
+  @media (max-width: 900px) {
+    #hero .alive-network { inset: 5% -28% 0 46%; width: 82%; opacity: 0.72; }
+    #hero .alive-grid-plane { right: -44vw; top: 20%; opacity: 0.56; }
+    #hero .alive-orb { width: 120px; right: 7%; top: 18%; opacity: 0.5; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-atmosphere,
+    #hero .alive-grid-plane,
+    #hero .alive-network .route.hot,
+    #hero .alive-network .node,
+    #hero .alive-orb,
+    .alive-section-accent::before {
+      animation: none !important;
+    }
+
+    .motion-ready {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .alive-card,
+    .alive-card:hover {
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function mountHeroField() {
+    const hero = document.getElementById('hero');
+    if (!hero || hero.querySelector('.alive-hero-field')) return;
+
+    const field = document.createElement('div');
+    field.className = 'alive-hero-field';
+    field.setAttribute('aria-hidden', 'true');
+    field.innerHTML = `
+      <div class="alive-grid-plane"></div>
+      <svg class="alive-network" viewBox="0 0 760 540" preserveAspectRatio="xMidYMid meet">
+        <path class="route" d="M70 380 C150 300 220 320 286 248 S438 134 680 118" />
+        <path class="route" d="M112 455 C205 402 242 358 300 330 S454 292 650 350" />
+        <path class="route" d="M165 110 C250 166 286 196 354 188 S498 156 612 198" />
+        <path class="route hot route-a" d="M70 380 C150 300 220 320 286 248 S438 134 680 118" />
+        <path class="route hot route-b" d="M112 455 C205 402 242 358 300 330 S454 292 650 350" />
+        <path class="route hot route-c" d="M165 110 C250 166 286 196 354 188 S498 156 612 198" />
+        <circle class="node" cx="70" cy="380" r="3" />
+        <circle class="node" cx="286" cy="248" r="3.4" />
+        <circle class="node" cx="438" cy="134" r="2.7" />
+        <circle class="node" cx="680" cy="118" r="3.6" />
+        <circle class="node" cx="112" cy="455" r="2.8" />
+        <circle class="node" cx="300" cy="330" r="3.2" />
+        <circle class="node" cx="650" cy="350" r="3" />
+        <circle class="node" cx="165" cy="110" r="2.7" />
+        <circle class="node" cx="354" cy="188" r="3.4" />
+        <circle class="node" cx="612" cy="198" r="2.7" />
+      </svg>
+      <div class="alive-orb"></div>
+    `;
+
+    const backdrop = hero.querySelector('.hero-backdrop');
+    if (backdrop) backdrop.appendChild(field);
+    else hero.prepend(field);
+
+    if (reduceMotion.matches || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let frame = 0;
+    let x = 0;
+    let y = 0;
+    hero.addEventListener('pointermove', (event) => {
+      const rect = hero.getBoundingClientRect();
+      x = ((event.clientX - rect.left) / rect.width - 0.5) * 12;
+      y = ((event.clientY - rect.top) / rect.height - 0.5) * 8;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        hero.style.setProperty('--alive-px', `${x.toFixed(2)}px`);
+        hero.style.setProperty('--alive-py', `${y.toFixed(2)}px`);
+        frame = 0;
+      });
+    }, { passive: true });
+
+    hero.addEventListener('pointerleave', () => {
+      hero.style.setProperty('--alive-px', '0px');
+      hero.style.setProperty('--alive-py', '0px');
+    }, { passive: true });
+  }
+
+  function mountSectionMotion() {
+    const selectors = [
+      '#discovery-stage',
+      '#how-it-works',
+      '#route-explorer',
+      '#featured-offers',
+      '#who-we-help',
+      '#contact'
+    ];
+
+    const sections = selectors
+      .map((selector) => document.querySelector(selector))
+      .filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+    sections.forEach((section) => {
+      section.classList.add('motion-ready');
+      if (getComputedStyle(section).position === 'static') section.style.position = 'relative';
+      if (!section.querySelector(':scope > .alive-section-accent')) {
+        const accent = document.createElement('div');
+        accent.className = 'alive-section-accent';
+        accent.setAttribute('aria-hidden', 'true');
+        section.prepend(accent);
+      }
+    });
+
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+      sections.forEach((section) => section.classList.add('motion-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('motion-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -9% 0px', threshold: 0.08 });
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  function mountCardMotion() {
+    const cardSelectors = [
+      '.qual-item',
+      '.discipline-tab-btn',
+      '.offer-card',
+      '.featured-card',
+      '.audience-card',
+      '.partner-card',
+      '.service-card',
+      '.process-step',
+      '.route-card',
+      '[data-motion-card]'
+    ];
+
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(cardSelectors.join(',')));
+    cards.forEach((card) => card.classList.add('alive-card'));
+
+    if (!reduceMotion.matches && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      cards.forEach((card) => {
+        card.addEventListener('pointermove', (event) => {
+          const rect = card.getBoundingClientRect();
+          const px = (event.clientX - rect.left) / rect.width;
+          const py = (event.clientY - rect.top) / rect.height;
+          const ry = (px - 0.5) * 3.2;
+          const rx = (0.5 - py) * 2.4;
+          card.style.setProperty('--alive-card-x', `${(px * 100).toFixed(1)}%`);
+          card.style.setProperty('--alive-card-y', `${(py * 100).toFixed(1)}%`);
+          card.style.setProperty('--alive-rx', `${rx.toFixed(2)}deg`);
+          card.style.setProperty('--alive-ry', `${ry.toFixed(2)}deg`);
+        }, { passive: true });
+
+        card.addEventListener('pointerleave', () => {
+          card.style.setProperty('--alive-rx', '0deg');
+          card.style.setProperty('--alive-ry', '0deg');
+        }, { passive: true });
+      });
+    }
+
+    document.querySelectorAll<HTMLElement>('a.btn, button.btn, .hero-primary-action, .hero-text-action')
+      .forEach((action) => action.classList.add('alive-action'));
+  }
+
+  function initAliveMotion() {
+    mountHeroField();
+    mountSectionMotion();
+    mountCardMotion();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAliveMotion, { once: true });
+  } else {
+    initAliveMotion();
+  }
+</script>
