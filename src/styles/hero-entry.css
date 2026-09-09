@@ -1,0 +1,89 @@
+/* Homepage first-load choreography.
+ * The room establishes itself before the proposition arrives. The sequence is intentionally
+ * restrained: opacity + transform for copy, one slow exposure change for the photograph,
+ * and no blur/bounce/continuous decorative motion.
+ */
+
+.hero-section {
+  --hero-entry-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --hero-entry-line-duration: 760ms;
+  --hero-entry-body-duration: 720ms;
+  --hero-entry-actions-duration: 680ms;
+  --hero-entry-image-duration: 1650ms;
+  --hero-entry-line-1-delay: 360ms;
+  --hero-entry-line-2-delay: 520ms;
+  --hero-entry-body-delay: 860ms;
+  --hero-entry-actions-delay: 1080ms;
+}
+
+.hero-section .hero-line {
+  animation-duration: var(--hero-entry-line-duration);
+  animation-timing-function: var(--hero-entry-ease);
+}
+
+.hero-section .hero-line-1 {
+  animation-delay: var(--hero-entry-line-1-delay);
+}
+
+.hero-section .hero-line-2 {
+  animation-delay: var(--hero-entry-line-2-delay);
+}
+
+.hero-section .hero-description {
+  transform: translateY(20px);
+  animation-duration: var(--hero-entry-body-duration);
+  animation-delay: var(--hero-entry-body-delay);
+  animation-timing-function: var(--hero-entry-ease);
+}
+
+.hero-section .hero-actions {
+  transform: translateY(18px);
+  animation-duration: var(--hero-entry-actions-duration);
+  animation-delay: var(--hero-entry-actions-delay);
+  animation-timing-function: var(--hero-entry-ease);
+}
+
+/* The photograph takes longer than the copy so the facility keeps opening up after the
+ * proposition is legible. This makes the entrance feel dimensional without delaying action. */
+.hero-section .hero-bg-img {
+  animation-duration: var(--hero-entry-image-duration);
+  animation-timing-function: var(--hero-entry-ease);
+}
+
+/* Short laptop displays need the same hierarchy with less waiting. The hero itself is shallower
+ * there, so holding the CTA for the full desktop cadence feels sluggish rather than luxurious. */
+@media (max-height: 700px) and (min-width: 769px) {
+  .hero-section {
+    --hero-entry-line-1-delay: 280ms;
+    --hero-entry-line-2-delay: 420ms;
+    --hero-entry-body-delay: 700ms;
+    --hero-entry-actions-delay: 900ms;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile keeps the narrative order but reduces the dead time before the primary action. */
+  .hero-section {
+    --hero-entry-line-duration: 680ms;
+    --hero-entry-body-duration: 640ms;
+    --hero-entry-actions-duration: 600ms;
+    --hero-entry-image-duration: 1400ms;
+    --hero-entry-line-1-delay: 260ms;
+    --hero-entry-line-2-delay: 400ms;
+    --hero-entry-body-delay: 700ms;
+    --hero-entry-actions-delay: 900ms;
+  }
+}
+
+/* Motion preference is a hard override. The completed composition appears immediately and no
+ * information or action is withheld from people who ask the interface to stay still. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .hero-line,
+  .hero-section .hero-description,
+  .hero-section .hero-actions,
+  .hero-section .hero-bg-img {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
