@@ -33,13 +33,13 @@ const VIEWPORTS = [
 const SCENES = [
   { name: 'hero', scrollTo: () => 0 },
   { name: 'partners', selector: '.partner-trust-ribbon' },
-  // The discovery scene used to be a pinned EcosystemSolutions stage and the process spine a
-  // DeliveryModel step. Both components are gone; Act 2 is now the Infrastructure Lens, which is
-  // not pinned and is addressed by its section id.
-  { name: 'discovery-lens', selector: '#what-you-need', offset: 120 },
+  { name: 'solutions-infrastructure', scene: 'discoveryScene', sticky: '.discovery-sticky', fraction: 0.06 },
+  { name: 'solutions-network', scene: 'discoveryScene', sticky: '.discovery-sticky', fraction: 0.5 },
+  { name: 'process-match', selector: '#step-match', offset: 280 },
   { name: 'route-logical', scene: 'routeScene', sticky: '.route-sticky', fraction: 0.05 },
   { name: 'route-physical', scene: 'routeScene', sticky: '.route-sticky', fraction: 0.35 },
   { name: 'route-risk', scene: 'routeScene', sticky: '.route-sticky', fraction: 0.62 },
+  { name: 'offers', selector: '#featured-offers', offset: 120 },
   { name: 'final-cta', selector: '#contact', offset: 120 }
 ];
 
